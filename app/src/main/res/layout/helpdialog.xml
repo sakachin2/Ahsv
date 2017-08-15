@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/HelpDialog"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <ListView
+        android:id="@+id/Viewer"                      
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="HelpDialogMessages"
+        android:layout_weight="1"
+    />
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      >
+    <Button
+        android:id="@+id/Close"                        
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:text="@string/Close"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+    />
+    <Button
+        android:id="@+id/ButtonYouTube"                      
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:text="@string/ButtonYouTube"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+                android:visibility="gone"
+    /><!--1Aa6-->
+  </LinearLayout>
+</LinearLayout>

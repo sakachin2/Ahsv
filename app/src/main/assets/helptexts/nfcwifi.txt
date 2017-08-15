@@ -1,0 +1,42 @@
+(nfcwifi.txt)
+
+Wi-Fi Direct connection through NFC.
+
+Background color of message colomn is yellow
+if not yet paired.
+Showing this panel on both devices,
+contact parts of NFC tag of the two device in 10cm.
+Touch one of the two device when "Touch to beam" appeared.
+After paired the background color changes to white
+and buttons such as Connect, Unpair will appear.
+It is unpredictable which is server side. 
+
+Settings :
+  NFC : 
+    Open system's "Settings" panel related to NFC.
+    If you need, enable NFC
+    or On/Off AirPlane mode(reset WiFi).
+    Your device may not support NFC.
+  WiFi : 
+    Open system's "Settings" panel related to Wi-Fi.
+    If you need, connect to your access point,
+    set PEER DEVICES, rename your device.
+This device :
+  shown Device Name, MAC Addrress, status.
+IP Address :
+  shown if session established.
+Peer :
+  shown Device Name, MAC Addrress, status.
+IP Address :
+  shown if session established.
+
+Open Port : (Server side)
+  If session is not yet established,
+  push before Client side's "Connect".
+Connect : (Client side)
+  If session is not yet established,
+  push after Server side's "Open Port".
+Game :
+  start match after session established,
+Unpair :
+  Use to connect to another device.

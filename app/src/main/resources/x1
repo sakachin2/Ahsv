@@ -1,0 +1,57 @@
+67     =!        |import com.Ahsv.ABT;                                              //~v101R~//~1AbBR~
+                 |            +++++++++                                             + ++++++++++++++++
+       != 67     |import com.Asgts.ABT;                                              //~v101R~
+                 |            +++++++++                                             + ++++++++
+68     =!        |import com.Ahsv.AG;                                               //~v101R~//~1AbBR~
+                 |            ++++++++                                              + ++++++++++++++++
+       != 68     |import com.Asgts.AG;                                               //~v101R~
+                 |            ++++++++                                              + ++++++++
+69     =!        |import com.Ahsv.AView;                                            //~v101R~//~1AbBR~
+                 |            +++++++++++                                           + ++++++++++++++++
+       != 69     |import com.Asgts.AView;                                            //~v101R~
+                 |            +++++++++++                                           + ++++++++
+70     =!        |import com.Ahsv.Alert;                                             //~1AbBR~
+                 |            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       != 70     |import com.Asgts.Alert;
+                 |            +++++++++++
+71     =!        |import com.Ahsv.ProgDlg;                                          //~v101R~//~1AbBR~
+                 |            +++++++++++++                                         + ++++++++++++++++
+       != 71     |import com.Asgts.ProgDlg;                                          //~v101R~
+                 |            +++++++++++++                                         + ++++++++
+72     =!        |import com.Ahsv.Prop;
+                 |            +++++++++
+       != 72     |import com.Asgts.Prop;
+                 |            ++++++++++
+73     =!        |import com.Ahsv.R;                                                //~v101R~//~1AbBR~
+                 |            +++++++                                               + ++++++++++++++++
+       != 73     |import com.Asgts.R;                                                //~v101R~
+                 |            +++++++                                               + ++++++++
+74     =!        |import com.Ahsv.UiThread;                                          //~1AbBR~
+                 |            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       != 74     |import com.Asgts.UiThread;
+                 |            ++++++++++++++
+75     =!        |import com.Ahsv.UiThreadI;                                         //~1AbBR~
+                 |            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       != 75     |import com.Asgts.UiThreadI;
+                 |            +++++++++++++++
+76     =!        |import com.Ahsv.Utils;                                             //~1AbBR~
+                 |            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       != 76     |import com.Asgts.Utils;
+                 |            +++++++++++
+77     =!        |import com.Ahsv.awt.Component;                                     //~1AbBR~
+                 |            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       != 77     |import com.Asgts.awt.Component;
+                 |            +++++++++++++++++++
+1447   =!        |    .boolean rc=cbSecureOption.isChecked();                     //~1Af4I~
+                 |    ++++++++++++++++++++++++++++++++++ +++++++                  +++++++++
+       != 1445   |        boolean rc=cbSecureOption.isChecked();                     //~1Af4R~
+                 |    ++++++++++++++++++++++++++++++++++ +++++++                  ++++++++++++
+1449   =!        |    .return rc;                                                 //~1Af4R~
+                 |    ++++++++ +++++                                              +++++++++
+       != 1447   |        return rc;                                                 //~1Af4R~
+                 |    ++++++++ +++++                                              ++++++++++++
+UNMATCH found(same=880, deleted=0, inserted=0, updated=13).
+xfc:V1.26(3): Text file compare: X:\eclipse-workspace-win\Ahsv\src\wifidirect\dialognfcbt.java (1-1464/1464) and X:\eclipse-workspace-win\asgts\src\wifidirect\dialognfcbt.java (1-1462/1462)
+with margin(0-0);rc=0
+
+xfc:V1.26(3): ===èàóùäÆóπ===
