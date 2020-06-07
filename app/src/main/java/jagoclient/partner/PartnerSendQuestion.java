@@ -1,7 +1,7 @@
 package jagoclient.partner;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+0530R~
 import com.Ahsv.awt.TextField;                                     //~2C26R~
 
 import jagoclient.Global;
@@ -43,8 +43,8 @@ public class PartnerSendQuestion extends CloseDialog
 			}
 			setVisible(false); dispose();
 		}
-//  	else if (Global.resourceString(Global.resourceString("Cancel")).equals(o))//+3113R~
-    	else if (Global.resourceString(AG.resource.getString(R.string.Cancel)).equals(o))//+3113I~
+//  	else if (Global.resourceString(Global.resourceString("Cancel")).equals(o))//~3113R~
+    	else if (Global.resourceString(AG.resource.getString(R.string.Cancel)).equals(o))//~3113I~
 		{	setVisible(false); dispose();
 		}
 		else super.doAction(o);

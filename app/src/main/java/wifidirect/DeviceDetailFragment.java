@@ -1,6 +1,7 @@
-//*CID://+1AbBR~:                             update#=   87;       //+1AbBR~
+//*CID://+1Ah7R~:                             update#=   92;       //~1Ah7R~
 //*************************************************************************//~1A65I~
-//1AbB 2015/06/22 mask mac addr for security                       //+1AbBI~
+//1Ah7 2020/06/01 WpsInfo deprecated at api28                      //~1Ah7I~
+//1AbB 2015/06/22 mask mac addr for security                       //~1AbBI~
 //1Aa4 2015/04/20 show also empty msg for server side              //~1Aa4I~
 //1A90 2015/04/18 (like as 1A84)WiFiDirect from Top panel          //~1A90I~
 //1A89k2015/03/01 Ajagoc:2015/02/28 confirm session disconnect when unpair//~1A6tI~
@@ -32,31 +33,21 @@ import java.util.Collection;
 import java.util.List;
 
 import android.annotation.TargetApi;                               //~1A65R~
-//import android.app.Fragment;                                     //~1A65R~
-import android.app.ProgressDialog;
-//import android.content.Context;
-//import android.content.DialogInterface;                          //~1A65R~
-//import android.content.Intent;
+
 import android.content.res.Resources;                              //~1A65R~
-//import android.net.Uri;
-import android.net.wifi.WpsInfo;
+//import android.net.wifi.WpsInfo;                                 //+1Ah7R~
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
 import android.net.wifi.p2p.WifiP2pManager.GroupInfoListener;
-//import android.os.AsyncTask;
-//import android.os.Bundle;                                        //~1A65R~
-//import android.os.Environment;
-//import android.util.Log;
-//import android.view.LayoutInflater;                              //~1A65R~
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1AbBR~
 import com.Ahsv.AG;                                                //~1A65I~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableData;
@@ -65,13 +56,6 @@ import wifidirect.DeviceListFragment.DeviceActionListener;
 
 import jagoclient.Dump;
 
-//import java.io.File;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.io.OutputStream;
-//import java.net.ServerSocket;
-//import java.net.Socket;
 
 /**
  * A fragment that manages a particular peer and allows interaction with device
@@ -200,15 +184,25 @@ public class DeviceDetailFragment implements ConnectionInfoListener
         }                                                          //~1A65I~
     	return (rc ? 1 : 0);                                       //~1A65R~
     }                                                              //~1A65I~
+	//***********************************************************************************//~1Ah7I~
+    public static WifiP2pConfig getP2pConfig(String PdeviceAddress)//~1Ah7I~
+    {                                                              //~1Ah7I~
+        if (Dump.Y) Dump.println("DeviceDetailFragment.getP2pConfig deviceAddr="+PdeviceAddress);//~1Ah7I~
+      	WifiP2pConfig config = new WifiP2pConfig();                //~1Ah7R~
+        config.deviceAddress = PdeviceAddress;                     //~1Ah7I~
+//      config.wps.setup = WpsInfo.PBC; //PBC=0                    //+1Ah7R~
+        return config;                                             //~1Ah7I~
+    }                                                              //~1Ah7I~
 	//***********************************************************************************//~1A65I~
     private boolean connect()                                      //~1A65R~
     {                                                              //~1A65I~
         boolean rc=false;   //no dismiss                           //~1A65I~
     //********************                                         //~1A65I~
-                WifiP2pConfig config = new WifiP2pConfig();        //~1A65I~
-                config.deviceAddress = device.deviceAddress;       //~1A65I~
-                if (Dump.Y) Dump.println("DeviceDetailFragment connect:"+config.deviceAddress);//~1A67I~
-                config.wps.setup = WpsInfo.PBC;                    //~1A65I~
+//                WifiP2pConfig config = new WifiP2pConfig();        //~1A65I~//~1Ah7R~
+//                config.deviceAddress = device.deviceAddress;       //~1A65I~//~1Ah7R~
+//                if (Dump.Y) Dump.println("DeviceDetailFragment connect:"+config.deviceAddress);//~1A67I~//~1Ah7R~
+//                config.wps.setup = WpsInfo.PBC;                    //~1A65I~//~1Ah7R~
+                WifiP2pConfig config=getP2pConfig(device.deviceAddress);//~1Ah7I~
 //                if (progressDialog != null && progressDialog.isShowing()) {//~1A65I~//~1A67R~
 //                    progressDialog.dismiss();                      //~1A65I~//~1A67R~
 //                }                                                  //~1A65I~//~1A67R~
@@ -225,8 +219,8 @@ public class DeviceDetailFragment implements ConnectionInfoListener
 //                      WDA.getResourceString(R.string.ProgressDialogMsgConnecting)+peerDevice, true, true//~1A67R~
 //                      );                                         //~1A65I~//~1A67R~
                 progressDialog = progressDialogShow(R.string.ProgressDialogTitle,//~1A67I~
-//                      						WDA.getResourceString(R.string.ProgressDialogMsgConnecting)+peerDevice,//~1A67I~//+1AbBR~
-                        						WDA.getResourceString(R.string.ProgressDialogMsgConnecting)+DialogNFC.maskMacAddr(peerDevice),//+1AbBI~
+//                      						WDA.getResourceString(R.string.ProgressDialogMsgConnecting)+peerDevice,//~1A67I~//~1AbBR~
+                        						WDA.getResourceString(R.string.ProgressDialogMsgConnecting)+DialogNFC.maskMacAddr(peerDevice),//~1AbBI~
 												true, true);       //~1A67I~
 //              ((DeviceActionListener) getActivity()).connect(config);//~1A65R~
                 ((DeviceActionListener) WDA.getWDActivity()).connect(config);//~1A65R~
@@ -238,10 +232,11 @@ public class DeviceDetailFragment implements ConnectionInfoListener
         boolean rc=false;   //no dismiss                           //~1A67I~
     //********************                                         //~1A67I~
         if (Dump.Y) Dump.println("DeviceDetailFragment:connect to "+Pmacaddr);//~1A67I~
-                WifiP2pConfig config = new WifiP2pConfig();        //~1A67I~
-                config.deviceAddress = Pmacaddr;//device.deviceAddress;//~1A67I~
-                if (Dump.Y) Dump.println("DeviceDetailFragment connect:"+config.deviceAddress);//~1A67I~
-                config.wps.setup = WpsInfo.PBC;                    //~1A67I~
+//                WifiP2pConfig config = new WifiP2pConfig();        //~1A67I~//~1Ah7R~
+//                config.deviceAddress = Pmacaddr;//device.deviceAddress;//~1A67I~//~1Ah7R~
+//                if (Dump.Y) Dump.println("DeviceDetailFragment connect:"+config.deviceAddress);//~1A67I~//~1Ah7R~
+//                config.wps.setup = WpsInfo.PBC;                    //~1A67I~//~1Ah7R~
+                WifiP2pConfig config=getP2pConfig(Pmacaddr);       //~1Ah7I~
 //              if (progressDialog != null && progressDialog.isShowing()) {//~1A67R~
 //                  progressDialog.dismiss();                      //~1A67R~
 //              }                                                  //~1A67R~
@@ -251,8 +246,8 @@ public class DeviceDetailFragment implements ConnectionInfoListener
 //                      WDA.getResourceString(R.string.ProgressDialogMsgConnectingNFC)+Pmacaddr, true, true//~1A67R~
 //                      );                                         //~1A67R~
                 progressDialog = progressDialogShow(R.string.ProgressDialogTitle,//~1A67I~
-//                      						WDA.getResourceString(R.string.ProgressDialogMsgConnectingNFC)+Pmacaddr,//~1A67I~//+1AbBR~
-                        						WDA.getResourceString(R.string.ProgressDialogMsgConnectingNFC)+DialogNFC.maskMacAddr(Pmacaddr),//+1AbBI~
+//                      						WDA.getResourceString(R.string.ProgressDialogMsgConnectingNFC)+Pmacaddr,//~1A67I~//~1AbBR~
+                        						WDA.getResourceString(R.string.ProgressDialogMsgConnectingNFC)+DialogNFC.maskMacAddr(Pmacaddr),//~1AbBI~
 												true, true);       //~1A67I~
                 ((DeviceActionListener) WDA.getWDActivity()).connect(config);//~1A67I~
         if (Dump.Y) Dump.println("DeviceDetailFragment:connect return");//~1A67I~

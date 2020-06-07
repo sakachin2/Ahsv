@@ -1,5 +1,6 @@
-//*CID://+1A56R~:                             update#=   19;       //~1A56R~
+                                                                   //~1A56R~//+0603R~
 //*************************************************************************//~v107I~
+//1Ahf 2020/06/03 write EditPartner not at connect but OK button   //+0603I~
 //1A56 2014/11/05 isuue err when partner list name is space which could not select to delete//~1A56I~
 //1A36 2013/04/19 set selection after IP partner list update/add   //~1A36I~
 //101a 2013/01/30 IP connection                                    //~v101I~
@@ -11,7 +12,7 @@ package jagoclient.partner.partner;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1A56R~
 import com.Ahsv.awt.Choice;
 import com.Ahsv.awt.Frame;
 //import com.Ahsv.awt.GridLayout;
@@ -149,7 +150,7 @@ public class EditPartner extends CloseDialog
 //        if (Global.resourceString("Set").equals(o))              //~v101R~
         if (o.equals(AG.resource.getString(R.string.OK)) && !add)   //~v101I~
 //		{	C.Name=Name.getText();                                 //~1A56R~
-  		{                                                          //+1A56I~
+  		{                                                          //~1A56I~
             String name=Name.getText();                            //~1A56I~
             if (name.equals(""))                                   //~1A56I~
             {                                                      //~1A56I~
@@ -201,6 +202,7 @@ public class EditPartner extends CloseDialog
   				PList.append(new ListElement(C));
 //				G.updateplist();                                   //~v101R~//~1A36R~
   				G.updateplist(C.Name);                             //~1A36I~
+  				G.writePartnerList();                              //+0603I~
   				setVisible(false); dispose();
   			}
   		}

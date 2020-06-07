@@ -1,4 +1,4 @@
-//*CID://+1A6wR~:                             update#=   35;       //~1A6wR~
+//*CID://+1A6wR~:                             update#=   37;       //~1A6wR~
 //*********************************************************************//~v101I~
 //1A6w 2015/02/20 (Bug)SayDialog miss multiline msg(show only top);(thread timeing) So send at onece//~1A6wI~
 //1A6v 2015/02/18 (Bug)Coversation dialog at bottom is hidden by IME dialog//~1A6vI~
@@ -35,7 +35,7 @@ import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1A6wR~
 import com.Ahsv.awt.Frame;
 //import com.Ahsv.awt.BorderLayout;                                  //~@@@2R~
 import com.Ahsv.awt.Color;
@@ -58,7 +58,7 @@ public class SayDialog extends CloseDialog                         //~@@@2I~
     private LinkedList<String> multiLine=new LinkedList<String>(); //~@@@2I~
     private static final int MAX_STACKSIZE=100;                    //~@@@2I~
     private static final int LINES_SENDFIELD=4;                    //~@@@2I~
-    private static final String LINE_SPLITTER="\t";                //+1A6wI~
+    private static final String LINE_SPLITTER="\t";                //~1A6wI~
 //    SayDistributor SD;                                           //~@@@2R~
 //    ConnectionFrame CF;                                          //~@@@2R~
 //    public SayDialog (ConnectionFrame cf, SayDistributor sd, String m,//~@@@2R~
@@ -172,7 +172,7 @@ public class SayDialog extends CloseDialog                         //~@@@2I~
 	        append(line);                                          //~@@@2I~
     		stackMsg(line);                                        //~@@@2R~
 //      	MsgThread.enqSendMsg("<"+AG.YourName+">"+line);        //~@@@2R~//~1A6wR~
-        	sendmsg+="<"+AG.YourName+">"+lines[ii]+LINE_SPLITTER;  //+1A6wR~
+        	sendmsg+="<"+AG.YourName+">"+lines[ii]+LINE_SPLITTER;  //~1A6wR~
         }                                                          //~@@@2I~
       	MsgThread.enqSendMsg(sendmsg);                             //~1A6wI~
     }                                                              //~@@@2I~
@@ -197,13 +197,13 @@ public class SayDialog extends CloseDialog                         //~@@@2I~
         {                                                          //~@@@2I~
         	String s=Psa[ii]+"\n";                                 //~@@@2R~
             if (Dump.Y) Dump.println("SayDialog Receive msg="+s+",seq="+ii);//~1A6vI~
-//      	append(s);                                             //~@@@2I~//+1A6wR~
-			if (Dump.Y) Dump.println("SayDailog displayMsg: line="+Psa[ii]);//+1A6wI~
-        	String[] lines=Psa[ii].split(LINE_SPLITTER);           //+1A6wI~
-         	for (int jj=0;jj<lines.length;jj++)                    //+1A6wI~
-            {                                                      //+1A6wI~
-				append(lines[jj]);                                  //+1A6wI~
-            }                                                      //+1A6wI~
+//      	append(s);                                             //~@@@2I~//~1A6wR~
+			if (Dump.Y) Dump.println("SayDailog displayMsg: line="+Psa[ii]);//~1A6wI~
+        	String[] lines=Psa[ii].split(LINE_SPLITTER);           //~1A6wI~
+         	for (int jj=0;jj<lines.length;jj++)                    //~1A6wI~
+            {                                                      //~1A6wI~
+				append(lines[jj]);                                  //~1A6wI~
+            }                                                      //~1A6wI~
 	    	stackMsg(s);                                           //~@@@2R~
         }                                                          //~@@@2I~
     }                                                              //~@@@2I~

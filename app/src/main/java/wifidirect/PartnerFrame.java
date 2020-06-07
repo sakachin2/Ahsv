@@ -1,6 +1,6 @@
-//*CID://+1AecR~:                                   update#=  173; //+1AecR~
+//*CID://+1AecR~:                                   update#=  176; //~1AecR~
 //****************************************************************************//~@@@1I~
-//1Aec 2015/07/26 set connection type for Server                   //+1AecI~
+//1Aec 2015/07/26 set connection type for Server                   //~1AecI~
 //1Ae4 2015/07/24 addtional to 1Ab1. move setconnectiontype from wifidirect.PartnerFrame to jagoclient.partnerframe//~1Ae4I~
 //1Ac3*2015/07/06 WD:Unpare after active session was closed        //~1Ac3I~
 //1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//~1Ac0I~
@@ -59,8 +59,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.Ahsv.AG;
-import com.Ahsv.ProgDlg;
-import com.Ahsv.R;
+import com.ForDeprecated.ProgDlg;
+import com.Ahsv.R;                                                 //~1AecR~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableI;
 import com.Ahsv.Utils;
@@ -119,10 +119,10 @@ public class PartnerFrame extends jagoclient.partner.PartnerFrame  //~1A8cI~
     }                                                              //~1A8cI~
 	public PartnerFrame (String name, boolean serving,int Pconnectiontype)//~1A6BI~
     {                                                              //~1A6BI~
-//      this(name,serving);                                        //~1A6BI~//+1AecR~
-        super(name,serving,                                        //+1AecI~
-        	(Pconnectiontype==NFC_SERVER||Pconnectiontype==NFC_CLIENT ? CONN_TITLE_NFC_WD : CONN_TITLE_WD)//+1AecI~
-        	);                                                     //+1AecI~
+//      this(name,serving);                                        //~1A6BI~//~1AecR~
+        super(name,serving,                                        //~1AecI~
+        	(Pconnectiontype==NFC_SERVER||Pconnectiontype==NFC_CLIENT ? CONN_TITLE_NFC_WD : CONN_TITLE_WD)//~1AecI~
+        	);                                                     //~1AecI~
         AG.aPartnerFrameIP=this;                                   //~1A8cI~
 		if (Dump.Y) Dump.println("jagoclient:@@PartnerFrame@@");   //~1A6BI~
 		connectionType=Pconnectiontype;                            //~1A6BI~
@@ -273,7 +273,7 @@ public class PartnerFrame extends jagoclient.partner.PartnerFrame  //~1A8cI~
 	public static void dismissWaitingDialog()                      //~@@@2R~
     {                                                              //~@@@2I~
         if (Dump.Y) Dump.println("PartnerFrame DismissWaitiingDialog");//~@@@2R~
-		ProgDlg.dismiss();                                         //~@@@2I~
+		ProgDlg.dismissDlg();                                         //~@@@2I~
 //      IPConnection.closeDialog();                                 //~1A6yI~//~1A8iR~
         DialogNFC.closeDialog();	//close DialogNFC if showing   //~1A6sI~
     }                                                              //~@@@2I~
@@ -288,8 +288,8 @@ public class PartnerFrame extends jagoclient.partner.PartnerFrame  //~1A8cI~
     private String getConnectionTypeTitleString(int Pct)           //~1A8iI~
     {                                                              //~1A8iI~
     	if (Pct==NFC_CLIENT||Pct==NFC_SERVER)                      //~1A8iI~
-//      	return jagoclient.partner.PartnerFrame.CONN_TITLE_NFC; //~1A8iI~//+1AecR~
-        	return jagoclient.partner.PartnerFrame.CONN_TITLE_NFC_WD;//+1AecI~
+//      	return jagoclient.partner.PartnerFrame.CONN_TITLE_NFC; //~1A8iI~//~1AecR~
+        	return jagoclient.partner.PartnerFrame.CONN_TITLE_NFC_WD;//~1AecI~
         return jagoclient.partner.PartnerFrame.CONN_TITLE_WD;      //~1A8iI~
     }                                                              //~1A8iI~
 //***************************************************************  //~1Ac0I~
@@ -297,7 +297,7 @@ public class PartnerFrame extends jagoclient.partner.PartnerFrame  //~1A8cI~
 	public void runFunc(Object parmObj,int parmInt/*0*/)           //~1Ac0I~
     {                                                              //~1Ac0I~
 //   	PartnerFrame pf=(PartnerFrame)parmObj;                     //~1Ac0I~
-        if (Dump.Y) Dump.println("Asgts:PartnerFrame:doclose runFunc");//~1Ac0I~
+        if (Dump.Y) Dump.println("wifidirect:PartnerFrame:doclose runFunc");//~1Ac0I~//+1AecR~
       	try                                                        //~1Ac0I~
       	{                                                          //~1Ac0I~
         	Out.close();                                           //~1Ac0I~

@@ -1,6 +1,10 @@
-//*CID://+1AbkR~:                             update#=   82;       //+1AbkR~
+//*CID://+1AhjR~:                             update#=   91;       //~1AhjR~
 //**********************************************************************//~v107I~
-//1Abk 2015/06/16 NFC:errmsg when intent is for other side of NFC/NFCBT//+1AbkI~
+//1Ahj 2020/06/05 IP io on mainthread fails by android.os.NetworkOnMainThreadException//~1AhjI~
+//1Ahd 2020/06/03 WifiDirect required PERMISSION_LOCATION          //~1AhdI~
+//1Ah2 2020/05/31 for Android9(Pie)-api28(PlayStore requires),deprected. DialogFragment,Fragmentmanager//~1Ah2I~
+//1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
+//1Abk 2015/06/16 NFC:errmsg when intent is for other side of NFC/NFCBT//~1AbkI~
 //1Ab8 2015/05/08 NFC Bluetooth handover v3(DialogNFCSelect distributes only)//~1Ab8I~
 //1Ab7 2015/05/03 NFC Bluetooth handover v2                        //~1Ab7I~
 //1A6s 2015/02/17 move NFC starter from WifiDirect dialog to MainFrame//~1A6sI~
@@ -15,9 +19,12 @@
 package com.Ahsv;                                                  //~v107R~//~@@@@R~
 
 import com.Ahsv.awt.Frame;
+import com.Ahsv.R;                                                 //~1AbkR~
+import com.btmtest.utils.UView;
 
 import wifidirect.DialogNFC;
 import wifidirect.DialogNFCSelect;
+import wifidirect.IPSubThread;
 import wifidirect.WDA;
 import wifidirect.WDANFC;
 import jagoclient.Dump;
@@ -27,6 +34,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;                                          //~1109I~
                                                                    //~1109I~
 import android.view.ContextMenu;
@@ -43,13 +51,16 @@ import android.view.Window.Callback;
 //********************************************************************//~1212I~
 public class AMain                                                //~1122R~//~v107R~//~@@@@R~
 //                    extends TabActivity                          //~@@@@R~
-                      extends Activity                             //~@@@@I~
+                      extends Activity                             //~@@@@I~//~1Ah2R~
+//                    extends AppCompatActivity                    //~1Ah2R~
 //                    implements OnTabChangeListener               //~@@@@I~
 //                               ,Callback                         //~@@@@I~
                       implements Callback//~1122I~                 //~@@@@R~
                       , URunnableI	//at stop APP                  //~@@@@I~
 //android 4					, CreateNdefMessageCallback, OnNdefPushCompleteCallback//~1A6jR~
 {                                                                  //~1109I~
+    public static final int PERMISSION_LOCATION=1;                 //~1Ah1I~
+    public static final int PERMISSION_EXTERNAL_STORAGE=2;         //~1Ah1I~
 //    private static boolean destroying=false;                              //~1218I~//~@@@@R~
 //*************************                                        //~1109I~
     /** Called when the activity is first created. */
@@ -59,6 +70,7 @@ public class AMain                                                //~1122R~//~v1
         try                                                        //~1329I~
         {                                                          //~1329I~
             super.onCreate(savedInstanceState);                    //~1329R~
+	        Dump.openExOnlyTerminal();	//write exception only to Terminal//~1Ah1I~
 //          requestWindowFeature(Window.FEATURE_LEFT_ICON);             //~0914R~//~0915R~//~0A09R~//~1312I~//~1A51R~
             AG.init(this);                                         //~1402I~
             if (AG.osVersion<AG.HONEYCOMB)  //<android3=api-11     //~1A51I~
@@ -71,6 +83,7 @@ public class AMain                                                //~1122R~//~v1
             AG.aView=new AView();                             //~1329R~//~v107R~//~@@@@R~
             AG.aMenu=new AMenu();                              //~1125I~//~1329R~//~v107R~//~@@@@R~
             AG.aBT=ABT.createABT();                      //~v107R~ //~@@@@R~
+			IPSubThread.newInstance();                             //+1AhjI~
         }                                                          //~1329I~
         catch(Exception e)                                         //~1329I~
         {                                                          //~1329I~
@@ -105,6 +118,8 @@ public class AMain                                                //~1122R~//~v1
 			AG.aBT.resume();                                    //~v107R~//~@@@@R~
         if (WDA.SWDA!=null)                                        //~1A65I~
 			WDA.SWDA.onResume();                                   //~1A65I~
+		if (AG.aIPSubThread!=null)                                 //~1AhjI~
+	        AG.aIPSubThread.onResume();                            //~1AhjI~
 //       if (AG.swNFCBT)                                             //~1Ab7I~//~1Ab8R~
 //        DialogNFCSelect.onResume();                                //~1Ab7I~//~1Ab8R~
 //       else                                                        //~1Ab7I~//~1Ab8R~
@@ -128,6 +143,8 @@ public class AMain                                                //~1122R~//~v1
 //             DialogNFCSelect.onPause();                            //~1Ab7I~//~1Ab8R~
 //           else                                                    //~1Ab7I~//~1Ab8R~
 			WDANFC.onPause();                                      //~1A6bR~
+        	if (AG.aIPSubThread!=null)                             //~1AhjI~
+				AG.aIPSubThread.onPause();                         //~1AhjI~
         }                                                          //~1A65I~
         catch(Exception e)                                         //~1A65I~
         {                                                          //~1A65I~
@@ -157,6 +174,8 @@ public class AMain                                                //~1122R~//~v1
         try                                                        //~1A6bI~
         {                                                          //~1A6bI~
 			AG.aBT.onDestroy();                                    //~1A6bI~
+			if (AG.aIPSubThread!=null)                             //~1AhjI~
+		        AG.aIPSubThread.onDestroy();                       //~1AhjI~
         }                                                          //~1A6bI~
         catch(Exception e)                                         //~1A6bI~
         {                                                          //~1A6bI~
@@ -489,7 +508,27 @@ public class AMain                                                //~1122R~//~v1
         if (DialogNFC.onNewIntent(intent))                         //~1A6sI~
         	return;                                                //~1A6sI~
        }                                                           //~1Ab7I~
-//  	AView.showToast(R.string.WarningIgnoredNewIntent);         //~1A6jR~//+1AbkR~
-    	AView.showToastLong(R.string.WarningIgnoredNewIntent);     //+1AbkI~
+//  	AView.showToast(R.string.WarningIgnoredNewIntent);         //~1A6jR~//~1AbkR~
+    	AView.showToastLong(R.string.WarningIgnoredNewIntent);     //~1AbkI~
     }                                                              //~1A6jR~
+//***************************************************************************//~9930I~//~1AhdI~
+	@Override                                                      //~9930I~//~1AhdI~
+    public void onRequestPermissionsResult(int PrequestID,String[] Ptypes,int[] Presults)//~9930I~//~1AhdI~
+    {                                                              //~9930I~//~1AhdI~
+        if (Dump.Y) Dump.println("MainActivity.onRequestPermissionResult reqid="+PrequestID+",type="+ Utils.toString(Ptypes)+",result="+Utils.toString(Presults));//~9930I~//~1AhdI~
+        boolean granted;                                           //~1AhdI~
+        switch(PrequestID)                                         //~9930I~//~1AhdI~
+        {                                                          //~9930I~//~1AhdI~
+        case PERMISSION_LOCATION:                                  //~9930I~//~1AhdI~
+        	granted= UView.isPermissionGranted(Presults[0]); //~9930I~//~1AhdI~
+//          MenuDlgConnect.grantedWifi(granted);                   //~9930R~//~1AhdI~
+            WDA.grantedWifi(granted);                               //~1AhdI~
+        	break;                                                 //~9930I~//~1AhdI~
+        case PERMISSION_EXTERNAL_STORAGE:                          //~9B09I~//~1AhdI~
+//      	granted=UView.isPermissionGranted(Presults[0]);//~9B09I~//~1AhdI~
+//          UFile.grantedExternalStorage(granted);                 //~9B09I~//~1AhdI~
+//  	    initHistory(false/*PswinitApp*/);	//may not have writable permission,init history by internal storage//~9B09I~//~1AhdI~
+        	break;                                                 //~9B09I~//~1AhdI~
+        }                                                          //~9930I~//~1AhdI~
+    }                                                              //~9930I~//~1AhdI~
 }//class                                                           //~1A6jR~

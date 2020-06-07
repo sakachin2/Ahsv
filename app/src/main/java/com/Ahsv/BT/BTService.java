@@ -1,6 +1,6 @@
-//*CID://+1AebR~:                             update#=  103;       //+1AebR~
+//*CID://+1AebR~:                             update#=  105;       //~1AebR~
 //********************************************************************************//~v101I~
-//1Aeb*2015/07/26 When Ahsv BT conecction active Ajagoc BT connection fail by "RFCOMM_CreateConnection - already opened state:2, RFC state:4, MCB state:5"//+1AebI~
+//1Aeb*2015/07/26 When Ahsv BT conecction active Ajagoc BT connection fail by "RFCOMM_CreateConnection - already opened state:2, RFC state:4, MCB state:5"//~1AebI~
 //1AbZ 2015/07/05 BT:try for pairing loop;cancel discovery not before connect but after connected//~1AbZI~
 //1AbN 2015/07/03 BT:(BUG)"ASSERT btif_dm.c unhandled search devicve"(cancelDiscovery at not discovering status)//~1AbNI~
 //1AbK 2015/07/02 1AbJ popup dialog to accept duartion change,so do not call stopDiscover//~1AbKI~
@@ -42,7 +42,7 @@ import java.util.UUID;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1AebR~
 
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
@@ -383,7 +383,7 @@ public class BTService {                                           //~@@@@I~
     private class AcceptThread extends Thread {
         // The local server socket
 //      public final BluetoothServerSocket mmServerSocket;        //~@@@@R~//~v101R~//~1AbZR~
-        private BluetoothServerSocket mmServerSocket;              //+1AebR~
+        private BluetoothServerSocket mmServerSocket;              //~1AebR~
         private String mSocketType;                                //~v101I~
         private boolean swCancel=false;                            //~@@@@I~
         private boolean acceptSecure;                              //~v101I~
@@ -453,14 +453,14 @@ public class BTService {                                           //~@@@@I~
 //                        }                                        //~@@@2R~
                     break;
                 }
-                try                                                //+1AebR~
-                {                                                  //+1AebR~
-                    if (Dump.Y) Dump.println("AcceptThread mmServerSoket close()="+mmServerSocket.toString());//+1AebR~
-                    mmServerSocket.close();                        //+1AebR~
-                } catch (Exception ex) {                           //+1AebR~
-                      Dump.println(ex,"AcceptThread:Server Socket Close at IOException");//+1AebR~
-                }                                                  //+1AebR~
-                mmServerSocket=null;                               //+1AebR~
+                try                                                //~1AebR~
+                {                                                  //~1AebR~
+                    if (Dump.Y) Dump.println("AcceptThread mmServerSoket close()="+mmServerSocket.toString());//~1AebR~
+                    mmServerSocket.close();                        //~1AebR~
+                } catch (Exception ex) {                           //~1AebR~
+                      Dump.println(ex,"AcceptThread:Server Socket Close at IOException");//~1AebR~
+                }                                                  //~1AebR~
+                mmServerSocket=null;                               //~1AebR~
 
                 // If a connection was accepted
 		        if (Dump.Y) Dump.println("AcceptThread:cancel discovery after accepted");//~1AbZI~

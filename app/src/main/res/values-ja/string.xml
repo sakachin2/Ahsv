@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ahsv</string>
-    <string name="Version">V1.11</string>
+    <string name="app_nameE">Ahsv</string>
+    <string name="Version">V1.20</string>
+    <string name="AppTitle">%1$s : %2$s  (%3$s)</string>
 
     <string name="NoRegisteredContextMenu">"このパネルにメニューはありません"</string>
     <string name="NoRegisteredHelpMenu">"このパネルにヘルプはありません"</string>
@@ -140,61 +142,6 @@
     <string name="BishopW">Bishop (角)</string>
     <string name="KnightW">Knight (桂)</string>
 
-    <string name="Help_MainFrame">
-                  "\"*** はさみ将棋 ***\"\n"
-                  "ロボットではありません、２人対戦用です\n"
-				  "端末が２つある場合は無線で対戦できます\n"
-                  "盤と駒は将棋とチェスとどちらか選べます\n"
-                  "秒読みあり、(反射)角と桂も参加できます\n" 
-                  "桂はチェスのナイトと同じく８方向に\"何回\"もジャンプできます\n"
-                  "  ----------------------\n"
-                  "  |  |  |○|  |○|  |  |\n"
-                  "  ----------------------\n"
-                  "  |  |○|  |  |  |○|  |\n"
-                  "  ----------------------\n"
-                  "  |  |  |  |◎|  |  |  |\n"
-                  "  ----------------------\n"
-                  "  |  |○|  |  |  |○|  |\n"
-                  "  ----------------------\n"
-                  "  |  |  |○|  |○|  |  |\n"
-                  "  ----------------------\n"
-                  "\n"
-                  "このパネルは棋盤と駒の表示用です\n"
-                  "\"NFC-WD\"&lt;--&gt;\"ダイレクト\"ボタンで接続,ゲーム開始してください\n"
-                  "途中で止める時はオプションメニュー(メニューボタンで出てくる)\n"
-                  "の\"終了\"を押してください\n"
-                  "(Android3以降ではタイトルの\"終了\"アイコンを押してください\n"
-                  "------\n"
-                  "\"盤\" : チェス盤(8x8)か棋盤(9x9)か切り替え\n"
-                  "\"駒\" : チェス駒か将棋駒か切り替え\n"
-                  "  チェス駒を使う場合 ポーン(Pawn) は 歩 と同じです\n"
-                  "  ビショップ(Bishop) は 角, ナイト(Knight) は 桂\n"
-                  "\"設定\" : アプリのオプションを設定します\n"
-                  "\"NFC-WD\" : NFC をサポートする端末では NFCタグ部を\n"
-                  "  10cm 以内に近づけてWi-Fiダイレクト接続し対戦します\n"
-                  "  一旦接続すれば 次からは \"NFC-WD\"-->\"対戦\"\n"
-                  "  で対戦が始められます\n"
-                  "\"NFC-BT\" : NFC をサポートする端末では NFCタグ部を近づけて\n"
-                  "  10cm 以内に近づけて Bluetooth-非セキュア接続し対戦します\n"
-                  "  一旦接続すれば 次からは \"NFC-BT\"-->\"対戦\"\n"
-                  "  で対戦が始められます\n"
-                  "\"対面\" : 二人がこの端末上で対戦\n"
-                  "\"BT\" : ２つの端末を Bluetooth で接続して対戦\n"
-                  "\"IP\" : IP(LAN/アクセスポイント)で接続して対戦\n"
-                  "\"ダイレクト\" : Wi-Fiダイレクト接続(LAN/アクセスポイント不要).\n"
-                  "------\n"
-                  "オプションメニュー(メニューボタンでポップアップしてくる)\n"
-                  "\"終了\" : アプリケーションの停止\n"
-                  "\"会話\" : Bluetooth または IP の接続が完了した後\n"
-                  "  ポップアップダイアログでメッセージを交換できます\n"
-                  "------\n"
-                  "お礼\n"
-                  "将棋盤の画像はJago client(by Rene Grothmann)から,\n"
-                  "将棋駒の画像は マイボナ サイトから(mybona_kinki1.gif),\n"
-                  "  http://www.geocities.jp/shogi_depot/MyBona.htm\n"
-                  "チェスピースの画像はWikiサイトからコピーさせていただきました\n"
-				  "  http://en.wikipedia.org/wiki/Chess\n"
-    </string>
 <!--mainFrameOptions-->
     <string name="MainFrameOptions">---------- メイン設定 ----------</string>
     <string name="YourNameLabel">名前</string>
@@ -204,12 +151,12 @@
     <string name="BigTimer">時計表示</string>
     <string name="Trace">Trace On</string>
     <string name="ActionChangeCoordinate">ActionChangeCoordinate</string>
-    <string name="Help_MainFrameOptions">
+    <!--string name="Help_MainFrameOptions">
                   " 名前 : \"BT\"/\"IP\"対戦のとき相手に送る識別子\n"
                   "座標 : 位置を示す座標を表示\n"
                   "ワンタッチモード : 駒の選択、移動先指定ともワンタッチで決定する\n"
                   "時計 : 残り時間を盤の下に表示\n"
-    </string>
+    </string-->
 <!--GameRequest-->
     <string name="Title_GameQuestion">対戦設定</string>
     <string name="BoardType">盤</string>
@@ -227,7 +174,7 @@
     <string name="Move_First">先手</string>
     <string name="Request">申し込</string>
     <string name="StartGame">対戦開始</string> <!-- for local match-->
-    <string name="Help_GameQuestion">
+    <!--string name="Help_GameQuestion">
                   "対戦設定\n"
                   "\"対面\"の場合、\"対戦開始\"で\n"
                   "\"BT\"/\"IP\"の場合この設定で\"申し込\"をし\n"
@@ -258,55 +205,17 @@
                   "指違いはパス : 移動出来ない場所に指すと一手パスにする\n"
                   "先手 : 自分が先手をとる\n"
                   "  チェス盤では先手は白です\n"
-    </string>
+    </string-->
 <!--BoardQuestion-->
     <string name="Title_BoardQuestion">対戦要求</string>
     <string name="PartnerNameLabel">対戦者</string>
     <string name="Partner_Move_First">後手</string>
     <string name="Accept">承諾</string>
     <string name="Decline">断る</string>
-    <string name="Help_BoardQuestion">
-                  "対戦要求\n"
-                  "承諾するとゲームがはじまります\n"
-                  "内容を変更することは出来ません\n"
-                  "\n"
-                  "対戦者 : 対戦要求者\n"
-                  "制限時間(分) : 過ぎると秒読みになります\n"
-                  "秒読み(秒) : 制限時間を過ぎたら１手をこの時間内に打つ\n"
-                  "ゲームオーバー駒数 : この数取ったら勝ち\n"
-    			  "差し引き駒数 : 駒数の差がこれに達した時\n"
-				  "  相手が次の手でこれを解消しないとゲームオーバー\n"
-                  "角の位置 : 角を配置する位置\n"
-                  "桂の位置 : 桂を配置する位置\n"
-                  "変更 : 角、桂の位置を設定するダイアログを表示\n"
-                  "相手も角,桂の位置(個数は同じ)を設定できる :\n"
-                  "  ゲーム要求者側の設定を表示\n"
-                  "  オフの場合上の変更ボタンは使用できない\n"
-                  "反射-角 : 角が盤の４隅以外の外縁で反射して進めるものとする\n"
-                  "お手つき可 : 移動する駒を選択し直すことが出来る\n"
-                  "  但し\"待った\"はできません\n"
-                  "指違いはパス : 移動出来ない場所に指すと一手パスにする\n"
-                  "後手 : 相手が先手をとる\n"
-                  "  チェス盤では後手は黒です\n"
-    </string>
 <!--GameBoard-->
     <string name="Title_LocalViewer">対面 対戦</string>
     <string name="Title_PartnerMatch">無線 対戦</string>
     <string name="Resign">投了</string>
-    <string name="Help_GoFrame">
-                  "２回連続で同じ位置をタッチすることで\n"
-                  "動かす駒の選択、移動先の場所の選択が決定します\n"
-                  "盤右下の黄色のボタンは選択決定の代わりになります\n"
-                  "(ワンタッチモードはメインオプションで設定)\n"
-                  "カーソールは指をスライドする事でも動かせます\n"
-                  "取った駒は盤の下に並べられます\n"
-                  "  黄色の枠は駒数差を,\n"
-                  "  白枠はゲームオーバー駒数までの残りです\n"
-                  "-----\n"
-                  "投了 : 対面対戦のときは自分の手番の時に押してください\n"
-                  "閉 : ゲームオーバーすると\"投了\"が\"閉\"に変わります\n"
-                  "  次の対局は一旦トップ画面に戻ってからです\n"
-    </string>
 <!--GoFrameOptions-->
     <string name="GoFrameOptions">---------- 棋盤オプション----------</string>
     <string name="NoSound">無音</string>
@@ -341,33 +250,6 @@
     <string name="Discover">検索</string>
     <string name="ActionDiscovered">Discovered</string>
     <string name="LabelDeviceList">ペアリングされたデバイスのリスト</string>
-    <string name="Help_BluetoothConnection">
-                  "デバイス名 : この端末の名前\n"
-                  "  デバイス名はアンドロイドの\"設定\"-&gt;\n"
-                  "  \"Bluetooth\"で登録できます\n"
-    			  "接続受付 : 接続要求を受付可能に設定する\n"
-    			  "  まず２人のうちどちらかがこの設定をする\n"
-                  "接続 : 接続要求\n"
-                  "  そして、もう一方がリストから選択して接続要求する\n"
-                  "  リストにない場合は受付側で\"発見可能\"状態にしたことを\n"
-                  "  確認して\"検索\"を押してください\n"
-                  "  発見可能な状態にある時間は機種によります\n"
-                  "  接続できると\"対戦設定\"ダイアログが表示されます\n"
-                  "  \"セキュア接続\" で接続できない場合は \"非セキュア接続\" を試してください\n"
-                  "  あるいは事前にアンドロイドの\"設定\"でペアリングを設定してください\n"
-                  "発見可能 : \"検索\"に応答するように設定,\"検索\"する前に設定する\n"
-                  "検索 : \"発見可能\"に設定されたデバイスを検索する\n"
-                  "  約１０ｍの範囲で通信できます\n"
-                  "\n"
-                  "ペア未設定のデバイスとの接続は以下のような手順になります\n"
-                  "  \"発見可能\"\n"
-                  "                       &lt;--\"検索\"\n"
-                  "  \"接続受付\"\n"
-                  "                       &lt;--\"接続\"\n"
-                  "  \"接続\"のときに\"Bluetoothのペア設定リクエスト\"ダイアログが\n"
-                  "  出るので両方のデバイスで\"ペア設定\"と答えてください\n"
-                  "  片方にしか出ない場合は出ないほうで発見可能にする必要があります\n"
-    </string> <!--1A60--><!--1Aed-->
 <!--EndGameQuestion-->
     <string name="Title_EndGameQuestion">----- 終了 -----</string>
     <string name="End_the_game">対戦を終了しますか?</string>
@@ -422,8 +304,8 @@
     <string name="WarnGameover2">差し引き駒数制限に達しました</string>
     <string name="WarnGameover2Toast">差し引き駒数制限に達しました\nY次の手で相手の駒を取れないと負けになります</string>
     <string name="Err_No_connection_to_">
-				"接続されていません (%1$s, port:%2$d)\n"
-				"相手が \"ポートを開く\" を押していますか？\n"
+				"接続失敗。\n"
+				"相手(%1$s) が このポート番号(%2$d)で\"ポートを開く\" を押していますか？\n"
 				"\"ダイレクト\"の場合は、先に \"ペア設定\" が必要です。\n"
 				</string> <!--v65A-->
     <string name="ErrNameIsSpace">\"名前\" を設定してください</string>
@@ -440,8 +322,7 @@
 	<string name="Msg_WaitingIPConnect">"接続先＝%1$s (ポート＝%2$d).\n"
 					</string>
 	<string name="Title_WaitingDiscover">----- デバイス検索中 -----</string>
-	<string name="Msg_WaitingDiscover">"発見可能なデバイスを検索中\n"
-					</string>
+	<string name="Msg_WaitingDiscover">"発見可能なデバイスを検索中\n"</string>
 <!--IP server-->
 	<string name="IPServer">IPServer</string>
     <string name="InfoIPListening">ポートを開けて接続要求の待機中</string>
@@ -464,7 +345,7 @@
     <string name="Delete">削除</string>
     <string name="ListUp">↑</string>       <!--1Af9-->
     <string name="ListDown">↓</string>     <!--1Af9-->
-    <string name="Help_IPConnection">
+    <!--string name="Help_IPConnection">
                 "IP 接続\n"
 				"LAN内で、また環境が許せばインターネットで、対戦できます\n"
 				"Android 4 以降では Wi-Fiダイレクトで 近距離直接対戦できます\n"
@@ -493,7 +374,7 @@
 				"編集/追加/削除/削除戻し/↑/↓ : 接続先リストを操作します\n"
 				"  編集/追加でダイアログがポップアップします\n"
 				"  接続要求先の IP アドレス、ポート番号を登録してください\n"
-    </string>
+    </string-->
 
 <!--EditPartner-->
 	<string name="Title_EditPartner">---------- IP 接続先 編集 ----------</string>
@@ -681,10 +562,9 @@
 <!--20150418osa-->
     <string name="IPInSession">接続中</string>
     <string name="ErrOtherActiveSession">
-				"接続は同時には１つだけが許されます\n"
-				"新たな接続を作成するには、\n"
-                "現在のセッション(%1$s)を\n"
-                "切断してください\n"
+				"接続は同時には１つだけが可能です\n"
+				"接続方法の変更、別のデバイスとの接続、をするには、\n"
+                "現在のセッション(%1$s)を切断してください\n"
 		</string>
     <string name="server_text">この端末はサーバー(接続受付)側です</string><!--1Aa4-->
     <string name="ButtonYouTube">操作ガイド動画</string>
@@ -819,4 +699,39 @@
     <string name="UnDelete">削除戻し</string><!--1Af9-->
     <string name="NoDeletedEntry">
 					"削除された行はありません (一回前の削除しか戻せません)"</string><!--1Af9-->
+<!-- for android9 -->
+    <string name="ErrExceptionDetected">問題が発生しました</string>
+    <string name="ErrAssetFileNotFound">アッセットファイルが見つかりません:</string>
+    <string name="ErrAssetFileRead">アッセットファイルが読めません:</string>
+    <string name="ExternalStorageForSDRequiresGranted">\"SDカードへ書き込み\"が不許可なので内部ファイル（再導入で削除）に出力されます</string>
+    <string name="ExternalStorageForSDGranted">SDカードへの書き込み権限が許可されました</string>
+    <string name="WD_DiscoveryStopped">WiFiダイレクト 探索が停止しました</string>
+    <string name="WD_DiscoveryDup">既に探索中です（タイムアウトは１２０秒）</string>
+    <string name="WD_DiscoveryCanceled">ピア探索はキャンセルされました</string>
+    <string name="WifiDirectGranted">WifiDirectの使用が許可されました</string>
+    <string name="WifiDirectRequiresGranted">WifiDirectの使用には\"位置情報へのアクセスの許可\"が必要です。</string>
+    <string name="HelpTitle_Mainframe">*** はさみ将棋 ***</string>
+	<string name="Msg_WaitingIPConnect2">"接続先＝%1$s (%2$s ポート番号＝%3$d).\n"</string>
+    <string name="Err_No_connection_to_2">
+				"接続失敗。\n"
+				"相手(%1$s:%2$s) が このポート番号(%3$d)で\"ポートを開く\" を押していますか？\n"
+				"\"ダイレクト\"の場合は、先に \"ペア設定\" が必要です。\n"
+				</string> <!--v65A-->
+	<string name="Label_Connections">"接続"</string>
+    <string name="Label_LocalGame">対面（接続無）</string>
+    <string name="Label_WiFiNFCButton">NFC-WiFiダイレクト</string>  <!--1Ad3-->
+    <string name="Label_BTNFCButton">NFC-Bluetooth</string>  <!--1Ad3-->
+    <string name="Label_RemoteGame">Bluetooth</string>
+    <string name="Label_RemoteIP">IP</string>
+    <string name="Label_WiFiDirectButton">WiFiダイレクト</string>
+	<string-array name="MenuDialog_Connect">
+		<item>@string/Label_LocalGame</item>
+		<item>@string/Label_RemoteGame</item>
+		<item>@string/Label_RemoteIP</item>
+		<item>@string/Label_WiFiDirectButton</item>
+		<item>@string/Label_BTNFCButton</item>
+		<item>@string/Label_WiFiNFCButton</item>
+		<item>@string/Help</item>
+		<item>@string/Cancel</item>
+	</string-array>
 </resources>

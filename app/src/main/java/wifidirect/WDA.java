@@ -1,5 +1,7 @@
-//*CID://+1Ad2R~:                             update#=   91;       //~1Ac4R~//~1Ad2R~
+//*CID://+1AhdR~:                             update#=   95;       //+1AhdR~
 //*************************************************************************//~1A65I~
+//1Ahd 2020/06/03 WifiDirect required PERMISSION_LOCATION          //+1AhdI~
+//1Ahc 2020/06/03 expand WDA dialog portrait width of Huawei7(Android6)//~1AhcI~
 //1Ad2 2015/07/17 HelpDialog by helptext                           //~1Ad2I~
 //1Ac4 2015/07/06 WD:try disable wifi direct at unpair             //~1Ac4I~
 //1Ac3 2015/07/06 WD:Unpare after active session was closed        //~1Ac3I~
@@ -18,7 +20,7 @@ package wifidirect;                                                //~1A67R~
 import java.lang.reflect.Method;
 
 import jagoclient.Dump;
-import jagoclient.Global;                                          //+1Ad2I~
+import jagoclient.Global;                                          //~1Ad2I~
 import jagoclient.dialogs.HelpDialog;
 //import jagoclient.partner.IPConnection;                          //~1A90R~
 import android.annotation.TargetApi;                               //~1A65I~
@@ -35,14 +37,16 @@ import android.widget.Button;
                                                                    
 //~1A65I~
 import com.Ahsv.AG;                                                //~1A65I~
+import com.Ahsv.AMain;
 import com.Ahsv.AView;
 import com.Ahsv.Alert;
 import com.Ahsv.AlertI;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Ad2R~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableI;
 import com.Ahsv.awt.UButton;                                     //~1A90I~
 import com.axe.AxeDialog;
+import com.btmtest.utils.UView;
 
 @TargetApi(AG.ICE_CREAM_SANDWICH)   //api14                           //~1A65R~
 //public class WiFiDirectActivity extends Activity implements ChannelListener, DeviceActionListener {//~1A65R~
@@ -196,6 +200,7 @@ public class WDA extends AxeDialog                                 //~1A65R~
 		btnDisconnect=new UButton(layoutView,ID_DISCONNECT);       //~1A84I~//~1A90I~
 		btnGame=new UButton(layoutView,ID_GAME);                   //~1A84I~//~1A90I~
 	    updateButtonView(false/*owner*/);                          //~1A84R~//~1A90I~
+		setAxeDialogWindowSize(95/*width rate*/,0/*hight=wrap_content*/,true/*apply for min(Width,Height)*/);//~1AhcI~
     }                                                              //~1A65I~
 //    //**********************************                           //~1A65I~//~1A90R~
 //    @Override                                                      //~1A65I~//~1A90R~
@@ -667,4 +672,30 @@ public class WDA extends AxeDialog                                 //~1A65R~
         }                                                          //~1Ac4I~
         return rc;                                                 //~1Ac4I~
     }                                                              //~1Ac4I~
+//**********************************                               //~v@@@I~//+1AhdI~
+    public static boolean chkGranted()                                   //~v@@@I~//+1AhdI~
+    {                                                              //~v@@@I~//+1AhdI~
+        if (Dump.Y) Dump.println("WDA.chkGranted");  //~v@@@I~     //+1AhdI~
+		boolean rc= UView.isPermissionGrantedLocation();                    //~v@@@I~//+1AhdI~
+        if (!rc)                                                   //~v@@@I~//+1AhdI~
+        {                                                           //~v@@@I~//+1AhdI~
+		    UView.requestPermissionLocation(AMain.PERMISSION_LOCATION);//~v@@@I~//+1AhdI~
+        }                                                          //~v@@@I~//+1AhdI~
+        if (Dump.Y) Dump.println("WDA.chkGranted rc="+rc);      //~v@@@I~//+1AhdI~
+        return rc;                                                 //~v@@@I~//+1AhdI~
+    }                                                              //~v@@@I~//+1AhdI~
+//**********************************                               //~v@@@I~//+1AhdI~
+    public static void grantedWifi(boolean PswGranted)             //~v@@@I~//+1AhdI~
+    {                                                              //~v@@@I~//+1AhdI~
+    	boolean rc;                                                //~v@@@I~//+1AhdI~
+        if (Dump.Y) Dump.println("WD.grantedWifi PswGranted="+PswGranted);//~v@@@I~//+1AhdI~
+        if (!PswGranted)                                           //~v@@@I~//+1AhdI~
+        {                                                          //~v@@@I~//+1AhdI~
+//        	MainView.drawMsg(R.string.WifiDirectRequiresGranted);  //~v@@@I~//+1AhdI~
+          	UView.showToastLong(R.string.WifiDirectRequiresGranted);//+1AhdI~
+            return;                                                //~v@@@I~//+1AhdI~
+        }	                                                       //~v@@@I~//+1AhdI~
+		UView.showToast(R.string.WifiDirectGranted);               //~v@@@I~//+1AhdI~
+//    	connectWifiDirectGranted();                                //~v@@@I~//+1AhdI~
+    }                                                              //~v@@@I~//+1AhdI~
 }

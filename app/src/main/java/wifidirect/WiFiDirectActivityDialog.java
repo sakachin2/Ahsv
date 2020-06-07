@@ -1,6 +1,6 @@
-//*CID://+1Ac0R~:                             update#=  135;       //+1Ac0R~
+//*CID://+1Ac0R~:                             update#=  137;       //~1Ac0R~
 //*************************************************************************
-//1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//+1Ac0I~
+//1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//~1Ac0I~
 //1Abx 2015/06/21 NFCWD:dismiss waiting dialog of makepair at disconnected(with no Accesspoint status)//~1AbxI~
 //1A6s 2015/02/17 move NFC starter from WifiDirect dialog to MainFrame
 //*************************************************************************
@@ -27,7 +27,7 @@ import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1Ac0R~
 import com.Ahsv.UiThread;
 import com.Ahsv.UiThreadI;
 

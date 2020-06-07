@@ -1,6 +1,8 @@
-//*CID://+1Ac0R~: update#= 169;                                    //+1Ac0R~
+//*CID://+1AhkR~: update#= 178;                                    //~1Ah1R~//~1AhkR~
 //**********************************************************************//~1107I~
-//1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//+1Ac0I~
+//1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
+//1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
+//1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//~1Ac0I~
 //1Aa6 2015/04/20 show youtube movie                               //~1Aa6I~
 //1A8bk2015/02/28 (BUG)old pertner communication fail by multiple IP address//~1A8bI~
 //1A86 2015/02/26 get IPAddr by MacAddr                            //~1A86I~
@@ -18,19 +20,25 @@ import java.net.Inet6Address;
 import java.net.InetAddress;                                       //~v106R~
 import java.net.NetworkInterface;                                  //~v106R~
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Enumeration;                                      //~v106I~
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jagoclient.Dump;
+
+import android.annotation.TargetApi;
 import android.content.Context;                                    //~v107R~
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;                         //~v107R~
 import android.content.pm.PackageManager;                          //~v107R~
 import android.content.pm.PackageManager.NameNotFoundException;    //~v107R~
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 
 import com.Ahsv.AG;                                                //~v107R~
 
@@ -172,25 +180,69 @@ public class Utils                                            //~1309R~//~@@@@R~
 //**********************************                               //~1425I~
 	public static final int TS_DATE_TIME=1;                        //~1425I~
 	public static final int TS_MILI_TIME=2;                        //~1425I~
+	public static final int TS_DATE_TIME2=3;                       //~1Ah1I~
 	private static final SimpleDateFormat fmtdt=new SimpleDateFormat("yyyyMMdd-HHmmss");//~1425I~
+	private static final SimpleDateFormat fmtdt2=new SimpleDateFormat("yyyyMMdd:HHmmss");//~1Ah1I~
 	private static final SimpleDateFormat fmtms=new SimpleDateFormat("HHmmss.SSS");//~1425I~
-	public static String getTimeStamp(int Popt)                    //~1425I~
-    {                                                              //~1425I~
-        SimpleDateFormat f;                                        //~1425I~
-    //**********************:                                      //~1425I~
-    	switch(Popt)                                               //~1425I~
-        {                                                          //~1425I~
-        case TS_DATE_TIME:                                         //~1425I~
-        	f=fmtdt;                                               //~1425I~
-            break;                                                 //~1425I~
-        case TS_MILI_TIME:                                         //~1425I~
-        	f=fmtms;                                               //~1425I~
-            break;                                                 //~1425I~
-        default:                                                   //~1425I~
-        	return null;                                           //~1425I~
-        }                                                          //~1425I~
-        return f.format(new Date());                               //~1425I~
-    }                                                              //~1425I~
+//**********************************                               //~1Ah1I~
+	public static String getTimeStamp(int Popt,Date Pdate)         //~1Ah1I~
+    {                                                              //~1Ah1I~
+        SimpleDateFormat f;                                        //~1Ah1I~
+    //**********************:                                      //~1Ah1I~
+    	switch(Popt)                                               //~1Ah1I~
+        {                                                          //~1Ah1I~
+        case TS_DATE_TIME:                                         //~1Ah1I~
+        	f=fmtdt;                                               //~1Ah1I~
+            break;                                                 //~1Ah1I~
+        case TS_DATE_TIME2:                                        //~1Ah1I~
+        	f=fmtdt2;                                              //~1Ah1I~
+            break;                                                 //~1Ah1I~
+        case TS_MILI_TIME:                                         //~1Ah1I~
+        	f=fmtms;                                               //~1Ah1I~
+            break;                                                 //~1Ah1I~
+        default:                                                   //~1Ah1I~
+        	return null;                                           //~1Ah1I~
+        }                                                          //~1Ah1I~
+        String s=f.format(Pdate);                                  //~1Ah1I~
+//      if (Dump.Y) Dump.println("Utils.getTimeStamp opt="+Popt+",rc="+s);//~1Ah1I~
+        return s;                                                  //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************************                               //~1Ah1I~
+//    public static String getTimeStamp(int Popt)                    //~1425I~//~1Ah1R~
+//    {                                                              //~1425I~//~1Ah1R~
+//        SimpleDateFormat f;                                        //~1425I~//~1Ah1R~
+//    //**********************:                                      //~1425I~//~1Ah1R~
+//        switch(Popt)                                               //~1425I~//~1Ah1R~
+//        {                                                          //~1425I~//~1Ah1R~
+//        case TS_DATE_TIME:                                         //~1425I~//~1Ah1R~
+//            f=fmtdt;                                               //~1425I~//~1Ah1R~
+//            break;                                                 //~1425I~//~1Ah1R~
+//        case TS_DATE_TIME2:                                      //~1Ah1I~
+//            f=fmtdt2;                                            //~1Ah1I~
+//            break;                                               //~1Ah1I~
+//        case TS_MILI_TIME:                                         //~1425I~//~1Ah1R~
+//            f=fmtms;                                               //~1425I~//~1Ah1R~
+//            break;                                                 //~1425I~//~1Ah1R~
+//        default:                                                   //~1425I~//~1Ah1R~
+//            return null;                                           //~1425I~//~1Ah1R~
+//        }                                                          //~1425I~//~1Ah1R~
+//        return f.format(new Date());                               //~1425I~//~1Ah1R~
+//    }                                                              //~1425I~//~1Ah1R~
+	public static String getTimeStamp(int Popt)                    //~1Ah1I~
+    {                                                              //~1Ah1I~
+        return getTimeStamp(Popt,new Date());                      //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************************                               //~1Ah1I~
+	public static String getTimeStamp(int Popt,long Ptime)         //~1Ah1I~
+    {                                                              //~1Ah1I~
+        return getTimeStamp(Popt,new Date(Ptime));                 //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************************                               //~1Ah1I~
+	public static String getTimeStamp(String Pfmt,long Ptime)      //~1Ah1I~
+    {                                                              //~1Ah1I~
+		SimpleDateFormat f=new SimpleDateFormat(Pfmt);             //~1Ah1I~
+        return f.format(new Date(Ptime));                          //~1Ah1I~
+    }                                                              //~1Ah1I~
 //**********************************                               //~1425I~
 //* Digit Thread ID                                                //~1425I~
 //**********************************                               //~1425I~
@@ -416,23 +468,211 @@ public class Utils                                            //~1309R~//~@@@@R~
         intent.setData(Uri.parse(Purl));                           //~v1E7I~//~1Aa6I~
         AG.activity.startActivity(intent);                         //~v1E7I~//~1Aa6I~
 	}                                                              //~v1E7I~//~1Aa6I~
-//***********************************************************************//+1Ac0I~
-    public static void chkNetwork()                                //+1Ac0I~
-    {                                                              //+1Ac0I~
-        ConnectivityManager cm=getCM();                            //+1Ac0I~
-        NetworkInfo[] infos=cm.getAllNetworkInfo();                //+1Ac0I~
-        if (Dump.Y) Dump.println("Utils:chkNetwork ctr="+infos.length);//+1Ac0I~
-        for (NetworkInfo ni:infos)                                 //+1Ac0I~
-        {                                                          //+1Ac0I~
-        	String typename=ni.getTypeName();                      //+1Ac0I~
-        	String subtypename=ni.getSubtypeName();                //+1Ac0I~
-        	boolean connected=ni.isConnected();                    //+1Ac0I~
-            if (Dump.Y) Dump.println("Utils:chkNetwork :type="+typename+",subtype="+subtypename+",connected="+connected+",tostring="+ni.toString());//+1Ac0I~
-        }                                                          //+1Ac0I~
-    }                                                              //+1Ac0I~
-//***********************************************************************//+1Ac0I~
-    public static ConnectivityManager getCM()                      //+1Ac0I~
-    {                                                              //+1Ac0I~
-        return (ConnectivityManager)AG.context.getSystemService(Context.CONNECTIVITY_SERVICE);//+1Ac0I~
-    }                                                              //+1Ac0I~
+//***********************************************************************//~1Ac0I~
+    public static void chkNetwork()                                //~1Ac0I~
+    {                                                              //~1Ac0I~
+		if (AG.osVersion>= Build.VERSION_CODES.M)   //23             //~1Ah1I~
+		    chkNetwork_M();                                         //~1Ah1I~
+        else                                                       //~1Ah1I~
+	    	chkNetwork_L();                                         //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*******************                                          //~1Ah1I~
+	@SuppressWarnings("deprecation")                               //~1Ah1I~
+    public static void chkNetwork_L()      //<23                   //~1Ah1R~
+    {                                                              //~1Ah1I~
+        ConnectivityManager cm=getCM();                            //~1Ac0I~
+        NetworkInfo[] infos=cm.getAllNetworkInfo();                //~1Ac0I~
+        if (Dump.Y) Dump.println("Utils:chkNetwork_L ctr="+infos.length);//~1Ac0I~//~1Ah1R~
+        for (NetworkInfo ni:infos)                                 //~1Ac0I~
+        {                                                          //~1Ac0I~
+        	String typename=ni.getTypeName();                      //~1Ac0I~
+        	String subtypename=ni.getSubtypeName();                //~1Ac0I~
+        	boolean connected=ni.isConnected();                    //~1Ac0I~
+            if (Dump.Y) Dump.println("Utils:chkNetwork_L type="+typename+",subtype="+subtypename+",connected="+connected+",tostring="+ni.toString());//~1Ac0I~//~1Ah1R~
+        }                                                          //~1Ac0I~
+    }                                                              //~1Ac0I~
+//***********************************************************************//~1Ah1I~
+	@TargetApi(Build.VERSION_CODES.M)   //>=23                     //~1Ah1R~
+    public static void chkNetwork_M()                              //~1Ah1I~
+    {                                                              //~1Ah1I~
+        ConnectivityManager cm=getCM();                            //~1Ah1I~
+        Network[] anw=cm.getAllNetworks();                         //~1Ah1I~
+        if (Dump.Y) Dump.println("Utils:chkNetwork_M ctr="+anw.length);//~1Ah1I~
+        NetworkInfo ni;                                            //~1Ah1I~
+        for (Network nw:anw)                                       //~1Ah1I~
+        {                                                          //~1Ah1I~
+        	ni=cm.getNetworkInfo(nw);                           //~1Ah1I~
+            if (ni!=null)                                          //~1Ah1I~
+            {                                                      //~1Ah1I~
+//      		String typename=ni.getTypeName();                  //~1Ah1R~
+        		String subtypename=ni.getSubtypeName();            //~1Ah1I~
+        		boolean connected=ni.isConnected();                //~1Ah1I~
+            	if (Dump.Y) Dump.println("Utils:chkNetwork_M subtype="+subtypename+",connected="+connected+",tostring="+ni.toString());//~1Ah1R~
+            }                                                      //~1Ah1I~
+        }                                                          //~1Ah1I~
+    }                                                              //~1Ah1I~
+//***********************************************************************//~1Ac0I~
+    public static ConnectivityManager getCM()                      //~1Ac0I~
+    {                                                              //~1Ac0I~
+        return (ConnectivityManager)AG.context.getSystemService(Context.CONNECTIVITY_SERVICE);//~1Ac0I~
+    }                                                              //~1Ac0I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(String[] Psa)                    //~1Ah1I~
+    {                                                              //~1Ah1I~
+    	String s;                                                  //~1Ah1I~
+        if (Psa==null)                                             //~1Ah1I~
+	        s="null";                                              //~1Ah1I~
+        else                                                       //~1Ah1I~
+            s=Arrays.toString(Psa);                                //~1Ah1I~
+        if (Dump.Y) Dump.println("Utils.toString(String[]) out="+s);//~1Ah1I~
+        return s;                                                  //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(String[][] Psa2)                 //~1Ah1I~
+    {                                                              //~1Ah1I~
+        StringBuffer sb=new StringBuffer();                        //~1Ah1I~
+        sb.append("[");                                            //~1Ah1I~
+        if (Psa2==null)                                            //~1Ah1I~
+	        sb.append("null");                                     //~1Ah1I~
+        else                                                       //~1Ah1I~
+        for (int ii=0;ii<Psa2.length;ii++)     //account sequence  //~1Ah1I~
+        {                                                          //~1Ah1I~
+        	if (ii!=0)                                             //~1Ah1I~
+    	        sb.append(",");                                    //~1Ah1I~
+            sb.append(Arrays.toString(Psa2[ii]));                  //~1Ah1I~
+        }                                                          //~1Ah1I~
+        sb.append("]");                                            //~1Ah1I~
+        String s=sb.toString();                                    //~1Ah1I~
+        if (Dump.Y) Dump.println("Utils.toString(String[][]) out="+s);//~1Ah1I~
+        return s;                                                  //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(int[][] Psa2)                    //~1Ah1I~
+    {                                                              //~1Ah1I~
+        StringBuffer sb=new StringBuffer();                        //~1Ah1I~
+        sb.append("[");                                            //~1Ah1I~
+        if (Psa2==null)                                            //~1Ah1I~
+	        sb.append("null");                                     //~1Ah1I~
+        else                                                       //~1Ah1I~
+        for (int ii=0;ii<Psa2.length;ii++)     //account sequence  //~1Ah1I~
+        {                                                          //~1Ah1I~
+        	if (ii!=0)                                             //~1Ah1I~
+    	        sb.append(",");                                    //~1Ah1I~
+            sb.append(Arrays.toString(Psa2[ii]));                  //~1Ah1I~
+        }                                                          //~1Ah1I~
+        sb.append("]");                                            //~1Ah1I~
+        String s=sb.toString();                                    //~1Ah1I~
+        if (Dump.Y) Dump.println("Utils.toString(int[][]) out="+s);//~1Ah1I~
+        return s;                                                  //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(boolean[][] Psa2)                //~1Ah1I~
+    {                                                              //~1Ah1I~
+        StringBuffer sb=new StringBuffer();                        //~1Ah1I~
+        sb.append("[");                                            //~1Ah1I~
+        if (Psa2==null)                                            //~1Ah1I~
+	        sb.append("null");                                     //~1Ah1I~
+        else                                                       //~1Ah1I~
+        for (int ii=0;ii<Psa2.length;ii++)     //account sequence  //~1Ah1I~
+        {                                                          //~1Ah1I~
+        	if (ii!=0)                                             //~1Ah1I~
+    	        sb.append(",");                                    //~1Ah1I~
+            sb.append(Arrays.toString(Psa2[ii]));                  //~1Ah1I~
+        }                                                          //~1Ah1I~
+        sb.append("]");                                            //~1Ah1I~
+        String s=sb.toString();                                    //~1Ah1I~
+        if (Dump.Y) Dump.println("Utils.toString(boolean[][]) out="+s);//~1Ah1I~
+        return s;                                                  //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(Rect[] Psa2)                     //~1Ah1I~
+    {                                                              //~1Ah1I~
+        StringBuffer sb=new StringBuffer();                        //~1Ah1I~
+        sb.append("[");                                            //~1Ah1I~
+        if (Psa2==null)                                            //~1Ah1I~
+	        sb.append("null");                                     //~1Ah1I~
+        else                                                       //~1Ah1I~
+        for (int ii=0;ii<Psa2.length;ii++)     //account sequence  //~1Ah1I~
+        {                                                          //~1Ah1I~
+        	if (ii!=0)                                             //~1Ah1I~
+    	        sb.append(",");                                    //~1Ah1I~
+            sb.append(Psa2[ii]==null ? "null" : Psa2[ii].toString());//~1Ah1I~
+        }                                                          //~1Ah1I~
+        sb.append("]");                                            //~1Ah1I~
+        String s=sb.toString();                                    //~1Ah1I~
+        if (Dump.Y) Dump.println("Utils.toString(Rect[]) out="+s); //~1Ah1I~
+        return s;                                                  //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(Rect[][] Psa2)                   //~1Ah1I~
+    {                                                              //~1Ah1I~
+        StringBuffer sb=new StringBuffer();                        //~1Ah1I~
+        sb.append("[");                                            //~1Ah1I~
+        if (Psa2==null)                                            //~1Ah1I~
+	        sb.append("null");                                     //~1Ah1I~
+        else                                                       //~1Ah1I~
+        for (int ii=0;ii<Psa2.length;ii++)     //account sequence  //~1Ah1I~
+        {                                                          //~1Ah1I~
+        	if (ii!=0)                                             //~1Ah1I~
+    	        sb.append(",");                                    //~1Ah1I~
+            sb.append(toString(Psa2[ii]));                         //~1Ah1I~
+        }                                                          //~1Ah1I~
+        sb.append("]");                                            //~1Ah1I~
+        String s=sb.toString();                                    //~1Ah1I~
+        if (Dump.Y) Dump.println("Utils.toString(Rect[][]) out="+s);//~1Ah1I~
+        return s;                                                  //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(String Pstr)                     //~1Ah1I~
+    {                                                              //~1Ah1I~
+    	return Pstr==null ? "null" : Pstr;                         //~1Ah1I~
+    }                                                              //~1Ah1I~
+    //*************************************************            //~1Ah1I~
+    public static String toString(Object Pobj)                     //~1Ah1I~
+    {                                                              //~1Ah1I~
+    	return Pobj==null ? "null" : Pobj.toString();              //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************                                           //~1Ah1I~
+    public static String getStr(int Presid)                        //~1Ah1I~
+	{                                                              //~1Ah1I~
+    	if (Presid==0)                                             //~1Ah1I~
+        	return "";                                             //~1Ah1I~
+    	return AG.resource.getString(Presid);                      //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************                                           //+1AhkI~
+    public static String[] getStrArray(int Presid)                   //+1AhkI~
+	{                                                              //+1AhkI~
+    	return AG.resource.getStringArray(Presid);                 //+1AhkI~
+    }                                                              //+1AhkI~
+//**********************                                           //~1Ah1I~
+    public static String getStr(int Presid,String P1)              //~1Ah1I~
+	{                                                              //~1Ah1I~
+    	return AG.resource.getString(Presid,P1);                   //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************                                           //~1Ah1I~
+    public static String getStr(int Presid,int P1)                 //~1Ah1I~
+	{                                                              //~1Ah1I~
+    	return AG.resource.getString(Presid,P1);                   //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************                                           //~1Ah1I~
+    public static String getStr(int Presid,String P1,String P2)    //~1Ah1I~
+	{                                                              //~1Ah1I~
+    	return AG.resource.getString(Presid,P1,P2);                //~1Ah1I~
+    }                                                              //~1Ah1I~
+//**********************                                           //~1AhkI~
+    public static String joinStr(String Pseparater,String[] Pstrarray)//~1AhkI~
+	{                                                              //~1AhkI~
+	 //  	StringJoiner sj=new StringJoiner(Pseparater);     //from api24//~1AhkI~
+        StringBuffer sb=new StringBuffer();                        //~1AhkI~
+        for (String s:Pstrarray)                                   //~1AhkI~
+        {                                                          //~1AhkI~
+    		sb.append(s+Pseparater);                               //~1AhkI~
+    	}                                                          //~1AhkI~
+        return sb.substring(0,sb.length()-1);                      //~1AhkI~
+    }                                                              //~1AhkI~
+//**********************                                           //~1AhkI~
+    public static String joinStr(String[] Pstrarray)               //~1AhkI~
+	{                                                              //~1AhkI~
+        return joinStr(",",Pstrarray);                             //~1AhkI~
+    }                                                              //~1AhkI~
 }//class AjagoUtils                                                //~1309R~

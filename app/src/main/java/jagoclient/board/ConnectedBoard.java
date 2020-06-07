@@ -1,4 +1,4 @@
-//*CID://+1A3aR~:                             update#=  121;       //+1A3aR~
+//*CID://+1A3aR~:                             update#=  123;       //~1A3aR~
 //****************************************************************************//~v101I~
 //1A3a 2013/04/25 screen flicker by duplicate copy() by 1A37       //~103aI~
 //1A38 2013/04/22 (BUG)When response(@@!move) delayed,accept next select.//~1038I~
@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1A3aR~
 import com.Ahsv.awt.Color;
 import com.Ahsv.awt.Graphics;
 import jagoclient.Dump;
@@ -969,7 +969,7 @@ public class ConnectedBoard extends Board
         }                                                          //~v101I~
     	updateSelected(Pi,Pj);                                      //~@@@2I~
 		showinformation();                                         //~@@@2I~
-//  	copy(); // show position                                   //~@@@2I~//+1A3aR~
+//  	copy(); // show position                                   //~@@@2I~//~1A3aR~
     }                                                              //~@@@2I~
 //**************************************************************** //~@@@2I~
 //*draw selected piece                                             //~@@@2I~

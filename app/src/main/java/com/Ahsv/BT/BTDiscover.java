@@ -1,6 +1,7 @@
-//*CID://+1Af1R~:                             update#=   51;       //+1Af1R~
+//*CID://+1Ah9R~:                             update#=   55;       //+1Ah9R~
 //*************************************************************************//~v101I~
-//1Af1 2016/07/05 (Ajagot1w)update bluetooth connection dialog from bluetooth receiver//+1Af1I~
+//1Ah9 2020/06/02 BT dicover crash(for the case discovered device missing name).//+1Ah9I~
+//1Af1 2016/07/05 (Ajagot1w)update bluetooth connection dialog from bluetooth receiver//~1Af1I~
 //1AbQ 2015/07/03 BT:Warning when Bluetooth was set OFF by System:settings//~1AbQI~
 //1AbP 2015/07/03 cancelBondProcess set Bonduing-->Avalable, but startDiscovery dose not work(No Found/END broadcast msg delivered)//~1AbQI~
 //1AbL 2015/07/02 try cancelBondProcess at scan if bonding         //~1AbLI~
@@ -35,12 +36,12 @@ import java.util.Set;
 import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.Alert;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Af1R~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableI;
 import com.Ahsv.Utils;
-                                                                   //+1Af1I~
-import jagoclient.partner.BluetoothConnection;                     //+1Af1I~
+                                                                   //~1Af1I~
+import jagoclient.partner.BluetoothConnection;                     //~1Af1I~
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -242,7 +243,7 @@ public class BTDiscover extends BroadcastReceiver                 //~@@@@R~
             if (Dump.Y) Dump.println("Broardcast receiver action="+action+",destroy="+AG.aBT.swDestroy+",swDiscover="+swDiscover);//~@@@@I~//~v101R~//~1AbGI~
             if (AG.aBT.swDestroy)                                  //~v101R~
             	return;                                            //~v101I~
-            BluetoothConnection.onReceive(action);                 //+1Af1I~
+            BluetoothConnection.onReceive(action);                 //~1Af1I~
 //          if (!swDiscover)                                       //~v101I~//~1AbGR~
 //          	return;                                            //~v101I~//~1AbGR~
           try                                                      //~v101I~
@@ -260,6 +261,10 @@ public class BTDiscover extends BroadcastReceiver                 //~@@@@R~
                     String name=device.getName();                  //~@@@@I~
                     String addr=device.getAddress();               //~@@@@I~
    		   	      	if (Dump.Y) Dump.println("Broarcast receiver device="+name+",addr="+addr);//~@@@@I~
+                    if (name==null)                                //~v@@@I~//+1Ah9I~
+                    {                                              //~v@@@I~//+1Ah9I~
+	              		return;                                    //~v@@@I~//+1Ah9I~
+                    }                                              //~v@@@I~//+1Ah9I~
 		        	devicelist.add(name);                          //~@@@@I~
 		        	devicelist.add(addr);                          //~@@@@I~
                 }
@@ -278,6 +283,7 @@ public class BTDiscover extends BroadcastReceiver                 //~@@@@R~
 					newDevice=devicelist.toArray(new String[0]);   //~@@@@R~
                 else                                               //~@@@@I~
 					newDevice=null;                                //~@@@@I~
+   		   	    if (Dump.Y) Dump.println("BTDiscover.onReceiver DISCOVERY_FINISHED newDvice="+Utils.toString(newDevice));//~1Af1I~
 //              unregister();                                      //~v101R~
 				doActionListener.doAction(AG.resource.getString(R.string.ActionDiscovered));//~@@@@I~
 //              instBTD=null;                                      //~v101R~

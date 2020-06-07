@@ -1,4 +1,4 @@
-//*CID://+1A6aR~:                             update#=  147;       //+1A6aR~
+//*CID://+1A6aR~:                             update#=  149;       //~1A6aR~
 //****************************************************************************//~v101I~
 //1Ac5 2015/07/09 NFCBT:confirmation dialog is not show and fails to pairig//~1Ac5I~
 //                (LocalBluetoothPreference:"Found no reason to show dialog",requires discovaring status in the 60 sec before)//~1Ac5I~
@@ -33,7 +33,7 @@ import jagoclient.gui.DoActionListener;
 
 import com.Ahsv.AG;                                                //~@@@@R~
 import com.Ahsv.AView;                                             //~@@@@R~
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1A6aR~
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -642,8 +642,8 @@ public class BTControl {                                           //~@@@@I~
         if (!BTCreate())                                           //~@@@@I~
             rc=-1;                                                 //~@@@@I~
         else                                                       //~@@@@I~
-        {                                                          //+1A6aI~
-	        if(Dump.Y) Dump.println("ensure discoverable scanmoed="+mBluetoothAdapter.getScanMode());//+1A6aI~
+        {                                                          //~1A6aI~
+	        if(Dump.Y) Dump.println("ensure discoverable scanmoed="+mBluetoothAdapter.getScanMode());//~1A6aI~
         if (mBluetoothAdapter.getScanMode()!=BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE)//~@@@@M~
 		{                                                          //~@@@@M~
         	if (PrequestSet)                                       //~@@@@M~
@@ -654,7 +654,7 @@ public class BTControl {                                           //~@@@@I~
             else                                                   //~@@@@M~
             	rc=-1;                                             //~@@@@R~
         }                                                          //~@@@@M~
-        }                                                          //+1A6aI~
+        }                                                          //~1A6aI~
         return rc;                                                 //~@@@@I~
     }                                                              //~@@@@M~
 //*************************************************************************//~1AbHI~

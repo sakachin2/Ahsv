@@ -1,12 +1,12 @@
-//*CID://+1AabR~:                             update#=   44;       //~1Aa7R~//+1AabR~
+//*CID://+1AabR~:                             update#=   46;       //~1Aa7R~//~1AabR~
 //**************************************************************************//~1Aa7I~
-//1Aab 2015/04/22 1Aa7 for local game                              //+1AabI~
+//1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
 //1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //~1Aa7I~
 //**************************************************************************//~1Aa7I~
 package jagoclient;                                                 //~@@@@R~
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1AabR~
 import com.Ahsv.awt.Checkbox;
 import com.Ahsv.awt.Frame;
 import jagoclient.Global;
@@ -42,8 +42,8 @@ public class LocalGameQuestion extends GameQuestion                //~@@@@R~
 		{                                                          //~@@@@R~
         	if (!getGameData())                                    //~@@@@I~
             	return;                                            //~@@@@I~
-            if (!chkLocalBK()) //chk piece count of local 1st/2nd player//+1AabI~
-            	return;                                            //+1AabI~
+            if (!chkLocalBK()) //chk piece count of local 1st/2nd player//~1AabI~
+            	return;                                            //~1AabI~
 			setVisible(false); dispose();
 			swStartGame=true;                                      //~@@@@R~
 		}

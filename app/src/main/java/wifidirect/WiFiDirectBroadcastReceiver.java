@@ -1,6 +1,7 @@
-//*CID://+1Ac4R~:                             update#=   16;       //+1Ac4R~
+//*CID://+1Ah8R~:                             update#=   21;       //~1Ah8R~
 //*************************************************************************//~1A65I~
-//1Ac4 2015/07/06 WD:try disable wifi direct at unpair             //+1Ac4I~
+//1Ah8 2020/06/01 detect wifip2p discovery stopped(available from API16 android4.1 JellyBean)//~1Ah8I~
+//1Ac4 2015/07/06 WD:try disable wifi direct at unpair             //~1Ac4I~
 //1A6s 2015/02/17 move NFC starter from WifiDirect dialog to MainFrame//~1A65I~
 //1A65 2015/01/29 implement Wifi-Direct function(>=Api14:android4.0)//~1A65I~
 //*************************************************************************//~1A65I~
@@ -34,6 +35,8 @@ import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
                                                                    //~1A65I~
 import com.Ahsv.AG;                                                //~1A65I~
+import com.Ahsv.AView;
+import com.Ahsv.R;
 
 /**
  * A BroadcastReceiver that notifies of important wifi p2p events.
@@ -70,6 +73,23 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
       try                                                          //~1A65I~
       {                                                            //~1A65I~
         String action = intent.getAction();
+        if (Dump.Y) Dump.println("WiFiDirectBroadCastReceiver.onReceive action="+action);//~1Ah8I~
+        if (WifiP2pManager.WIFI_P2P_DISCOVERY_CHANGED_ACTION.equals(action))//~1Ah8I~
+        {                                                          //~1Ah8I~
+            int state = intent.getIntExtra(WifiP2pManager.EXTRA_DISCOVERY_STATE, -1);//~1Ah8I~
+            if (Dump.Y) Dump.println("WiFiDirectBroadCastReceiver:onReceive:P2P_DISCOVERY_CHANGED state=" + state);//+1Ah8R~
+            if (state == WifiP2pManager.WIFI_P2P_DISCOVERY_STOPPED) //=1//+1Ah8R~
+			{                                                      //~1Ah8I~
+				AView.showToastLong(R.string.WD_DiscoveryStopped); //~1Ah8R~
+            	WDA.getDeviceListFragment().onStoppedDiscovery();  //~1Ah8I~
+            }                                                      //~1Ah8I~
+//            else                                                 //~1Ah8R~
+//            if (state == WifiP2pManager.WIFI_P2P_DISCOVERY_STARTED)//=2//+1Ah8R~
+//            {                                                    //~1Ah8R~
+//                AView.showToast(R.string.WD_DiscoveryStarted);          //~5219I~//~1Ah8R~
+//            }                                                    //~1Ah8R~
+        }                                                          //~1Ah8I~
+		else                                                       //~1Ah8I~
         if (WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION.equals(action)) {
 
             // UI update to indicate wifi p2p status.
@@ -77,7 +97,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
                 // Wifi Direct mode is enabled
                 activity.setIsWifiP2pEnabled(true);
-//              WDA.disableWiFi();//@@@@test                       //+1Ac4I~
+//              WDA.disableWiFi();//@@@@test                       //~1Ac4I~
             } else {
                 activity.setIsWifiP2pEnabled(false);
                 activity.resetData();

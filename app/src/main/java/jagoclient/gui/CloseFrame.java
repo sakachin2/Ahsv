@@ -1,4 +1,4 @@
-//*CID://+@@@2R~:                             update#=   10;       //~@@@@I~//~@@@2R~
+//*CID://+@@@2R~:                             update#=   12;       //~@@@@I~//~@@@2R~
 package jagoclient.gui;
 
 import jagoclient.Dump;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 //import   com.Ahsv.java.Hashtable;                                //~1417I~//~@@@@R~
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+@@@2R~
 import com.Ahsv.awt.ActionEvent;                                   //~@@@@R~
 import com.Ahsv.awt.ActionListener;                                //~@@@@R~
 import com.Ahsv.awt.Frame;                                         //~@@@@R~
@@ -82,7 +82,7 @@ public class CloseFrame extends Frame
 	public void doclose ()
 //  {	if (Global.getParameter("menuclose",true)) setMenuBar(null);//~@@@@R~
 	{	if (true) setMenuBar(null);                                //~@@@@I~
-    	if (Dump.Y) Dump.println("CloseFrame doclose()");          //+@@@2I~
+    	if (Dump.Y) Dump.println("CloseFrame doclose()");          //~@@@2I~
 		setVisible(false); dispose();
 	}
 	public void addCloseListener (CloseListener cl)

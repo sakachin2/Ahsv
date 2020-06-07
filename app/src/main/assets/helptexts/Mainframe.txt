@@ -1,0 +1,76 @@
+"Hasami-Shogi" is a familiar board game in Japan.
+"Shogi" game itself requires deep-thinking more over Chess,
+on the other hand, "Hasami-Shogi" is playing
+among children using Shogi pieces and board.
+("Hasami" is a form of Japanese verb "Hasamu"
+that means "sandwich" used as like as
+who sandwiches anything between two something.)
+
+This app is not a robot but for match with your friends.
+If there are two devices,
+you can match through wireless(Bluetooth or IP).
+You can select board and pieces from "Shogi" and "Chess".
+Games\'s objective is to capture opponent\'s pieces
+until gameover count.
+Pieces are captured when you sandwiched opponent\'s piece
+vertically and/or horizontally.
+  BWWB   or    B
+               W
+               B
+Or hold opponent\'s pieces at corner or border.
+"hold" example. 
+ +-------     +--------
+ |WB          |   BWWB
+ |B           |    BB
+Multiple pieces will be captured at once.
+Suicidal move(move your piece into between opponent's pieces
+filling the intermediate space)
+is allowed and not captured.
+Previous 2nd hold example show it.
+"W" moved into "BW B" and holded by "B" moved to
+2nd line from below or right.
+
+Pawn can move as Rook.
+Piece except Knight can not move beyond any piece.
+Entry of (Reflecting)Bishop and/or Knight are not usual,
+but optional in this variant for complexity.
+
+Knight can jump to 8 directions. A move allows n-steps for the same direction.
+  ----------------------
+  |  |  |○|  |○|  |  |
+  ----------------------
+  |  |○|  |  |  |○|  |
+  ----------------------
+  |  |  |  |◎|  |  |  |
+  ----------------------
+  |  |○|  |  |  |○|  |
+  ----------------------
+  |  |  |○|  |○|  |  |
+  ----------------------
+
+This main panel is for display board and pieces only,
+connect devices by a "Connect" button.
+------
+"Board" : switches 2 type of board.
+  Chess board : 8x8, Shogi board : 9x9
+"Piece" : switches 2 type of piece set, Chess and Shogi
+  "Fu" moves like as Pawn,
+  "Kaku" as Bishop, "Kei" as Knight.
+  Black glyph is Black, Red glyph is White.
+  Knight/Kei can jump any number of step to 8 direction.
+"Settings" : Options for this Appl.
+"Connect" : Open menu dialog to select connection type.
+            Use this to disconnect current session.
+------
+"Exit" : Stop application.
+"Msg" : After connection established,
+  you can send/receive message through Bluetooth or IP.
+------
+Thanks.
+Shogi board Image is from Jago client(by Rene Grothmann).
+Shogi piece image is mybona_kinki1.gif from MyBona site.
+  http://www.geocities.jp/shogi_depot/MyBona.htm
+Chess piece image is from Wiki site.
+  http://en.wikipedia.org/wiki/Chess
+
+(Mainframe.txt)

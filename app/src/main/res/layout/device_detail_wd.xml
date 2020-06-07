@@ -64,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
             android:textSize="20sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:background="#fff0f0f0"
                 android:textColor="#ff000000"
             />
@@ -74,6 +76,8 @@
             android:id="@+id/peer_status"
             android:singleLine="true"
             android:textSize="20sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:background="#fff0f0f0"
                 android:textColor="#ff000000"
         />      <!--1A90-->
@@ -84,6 +88,8 @@
             android:id="@+id/peer_info"
             android:singleLine="true"
             android:textSize="20sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:background="#fff0f0f0"
                 android:textColor="#ff00c080"
         />      <!--1A90-->

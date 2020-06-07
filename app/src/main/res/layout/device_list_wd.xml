@@ -43,6 +43,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.4"
 				android:textSize="24sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:gravity="center_vertical" />
             <TextView
                 android:id="@+id/my_status"
@@ -50,6 +52,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
                 android:singleLine="true"
+                android:maxLines="1"
+                android:ellipsize="end"
 				android:textSize="24sp"
                 android:gravity="center_vertical" />
             <TextView
@@ -113,7 +117,7 @@
     <!-- Available peers -->
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
                  android:layout_weight="1"
         android:minHeight="60dp"
     >    <!--1Aa3-->
@@ -121,7 +125,7 @@
         <ListView
             android:id="@+id/device_list"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
                 android:fadeScrollbars="false"
             	android:scrollbars="vertical"
             	android:requiresFadingEdge="vertical"

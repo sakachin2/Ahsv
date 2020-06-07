@@ -1,4 +1,7 @@
-//*CID://+@@@@R~:                             update#=    4;       //~@@@@I~
+//*CID://+1Ah7R~:                             update#=    5;       //~@@@@I~//+1Ah7R~
+//*****************************************************************//+1Ah7I~
+//1Ah7 2020/05/31 Properties.save deprecated at api15, use store.  //+1Ah7I~
+//*****************************************************************//+1Ah7I~
 package rene.gui;
 
 //import java.awt.Color;                                           //~1108R~
@@ -107,16 +110,16 @@ public class Global
 	public static void initBundle (String file, boolean language)
 	{	try
 		{	B=ResourceBundle.getBundle(file);
-//            String lang=getParameter("language","");             //+@@@@R~
-//            if (language && !lang.equals("") && !lang.equals("default"))//+@@@@R~
-//            {   String langsec="";                               //+@@@@R~
-//                if (lang.length()>3 && lang.charAt(2)=='_')      //+@@@@R~
-//                {   langsec=lang.substring(3);                   //+@@@@R~
-//                    lang=lang.substring(0,2);                    //+@@@@R~
-//                }                                                //+@@@@R~
-//                Locale.setDefault(new Locale(lang,langsec));     //+@@@@R~
-//                initBundle(file,false);                          //+@@@@R~
-//            }                                                    //+@@@@R~
+//            String lang=getParameter("language","");             //~@@@@R~
+//            if (language && !lang.equals("") && !lang.equals("default"))//~@@@@R~
+//            {   String langsec="";                               //~@@@@R~
+//                if (lang.length()>3 && lang.charAt(2)=='_')      //~@@@@R~
+//                {   langsec=lang.substring(3);                   //~@@@@R~
+//                    lang=lang.substring(0,2);                    //~@@@@R~
+//                }                                                //~@@@@R~
+//                Locale.setDefault(new Locale(lang,langsec));     //~@@@@R~
+//                initBundle(file,false);                          //~@@@@R~
+//            }                                                    //~@@@@R~
 		}
 		catch (RuntimeException e)
 		{	B=null;
@@ -197,7 +200,8 @@ public class Global
 	public static synchronized void saveProperties (String text)
 	{	try
 		{	FileOutputStream out=new FileOutputStream(ConfigName);
-			P.save(out,text);
+//  		P.save(out,text);                                      //+1Ah7R~
+    		P.store(out,text);                                     //+1Ah7I~
 			out.close();
 		}
 		catch (Exception e)                                        //~1401R~
@@ -238,16 +242,16 @@ public class Global
 		}
 		else return def;
 	}
-//    public static double getVersion ()                           //+@@@@R~
-//    {   String s=getParameter("program.version","0");            //+@@@@R~
-//        int pos=s.indexOf(" ");                                  //+@@@@R~
-//        if (pos>0) s=s.substring(0,pos);                         //+@@@@R~
-//        try                                                      //+@@@@R~
-//        {   return new Double(s).doubleValue();                  //+@@@@R~
-//        }                                                        //+@@@@R~
-//        catch (Exception e) {}                                   //+@@@@R~
-//        return 0;                                                //+@@@@R~
-//    }                                                            //+@@@@R~
+//    public static double getVersion ()                           //~@@@@R~
+//    {   String s=getParameter("program.version","0");            //~@@@@R~
+//        int pos=s.indexOf(" ");                                  //~@@@@R~
+//        if (pos>0) s=s.substring(0,pos);                         //~@@@@R~
+//        try                                                      //~@@@@R~
+//        {   return new Double(s).doubleValue();                  //~@@@@R~
+//        }                                                        //~@@@@R~
+//        catch (Exception e) {}                                   //~@@@@R~
+//        return 0;                                                //~@@@@R~
+//    }                                                            //~@@@@R~
 	public static synchronized void setParameter (String key, String value)
 	{	if (P==null) return;
 		if (value.length()>0 && Character.isSpaceChar(value.charAt(0)))

@@ -1,5 +1,3 @@
-(nfcselect_ja.txt)
-
 NFCハンドオーバー のタイプを選択します
 
 OKボタンで "Wi-Fiダイレクト"(黄色) ないし "Bluetooth"(青色) の
@@ -35,3 +33,4 @@ Bluetooth設定 :
   Bluetooth-非セキュア接続の場合リストにないデバイスとも接続できます
   (Bluetoothの場合NFC画面をタッチしたほうがサーバーになります)
 
+(nfcselect_ja.txt)

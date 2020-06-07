@@ -1,0 +1,7 @@
+Your Name : used for BT/IP match to notify You.
+Show Coordinate : display coordinate.
+OneTouch : Select/Move piece by one touch each.
+           Default is 2 touch mode.
+Show Timer : show remaining time under the board.
+
+(MainOptions 2020/06/06)

@@ -1,4 +1,4 @@
-//*CID://+1AabR~:                                   update#=   69; //~1AabR~
+//*CID://+1AabR~:                                   update#=   71; //~1AabR~
 //****************************************************************************//~@@@1I~
 //1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
 //****************************************************************************//~@@@1I~
@@ -25,7 +25,7 @@ import java.net.Socket;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1AabR~
 import com.Ahsv.awt.Color;                                         //~v108R~
 import com.Ahsv.awt.KeyEvent;                                      //~v108R~
 import com.Ahsv.awt.KeyListener;                                   //~v108R~
@@ -64,10 +64,10 @@ public class LocalFrame extends CloseFrame                              //~@@@2R
         sz=AG.propBoardSize;                                        //~@@@2R~
         if (AG.isChessBoard())                                     //~@@@2R~
         	color=-color;                                          //~@@@2I~
-        if (bishopLocal==0)                                        //+1AabI~
-            bishopLocal=bishop;                                    //+1AabI~
-        if (knightLocal==0)                                        //+1AabI~
-            knightLocal=knight;                                    //+1AabI~
+        if (bishopLocal==0)                                        //~1AabI~
+            bishopLocal=bishop;                                    //~1AabI~
+        if (knightLocal==0)                                        //~1AabI~
+            knightLocal=knight;                                    //~1AabI~
 		PGF=new LocalGoFrame(this,                                //~@@@2R~
 				color,sz,                                          //~@@@2R~
 //  			gameover,gameover2,totaltime*60,extratime,bishop,knight,gameoptions);//~@@@2R~//~1AabR~

@@ -1,4 +1,4 @@
-//*CID://+v107R~:                             update#=   10;       //~v107I~
+//*CID://+v107R~:                             update#=   12;       //~v107I~
 //*************************************************************************//~v107I~
 //1071:121204 partner connection using Bluetooth SPP               //~v107I~
 //*************************************************************************//~v107I~
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import android.view.View;
 import com.Ahsv.AG;                                                //~v107R~
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+v107R~
 
 public class MenuBar                                               //~1121R~
 {                                                                  //~1112I~
@@ -49,8 +49,8 @@ public class MenuBar                                               //~1121R~
     public void add(Menu Pmenu)                                         //~1121I~
     {                                                              //~1121I~
         menuList.add(Pmenu);                                       //~1121I~
-//  	if (Pmenu.name.equals(Global.resourceString("Help")))      //~1411I~//+v107R~
-    	if (Pmenu.name.equals(AG.resource.getString(R.string.Help)))//+v107I~
+//  	if (Pmenu.name.equals(Global.resourceString("Help")))      //~1411I~//~v107R~
+    	if (Pmenu.name.equals(AG.resource.getString(R.string.Help)))//~v107I~
 	    	helpMenu=Pmenu;	//WhoFrame,gamesFrame dose not use setHelpMenu()//~1411I~
     }
 //*************                                                    //~1123I~

@@ -1,6 +1,6 @@
-//*CID://+1A4sR~:                             update#=   43;       //+1A4sR~
+//*CID://+1A4sR~:                             update#=   45;       //~1A4sR~
 //********************************************************************//~v101I~
-//1A4s 2015/02/23 Asgts 2014/12/06 utilize clipboard(view dialog)  //+1A4sI~
+//1A4s 2015/02/23 Asgts 2014/12/06 utilize clipboard(view dialog)  //~1A4sI~
 //1A40 2015/02/16 Asgts:2014/09/13 adjust for mdpi:HVGA:480x320    //~1A40I~
 //1A68 2015/02/06 set dialog size(Why IPConnection fill screen?)   //~1A68I~
 //101e 2013/02/08 findViewById to Container(super of Frame and Dialog)//~v101I~
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import com.Ahsv.AG;                                                //~2C26R~
 import com.Ahsv.Modal;                                      //~2C26R~//~@@@@R~
 import com.Ahsv.ModalI;                                     //~2C26R~//~@@@@R~
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1A4sR~
 import com.Ahsv.UiThread;                                          //~2C26R~
 import com.Ahsv.UiThreadI;                                         //~2C26R~
 import com.Ahsv.AView;                                         //~2C26R~//~@@@@R~
@@ -122,25 +122,25 @@ public class Dialog extends Window//extends android.app.Dialog                  
 	    	runOnUiThreadDlg(true,new ThreadData(CASE_CONSTRUCT,Ptitle));//~@@@@I~
 	    setTitle(Ptitle);                                          //~@@@@I~
 	}                                                              //~@@@@I~
-//**********************************                               //+1A4sI~
-	public Dialog(Dialog Pparent,String Ptitle,int Presid,boolean Pmodal,boolean Pwaitinput)//+1A4sI~
-	{                                                              //+1A4sI~
-    	this();                                                    //+1A4sI~
-//      parentFrame=Pframe;                                        //+1A4sI~
-        parentDialog=Pparent;                                      //+1A4sI~
-        layoutFrame=AG.currentFrame;	//having layout resourceid //+1A4sI~
-        modal=Pmodal;                                              //+1A4sI~
-        modalToGetInput=Pwaitinput;                                //+1A4sI~
-    //*setLayoutId                                                 //+1A4sI~
-        dialogname=Ptitle;                                         //+1A4sI~
-        layoutresourceid=Presid;                                   //+1A4sI~
-        afterDismiss=evaluateAfterDismiss();                       //+1A4sI~
-        if (Dump.Y) Dump.println("Dialog name="+Ptitle+",layoutid="+Integer.toHexString(Presid));//+1A4sI~
-        if (Dump.Y) Dump.println("AfterDismiss="+afterDismiss);    //+1A4sI~
-	    if (layoutresourceid!=0)	//title specified              //+1A4sI~
-	    	runOnUiThreadDlg(true,new ThreadData(CASE_CONSTRUCT,Ptitle));//+1A4sI~
-	    setTitle(Ptitle);                                          //+1A4sI~
-	}                                                              //+1A4sI~
+//**********************************                               //~1A4sI~
+	public Dialog(Dialog Pparent,String Ptitle,int Presid,boolean Pmodal,boolean Pwaitinput)//~1A4sI~
+	{                                                              //~1A4sI~
+    	this();                                                    //~1A4sI~
+//      parentFrame=Pframe;                                        //~1A4sI~
+        parentDialog=Pparent;                                      //~1A4sI~
+        layoutFrame=AG.currentFrame;	//having layout resourceid //~1A4sI~
+        modal=Pmodal;                                              //~1A4sI~
+        modalToGetInput=Pwaitinput;                                //~1A4sI~
+    //*setLayoutId                                                 //~1A4sI~
+        dialogname=Ptitle;                                         //~1A4sI~
+        layoutresourceid=Presid;                                   //~1A4sI~
+        afterDismiss=evaluateAfterDismiss();                       //~1A4sI~
+        if (Dump.Y) Dump.println("Dialog name="+Ptitle+",layoutid="+Integer.toHexString(Presid));//~1A4sI~
+        if (Dump.Y) Dump.println("AfterDismiss="+afterDismiss);    //~1A4sI~
+	    if (layoutresourceid!=0)	//title specified              //~1A4sI~
+	    	runOnUiThreadDlg(true,new ThreadData(CASE_CONSTRUCT,Ptitle));//~1A4sI~
+	    setTitle(Ptitle);                                          //~1A4sI~
+	}                                                              //~1A4sI~
 //*********                                                        //~1310I~
     private void setLayoutId(String s)                             //~1310I~
     {                                                              //~1310I~
@@ -517,7 +517,7 @@ public class Dialog extends Window//extends android.app.Dialog                  
         else                                                       //~1407I~
         {                                                          //~1407I~
 	        setAfterDismiss();	//set static for re-scheduled entry//~1407I~
-          if (parentFrame!=null)                                   //+1A4sI~
+          if (parentFrame!=null)                                   //~1A4sI~
 			ActionEvent.redoFrameAction(parentFrame);              //~1407R~
         }                                                          //~1407I~
     }                                                              //~1330I~

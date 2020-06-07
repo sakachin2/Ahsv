@@ -1,5 +1,6 @@
-//*CID://+1A25R~:                             update#=    3;       //~3325I~//~1A25I~
+//*CID://+1Ah5R~:                             update#=    4;       //+1Ah5R~
 //**************************************************************** //~3325I~//~1A25I~
+//1Ah5 2020/05/31 uncheckd type Vector.addElement                  //+1Ah5I~
 //1A25 2013/03/25 StringParser:consideration quotation             //~3325I~//~1A25I~
 //**************************************************************** //~3325I~//~1A25I~
 package rene.util.parser;
@@ -89,8 +90,8 @@ public class StringParser
 		}                                                          //~1A25I~
         if (N==n)                                                  //~1A25I~
         	return "";                                             //~1A25I~
-        N++;                                                       //+1A25I~
-		return new String(C,n,N-n-1);                              //+1A25R~
+        N++;                                                       //~1A25I~
+		return new String(C,n,N-n-1);                              //~1A25R~
 	}                                                              //~1A25I~
     //********************************************                 //~1A25I~
 
@@ -260,7 +261,9 @@ public class StringParser
 	@return a Vector with lines
 	*/
 	public Vector<String> wraplines (int columns)
-	{	Vector v=new Vector(10,10);
+//  {	Vector v=new Vector(10,10);                                //+1Ah5R~
+    {                                                              //+1Ah5I~
+     	Vector<String> v=new Vector<String>(10,10);                //+1Ah5I~
 		String s;
 		while (!Error)
 		{	s=wrapline(columns);
@@ -296,7 +299,9 @@ public class StringParser
 	}
 
 	public Vector wrapwords (int columns)
-	{	Vector v=new Vector(10,10);
+//  {	Vector v=new Vector(10,10);                                //+1Ah5R~
+    {                                                              //+1Ah5I~
+    	Vector<String> v=new Vector<String>(10,10);                //+1Ah5I~
 		String s;
 		while (!Error)
 		{	s=wraplineword(columns);

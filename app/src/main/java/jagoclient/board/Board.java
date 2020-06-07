@@ -1,7 +1,8 @@
-//*CID://+1Ag9R~:                                   update#=  272; //+1Ag9R~
+//*CID://+1Ah5R~:                                   update#=  275; //~1Ag9R~//+1Ah5R~
 //*****************************************************************************//~@@@1I~
-//1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//+1Ag9I~
-//                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//+1Ag9I~
+//1Ah5 2020/05/31 uncheckd type Vector.addElement                  //+1Ah5I~
+//1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//~1Ag9I~
+//                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//~1Ag9I~
 //1Ad9 2015/07/21 additional to 1Ad6(OutOfMemory)                  //~1Ad9I~
 //1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
 //1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
@@ -25,7 +26,7 @@ import java.util.Vector;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Ag9R~
 import com.Ahsv.awt.Canvas;                                        //~@@@@R~
 import com.Ahsv.awt.Color;                                         //~@@@@R~
 import com.Ahsv.awt.Dimension;                                     //~@@@@R~
@@ -132,7 +133,8 @@ public class Board extends Canvas                                //~1116R~//~142
     public Image Empty,ActiveImage;                                //~@@@@R~
 		// offscreen images of empty and current board
     SGFTree T; // the game tree                                    //~@@@@R~
-	Vector Trees; // the game trees (one of them is T)
+//  Vector Trees; // the game trees (one of them is T)             //+1Ah5R~
+    Vector<SGFTree> Trees; // the game trees (one of them is T)    //+1Ah5I~
 	int CurrentTree; // the currently displayed tree
 	public //@@@@ for Canvas to calc cursor position               //~1422I~
 	Position P; // current board position
@@ -191,7 +193,8 @@ public class Board extends Canvas                                //~1116R~//~142
 		P=new Position(S);
 		number=1;
         T=new SGFTree(new Node(number));                           //~@@@@R~
-		Trees=new Vector();
+//  	Trees=new Vector();                                        //+1Ah5R~
+    	Trees=new Vector<SGFTree>();                               //+1Ah5I~
 		Trees.addElement(T);
 		CurrentTree=0;
 		Pos=T.top();
@@ -3469,22 +3472,22 @@ public class Board extends Canvas                                //~1116R~//~142
 	protected void capturePiece(int i,int j){};                    //~@@@@I~
 	protected void drawCapturedPieceMark(Graphics Pg,int i,int j){};//~@@@@I~
 	protected void infoMoved(int Pi1,int Pj1,int Ppiece,int Pcolor,int Pi2,int Pj2){};//~@@@@I~
-    //*************************************************************************//+1Ag9I~
-    //*from Canvas at stopThread                                   //+1Ag9I~
-    //*************************************************************************//+1Ag9I~
-    public void onDestroy()                                        //+1Ag9I~
-    {                                                              //+1Ag9I~
-		if (Empty!=null)                                           //+1Ag9I~
-        {                                                          //+1Ag9I~
-        	if (Dump.Y) Dump.println("Board:onDestroy Empty="+Empty.toString());//+1Ag9I~
-//      	Empty.recycle(true);                                   //+1Ag9I~
-            Empty=null;                                            //+1Ag9I~
-        }                                                          //+1Ag9I~
-		if (ActiveImage!=null)                                     //+1Ag9I~
-        {                                                          //+1Ag9I~
-        	if (Dump.Y) Dump.println("Board:onDestroy ActiveImage="+ActiveImage.toString());//+1Ag9I~
-//      	ActiveImage.recycle(true);                             //+1Ag9I~
-            ActiveImage=null;                                      //+1Ag9I~
-        }                                                          //+1Ag9I~
-    }//onDestroy()                                                 //+1Ag9I~
+    //*************************************************************************//~1Ag9I~
+    //*from Canvas at stopThread                                   //~1Ag9I~
+    //*************************************************************************//~1Ag9I~
+    public void onDestroy()                                        //~1Ag9I~
+    {                                                              //~1Ag9I~
+		if (Empty!=null)                                           //~1Ag9I~
+        {                                                          //~1Ag9I~
+        	if (Dump.Y) Dump.println("Board:onDestroy Empty="+Empty.toString());//~1Ag9I~
+//      	Empty.recycle(true);                                   //~1Ag9I~
+            Empty=null;                                            //~1Ag9I~
+        }                                                          //~1Ag9I~
+		if (ActiveImage!=null)                                     //~1Ag9I~
+        {                                                          //~1Ag9I~
+        	if (Dump.Y) Dump.println("Board:onDestroy ActiveImage="+ActiveImage.toString());//~1Ag9I~
+//      	ActiveImage.recycle(true);                             //~1Ag9I~
+            ActiveImage=null;                                      //~1Ag9I~
+        }                                                          //~1Ag9I~
+    }//onDestroy()                                                 //~1Ag9I~
 }//~@@@@I~

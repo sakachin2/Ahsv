@@ -1,13 +1,14 @@
-//*CID://+1AabR~:                                   update#=  112; //+1AabR~
+//*CID://+1AhgR~:                                   update#=  115; //+1AhgR~
 //****************************************************************************//~@@@1I~
-//1Aab 2015/04/22 1Aa7 for local game                              //+1AabI~
+//1Ahg 2020/06/03 help text;string to helptext\
+//1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
 //1A50 2014/10/27 mdpi & tablet support                            //~1A50I~
 //****************************************************************************//~@@@1I~
 package jagoclient;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;                                         //~v107R~//~@@@@R~
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1AabR~
 import com.Ahsv.awt.Frame;
 import com.Ahsv.awt.KeyEvent;                                      //~v107R~
 import com.Ahsv.awt.KeyListener;                                   //~v107R~
@@ -37,15 +38,15 @@ public class LocalGoFrame extends TimedGoFrame                     //~@@@@I~
 //    public PartnerGoFrame (PartnerFrame pf, String s,            //~@@@@R~
 //  	int col, int si, int tt, int et, int em, int ha)           //~@@@@R~
 	public LocalGoFrame (LocalFrame pf,                     //~@@@@M~
-//  	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions)//~@@@@R~//+1AabR~
-    	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions,//+1AabI~
-        int Pbishop2,int Pknight2)                                 //+1AabI~
+//  	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions)//~@@@@R~//~1AabR~
+    	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions,//~1AabI~
+        int Pbishop2,int Pknight2)                                 //~1AabI~
 //  {	super(s,si,Global.resourceString("End_Game"),Global.resourceString("Count"),false,false);//~@@@@R~
     {                                                              //~@@@@I~
 //        super(s,si,Global.resourceString("End_Game"),Global.resourceString("Count"),Pgameover,Pgameover2,Pbishop,Pknight,Pgameoptions,col);//~@@@@R~
         super(pf,AG.frameId_ConnectedGoFrame,AG.resource.getString(R.string.Title_LocalViewer),//~@@@@R~
-//  		col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions);//~@@@@R~//+1AabR~
-    		col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions|GameQuestion.GAMEOPT_LOCALGAME,Pbishop2,Pknight2);//+1AabI~
+//  		col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions);//~@@@@R~//~1AabR~
+    		col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions|GameQuestion.GAMEOPT_LOCALGAME,Pbishop2,Pknight2);//~1AabI~
 		PF=pf;
 		if (col==1)                                                //~@@@@I~
         {                                                          //~@@@@I~
@@ -74,7 +75,8 @@ public class LocalGoFrame extends TimedGoFrame                     //~@@@@I~
 		}                                                          //~@@@1I~
         else if (o.equals(AG.resource.getString(R.string.Help)))   //~@@@@I~
 		{                                                          //~@@@@I~
-        	new HelpDialog(this,R.string.Help_GoFrame);                 //~@@@@R~
+//      	new HelpDialog(this,R.string.Help_GoFrame);                 //~@@@@R~//+1AhgR~
+        	new HelpDialog(this,R.string.Title_LocalViewer,"GoFrame");//+1AhgI~
 		}                                                          //~@@@@I~
 		else super.doAction(o);
 	}

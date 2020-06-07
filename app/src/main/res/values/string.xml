@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ahsv</string>
-    <string name="Version">V1.11</string>
+    <string name="app_nameE">Ahsv</string>
+    <string name="Version">V1.20</string>
+    <string name="AppTitle">%1$s : %2$s  (%3$s)</string>
 
     <string name="NoRegisteredContextMenu">"No menu regsitered for this Panel."</string>
     <string name="NoRegisteredHelpMenu">"No help-menu regsitered for this Panel."</string>
@@ -141,84 +143,6 @@
     <string name="BishopW">Bishop (Kaku)</string>
     <string name="KnightW">Knight (Kei)</string>
 
-    <string name="Help_MainFrame">
-                  "\"Hasami-Shogi\" is a familiar board game in Japan.\n"
-                  "\"Shogi\" game itself requires deep-thinking more over Chess,\n"
-                  "on the other hand, \"Hasami-Shogi\" is playing\n"
-                  "among children using Shogi pieces and board.\n"
-                  "(\"Hasami\" is a form of Japanese verb \"Hasamu\"\n"
-                  "that means \"sandwich\" used as like as\n"
-                  "who sandwiches anything between two something.)\n"
-                  "\n"
-                  "This app is not a robot but for match with your friends.\n"
-                  "If there are two devices,\n"
-				  "you can match through wireless(Bluetooth or IP).\n"
-                  "You can select board and pieces from \"Shogi\" and \"Chess\".\n"
-                  "Games\'s objective is to capture opponent\'s pieces\n"
-                  "until gameover count.\n"
-                  "Pieces are captured when you sandwiched opponent\'s piece\n"
-				  "vertically and/or horizontally.\n"
-         		  "  BWWB   or    B\n"
-                  "               W\n"
-                  "               B\n"
-                  "Or hold opponent\'s pieces at corner or border.\n"
-				  "\"hold\" example.\n" 
-         		  " +-------     +--------\n"
-                  " |WB          |   BWWB\n"
-                  " |B           |    BB\n"
-                  "Multiple pieces will be captured at once.\n"
-                  "Suicidal move(move your piece into between opponent's pieces\n"
-                  "filling the intermediate space)\n"
-				  "is allowed and not captured.\n"
-				  "Previous 2nd hold example show it.\n"
-				  "\"W\" moved into \"BW B\" and holded by \"B\" moved to\n"
-				  "2nd line from below or right.\n"
-                  "\n"
-                  "Pawn can move as Rook.\n"
-                  "Piece except Knight can not move beyond any piece.\n"
-                  "Entry of (Reflecting)Bishop and/or Knight are not usual,\n"
-                  "but optional in this variant for complexity.\n"
-                  "\n"
-                  "This main panel is for display board and pieces only,\n"
-                  "connect devices by a button(\"NFC-WD\"&lt;--&gt;\"Direct\").\n"
-                  "------\n"
-                  "\"Board\" : switches 2 type of board.\n"
-                  "  Chess board : 8x8, Shogi board : 9x9\n"
-                  "\"Piece\" : switches 2 type of piece set, Chess and Shogi\n"
-                  "  \"Fu\" moves like as Pawn,\n"
-                  "  \"Kaku\" as Bishop, \"Kei\" as Knight.\n"
-                  "  Black glyph is Black, Red glyph is White.\n"
-                  "  Knight/Kei can jump any number of step to 8 direction.\n"
-                  "\"Settings\" : Options for this Appl.\n"
-                  "\"NFC-WD\" : For the device equipped NFC tag,\n"
-                  "  establish Wi-Fi Direct connection\n"
-                  "  by closing the part of NFC tag in the range of 10 cm.\n"
-                  "  Once connected session, from next time\n"
-                  "  game starts by \"NFC-WD\"-->\"Game\".\n"
-                  "\"NFC-BT\" : For the device equipped NFC tag,\n"
-                  "  establish Bluetooth-InSecure connection\n"
-                  "  by closing the part of NFC tag in the range of 10 cm.\n"
-                  "  Once connected session, from next time\n"
-                  "  game starts by \"NFC-BT\"-->\"Game\".\n"
-                  "\"Local\" : two players matches on this terminal.\n"
-                  "\"BT\" : Connect two devices using bluetooth.\n"
-                  "\"IP\" : Connect two devices thru LAN or Wi-Fi.\n"
-                  "\"Direct\" : Wi-Fi Direct(Peer to Peer) connection.\n"
-                  "  LAN/Access point is not required.\n"
-                  "------\n"
-                  "Option Menu by Menu button\n"
-                  "(For >=Android3.0, icon on title bar)\n"
-                  "\"Exit\" : Stop application.\n"
-                  "\"Msg\" : After connection established,\n"
-                  "  you can send/receive message through Bluetooth or IP.\n"
-                  "------\n"
-                  "Thanks.\n"
-                  "Shogi board Image is from Jago client(by Rene Grothmann).\n"
-                  "Shogi piece image is mybona_kinki1.gif from MyBona site.\n"
-                  "  http://www.geocities.jp/shogi_depot/MyBona.htm\n"
-                  "Chess piece image is from Wiki site.\n"
-				  "  http://en.wikipedia.org/wiki/Chess\n"
-    </string>
 <!--mainFrameOptions-->
     <string name="MainFrameOptions">----- Main Settings -----</string>
     <string name="YourNameLabel">Your Name</string>
@@ -228,12 +152,12 @@
     <string name="BigTimer">Show Timer</string>
     <string name="Trace">Trace On</string>
     <string name="ActionChangeCoordinate">ActionChangeCoordinate</string>
-    <string name="Help_MainFrameOptions">
+    <!--string name="Help_MainFrameOptions">
                   " Your Name : used for BT/IP match to notify You.\n"
                   "Show Coordinate : display coordinate.\n"
                   "OneTouch : Select/Move piece by one touch each.\n"
                   "Show Timer : show remaining time under the board.\n"
-    </string>
+    </string-->
 <!--GameRequest-->
     <string name="Title_GameQuestion">Game Setup</string>
     <string name="BoardType">Board</string>
@@ -251,7 +175,7 @@
     <string name="Move_First">1st move</string>
     <string name="Request">Request</string>
     <string name="StartGame">Start</string> <!-- for local match-->
-    <string name="Help_GameQuestion">
+    <!--string name="Help_GameQuestion">
                   "Game Setup\n"
                   "Game start by \"Start\" for \"Local\",\n"
                   "For \"BT\"/\"IP\",game starts when you \"Request\",\n"
@@ -285,64 +209,17 @@
                   "  if placed to not movable square.\n"
                   "1st move : You are 1st move.\n"
                   "  It\'s White on Chess board, Black on Shorgi board.\n"
-    </string>
+    </string-->
 <!--BoardQuestion-->
     <string name="Title_BoardQuestion">Game Request</string>
     <string name="PartnerNameLabel">Opponent</string>
     <string name="Partner_Move_First">2nd move</string>
     <string name="Accept">Accept</string>
     <string name="Decline">Decline</string>
-    <string name="Help_BoardQuestion">
-                  "Game Request\n"
-                  "Game starts when you accepted.\n"
-                  "You can not change the match condition.\n"
-                  "\n"
-                  "Opponent : Game requester.\n"
-                  "Timeout : in minutes.\n"
-                  "ExtraTimeout : in seconds.\n"
-                  "  After timeout, each next move should be in this time.\n"
-                  "Gameover count : Gameover when this number of pieces\n"
-                  "  ware captured.\n"
-    			  "By difference count : after captured count difference\n"
-				  "  of twe players reached to this count,\n"
-                  "  gameover if the next move could not release\n"
-                  "  this condition.\n"
-                  "Bishop : Bishop initial position.\n"
-                  "Knight : Knight initial position.\n"
-                  "Change : Show dialog to set Bishop/Knight position.\n"
-                  "Allow Opponent to set Bishop/Knight(same piece count):\n"
-                  "  Shows requester\'s setting,\n"
-                  "  Change button is disabled if off\n"
-                  "Reflecting Bishop : Bishop can move reflecting\n"
-                  "  at border line except corner.\n"
-                  "Re-selectable : You can re-select the piece to be moved.\n"
-                  "  Yet, \"react a move\" is not allowed.\n"
-                  "Pass If Misplaced : Pass your turn\n"
-                  "  if placed to not movable square.\n"
-                  "2nd move : You are 2nd move.\n"
-                  "  It\'s Black on Chess board, White on Shorgi board.\n"
-    </string>
 <!--GameBoard-->
     <string name="Title_LocalViewer">Local Match</string>
     <string name="Title_PartnerMatch">Remote Match</string>
     <string name="Resign">Resign</string>
-    <string name="Help_GoFrame">
-                  "Touch a piece of your color to be moved,\n"
-                  "then touch destination square where move to.\n"
-                  "Cursor is moved also by slide.\n"
-                  "Piece or Square is selected when touched twice.\n"
-                  "Yellow button under the board displaying position\n"
-                  "is alternative of the 2nd touch\n"
-                  "(OneTouch mode is optional on MainOption)\n"
-                  "Captured pieces are listed under the board.\n"
-                  "  Yellow boxes shows remaining diffrence count,\n"
-                  "  White  boxes shows up to gameover count.\n"
-                  "-----\n"
-                  "Resign : Give-up and you lose this game.\n"
-                  "  Push in your turn for Local match.\n"
-                  "Close : This button appears after gameover.\n"
-                  "  Start next game after once closed.\n"
-    </string>
 <!--GoFrameOptions-->
     <string name="GoFrameOptions">----- Board Options -----</string>
     <string name="NoSound">No All Sound</string>
@@ -377,38 +254,6 @@
     <string name="Discover">Scan</string>
     <string name="ActionDiscovered">Discovered</string>
     <string name="LabelDeviceList">Paired Device List</string> <!--1A60-->
-    <string name="Help_BluetoothConnection">
-                  "Device : Name of your device.\n"
-                  "  It can be registered by android \"Settings\"-&gt;\"Bluetooth\".\n"
-                  "Accept : Set to connection request is acceptable.\n"
-                  "  At first, one of the pair shifts into this state.\n"
-                  "Connect : Request connection.\n"
-                  "  Then, the other requests connection\n"
-                  "  after selecting target device from list.\n"
-                  "  If not found in the device list,\n"
-                  "  \"Scan\" after confirmed target device\n"
-				  "  entered in \"Discoverable\" state.\n"
-                  "  Time to be discoverable depends on device type.\n"
-                  "  (Pairing is also set by android \"Settings\".)\n"
-                  "  \"Game Setup\" dialog will popup\n"
-                  "  after successful connection.\n"
-                  "  Try \"InSecure\" if \"Secure\" connection failed.\n"
-                  "  Or try to set pairing by android \"Settings\".\n"
-                  "Discoverable : Make discoverable for device scan.\n"
-                  "  Making discoverable is required before starting Scan.\n"
-                  "Scan : Scan for devices which was made \"Discoverable\".\n"
-                  "  It reaches about 10m.\n"
-                  "\n"
-                  "Sequence of connection which is not paired\n"
-                  "  may be as following.\n"
-                  "  \"Discoverable\"\n"
-                  "                       &lt;--\"Scan\"\n"
-                  "  \"Accept\"\n"
-                  "                       &lt;--\"Connect\"\n"
-                  "  At \"Connect\", \"Bluetooth pairing request\" dialog\n"
-				  "  will popup.\n"
-				  "  Reply \"Pair\" on both device.\n"
-    </string> <!--1A60-->
 <!--EndGameQuestion-->
     <string name="Title_EndGameQuestion">----- End -----</string>
     <string name="End_the_game">End the game?</string>
@@ -463,8 +308,8 @@
     <string name="WarnGameover2">Reached to difference count limit.</string>
     <string name="WarnGameover2Toast">Reached to difference count limit.\nYou will lose unless could\'t capture by next move.</string>
     <string name="Err_No_connection_to_">
-					"No connection to %1$s (port:%2$d)\n"
-					"Confirm \"Open Port\" on the other hand.\n"
+					"Connection failed.\n"
+					"Confirm destination(%1$s) did \"Open Port\" with this portNo(%2$d).\n"
 					"For \"Direct\", you have to set \"Pair\" beforehand."
 				</string> <!--v65A-->
     <string name="ErrNameIsSpace">Name is missing</string>
@@ -506,7 +351,7 @@
     <string name="Delete">Delete</string>
     <string name="ListUp">↑</string>       <!--1Af9-->
     <string name="ListDown">↓</string>     <!--1Af9-->
-    <string name="Help_IPConnection">
+    <!--string name="Help_IPConnection">
                 "Setup IP connection.\n"
 				"You can play with your friend in the LAN\n"
 				"or over internet if environment allows.\n"
@@ -545,7 +390,7 @@
                 " For maintaining partner list.\n"
 				" Register IP address and port by popup dialog of\n"
                 " Edit/Add.\n"
-    </string>
+    </string-->
 
 <!--EditPartner-->
 	<string name="Title_EditPartner">---------- Edit IP connection ----------</string>
@@ -733,8 +578,9 @@
 <!--v108-->
     <string name="IPInSession">Connected</string>
     <string name="ErrOtherActiveSession">
-				"Only one session can be active simultaneously.\n"
-				"To create new session, disconnect currently active session(%1$s)."
+				"Only one session can be active.\n"
+				"To change connection type or device to connect,\n"
+				"disconnect current active session(%1$s)."
 		</string>
     <string name="server_text">This device will act as server(ConnectionAccepter).</string>  <!--1Aa4-->
     <string name="ButtonYouTube">OperationGuide Movie</string>
@@ -865,4 +711,39 @@
     <string name="UnDelete">UnDelete</string><!--1Af9-->
     <string name="NoDeletedEntry">
 					"No Deleted Entry. (You can undelete only one generation.)"</string><!--1Af9-->
+<!-- for android9 -->
+    <string name="ErrExceptionDetected">Exception Occured</string>
+    <string name="ErrAssetFileNotFound">Failed to find asset file:</string>
+    <string name="ErrAssetFileRead">Failed to read asset file:</string>
+    <string name="ExternalStorageForSDRequiresGranted">No permission to \"Write to SD\", Internal data folder will be used which is cleared at reinstallation.</string>
+    <string name="ExternalStorageForSDGranted">Pemission of \"wrie to SD\" is allowd.</string>
+    <string name="WD_DiscoveryStopped">WiFiDirect Discovery stopped.</string>
+    <string name="WD_DiscoveryDup">Already discovering, request rejected. (timeout=120sec)</string>
+    <string name="WD_DiscoveryCanceled">P2P discovery Canceled)</string>
+    <string name="WifiDirectGranted">WifiDirect is now available.</string>
+    <string name="WifiDirectRequiresGranted">Permission of \"Access to location\" is required to use WifiDirect.</string>
+    <string name="HelpTitle_Mainframe">Hasami-Shogi</string>
+	<string name="Msg_WaitingIPConnect2">"Connecting to %1$s (%2$s portNo:%3$d).\n"</string>
+    <string name="Err_No_connection_to_2">
+					"Connection failed.\n"
+					"Confirm destination(%1$s:%2$s) did \"Open Port\" with this portNo(%3$d).\n"
+					"For \"Direct\", you have to set \"Pair\" beforehand."
+				</string> <!--v65A-->
+	<string name="Label_Connections">"Connect"</string>
+    <string name="Label_LocalGame">Local (no connection)</string>
+    <string name="Label_WiFiNFCButton">NFC-WiFiDirect</string>  <!--1Ad3-->
+    <string name="Label_BTNFCButton">NFC-Bluetooth</string>  <!--1Ad3-->
+    <string name="Label_RemoteGame">Bluetooth</string>
+    <string name="Label_RemoteIP">IP</string>
+    <string name="Label_WiFiDirectButton">WiFi Direct</string>
+	<string-array name="MenuDialog_Connect">
+		<item>@string/Label_LocalGame</item>
+		<item>@string/Label_RemoteGame</item>
+		<item>@string/Label_RemoteIP</item>
+		<item>@string/Label_WiFiDirectButton</item>
+		<item>@string/Label_BTNFCButton</item>
+		<item>@string/Label_WiFiNFCButton</item>
+		<item>@string/Help</item>
+		<item>@string/Cancel</item>
+	</string-array>
 </resources>

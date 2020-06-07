@@ -1,6 +1,8 @@
-//*CID://+1AfaR~: update#= 209;                                    //+1AfaR~
+//*CID://+1AhkR~: update#= 215;                                    //~1Ah1R~//+1AhkR~
 //**********************************************************************//~v101I~
-//1Afa 2016/10/11 2016/07/11 Delete main function to avoid selected main as entrypoint for eclips starter//+1AfaI~
+//1Ahk 2020/06/05 Connect button for all connection type           //+1AhkI~
+//1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
+//1Afa 2016/10/11 2016/07/11 Delete main function to avoid selected main as entrypoint for eclips starter//~1AfaI~
 //1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
 //1A6p 2015/02/16 display.getWidth()/getHeight() was deprecated at api13,use getSize(Point)//~1A6pI~
 //1A6h 2015/02/14 NFC;if orientation changed ANFC activity was destryed by configuration change//~1A6hI~
@@ -17,6 +19,7 @@ import jagoclient.Go;                                              //~@@@@I~
 
 import com.Ahsv.awt.Frame;                                         //~@@@@R~
 import com.Ahsv.awt.Window;                                        //~@@@@R~
+import com.Ahsv.R;                                                 //~1AfaR~
 
 
 import android.annotation.TargetApi;
@@ -49,9 +52,12 @@ public class AView extends View                                  //~0914R~//~dat
     private static final int GREETING_LONG=3;                      //~v107R~//~@@@@R~
     private static final int GREETING_SHORT=6;                    //~v107R~//~@@@@R~
     private static final int SMALL_VIEW_LIMIT=400;             //~@@@@I~
-    private static final int SMALL_VIEW_HEIGHT=28;	//dp           //~@@@@R~
+//  private static final int SMALL_VIEW_HEIGHT=28;	//dp           //~@@@@R~//+1AhkR~
+    private static final int SMALL_VIEW_HEIGHT=32;	//dp           //+1AhkI~
     private static final int SMALL_IMAGE_HEIGHT=20;	//dp           //~@@@@I~
-    private static final int SMALL_TEXT_SIZE=8;	//sp               //~@@@@R~
+//  private static final int SMALL_TEXT_SIZE=8;	//sp               //~@@@@R~//+1AhkR~
+    private static final int SMALL_TEXT_SIZE=12;	//sp           //+1AhkI~
+    private static final int BASE_NEXUS7=800;                      //+1AhkI~
 //    private static final String[] Stab_tags={"MainFrame_tag_Servers","MainFrame_tag_Partners"};//~1122I~//~@@@@R~
 //    private Button[] tabbtns=new Button[2];                          //~1122I~
 //    private TabHost tabhost;                                       //~1122I~//~@@@@R~
@@ -132,8 +138,8 @@ public class AView extends View                                  //~0914R~//~dat
         String[] args=new String[1];                               //~@@@@I~
         args[0]="-h";                                              //~@@@@I~
     	AG.go=new Go();                                            //~@@@@R~
-//      Go.main(args);                                             //+1AfaR~
-        Go.GoMain(args);                                           //+1AfaI~
+//      Go.main(args);                                             //~1AfaR~
+        Go.GoMain(args);                                           //~1AfaI~
     }                                                              //~@@@@I~
 //*************************                                        //~1122M~
 	public void getScreenSize()                                    //~1122M~
@@ -150,7 +156,10 @@ public class AView extends View                                  //~0914R~//~dat
         AG.sp2pix=AG.resource.getDisplayMetrics().scaledDensity;   //~@@@@I~
         if (Dump.Y) Dump.println("AView: dp2pix="+AG.dip2pix); //~1506R~//~@@@@R~
         AG.portrait=(AG.scrWidth<AG.scrHeight);                    //~1223R~
-        if (AG.scrHeight-AG.scrWidth<SMALL_VIEW_LIMIT)             //~@@@@R~
+        int ww=Math.min(AG.scrWidth,AG.scrHeight);                 //+1AhkI~
+        AG.swSmallDevice=ww<BASE_NEXUS7;                           //+1AhkI~
+//      if (AG.scrHeight-AG.scrWidth<SMALL_VIEW_LIMIT)             //~@@@@R~//+1AhkR~
+        if (AG.swSmallDevice)                                      //+1AhkI~
         {                                                          //~@@@@R~
             AG.smallButton=true;                                   //~@@@@R~
             AG.smallViewHeight=(int)(SMALL_VIEW_HEIGHT*AG.dip2pix);//pix//~@@@@R~
@@ -255,6 +264,18 @@ public class AView extends View                                  //~0914R~//~dat
             return;                                                //~1513I~
         }                                                          //~1513I~
     }                                                              //~1326I~
+    private static void toastUI(String Pmsg)                               //~1Ah1I~
+    {                                                              //~1Ah1I~
+	    if (Dump.Y) Dump.println("toastUI context="+Utils.toString(AG.context)+",msg="+Pmsg);//~1Ah1I~
+    	if (AG.context!=null)                                      //~1Ah1I~
+        {                                                          //~1Ah1I~
+            if (idLong)                                            //~1Ah1I~
+		        Toast.makeText(AG.context,Pmsg,Toast.LENGTH_LONG).show();//~1Ah1I~
+            else                                                   //~1Ah1I~
+		        Toast.makeText(AG.context,Pmsg,Toast.LENGTH_SHORT).show();//~1Ah1I~
+            return;                                                //~1Ah1I~
+        }                                                          //~1Ah1I~
+    }                                                              //~1Ah1I~
 
 //*************************                                        //~1128I~
 	static public View inflateView(int Presid)                     //~1128I~
@@ -427,7 +448,10 @@ public class AView extends View                                  //~0914R~//~dat
         if (AG.status==AG.STATUS_STOPFINISH)                          //~@@@@I~
             return;                                                //~@@@@I~
         idLong=false;                                              //~1514I~
-    	UiThread.runOnUiThreadXfer(AG.aView,msg);                 //~1513I~//~@@@@R~
+        if (AG.aView==null)                                        //~1Ah1I~
+			toastUI(msg);                                    //~1Ah1I~
+        else                                                       //~1Ah1I~
+    		UiThread.runOnUiThreadXfer(AG.aView,msg);                 //~1513I~//~@@@@R~//~1Ah1R~
     }                                                              //~1421I~
 //**********************************************************       //~1514I~
     public static void showToastLong(int Presid,String Ptext)      //~1514I~
@@ -437,7 +461,10 @@ public class AView extends View                                  //~0914R~//~dat
         if (AG.status==AG.STATUS_STOPFINISH)                          //~@@@@I~
             return;                                                //~@@@@I~
         idLong=true;                                               //~1514I~
-    	UiThread.runOnUiThreadXfer(AG.aView,msg);            //~1514I~//~@@@@R~
+        if (AG.aView==null)                                        //~1Ah1I~
+			toastUI(msg);                                    //~1Ah1I~
+        else                                                       //~1Ah1I~
+	    	UiThread.runOnUiThreadXfer(AG.aView,msg);            //~1514I~//~@@@@R~//~1Ah1R~
     }                                                              //~1514I~
 //**********************************************************       //~@@@@I~
     public static void showToast(String Ptext)                     //~@@@@I~
@@ -446,7 +473,10 @@ public class AView extends View                                  //~0914R~//~dat
         if (AG.status==AG.STATUS_STOPFINISH)                          //~@@@@I~
             return;                                                //~@@@@I~
         idLong=false;                                              //~@@@@I~
-    	UiThread.runOnUiThreadXfer(AG.aView,Ptext);                //~@@@@I~
+        if (AG.aView==null)                                        //~1Ah1I~
+			toastUI(Ptext);                                  //~1Ah1I~
+        else                                                       //~1Ah1I~
+	    	UiThread.runOnUiThreadXfer(AG.aView,Ptext);                //~@@@@I~//~1Ah1R~
     }                                                              //~@@@@I~
 //**********************************************************       //~@@@@I~
     public static void showToastLong(String Ptext)                 //~@@@@I~
@@ -455,7 +485,10 @@ public class AView extends View                                  //~0914R~//~dat
         if (AG.status==AG.STATUS_STOPFINISH)                          //~@@@@I~
             return;                                                //~@@@@I~
         idLong=true;                                               //~@@@@I~
-    	UiThread.runOnUiThreadXfer(AG.aView,Ptext);                //~@@@@I~
+        if (AG.aView==null)                                        //~1Ah1I~
+			toastUI(Ptext);                                        //~1Ah1I~
+        else                                                       //~1Ah1I~
+    		UiThread.runOnUiThreadXfer(AG.aView,Ptext);                //~@@@@I~//~1Ah1R~
     }                                                              //~@@@@I~
 //**********************************                               //~v106I~
     public static void endGameConfirmed()                          //~v106I~

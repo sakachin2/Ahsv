@@ -1,5 +1,6 @@
-//*CID://+1AabR~:                             update#=   17;       //~1AabR~
+//*CID://+1AhgR~:                             update#=   20;       //+1AhgR~
 //**********************************************************************//~v101I~
+//1Ahg 2020/06/03 help text;string to helptext\
 //1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
 //1Aa9 2015/04/21 (BUG)Button of GameQuestion except Help dose not work after ChangeBK button//~1Aa8I~
 //                GameQuestion(ModalDialog) run on subthread at connection complete.//~1Aa8I~
@@ -18,7 +19,7 @@ package jagoclient.partner;
 //import com.Ahsv.awt.GridLayout;                                  //~2C26R~
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1AabR~
 import com.Ahsv.awt.Checkbox;
 //import jagoclient.gui.ButtonAction;                              //~2C26R~
 import jagoclient.Dump;
@@ -117,11 +118,11 @@ public class BoardQuestion extends CloseDialog
         new FormTextField(this,R.id.Gameover,Integer.toString(Gameover));//~v101I~
         new FormTextField(this,R.id.Gameover2,Integer.toString(Gameover2));//~v101I~
       ftfBishop=                                                   //~1Aa7I~
-//      new FormTextField(this,R.id.Bishop,GameQuestion.putPieces(Bishop,0));//~v101I~//+1AabR~
-        new FormTextField(this,R.id.Bishop,GameQuestion.putPieces(Bishop));//+1AabI~
+//      new FormTextField(this,R.id.Bishop,GameQuestion.putPieces(Bishop,0));//~v101I~//~1AabR~
+        new FormTextField(this,R.id.Bishop,GameQuestion.putPieces(Bishop));//~1AabI~
       ftfKnight=                                                   //~1Aa7I~
-//      new FormTextField(this,R.id.Knight,GameQuestion.putPieces(Knight,0));//~v101I~//+1AabR~
-        new FormTextField(this,R.id.Knight,GameQuestion.putPieces(Knight));//+1AabI~
+//      new FormTextField(this,R.id.Knight,GameQuestion.putPieces(Knight,0));//~v101I~//~1AabR~
+        new FormTextField(this,R.id.Knight,GameQuestion.putPieces(Knight));//~1AabI~
 //        new Checkbox(R.id.MoveOption).setState((GameOptions & GameQuestion.GAMEOPT_REFLECTABLE)!=0);                 //~2C29I~//~3104R~//~3107R~//~3118R~//~v101R~
 //        new Checkbox(R.id.Reselectable).setState((GameOptions & GameQuestion.GAMEOPT_RESELECTABLE)!=0);//~3107I~//~3118R~//~v101R~
 //        new Checkbox(R.id.NotRemovable).setState((GameOptions & GameQuestion.GAMEOPT_NOTREMOVABLE)!=0);//~3123I~//~v101R~
@@ -175,7 +176,8 @@ public class BoardQuestion extends CloseDialog
 		}
         else if (o.equals(AG.resource.getString(R.string.Help)))   //~2C30I~
 		{                                                          //~2C30I~
-			new HelpDialog(null,R.string.Help_BoardQuestion);           //~2C30I~
+//			new HelpDialog(null,R.string.Help_BoardQuestion);           //~2C30I~//+1AhgR~
+  			new HelpDialog(null,R.string.Title_BoardQuestion,"BoardQuestion");//+1AhgI~
 		}                                                          //~2C30I~
         else if (o.equals(AG.resource.getString(R.string.ChangeBKButton)))//~1Aa7I~
 		{                                                          //~1Aa7I~

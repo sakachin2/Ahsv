@@ -1,4 +1,4 @@
-//*CID://+@@@@R~:                                   update#=   57; //~v107I~//~@@@@R~
+//*CID://+@@@@R~:                                   update#=   59; //~v107I~//~@@@@R~
 //******************************************************************************************************************//~v107I~
 //1071:121204 partner connection using Bluetooth SPP               //~v107I~
 //******************************************************************************************************************//~v107I~
@@ -17,7 +17,7 @@ import java.util.LinkedList;
 
 import com.Ahsv.AG;                                                //~v107R~
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+@@@@R~
 
 
 /**
@@ -27,8 +27,8 @@ for commands (starting with @@).
 
 //public class PartnerThread extends Thread                        //~v107R~
 public class MsgThread extends StopThread                           //~@@@@R~
-//{ BufferedReader In;                                             //+@@@@R~
-{                                                                  //+@@@@I~
+//{ BufferedReader In;                                             //~@@@@R~
+{                                                                  //~@@@@I~
     PrintWriter Out;                                             
     PartnerThread PT;                                              //~@@@@R~
     private boolean swIO;                                                  //~@@@@I~
@@ -39,7 +39,7 @@ public class MsgThread extends StopThread                           //~@@@@R~
     {                                                              //~v107I~
         super();                                                    //~@@@@R~
         PT=pt;                                                     //~@@@@R~
-//        In=in;                                                   //+@@@@R~
+//        In=in;                                                   //~@@@@R~
         Out=out;                                                   //~@@@@I~
     	if (Dump.Y) Dump.println("MsgThread pt="+pt.toString()+",in="+in.toString()+",out="+out.toString());//~@@@@I~
     }                                                            

@@ -1,5 +1,6 @@
-//*CID://+1Aa5R~:                             update#=   93;       //~1Aa5R~
+//*CID://+1Ah8R~:                             update#=  110;       //~1Aa5R~//~1Ah8R~
 //*************************************************************************//~1A65I~
+//1Ah8 2020/06/01 detect wifip2p discovery stopped(available from API16 android4.1 JellyBean)//~1Ah8I~
 //1Aa5 2015/04/20 test function for mdpi listview                  //~1Aa5I~
 //1A8p 2015/04/10 listview devcice list for mdpi                   //~1A8pI~
 //1A8n 2015/04/09 Wi-Fi direct ip addr is not shown                //~1A6nI~//~1A8nI~
@@ -30,7 +31,7 @@ package wifidirect;                                                //~1A67R~
 import android.annotation.TargetApi;                               //~1A65I~
 import android.app.Activity;
 //import android.app.ListFragment;
-import android.app.ProgressDialog;
+//import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 //import android.content.res.Resources;
@@ -58,9 +59,12 @@ import java.util.Collection;
 import java.util.List;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.ProgDlgI;
+import com.Ahsv.R;                                                 //~1Aa5R~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableData;
+
+import static com.ForDeprecated.ProgDlg.*;
 
 /**
  * A ListFragment that displays available peers on discovery and requests the
@@ -68,7 +72,10 @@ import com.Ahsv.URunnableData;
  */
 @TargetApi(AG.ICE_CREAM_SANDWICH)   //api14                           //~1A65R~
 //public class DeviceListFragment extends ListFragment implements PeerListListener {//~1A65R~
-public class DeviceListFragment implements PeerListListener {      //~1A65R~
+public class DeviceListFragment                                    //~1Ah8R~
+	implements PeerListListener                                    //~1Ah8I~
+    , ProgDlgI    //ProgDlg cancell callback                         //~1Ah8I~
+{                                                                  //~1Ah8I~
 
 	private static final int LAYOUTID_LIST_ROW=R.layout.textrowdevice_wd;//~1A65I~
 	private static final int LAYOUTID_LIST_ROW_MDPI=R.layout.textrowdevice_wd_mdpi;//~1A6pI~//~1A8pI~
@@ -95,6 +102,8 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
     private Button btnP2PEnable;                                   //~1A67I~
     private Button btnNFC;                                         //~1A6aI~
     private int resid_textrow;                                     //~1A6pI~//~1A8pI~
+    public boolean swDiscovering;                                  //~1Ah8I~
+    public boolean swCanceledDiscover;                             //~1Ah8I~
     //******************************************                   //~1A65I~
     public DeviceListFragment()                                    //~1A65I~
     {                                                              //~1A65I~
@@ -291,6 +300,12 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
     //***************************************************************************//~1A65I~
     @Override
     public void onPeersAvailable(WifiP2pDeviceList peerList) {
+        if (Dump.Y) Dump.println("DeviceListFragment:onPeerAvailable swCanceledDiscover="+swCanceledDiscover);//~1Ah8I~
+    	if (swCanceledDiscover)                                    //~1Ah8I~
+        {                                                          //~1Ah8I~
+        	swCanceledDiscover=false;                              //~1Ah8I~
+            return;		//ignore PpeerStatusChange after scancel discover by Close/BackButton//~1Ah8I~
+        }                                                          //~1Ah8I~
       try                                                          //~1A65I~
       {                                                            //~1A65I~
       	Collection<WifiP2pDevice> devices=peerList.getDeviceList();//~1A65I~
@@ -298,7 +313,7 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
 //      if (progressDialog != null && progressDialog.isShowing()) {//~1A6eR~
 //          progressDialog.dismiss();                              //~1A6eR~
 //      }                                                          //~1A6eR~
-    	dismissProgressDialog();                                   //~1A6eI~
+    	dismissProgressDialog();   //during search(at timeout will receive null peer list)                                //~1A6eI~//~1Ah8R~
         selectedPos=-1;                                            //~1A65I~
         if (Dump.Y) Dump.println("DeviceListFragment:onPeerAvailable slectedpos="+selectedPos);//~1A67I~
         peers.clear();
@@ -314,11 +329,11 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
                 peers.add(dup);                                    //~1Aa5R~
                 peers.add(dup);                                    //~1Aa5R~
                 peers.add(dup);                                    //~1Aa5R~
-                peers.add(dup);                                    //+1Aa5I~
-                peers.add(dup);                                    //+1Aa5I~
-                peers.add(dup);                                    //+1Aa5I~
-                peers.add(dup);                                    //+1Aa5I~
-                peers.add(dup);                                    //+1Aa5I~
+                peers.add(dup);                                    //~1Aa5I~
+                peers.add(dup);                                    //~1Aa5I~
+                peers.add(dup);                                    //~1Aa5I~
+                peers.add(dup);                                    //~1Aa5I~
+                peers.add(dup);                                    //~1Aa5I~
             }                                                      //~1Aa5I~
         }                                                          //~1Aa5R~
         else                                                       //~1Aa5R~
@@ -331,11 +346,11 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
             	peers.add(dup);                                    //~1Aa5R~
             	peers.add(dup);                                    //~1Aa5R~
             	peers.add(dup);                                    //~1Aa5R~
-            	peers.add(dup);                                    //+1Aa5I~
-            	peers.add(dup);                                    //+1Aa5I~
-            	peers.add(dup);                                    //+1Aa5I~
-            	peers.add(dup);                                    //+1Aa5I~
-            	peers.add(dup);                                    //+1Aa5I~
+            	peers.add(dup);                                    //~1Aa5I~
+            	peers.add(dup);                                    //~1Aa5I~
+            	peers.add(dup);                                    //~1Aa5I~
+            	peers.add(dup);                                    //~1Aa5I~
+            	peers.add(dup);                                    //~1Aa5I~
             }                                                      //~1Aa5I~
         }                                                          //~1Aa5R~
         ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
@@ -359,6 +374,16 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
       }                                                            //~1A65I~
 
     }
+//    public void onPeersAvailableTimeout() //dont clear found list PEAARS_CHANGED may received already//~1Ah8R~
+//    {                                                            //~1Ah8R~
+//        if (Dump.Y) Dump.println("onPeersAvailableTimeout");     //~1Ah8R~
+//        selectedPos=-1;                                          //~1Ah8R~
+//        peers.clear();                                           //~1Ah8R~
+//        ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();//~1Ah8R~
+//        WDA.SWDA.peerUpdated(0);    //issue connect              //~1Ah8R~
+//        tvEmptyMsg.setText(WDA.getResourceString(R.string.empty_message));//~1Ah8R~
+//        WDA.getDeviceDetailFragment().getView().setVisibility(View.GONE);   //drop right half//~1Ah8R~
+//    }                                                            //~1Ah8R~
 
     public void clearPeers() {
         peers.clear();
@@ -383,10 +408,20 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
 //                  }                                              //~1A6eR~
 //              });                                                //~1A6eR~
 
-        progressDialog=progressDialogShow(R.string.ProgressDialogTitle,//~1A6eI~
+//      progressDialog=progressDialogShow(R.string.ProgressDialogTitle,//~1A6eI~//~1Ah8R~
+        progressDialog=progressDialogShowCB(R.string.ProgressDialogTitle,//~1Ah8I~
 					     					WDA.getResourceString(R.string.ProgressDialogMsgFindingPeer),//~1A6eI~
 						    				true,true);//onCancel ignored//~1A6eI~
+	    clearPeers();                                              //~1Ah8I~
+        swDiscovering=true;                                        //~1Ah8I~
     }
+    public void onStoppedDiscovery()	//under try-catch          //~1Ah8R~
+ 	{                                                              //~1Ah8I~
+        if (Dump.Y) Dump.println("DeviceListFragment.onStoppedDiscovery swDiscovering="+swDiscovering);//~1Ah8R~
+        swDiscovering=false;                                       //~1Ah8I~
+    	dismissProgressDialog();                                   //~1Ah8I~
+//      onPeersAvailableTimeout();                                 //~1Ah8R~
+    }                                                              //~1Ah8I~
     /**
      * An interface-callback for the activity to listen to fragment interaction
      * events.
@@ -542,13 +577,35 @@ public class DeviceListFragment implements PeerListListener {      //~1A65R~
 	//*******************************************************************************************************//~1A67I~//~1A6eI~
     private void dismissProgressDialog()                           //~1A67I~//~1A6eI~
     {                                                              //~1A67I~//~1A6eI~
+        if (Dump.Y) Dump.println("DeviceListFragment.dismissProgressDialog");//~1Ah8I~
         URunnable.dismissDialog(progressDialog);                       //~1A67I~//~1A6eI~
     }                                                              //~1A67I~//~1A6eI~
 //****************************************                         //~1A6eI~
 //  private ProgressDialog progressDialogShow(int Ptitleid,String Pmsg,boolean Pindeterminate,boolean Pcancelable)//~1A6eI~//~1A6tR~
     private URunnableData progressDialogShow(int Ptitleid,String Pmsg,boolean Pindeterminate,boolean Pcancelable)//~1A6tI~
     {                                                              //~1A6eI~
-        if (Dump.Y) Dump.println("ProgDialog:simpleProgressDialogShow");//~1A6eI~
+        if (Dump.Y) Dump.println("DeviceListFragment.progressDialogShow");//~1A6eI~//~1Ah8R~
         return URunnable.simpleProgressDialogShow(Ptitleid,Pmsg,Pindeterminate,Pcancelable);//~1A6eI~
     }                                                              //~1A6eI~
+//****************************************                         //~1Ah8I~
+    private URunnableData progressDialogShowCB(int Ptitleid,String Pmsg,boolean Pindeterminate,boolean Pcancelable)//~1Ah8I~
+    {                                                              //~1Ah8I~
+        if (Dump.Y) Dump.println("DeviceListFragment.progressDialogShowCB");//~1Ah8I~
+        return URunnable.simpleProgressDialogShowCB(this,Ptitleid,Pmsg,Pindeterminate,Pcancelable);//~1Ah8I~
+    }                                                              //~1Ah8I~
+//****************************************                         //~1Ah8I~
+	@Override //ProgDlgI                                             //~1Ah8I~
+    public void onCancelProgDlg(int Preason/* 0:cancel, 1:dismiss*/)//~1Ah8I~
+    {                                                              //~1Ah8I~
+        if (Dump.Y) Dump.println("DeviceListFragment.onCancelProgDlg reason="+Preason);//~1Ah8I~
+      if (Preason!=PDUA_DISMISSDLG)	//by Close or Back button      //+1Ah8R~
+        cancelDiscover();                                          //~1Ah8R~
+    }                                                              //~1Ah8I~
+//****************************************                         //~1Ah8I~
+    public void cancelDiscover()                                   //~1Ah8I~
+    {                                                              //~1Ah8I~
+        if (Dump.Y) Dump.println("DeviceListFragment.cancelDiscover");//~1Ah8I~
+        WDA.getWDActivity().cancelDiscover();                      //~1Ah8I~
+        swCanceledDiscover=true;                                   //~1Ah8I~
+    }                                                              //~1Ah8I~
 }

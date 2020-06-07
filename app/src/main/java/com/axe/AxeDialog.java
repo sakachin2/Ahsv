@@ -1,6 +1,6 @@
-//*CID://+1Aa7R~: update#= 190;                                    //+1Aa7R~
+//*CID://+1Aa7R~: update#= 191;                                    //~1Aa7R~
 //**********************************************************************//~1107I~
-//1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //+1Aa7I~
+//1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //~1Aa7I~
 //1A6J 2015/02/22 custom title for AxeDialog like as awt\Dialog    //~1A6JI~
 //1A65 2015/01/29 implement Wifi-Direct function(>=Api14:android4.0)//~1A65I~
 //v1B6 2014/08/01 bot:Apachi(pachi:gtp server) non v7a(hard floating)//~v1B6I~
@@ -24,7 +24,7 @@ import android.content.DialogInterface;                            //~2111I~
 import jagoclient.Dump;                                            //~v1B6I~
 import com.Ahsv.AG;                                              //~v1B6I~//~1A65R~
 import com.Ahsv.Alert;                                             //~1A65R~
-import com.Ahsv.R;                                                 //~1A65R~
+import com.Ahsv.R;                                                 //~1A65R~//+1Aa7R~
 
 //**********************************************************************//~1107I~
 public class AxeDialog extends Dialog                              //~1830R~
@@ -240,38 +240,38 @@ public class AxeDialog extends Dialog                              //~1830R~
           }                                                        //~1A65I~
         }                                                          //~1126M~//~1215M~//~2111I~
     }                                                              //~1126M~//~1215M~//~2111I~
-//*****************************************************************************************//+1Aa7I~
-//*set dialog widow width/height                                   //+1Aa7I~
-//*use after setContentView                                        //+1Aa7I~
-//*0:wrap_content,-1:match_parent,else percent                     //+1Aa7I~
-//*****************************************************************************************//+1Aa7I~
-	public void setAxeDialogWindowSize(int Pratew,int Prateh,boolean PminWH/*apply for min(Width,Height)*/)//+1Aa7I~
-    {                                                              //+1Aa7I~
-    	int ww,hh,scrw,scrh;                                       //+1Aa7I~
-        scrw=AG.scrWidth;                                          //+1Aa7I~
-        scrh=AG.scrHeight;                                         //+1Aa7I~
-        if (PminWH)                                                //+1Aa7I~
-        {                                                          //+1Aa7I~
-        	scrw=Math.min(scrw,scrh);                              //+1Aa7I~
-        	scrh=scrw;                                             //+1Aa7I~
-        }                                                          //+1Aa7I~
-                                                                   //+1Aa7I~
-        if (Pratew==-1)                                            //+1Aa7I~
-        	ww=ViewGroup.LayoutParams.MATCH_PARENT;                //+1Aa7I~
-        else                                                       //+1Aa7I~
-        if (Pratew==0)                                             //+1Aa7I~
-			ww=ViewGroup.LayoutParams.WRAP_CONTENT;                //+1Aa7I~
-        else                                                       //+1Aa7I~
-        	ww=scrw*Math.min(Pratew,100)/100;                      //+1Aa7I~
-        if (Prateh==-1)                                            //+1Aa7I~
-        	hh=ViewGroup.LayoutParams.MATCH_PARENT;                //+1Aa7I~
-        else                                                       //+1Aa7I~
-        if (Prateh==0)                                             //+1Aa7I~
-			hh=ViewGroup.LayoutParams.WRAP_CONTENT;                //+1Aa7I~
-        else                                                       //+1Aa7I~
-        	hh=scrh*Math.min(Prateh,100)/100;                      //+1Aa7I~
-        if (Dump.Y) Dump.println("Dialog:setWindowSize parm w="+Pratew+",h="+Prateh+",pix w="+ww+",h="+hh+",scr w="+AG.scrWidth+",h="+AG.scrHeight+",PminWH="+PminWH);//+1Aa7I~
-//      androidDialog.getWindow().setLayout(ww,hh);                //+1Aa7I~
-        getWindow().setLayout(ww,hh);                              //+1Aa7I~
-    }                                                              //+1Aa7I~
+//*****************************************************************************************//~1Aa7I~
+//*set dialog widow width/height                                   //~1Aa7I~
+//*use after setContentView                                        //~1Aa7I~
+//*0:wrap_content,-1:match_parent,else percent                     //~1Aa7I~
+//*****************************************************************************************//~1Aa7I~
+	public void setAxeDialogWindowSize(int Pratew,int Prateh,boolean PminWH/*apply for min(Width,Height)*/)//~1Aa7I~
+    {                                                              //~1Aa7I~
+    	int ww,hh,scrw,scrh;                                       //~1Aa7I~
+        scrw=AG.scrWidth;                                          //~1Aa7I~
+        scrh=AG.scrHeight;                                         //~1Aa7I~
+        if (PminWH)                                                //~1Aa7I~
+        {                                                          //~1Aa7I~
+        	scrw=Math.min(scrw,scrh);                              //~1Aa7I~
+        	scrh=scrw;                                             //~1Aa7I~
+        }                                                          //~1Aa7I~
+                                                                   //~1Aa7I~
+        if (Pratew==-1)                                            //~1Aa7I~
+        	ww=ViewGroup.LayoutParams.MATCH_PARENT;                //~1Aa7I~
+        else                                                       //~1Aa7I~
+        if (Pratew==0)                                             //~1Aa7I~
+			ww=ViewGroup.LayoutParams.WRAP_CONTENT;                //~1Aa7I~
+        else                                                       //~1Aa7I~
+        	ww=scrw*Math.min(Pratew,100)/100;                      //~1Aa7I~
+        if (Prateh==-1)                                            //~1Aa7I~
+        	hh=ViewGroup.LayoutParams.MATCH_PARENT;                //~1Aa7I~
+        else                                                       //~1Aa7I~
+        if (Prateh==0)                                             //~1Aa7I~
+			hh=ViewGroup.LayoutParams.WRAP_CONTENT;                //~1Aa7I~
+        else                                                       //~1Aa7I~
+        	hh=scrh*Math.min(Prateh,100)/100;                      //~1Aa7I~
+        if (Dump.Y) Dump.println("Dialog:setWindowSize parm w="+Pratew+",h="+Prateh+",pix w="+ww+",h="+hh+",scr w="+AG.scrWidth+",h="+AG.scrHeight+",PminWH="+PminWH);//~1Aa7I~
+//      androidDialog.getWindow().setLayout(ww,hh);                //~1Aa7I~
+        getWindow().setLayout(ww,hh);                              //~1Aa7I~
+    }                                                              //~1Aa7I~
 }//class AxeDialog                                                 //~1528R~

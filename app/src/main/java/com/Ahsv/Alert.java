@@ -1,6 +1,7 @@
-//*CID://+1A89R~: update#= 102;                                    //+1A89R~
+//*CID://+1Ah2R~: update#= 110;                                    //~1Ah2R~
 //**********************************************************************//~1107I~
-//1A89k2015/03/01 Ajagoc:2015/02/28 confirm session disconnect when unpair//+1A89I~
+//1Ah2 2020/05/31 for Android9(Pie)-api28(PlayStore requires),deprected. DialogFragment,Fragmentmanager//~1Ah2I~
+//1A89k2015/03/01 Ajagoc:2015/02/28 confirm session disconnect when unpair//~1A89I~
 //**********************************************************************//~1107I~
 package com.Ahsv;                                         //~1107R~  //~1108R~//~1109R~//~@@@@R~
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 //+1211I~
 import com.Ahsv.AG;                                                //~@@@@R~
-import com.Ahsv.R;                                                 //~@@@@R~
+import com.Ahsv.R;                                                 //~@@@@R~//~1A89R~
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -80,14 +81,14 @@ public class Alert                                            //~1107R~//~1211R~
     	String text=AG.resource.getString(Ptextid);                //~1212I~
 	    simpleAlertDialog(Pcallback,Ptitle,text,Pflag);            //~1212I~
     }                                                              //~1212I~
-//===============================================================================//~v1B9I~//+1A89I~
-    public static void simpleAlertDialog(AlertI Pcallback,int Ptitleid,int Ptextid,int Pflag)//~v1B9I~//+1A89I~
-    {                                                              //~v1B9I~//+1A89I~
-    //***********                                                  //~v1B9I~//+1A89I~
-    	String title=AG.resource.getString(Ptitleid);              //~v1B9I~//+1A89I~
-    	String text=AG.resource.getString(Ptextid);                //~v1B9I~//+1A89I~
-	    simpleAlertDialog(Pcallback,title,text,Pflag);             //~v1B9I~//+1A89I~
-    }                                                              //~v1B9I~//+1A89I~
+//===============================================================================//~v1B9I~//~1A89I~
+    public static void simpleAlertDialog(AlertI Pcallback,int Ptitleid,int Ptextid,int Pflag)//~v1B9I~//~1A89I~
+    {                                                              //~v1B9I~//~1A89I~
+    //***********                                                  //~v1B9I~//~1A89I~
+    	String title=AG.resource.getString(Ptitleid);              //~v1B9I~//~1A89I~
+    	String text=AG.resource.getString(Ptextid);                //~v1B9I~//~1A89I~
+	    simpleAlertDialog(Pcallback,title,text,Pflag);             //~v1B9I~//~1A89I~
+    }                                                              //~v1B9I~//~1A89I~
 //**********************************                               //~1211I~
 //*simple msg popup                                                //~1211I~
 //**********************************                               //~1211I~
@@ -239,4 +240,32 @@ public class Alert                                            //~1107R~//~1211R~
     {                                                              //~1211I~
     	return (ListView) selectedView;                                       //~1211I~
 	}                                                              //~1211I~
+//===============================================================================//~1Ah2I~
+	public static void  showMessage(String Ptitle,String Ptext)    //~1Ah2I~
+    {                                                              //~1Ah2I~
+        if (Dump.Y) Dump.println("Alert:showMessage:"+Ptext);      //~1Ah2I~
+		int flag=BUTTON_CLOSE;                                     //+1Ah2I~
+    	simpleAlertDialog(null,Ptitle,Ptext,flag);              //+1Ah2I~
+    }                                                              //~1Ah2I~
+//===============================================================================//~1Ah2I~
+    public static void showMessage(int Ptitleid,int Ptextid)       //~1Ah2I~
+    {                                                              //~1Ah2I~
+    //***********                                                  //~1Ah2I~
+    	String text=Utils.getStr(Ptextid);                         //~1Ah2I~
+        showMessage(Ptitleid,text);                                //~1Ah2I~
+    }                                                              //~1Ah2I~
+//===============================================================================//~1Ah2I~
+    public static void showMessage(int Ptitleid,String Ptext)      //~1Ah2I~
+    {                                                              //~1Ah2I~
+    //***********                                                  //~1Ah2I~
+    	String title;                                              //~1Ah2I~
+        if (Ptitleid==-1)                                          //~1Ah2I~
+            title="";                                              //~1Ah2I~
+        else                                                       //~1Ah2I~
+        if (Ptitleid==0)                                           //~1Ah2I~
+            title=Utils.getStr(R.string.app_name);                 //+1Ah2R~
+        else                                                       //~1Ah2I~
+	    	title=Utils.getStr(Ptitleid);                          //~1Ah2I~
+        showMessage(title,Ptext);                                //+1Ah2I~
+    }                                                              //~1Ah2I~
 }//class Alert                                                //~1211R~//~@@@@R~

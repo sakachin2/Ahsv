@@ -1,0 +1,23 @@
+Support of multiple connection depends on the device.
+ If it is not supported, game including 2 robots is available by <B>Settings</B>-<B>Robot</B>.
+<BR>
+It seems to me that <B>Bluetooth</B> is easy to use. If it is troublesome, try <B>Wifi Direct</B>.
+Both connection do not exist simultaneously, disconnect all when switches connection type. 
+ "Discover"ing neighbor process takes some time at first in both case.
+<BR>
+<BR>
+<BIG><B>Bluetooth</B></BIG>：This App supports only legacy mode Bluetooth.
+ Device supporting only BLE(Low Enagy) mode is not available, try "Wifi Direct".
+ Radio-frequency interference may occur if the device has telephone function.
+ If the device is dual-band(2.4GHz and 5GHz), assign 5GHz to telephone.
+ Bluetooth uses 2.4GHz.
+<BR>
+<BR>
+<BIG><B>Wifi Direct</B></BIG>：It may be more power consuming than Bluetooth.
+ Transmission delay may occur caused by base protocol.
+ (Detecting connection failure may take considarable time).
+<BR>
+From Android6.0(MarchMallow), you may be asked to give permission to use Wifi Direct.
+<BR>
+<BR>
+<SMALL>MenuDlgConnect 2020/02/09</SMALL>

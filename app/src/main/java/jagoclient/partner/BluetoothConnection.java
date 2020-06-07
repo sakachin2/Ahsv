@@ -1,6 +1,10 @@
-//*CID://+1Af6R~:                             update#=   77;       //+1Af6R~
+//*CID://+1AhbR~:                             update#=  100;       //~1Ah9R~//~1AhbR~
 //*****************************************************************//~v101I~
-//1Af6 2016/07/08 NPE when bluetooth is not supported              //+1Af6I~
+//1Ahb 2020/06/03 expand BlutoothConnction dialog portrait width of Huawei7(Android6)//~1AhbI~
+//1Aha 2020/06/02 (BUG)BT ddevicelist merge key specificatiuon bug //~1AhaI~
+//1Ah9 2020/06/02 BT dicover crash(for the case discovered device missing name). also drop dup//~1Ah9I~
+//1Ah0 2020/05/30 for Android9-api28(PlayStore requires),deprected. ProgressDialog at Android8-api26//~1Ah0I~
+//1Af6 2016/07/08 NPE when bluetooth is not supported              //~1Af6I~
 //1Af3 2016/07/06 (Ajagot1w)Display Discoverable status            //~1Af3I~
 //1Af1 2016/07/05 update bluetooth connection dialog from bluetooth receiver//~1Af1I~
 //1Aep 2015/08/09 (Bug) NPE when Bluetooth is not available        //~1AepI~
@@ -50,10 +54,13 @@ import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.Alert;
 import com.Ahsv.AlertI;
-import com.Ahsv.ProgDlg;
+import com.Ahsv.Utils;
+import com.Ahsv.awt.Dialog;
+import com.ForDeprecated.ProgDlg;                                  //~1Ah0R~
+//import com.Ahsv.ProgDlg;                                         //~1Ah0R~
 import com.Ahsv.ProgDlgI;
 import com.Ahsv.Prop;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Af6R~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableI;
 import com.Ahsv.awt.Color;
@@ -61,6 +68,7 @@ import com.Ahsv.awt.Component;
 import com.Ahsv.awt.Container;
 import com.Ahsv.awt.List;                                          //~3203I~
 import com.Ahsv.awt.ListData;
+import com.btmtest.utils.UView;
 
 import jagoclient.Dump;
 import jagoclient.Global;                                          //~3203I~
@@ -69,6 +77,8 @@ import jagoclient.board.GoFrame;
 import jagoclient.dialogs.HelpDialog;
 import jagoclient.gui.ButtonAction;
 import jagoclient.gui.CloseDialog;
+
+import static com.ForDeprecated.ProgDlg.*;
 
 //import java.awt.GridLayout;
 //import java.awt.Panel;
@@ -223,10 +233,20 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
         }                                                          //~3201I~
         setDismissActionListener(this/*DoActionListener*/);        //~3201I~
     	setFromPropSecureOption();                                 //~1AbuI~
+        setDialogWidth((Dialog)this);                              //~1AhbR~
 		validate();
 		show();
         AG.aBTConnection=this;	//used when PartnerThread detected err//~1A6kI~
 	}
+    //********************************************************************//~1AhbI~
+	public void setDialogWidth(Dialog Pdlg)                        //~1AhbI~
+	{                                                              //~1AhbI~
+        if (Dump.Y) Dump.println("BluetoothConnection.setDialogWidth AG.portrait="+AG.portrait+",scrWidth="+AG.scrWidth);//~1AhbI~
+    	if (AG.portrait)                                           //~1AhbI~
+        {                                                          //~1AhbI~
+			setWindowSize(95/*W:95%*/,0/*wrap content,-1:match_parent*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//~1AhbR~
+        }                                                          //~1AhbI~
+    }                                                              //~1AhbI~
     //********************************************************************//~1Ab8I~
 	public BluetoothConnection (GoFrame Pgf,int Ptitleid,int Playoutid)//~1Ab8I~
 	{                                                              //~1Ab8I~
@@ -450,6 +470,7 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
     {                                                              //~3203I~
     	if (onDiscovery)                                           //~3203I~
         {                                                          //~3203I~
+	      	infoDiscoverCanceled();                                //~1AhbI~
 	        AG.aBT.cancelDiscover();                               //~3203I~
             onDiscovery=false;                                     //~3203I~
 		    swCancelDiscover=true;                                 //~3205I~
@@ -652,13 +673,17 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
     private void discovered()                                      //~3203I~
     {                                                              //~3203I~
     	String[] sa=AG.aBT.getNewDevice();                         //~3203I~
+    	if (Dump.Y) Dump.println("BletoothConnection.discovered getNewDevice="+ Utils.toString(sa));//~1Ah0I~
+        sa=adjustDupName(sa);                                     //~1Ah9I~//~1AhaR~//~1Ah9R~
         if (sa==null)                                              //~3203I~
         {                                                          //~3203I~
             if (swCancelDiscover)                                  //~3205I~
-	        	infoDiscoverCanceled();                            //~3205I~
+//          	infoDiscoverCanceled();                            //~3205I~//~1AhbR~
+            	;                                                  //~1AhbI~
             else                                                   //~3205I~
 	        	errNoNewDevice();                                      //~3203I~//~3205R~
-	        ProgDlg.dismiss();                                     //~3203I~
+//          ProgDlg.dismiss();                                     //~3203I~//~1Ah0R~
+            ProgDlg.dismissDlg();                                  //~1Ah0I~
             return;                                                //~3203I~
         }                                                          //~3203I~
 //        int ctr=sa.length/2;                                       //~3203I~//~1AbUR~
@@ -690,6 +715,7 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
 //            }                                                      //~1A6fI~//~1AbUR~
 //        }                                                          //~3203I~//~1AbUR~
 		SdeviceList.merge(sa,ID_STATUS_DISCOVERED);                //~1AbUI~
+    	if (Dump.Y) Dump.println("BletoothConnection.discovered after merge="+Utils.toString(sa));//~1Ah0I~
 		resetListView();                                           //~1AbUI~
 //        if (DeviceList==null)                                      //~3203I~//~1AbUR~
 //        {                                                          //~3203I~//~1AbUR~
@@ -729,9 +755,62 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
         }                                                          //~1AbUI~
         if (idx>=0)                                                //~1AbUI~
 		    DL.select(idx); //last added pos                       //~1AbUI~
-        ProgDlg.dismiss();                                         //~3203R~
+//      ProgDlg.dismiss();                                         //~3203R~//~1Ah0R~
+        ProgDlg.dismissDlg();                                      //~1Ah0I~
         infoNewDevice(sa.length/2);                                //~3203R~
     }                                                              //~3203I~
+    //******************************************                   //~1Ah9I~//~1AhaR~//~1Ah9R~
+    private String[] adjustDupName(String[] PnameAndAddr) //BTDiscover drop null , and dup name droped at merge//~1AhaR~//~1Ah9R~
+    {                                                              //~1Ah9I~//~1AhaR~//~1Ah9R~
+        if (Dump.Y) Dump.println("BluetoothConnection.adjustNameNull nameAnndAddr="+Utils.toString(PnameAndAddr));//~1Ah9I~//~1AhaR~//~1Ah9R~
+        if (PnameAndAddr==null)                                    //~1Ah9I~//~1AhaR~//~1Ah9R~
+            return null;                                           //~1Ah9I~//~1AhaR~//~1Ah9R~
+        String[] clonelist=PnameAndAddr.clone();                   //~1Ah9I~
+                                                                   //~1Ah9I~
+        int ctrList=clonelist.length;                           //~1Ah9R~//~1AhaR~//~1Ah9R~
+    //* dup chk                                                  //~1AhaR~//~1Ah9R~
+        for (int ii=0;ii<ctrList;ii+=2)                          //~1AhaR~//~1Ah9R~
+        {                                                        //~1AhaR~//~1Ah9R~
+            if (clonelist[ii]!=null)                          //~1AhaR~//~1Ah9R~
+            {                                                    //~1AhaR~//~1Ah9R~
+                for (int jj=ii+2;jj<ctrList;jj+=2)               //~1AhaR~//~1Ah9R~
+                {                                                //~1AhaR~//~1Ah9R~
+                    if (clonelist[ii].equals(clonelist[jj]))//~1AhaR~//~1Ah9R~
+                    {                                            //~1AhaR~//~1Ah9R~
+                        clonelist[jj]=null;  //drop dup       //~1AhaR~//~1Ah9R~
+                    }                                            //~1AhaR~//~1Ah9R~
+                }                                                //~1AhaR~//~1Ah9R~
+            }                                                    //~1AhaR~//~1Ah9R~
+        }                                                        //~1AhaR~//~1Ah9R~
+    //*null chk                                                  //~1AhaR~//~1Ah9R~
+        int nullctr=0;                                             //~1Ah9I~//~1AhaR~//~1Ah9R~
+        for (int ii=0;ii<ctrList;ii+=2)                            //~1Ah9I~//~1AhaR~//~1Ah9R~
+        {                                                          //~1Ah9I~//~1AhaR~//~1Ah9R~
+            if (clonelist[ii]==null)                            //~1Ah9I~//~1AhaR~//~1Ah9R~
+                nullctr++;                                         //~1Ah9I~//~1AhaR~//~1Ah9R~
+        }                                                          //~1Ah9I~//~1AhaR~//~1Ah9R~
+        if (nullctr==0)                                            //~1Ah9I~//~1AhaR~//~1Ah9R~
+        {                                                          //~1Ah9I~//~1AhaR~//~1Ah9R~
+            if (Dump.Y) Dump.println("BluetoothConnection.adjustNameNull no null entry");//~1Ah9I~//~1AhaR~//~1Ah9R~
+            return clonelist;                                   //~1Ah9I~//~1AhaR~//~1Ah9R~
+        }                                                          //~1Ah9I~//~1AhaR~//~1Ah9R~
+        int ctrNew=ctrList-nullctr*2;                              //~1Ah9I~//~1AhaR~//~1Ah9R~
+        if (ctrNew==0)                                             //~1Ah9I~//~1AhaR~//~1Ah9R~
+            return null;                                           //~1Ah9I~//~1AhaR~//~1Ah9R~
+        String[] newlist=new String[ctrNew];                        //~1Ah9I~//~1AhaR~//~1Ah9R~
+        int idxNew=0;                                              //~1Ah9I~//~1AhaR~//~1Ah9R~
+        for (int ii=0;ii<ctrList;ii+=2)                            //~1Ah9I~//~1AhaR~//~1Ah9R~
+        {                                                          //~1Ah9I~//~1AhaR~//~1Ah9R~
+            if (clonelist[ii]!=null)                            //~1Ah9I~//~1AhaR~//~1Ah9R~
+            {                                                      //~1Ah9I~//~1AhaR~//~1Ah9R~
+                newlist[idxNew]=clonelist[ii];                  //~1Ah9I~//~1AhaR~//~1Ah9R~
+                newlist[idxNew+1]=clonelist[ii+1];              //~1Ah9I~//~1AhaR~//~1Ah9R~
+                idxNew+=2;                                         //~1Ah9I~//~1AhaR~//~1Ah9R~
+            }                                                      //~1Ah9I~//~1AhaR~//~1Ah9R~
+        }                                                          //~1Ah9I~//~1AhaR~//~1Ah9R~
+        if (Dump.Y) Dump.println("BluetoothConnection.adjustNameNull after newlist="+Utils.toString(newlist));//~1Ah9R~//~1AhaR~//~1Ah9R~
+        return newlist;                                          //~1AhaR~//~1Ah9R~
+    }                                                              //~1Ah9I~//~1AhaR~//~1Ah9R~
     //******************************************                   //~3203I~
 //  private boolean connectPartner()                               //~3203I~//~1A60R~
     private boolean connectPartner(boolean Psecure)                //~1A60I~
@@ -883,7 +962,8 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
 	public void onCancelProgDlg(int Preason)                       //~3203I~
     {                                                              //~3203I~
     	if (Dump.Y) Dump.println("onCancelProgDlgI reason="+Preason);//~3203I~
-        if (Preason==0)	//cancel                                   //~3203I~
+//      if (Preason==0)	//cancel                                   //~3203I~//+1AhbR~
+        if (Preason!=PDUA_DISMISSDLG)	//by button(Back/Close) click//+1AhbI~
         {                                                          //~3203I~
 	    	if (Dump.Y) Dump.println("onCancelProgDlgI waitingID="+Integer.toHexString(waitingid));//~3203I~
         	if (waitingid==R.string.Discover)                       //~3203I~
@@ -1349,11 +1429,13 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
 	    //*************************************************************//~1AbTI~
         public DeviceData get(String Pname)                        //~1AbTI~//~1AbUR~
         {                                                          //~1AbTI~
+	        if (Dump.Y) Dump.println("DeviceDataList:get name="+Pname);//~1Ah0I~
         	return devlist.get(Pname);                             //~1AbTI~
         }                                                          //~1AbTI~
 	    //*************************************************************//~1AbTI~
         public void put(String[] Plist,int Pstat)                  //~1AbTI~
         {                                                          //~1AbTI~
+	        if (Dump.Y) Dump.println("DeviceDataList:put Plist="+Utils.toString(Plist));//~1Ah0I~
         	for (int ii=0;ii<Plist.length/2;ii++)                  //~1AbTI~
             {                                                      //~1AbTI~
             	String name=Plist[ii*2];                           //~1AbTI~
@@ -1374,20 +1456,22 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
 	    //*************************************************************//~1AbUR~
         public void merge(String[] Plist,int Pstat)                //~1AbTI~
         {                                                          //~1AbTI~
+	        if (Dump.Y) Dump.println("DeviceDataList:merge Plist="+Utils.toString(Plist));//~1Ah0I~
         	for (int ii=0;ii<Plist.length/2;ii++)                  //~1AbTI~
             {                                                      //~1AbTI~
             	String name=Plist[ii*2];                           //~1AbTI~
             	String addr=Plist[ii*2+1];                         //~1AbTI~
-                DeviceData data=get(addr);                         //~1AbTR~//~1AbUR~
+//              DeviceData data=get(addr);                         //~1AbTR~//~1AbUR~//~1AhaR~
+                DeviceData data=get(name);                         //~1AhaI~
                 if (data==null)                                    //~1AbTI~
                 {                                                  //~1AbTI~
-                	if (Dump.Y) Dump.println("DeviceDataList:merge add key="+addr+",name="+name+",stat="+Pstat+",DeviceData="+data);//~1AbTI~//~1AbUR~
+                	if (Dump.Y) Dump.println("DeviceDataList:merge add key="+addr+",name="+name+",stat=0x"+Integer.toHexString(Pstat)+",DeviceData="+data);//~1AbTI~//~1AbUR~//~1Ah0R~
             		DeviceData adddata=new DeviceData(name,addr,Pstat);//~1AbTI~//~1AbUR~
     				devlist.put(name,adddata);                     //~1AbTI~
                 }                                                  //~1AbTI~
                 else                                               //~1AbTI~
                 {                                                  //~1AbTI~
-                	if (Dump.Y) Dump.println("DeviceDataList:merge rep key="+addr+",name="+name+",stat="+Pstat+",DeviceData="+data);//~1AbTI~//~1AbUR~
+                	if (Dump.Y) Dump.println("DeviceDataList:merge rep key="+addr+",name="+name+",stat=0x"+Integer.toHexString(Pstat)+",DeviceData="+data);//~1AbTI~//~1AbUR~//~1Ah0R~
                 	data.addr=addr;                                //~1AbUR~
 					data.stat=Pstat;                               //~1AbUR~
                 }                                                  //~1AbTI~
@@ -1399,6 +1483,7 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
         public void merge(Map<String,String> Pmap,int Pstat,boolean Preplace)//~1AbTI~
         {                                                          //~1AbTI~
             ArrayList<String> src=new ArrayList<String>(Pmap.keySet());    //names//~1AbTI~
+	        if (Dump.Y) Dump.println("DeviceDataList:merge keys="+Utils.toString(Pmap.keySet()));//~1Ah0I~
         	for (int ii=0;ii<src.size();ii++)                      //~1AbTI~
             {                                                      //~1AbTI~
             	String name=src.get(ii);                           //~1AbTI~//~1AbUR~
@@ -1406,14 +1491,14 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
                 DeviceData data=get(name);                         //~1AbTR~//~1AbUR~
                 if (data==null)                                    //~1AbTI~
                 {                                                  //~1AbTI~
-	                if (Dump.Y) Dump.println("DeviceDataList:merge Pmap add name="+name+",addr="+addr+",stat="+Pstat);//~1AbTR~//~1AbUR~
+	                if (Dump.Y) Dump.println("DeviceDataList:merge Pmap add name="+name+",addr="+addr+",stat=0x"+Integer.toHexString(Pstat));//~1AbTR~//~1AbUR~//~1Ah0R~
             		DeviceData adddata=new DeviceData(name,addr,Pstat);//~1AbTI~//~1AbUR~
     				devlist.put(name,adddata);                     //~1AbTI~
                 }                                                  //~1AbTI~
                 else                                               //~1AbTI~
                 if (Preplace)                                      //~1AbTI~
                 {                                                  //~1AbTI~
-	                if (Dump.Y) Dump.println("DeviceDataList:merge Plist rep key="+addr+",name="+name+",stat="+Pstat+",DeviceData="+data);//~1AbTI~//~1AbUR~
+	                if (Dump.Y) Dump.println("DeviceDataList:merge Plist rep key="+addr+",name="+name+",stat=0x"+Integer.toHexString(Pstat)+",DeviceData="+data);//~1AbTI~//~1AbUR~//~1Ah0R~
                 	data.name=name;                                //~1AbTI~
                     data.addr=addr;                                //~1AbTI~
 					data.stat=Pstat;                               //~1AbTI~
@@ -1421,13 +1506,16 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
             }                                                      //~1AbTI~
         }                                                          //~1AbTI~
 	    //*************************************************************//~1AbUI~
-        public int search(String Pname)                            //~1AbUI~
+//      public int search(String Pname)                            //~1AbUI~//~1Ah9R~
+        private int search(String Pname)                           //~1Ah9I~
         {                                                          //~1AbUI~
+	        if (Dump.Y) Dump.println("BluetoothConnection.search Pname="+Pname);//~1Ah0I~
         	int idx=-1;                                            //~1AbUI~
             ArrayList<String> keys=new ArrayList<String>(devlist.keySet());    //names//~1AbUI~
         	for (int ii=0;ii<keys.size();ii++)                     //~1AbUI~
             {                                                      //~1AbUI~
             	String name=keys.get(ii);                          //~1AbUI~
+		        if (Dump.Y) Dump.println("BluetoothConnection.search key.get name="+name);//~1Ah0I~
                 if (name.equals(Pname))                            //~1AbUI~
                 {                                                  //~1AbUI~
                 	idx=ii;                                        //~1AbUI~
@@ -1442,6 +1530,7 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
         {                                                          //~1AbUI~
         	int ctr=0;                                             //~1AbUI~
             ArrayList<String> keys=new ArrayList<String>(devlist.keySet());    //names//~1AbUI~
+	        if (Dump.Y) Dump.println("DeviceDataList:updateStatus keys="+Utils.toString(keys));//~1Ah0I~
         	for (int ii=0;ii<keys.size();ii++)                     //~1AbUI~
             {                                                      //~1AbUI~
             	String name=keys.get(ii);                          //~1AbUI~
@@ -1626,11 +1715,11 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
         TextView v;                                                //~1Af3I~
     //************************                                     //~1Af3I~
         v=(TextView)(findViewById(R.id.LocalDeviceDiscoverable));  //~1Af3I~
-        if (AG.aBT.mBTC==null)                                 //+1Af6I~
-        {                                                          //+1Af6I~
-        	dev=AG.resource.getString(R.string.noBTadapter);       //+1Af6I~
-        }                                                          //+1Af6I~
-        else                                                       //+1Af6I~
+        if (AG.aBT.mBTC==null)                                 //~1Af6I~
+        {                                                          //~1Af6I~
+        	dev=AG.resource.getString(R.string.noBTadapter);       //~1Af6I~
+        }                                                          //~1Af6I~
+        else                                                       //~1Af6I~
         if (ABT.BTisDiscoverable())                                //~1Af3I~
         {                                                          //~1Af3I~
         	dev=AG.resource.getString(R.string.StatusDiscoverable);//~1Af3R~

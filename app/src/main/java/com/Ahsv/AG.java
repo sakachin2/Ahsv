@@ -1,5 +1,8 @@
-//*CID://+1Ad7R~:                             update#=  175;       //~1Ad7R~
+//*CID://+1AhjR~:                             update#=  200;       //~1AhjR~
 //******************************************************************************************************************//~v101R~
+//1Ahj 2020/06/05 IP io on mainthread fails by android.os.NetworkOnMainThreadException//~1AhjI~
+//1Ah2 2020/05/31 for Android9(Pie)-api28(PlayStore requires),deprected. DialogFragment,Fragmentmanager//~1Ah2I~
+//1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
 //1Ad7 2015/07/20 Canvas/UiThread TraceOption was not effective if OptionDialog is opened//~1Ad7I~
 //1Ad6 2015/07/20 OutOfMemory investigation                        //~1Ad6I~
 //1Ad2 2015/07/17 HelpDialog by helptext                           //~1Ad2I~
@@ -35,7 +38,11 @@
 package com.Ahsv;                                                    //~1108R~//~1109R~//~v107R~
 
 import java.util.Locale;
+import java.util.Properties;
 
+//import android.app.FragmentManager;                              //~1Ah2R~
+//import android.support.v4.app.FragmentManager;                   //~1Ah2R~
+//import android.support.v4.app.Fragment;                          //~1Ah2R~
 import android.os.Build;                                           //~vab0R~//~v101I~
                                                                    import com.Ahsv.awt.Color;
 import com.Ahsv.awt.Component;
@@ -50,17 +57,20 @@ import jagoclient.partner.partner.MsgThread;
 //import com.Ahsv.jagoclient.partner.PartnerFrame;                    //~@@@@I~//~1A8gR~
 import com.Ahsv.R;                                               //~1120I~//~v107R~
 import wifidirect.WDANFC;
+import wifidirect.IPSubThread;                               //~@@01I~//+1AhjR~
 
 import jagoclient.Dump;
-import jagoclient.MainFrameOptions;                                //+1Ad7I~
+import jagoclient.MainFrameOptions;                                //~1Ad7I~
 import jagoclient.Go;
 import jagoclient.dialogs.SayDialog;
 //import jagoclient.igs.ConnectionFrame;                           //~@@@@R~
 //import jagoclient.igs.games.GamesFrame;                          //~@@@@R~
-import android.app.Activity;
+import android.app.Activity;                                       //~1Ah2R~
+//import android.support.v7.app.AppCompatActivity;                 //~1Ah2R~
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+//import android.support.v4.app.FragmentActivity;                  //~1Ah2R~
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -124,10 +134,14 @@ public class AG                                                    //~1107R~
     public static String language;                                 //~1531I~//~@@@@I~
     public static String Glocale;                                  //~@@@@I~
     public static boolean isLangJP;                                //~@@@@I~
+    public static String helpFileSuffix;                           //~1Ah1R~
+    public static String dirSep;                                   //~1Ah1R~
  	public static boolean isDebuggable;                            //~v107I~
  	public static int testdump=0;	//@@@@test                     //~1301I~
- 	public static Activity activity;                                 //~1109I~//~1111R~
+   	public static Activity activity;                                 //~1109I~//~1111R~//~1Ah2R~
+// 	public static AppCompatActivity activity;                      //~1Ah2R~
  	public static Context context;                                 //~1111I~
+//    public static FragmentManager fragmentManager;                 //~1Ah1R~//~1Ah2R~
 // 	public static PartnerFrame aPartnerFrame;                      //~@@@@I~//~1A8gR~
  	public static IPConnection aIPConnection;                      //~1A6kI~
  	public static BluetoothConnection aBTConnection;               //~1A6kI~
@@ -168,9 +182,14 @@ public class AG                                                    //~1107R~
 //    public static boolean   appStart;                              //~1428R~//~@@@@R~
     public static boolean   portrait;                              //~1428R~
     public static String    appName;                               //~1428R~
+    public static String    appNameE;	//by alphabet              //~1Ah1R~
     public static String    pkgName;                               //~1A6aI~
     public static String    appVersion;                            //~1506I~
     public static int       scrWidth,scrHeight;                    //~1428R~
+    public static int       scrWidthReal,scrHeightReal;            //~1Ah1I~
+    public static int       scrNavigationbarRightWidth;            //~1Ah1I~
+    public static boolean   swSmallDevice;      //portrait screen width<800pixel//~1Ah1I~
+    public static double    scaleSmallDevice;   //portrait screen width/800pixel//~1Ah1I~
     private static View      currentLayout;//~1120I~               //~1428R~
     public static int       currentLayoutId;                       //~1428R~
     private static int       currentLayoutLabelSeqNo;              //~1428R~
@@ -195,6 +214,7 @@ public class AG                                                    //~1107R~
     public static ABT aBT;                                 //~v107R~//~@@@@R~
 //  public static WDANFC aWDANFC;                                  //~1A6aI~//~1A81R~
 //  public static ANFC aANFC;                                      //~1A6aI~//~1A81R~
+    public static IPSubThread aIPSubThread;                               //~@@01I~//~1AhjR~
     public static final String PKEY_STARTUPCTR="startupctr";       //~v107I~
     public static int startupCtr;                                  //~v107I~
     public static int activeSessionType;                           //~1A8gI~
@@ -210,7 +230,8 @@ public class AG                                                    //~1107R~
     public static int smallImageHeight;	//for captured List        //~@@@@I~
     public static int smallTextSize;                               //~@@@@I~
     public static Font smallFont;                                  //~@@@@I~
-    public static ProgDlg progDlg;                                       //~@@@@M~
+//  public static ProgDlg progDlg;                                       //~@@@@M~//~1Ah1R~
+    public static com.ForDeprecated.ProgDlg progDlg26;                             //~1Ad7I~
     public static boolean screenDencityMdpi;                       //~1A50I~
     public static boolean screenDencityMdpiSmallV;                 //~1A61I~
     public static boolean screenDencityMdpiSmallH;                 //~1A61I~
@@ -219,6 +240,9 @@ public class AG                                                    //~1107R~
     public static  boolean swNFCBT=true;   //support NFC Bluetooth handover//~1Ab7I~
     public static  boolean swSecureNFCBT;  //current active NFCBT session is secure//~1AbgI~
     public static  boolean isNFCBT; 		//BT is by NFC         //~1AbgI~
+//*UFile                                                           //~1Ah1I~
+	public  static boolean swSDAvailable=true;                     //~1Ah1R~
+	public  static String dirSD;                                   //~1Ah1R~
                                                                    //~1120I~
 //****************                                                 //~1109I~
 	public  static final String ListServer ="ListView_Server";     //~1120I~
@@ -400,15 +424,23 @@ public class AG                                                    //~1107R~
 //******************************************************           //~@@@@I~
     	osVersion=Build.VERSION.SDK_INT;                //~vab0I~  //~v101I~
         aMain=Pmain;                                            //~1109I~//~1329R~//~1402I~//~@@@@R~
-        activity=(Activity)Pmain;                                //~1402I~//~@@@@R~
+        activity=(Activity)Pmain;                                //~1402I~//~@@@@R~//~1Ah2R~
+//      activity=(AppCompatActivity)Pmain;                         //~1Ah2R~
         context=(Context)Pmain;                                  //~1402I~//~@@@@R~
         isDebuggable=Utils.isDebuggable(context);             //~v107I~//~@@@@R~
+        if (isDebuggable)                                          //~1Ah1I~
+        	Dump.open("");	//write all to Terminal log,not exception only//~1Ah1I~
+		Properties p=System.getProperties();                       //~1Ah1I~
+		dirSep=p.getProperty("file.separator");                    //~1Ah1I~
         startupCtr=Prop.getPreference(PKEY_STARTUPCTR,0);    //~v107I~//~@@@@R~
         Prop.putPreference(PKEY_STARTUPCTR,startupCtr+1);    //~v107I~//~@@@@R~
         resource=Pmain.getResources();                                //~1109I~//~1329R~//~1402I~//~@@@@R~
         inflater=Pmain.getLayoutInflater();                           //~1113I~//~1329R~//~1402I~//~@@@@R~
 		appName=context.getText(R.string.app_name).toString();     //~1402I~
+        appNameE=Utils.getStr(R.string.app_nameE);                 //~1Ah1I~
 		pkgName=context.getPackageName();                          //~1A6aI~
+//      fragmentManager=aMain.getFragmentManager();        //~1Ah1I~//~1Ah2R~
+//        fragmentManager=activity.getSupportFragmentManager();    //~1Ah2R~
 		appVersion=context.getText(R.string.Version).toString();   //~1506I~
                                                                    //~v101I~
         if (osVersion>=HONEYCOMB && osVersion<ICE_CREAM_SANDWICH)  //android3 api11-13//~vab0R~//~v101I~
@@ -419,6 +451,7 @@ public class AG                                                    //~1107R~
         language=locale.getLanguage();   //ja(Locale.JAPANESE) or ja_JP(Locale.JAPAN)//~1531R~//~@@@@I~
 //      isLangJP=language.substring(0,2).equals(Locale.JAPANESE);  //~@@@@I~//~v102R~
         isLangJP=language.substring(0,2).equals(Locale.JAPANESE.getLanguage());  //~@@@@I~//~v102I~
+        helpFileSuffix=isLangJP ? "_ja" : "";                      //~1Ah1I~
 	    Options=Prop.getPreference(PKEY_OPTIONS,                   //~@@@@R~
                 0                                                  //~@@@@I~
     			|OPTIONS_BIG_TIMER                                 //~@@@@I~

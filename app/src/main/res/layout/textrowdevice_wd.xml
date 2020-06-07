@@ -23,6 +23,8 @@
 			android:textSize="20sp"
 		    android:background="#ffffffff"
 		    android:textColor="#ff000000"
+                android:maxLines="1"
+                android:ellipsize="end"
             android:gravity="center_vertical" />
         <TextView
             android:layout_height="fill_parent"
@@ -31,6 +33,8 @@
             android:id="@+id/device_details"
             android:singleLine="true"
 			android:textSize="20sp"
+                android:maxLines="1"
+                android:ellipsize="end"
 		    android:background="#fff0f0f0"
 		    android:textColor="#ff000000"
         />

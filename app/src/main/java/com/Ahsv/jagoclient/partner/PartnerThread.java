@@ -1,6 +1,6 @@
-//*CID://+1AbMR~:                                   update#=   68; //+1AbMR~
+//*CID://+1AbMR~:                                   update#=   70; //~1AbMR~
 //******************************************************************************************************************//~v107I~
-//1AbM 2015/07/03 BT:short sleep for BT disconnet fo exchange @@@@end and @@@@!end//+1AbMI~
+//1AbM 2015/07/03 BT:short sleep for BT disconnet fo exchange @@@@end and @@@@!end//~1AbMI~
 //1A8g 2015/03/05 chk only one session alive(Ip,Direct,BT)         //~1A8gI~
 //1071:121204 partner connection using Bluetooth SPP               //~v107I~
 //******************************************************************************************************************//~v107I~
@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 import com.Ahsv.ABT;
 import com.Ahsv.AG;                                                //~v107R~
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1AbMR~
 import com.Ahsv.Utils;
 import com.Ahsv.awt.TextField;                                     //~v107R~
 //import rene.viewer.Viewer;                                       //~1318R~
@@ -61,7 +61,7 @@ public class PartnerThread extends jagoclient.partner.PartnerThread        //~v1
                 {                                                  //~@@@@I~
                 	PF.out("@@@@!end");	//                         //~@@@@I~
                 	swEnd=1;                                       //~@@@@R~
-                    Utils.sleep(100);	//time to receive @@@@!end before close//+1AbMI~
+                    Utils.sleep(100);	//time to receive @@@@!end before close//~1AbMI~
 					throw new IOException();                       //~@@@@I~
                 }                                                  //~@@@@I~
 				if (s.equals("@@@@!end"))	//close request        //~@@@@I~

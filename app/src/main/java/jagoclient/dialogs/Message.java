@@ -1,4 +1,4 @@
-//*CID://+v101R~:                             update#=   15;       //~@@@@I~//~v101R~
+//*CID://+v101R~:                             update#=   17;       //~@@@@I~//~v101R~
 //**********************************************************************//~v101I~
 //101d 2013/02/07 duplicated dislog is troublesaome by current layoutid//~v101I~
 //**********************************************************************//~v101I~
@@ -6,7 +6,7 @@ package jagoclient.dialogs;
 
 import com.Ahsv.AG;
 import com.Ahsv.Alert;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+v101R~
 import com.Ahsv.awt.Frame;                                         //~2C26R~
 import com.Ahsv.awt.Panel;                                         //~2C26R~
 
@@ -65,16 +65,16 @@ The message can have several lines.
 //    }                                                            //~@@@@R~
 //}                                                                //~@@@@R~
 public class Message                       //~@@@@I~
-{                                                                  //+v101R~
-    Viewer T;                                                      //+v101I~
+{                                                                  //~v101R~
+    Viewer T;                                                      //~v101I~
     public Message (Frame f, int Presid)                           //~@@@@I~
     {                                                              //~@@@@I~
         this(f,AG.resource.getString(Presid));                     //~@@@@I~
     }                                                              //~@@@@I~
     public Message (Frame f, String m)                             //~@@@@I~
-    {                                                              //+v101R~
-        String title=Global.resourceString("Message");             //+v101I~
-		Alert.simpleAlertDialog(null,title,m,Alert.BUTTON_CLOSE);//~@@@2R~//+v101I~
+    {                                                              //~v101R~
+        String title=Global.resourceString("Message");             //~v101I~
+		Alert.simpleAlertDialog(null,title,m,Alert.BUTTON_CLOSE);//~@@@2R~//~v101I~
         if (Dump.Y) Dump.println("Message msg="+m);                //~@@@@I~
     }                                                              //~@@@@I~
 }                                                                  //~@@@@I~

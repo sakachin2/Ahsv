@@ -1,5 +1,3 @@
-(nfcselect.txt)
-
 Select NFC Handover type.
 
 OK :
@@ -37,3 +35,5 @@ Bluetooth Settings :
   even if sever device is not on the available device list
   of client device.
   (The device tapped on NFC panel is server side.)
+
+(nfcselect.txt)

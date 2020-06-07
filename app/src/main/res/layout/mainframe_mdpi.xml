@@ -64,7 +64,7 @@
                  android:layout_height="wrap_content"
                  android:orientation="vertical"
             >
-                <LinearLayout
+                <!--LinearLayout
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
                      android:orientation="horizontal"
@@ -113,8 +113,8 @@
                         android:text="@string/BTNFCButton"
                         android:layout_weight="1"
             android:background="@android:drawable/btn_default_small"
-                    />          <!--1Ad3-->
-                </LinearLayout>
+                    />          
+                </LinearLayout-->
                <!-- Casting-->
                 <LinearLayout
                      android:layout_width="fill_parent"
@@ -232,7 +232,7 @@
                                                                    
                 </LinearLayout> <!-- piece-->
 
-                <LinearLayout
+                <!--LinearLayout
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
                      android:orientation="horizontal"
@@ -273,7 +273,58 @@
                      android:visibility="gone"
                         android:layout_weight="1"
             android:background="@android:drawable/btn_default_small"
-                    />    <!--1A90-->
+                    />  
+                    <Button
+                        android:id="@+id/Help"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/Help"
+                        android:layout_weight="1"
+            android:background="@android:drawable/btn_default_small"
+                    />
+                </LinearLayout-->
+                <LinearLayout
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal"
+                >
+                    <Button
+                        android:id="@+id/ChangeBoard"
+                        android:layout_width="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ChangeBoard"
+                        android:layout_weight="1"
+    	                android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_default_small"
+                    />
+                    <Button
+                        android:id="@+id/ChangePiece"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ChangePiece"
+                        android:layout_weight="1"
+            android:background="@android:drawable/btn_default_small"
+                    />
+                    <Button
+                        android:id="@+id/Options"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/Options"
+                        android:layout_weight="1"
+            android:background="@android:drawable/btn_default_small"
+                    />
+                    <Button
+                        android:id="@+id/Connections"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/Label_Connections"
+                        android:layout_weight="1"
+            android:background="@android:drawable/btn_default_small"
+                    />
                     <Button
                         android:id="@+id/Help"
                         android:layout_width="fill_parent"

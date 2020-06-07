@@ -1,6 +1,6 @@
-//*CID://+1Aa7R~:                                   update#=  126; //+1Aa7R~
+//*CID://+1Aa7R~:                                   update#=  128; //~1Aa7R~
 //****************************************************************************//~@@@1I~
-//1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //+1Aa7I~
+//1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //~1Aa7I~
 //1A50 2014/10/27 mdpi & tablet support                            //~1A50I~
 //1033 2013/03/07 gameover2 msg                                    //~1033I~
 //1022 2013/02/18 set small button should be portrait only         //~1022I~
@@ -17,7 +17,7 @@ import android.widget.ImageView;
 
 import com.Ahsv.AG;
 import com.Ahsv.Alert;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1Aa7R~
 import com.Ahsv.awt.Component;
 import com.Ahsv.awt.Label;                                         //~@@@1R~
 import com.Ahsv.awt.Menu;                                          //~@@@1R~
@@ -77,7 +77,7 @@ public class ConnectedGoFrame extends GoFrame
 	protected Panel CommentPanel;
     public int Col;                                                    //~@@@2R~
     protected int Bishop,Knight,GameOptions,Gameover,Gameover2;    //~@@@2I~
-    protected int accepterBishop,accepterKnight;                   //+1Aa7I~
+    protected int accepterBishop,accepterKnight;                   //~1Aa7I~
     protected	TextField tfU,tfL;                                 //~@@@2I~
     protected	ButtonAction ButtonResign;                         //~@@@2I~
     protected boolean swLocalGame;                                 //~@@@2I~
@@ -107,15 +107,15 @@ public class ConnectedGoFrame extends GoFrame
         (int Presid,String s, int si,                              //~@@@2R~
 //  	boolean kibitzwindow, boolean canteach)                    //~@@@1R~
     	int Pgameover,int Pgameover2,                              //~@@@1R~
-//  	int Pbishop,int Pknight,int Pgameoptions,int col)          //~@@@1R~//+1Aa7R~
-    	int Pbishop,int Pknight,int Pgameoptions,int col,int PaccepterBishop,int PaccepterKnight)//+1Aa7I~
+//  	int Pbishop,int Pknight,int Pgameoptions,int col)          //~@@@1R~//~1Aa7R~
+    	int Pbishop,int Pknight,int Pgameoptions,int col,int PaccepterBishop,int PaccepterKnight)//~1Aa7I~
 	{	super(Presid,s);                                           //~@@@2R~
 //        setLayout(new BorderLayout());                           //~@@@1R~
         if (Dump.Y) Dump.println("@@@@ConnectedGoFrame@@@@");      //~@@@1I~
     	Bishop=Pbishop;                                            //~@@@1M~
         Knight=Pknight;                                            //~@@@1M~
-    	accepterBishop=PaccepterBishop;                            //+1Aa7I~
-        accepterKnight=PaccepterKnight;                            //+1Aa7I~
+    	accepterBishop=PaccepterBishop;                            //~1Aa7I~
+        accepterKnight=PaccepterKnight;                            //~1Aa7I~
         GameOptions=Pgameoptions;                                  //~@@@1R~
     	Gameover=Pgameover==0?Math.min(si,GameQuestion.MAX_GAMEOVER):Pgameover;//~@@@1I~
         Gameover2=Pgameover2;                                      //~@@@1I~
@@ -324,8 +324,8 @@ public class ConnectedGoFrame extends GoFrame
 //            CommentPanel.add("Center",Comment);                  //~@@@1R~
 //        }                                                        //~@@@1R~
           B=new ConnectedBoard(si,this);                           //~@@@1R~
-//        B.putInitialPiece(Col,Bishop,Knight,Gameover,Gameover2,GameOptions);//~@@@1R~//+1Aa7R~
-          B.putInitialPiece(Col,Bishop,Knight,Gameover,Gameover2,GameOptions,accepterBishop,accepterKnight);//+1Aa7I~
+//        B.putInitialPiece(Col,Bishop,Knight,Gameover,Gameover2,GameOptions);//~@@@1R~//~1Aa7R~
+          B.putInitialPiece(Col,Bishop,Knight,Gameover,Gameover2,GameOptions,accepterBishop,accepterKnight);//~1Aa7I~
 //        Panel BP=new MyPanel();                                  //~@@@1R~
 //        BP.setLayout(new BorderLayout());                        //~@@@1R~
 //        BP.add("Center",B);                                      //~@@@1R~

@@ -1,5 +1,3 @@
-(nfcbt.txt)
-
 Bluetooth connection through NFC.
 
 Background color of message colomn is blue
@@ -45,3 +43,5 @@ Game :
   start match after session established,
 Disconnect :
   Use to connect to another device.
+
+(nfcbt.txt)

@@ -1,9 +1,9 @@
-//*CID://+@@@@R~:                             update#=    9;       //~@@@@I~
+//*CID://+@@@@R~:                             update#=   11;       //~@@@@I~
 package com.Ahsv.awt;                                            //~1112I~//~@@@@R~
 
 
 import com.Ahsv.AG;                                                //~@@@@R~
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+@@@@R~
 import jagoclient.Dump;
 import jagoclient.Global;
 //import jagoclient.gmp.GMPConnection;                             //~@@@@R~
@@ -246,16 +246,16 @@ public class ActionEvent                                           //~1112R~
 //*************************************************                //~1421R~
     public static boolean scheduleBoardAction(ActionEvent Pev)     //~1421I~
     {                                                              //~1421I~
-//        Frame f=AG.getCurrentFrame();                              //~1421I~//+@@@@R~
-//        if (f.isBoardFrame                                         //~1421R~//+@@@@R~
-//        &&  AG.isMainThread()                                      //~1421R~//+@@@@R~
-//        )                                                          //~1421I~//+@@@@R~
-//        {   BoardRequest r=f.boardCanvas.new BoardRequest(Canvas.BOARD_DOACTION,(Object)Pev,null);                                                       //~1421I~//+@@@@R~
-//            f.boardCanvas.enqRequest(r);//~1421I~                //+@@@@R~
-//            return true;                                           //~1421I~//+@@@@R~
-//        }                                                          //~1421I~//+@@@@R~
-//**ModalDialog by Button on BoardFrame put BoadSync thread in wait;//+@@@@I~
-//**And next button action such as help will not executed          //+@@@@I~
+//        Frame f=AG.getCurrentFrame();                              //~1421I~//~@@@@R~
+//        if (f.isBoardFrame                                         //~1421R~//~@@@@R~
+//        &&  AG.isMainThread()                                      //~1421R~//~@@@@R~
+//        )                                                          //~1421I~//~@@@@R~
+//        {   BoardRequest r=f.boardCanvas.new BoardRequest(Canvas.BOARD_DOACTION,(Object)Pev,null);                                                       //~1421I~//~@@@@R~
+//            f.boardCanvas.enqRequest(r);//~1421I~                //~@@@@R~
+//            return true;                                           //~1421I~//~@@@@R~
+//        }                                                          //~1421I~//~@@@@R~
+//**ModalDialog by Button on BoardFrame put BoadSync thread in wait;//~@@@@I~
+//**And next button action such as help will not executed          //~@@@@I~
         return false;                                              //~1421I~
     }                                                              //~1421I~
 //**************************************************               //~1422I~

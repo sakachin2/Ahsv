@@ -1,5 +1,7 @@
-//*CID://+1AecR~:                                   update#=  177; //~1AecR~
+//*CID://+1AhnR~:                                   update#=  185; //+1AhnR~
 //****************************************************************************//~@@@1I~
+//1Ahn 2020/06/06 on Mainthred for also close(currentry on Mainthread) like as wifi//+1AhnI~
+//1Ahj 2020/06/05 IP io on mainthread fails by android.os.NetworkOnMainThreadException//~1AhjI~
 //1Aec 2015/07/26 set connection type for Server                   //~1AecI~
 //1AbM 2015/07/03 BT:short sleep for BT disconnet fo exchange @@@@end and @@@@!end//~1AbMI~
 //1Abv 2015/06/19 BT:dismiss dialog at boardQuestion for also BT like as 1Abj//~1AbvI~
@@ -60,8 +62,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.Ahsv.AG;
-import com.Ahsv.ProgDlg;
-import com.Ahsv.R;
+import com.Ahsv.URunnable;
+import com.Ahsv.URunnableI;
+import com.ForDeprecated.ProgDlg;
+import com.Ahsv.R;                                                 //~1AecR~
 import com.Ahsv.Utils;
 
 import rene.util.parser.StringParser;
@@ -87,6 +91,7 @@ interpreters for the partner commands.
 
 public class PartnerFrame extends CloseFrame
 //    implements KeyListener                                         //~@@@1I~//~@@@2R~
+    implements URunnableI                                          //+1AhnI~
 //{	BufferedReader In;                                             //~v107R~
 {	                                                               //~v107I~
     private static final String CONTYPE_PREFIX=";";                //~1A6BI~
@@ -238,9 +243,10 @@ public class PartnerFrame extends CloseFrame
     {                                                              //~v108I~
         if (Dump.Y) Dump.println("jagoclient.PartnerFrame doclose");//~1AbMI~
 		out("@@@@end");                                            //~@@@2R~
-		Out.close();
-		new CloseConnection(Server,In);
-		super.doclose();
+//        Out.close();                                             //+1AhnR~
+//        new CloseConnection(Server,In);                          //+1AhnR~
+//        super.doclose();                                         //+1AhnR~
+        URunnable.setRunFunc(this/*URunnableI*/,100/*delay*/,this/*objparm*/,0/*int parm*/);//+1AhnI~
 	}
 	public void doclose2()                                         //~1AbMI~
     {                                                              //~1AbMI~
@@ -275,7 +281,7 @@ public class PartnerFrame extends CloseFrame
 //  		setTitle(Global.resourceString("Connection_to_")+name); //~1A6BI~//~1A85R~
 //  		setTitle(CONN_TITLE_IP+Global.resourceString("Connection_to_")+name);//~1A8iR~//~1A85I~//~1AecR~
     		setTitle((AG.isNFCBT ? CONN_TITLE_NFC_BT :CONN_TITLE_BT)//~1AecI~
-						+Global.resourceString("Connection_to_")+PartnerName);//+1AecR~
+						+Global.resourceString("Connection_to_")+PartnerName);//~1AecR~
             p.advance();                                           //~1A6BI~
             int ct=p.parseint();                                   //~1A6BR~
             setConnectionType(ct);                                 //~1A6BI~
@@ -606,8 +612,13 @@ public class PartnerFrame extends CloseFrame
 //          }                                                        //~@@@9I~//~1A6BR~
 //          else                                                     //~@@@9I~//~1A6BR~
 //          {                                                        //~@@@9I~//~1A6BR~
-    	if (Dump.Y) Dump.println("PartnerFrame out="+s+",Out="+Out.toString());//~1A37I~
-			Out.println(s);                                        //~@@@2I~
+          if (this instanceof com.Ahsv.jagoclient.partner.PartnerFrame)//~1AhjM~
+          {                                                        //~1AhjI~
+    		if (Dump.Y) Dump.println("PartnerFrame.out bluetooth msg="+s);//~1A37I~//~1AhjR~
+    		Out.println(s);                                        //~@@@2I~//~1AhjR~
+          }                                                        //~1AhjI~
+          else                                                     //~1AhjI~
+    		outIP(Out,s);     //on subthread                       //~1AhjR~
 //            Out.flush();                                         //~v101R~
 //    	if (Dump.Y) Dump.println("PartnerFrame out flushed");      //~v101R~//~@@@9R~
 //          }                                                        //~@@@9I~//~1A6BR~
@@ -617,6 +628,11 @@ public class PartnerFrame extends CloseFrame
         	Dump.println(e,"PatrnerFrame out():"+s);               //~@@@2I~
         }                                                          //~@@@2I~
 	}
+	public void outIP(PrintWriter Ppw,String Pmsg)                 //~1AhjI~
+	{                                                              //~1AhjI~
+		if (Dump.Y) Dump.println("PartnerFrame.outIP msg="+Pmsg);  //~1AhjI~
+        AG.aIPSubThread.println(Out,Pmsg);                         //~1AhjR~
+	}                                                              //~1AhjI~
 
 	public void refresh ()
 	{
@@ -792,7 +808,7 @@ public class PartnerFrame extends CloseFrame
 	public static void dismissWaitingDialog()                      //~@@@2R~
     {                                                              //~@@@2I~
         if (Dump.Y) Dump.println("PartnerFrame DismissWaitiingDialog");//~@@@2R~
-		ProgDlg.dismiss();                                         //~@@@2I~
+		ProgDlg.dismissDlg();                                         //~@@@2I~
         IPConnection.closeDialog();                                 //~1A6yI~
         BluetoothConnection.closeDialog();                         //~1AbvI~
         DialogNFC.closeDialog();	//close DialogNFC if showing   //~1A6sI~
@@ -880,5 +896,22 @@ public class PartnerFrame extends CloseFrame
             }                                                      //~v110I~//~1A85I~
         }                                                          //~v110I~//~1A85I~
     }                                                              //~v110I~//~1A85I~
+//***************************************************************  //+1AhnI~
+	@Override                                                      //+1AhnI~
+	public void runFunc(Object parmObj,int parmInt/*0*/)           //+1AhnI~
+    {                                                              //+1AhnI~
+        if (Dump.Y) Dump.println("jagoclient:PartnerFrame:doclose runFunc");//+1AhnI~
+      	try                                                        //+1AhnI~
+      	{                                                          //+1AhnI~
+        	Out.close();                                           //+1AhnI~
+          	if (Dump.Y) Dump.println("jagoclient.PartnerFrame:doclose issue Out.close()");//+1AhnI~
+//          new CloseConnection(Server,In);                        //+1AhnI~
+    	    doclose2();  //do not out @@@@end,CloseConnection close Server and In//+1AhnI~
+      	}                                                          //+1AhnI~
+      	catch(Exception e)                                         //+1AhnI~
+      	{                                                          //+1AhnI~
+      		Dump.println(e,"wifidirect.partnerFrame:runfunc");     //+1AhnI~
+      	}                                                          //+1AhnI~
+    }                                                              //+1AhnI~
 }
 

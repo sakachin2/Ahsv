@@ -1,5 +1,6 @@
-//*CID://+1Ad1R~:                             update#=   24;       //~1Ad1R~
+//*CID://+1AhgR~:                             update#=   29;       //~1AhgR~
 //*********************************************************************//~v101I~
+//1Ahg 2020/06/03 help text;string to helptext\
 //1Ad1 2015/07/17 for 1Ab1,helpdialog with parm titleid and helpfile//~1Ad1I~
 //1Aa6 2015/04/20 show youtube movie                               //~1Aa6I~
 //1A73 2015/02/23 apply 1A68 to Help dialog(fill screen width)     //~1A73I~
@@ -13,7 +14,7 @@ import java.io.*;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Ad1R~
 import com.Ahsv.Utils;
 import com.Ahsv.awt.Font;
 import com.Ahsv.awt.Frame;                                         //~@@@@R~
@@ -30,7 +31,7 @@ import jagoclient.Global;
 /**
 The same as Help.java but as a dialog. This is for giving help in
 modal dialogs. 
-@see jagoclient.dialogs.Help
+see jagoclient.dialogs.Help                                        //~1AhgR~
 */
 
 public class HelpDialog extends CloseDialog
@@ -54,6 +55,8 @@ public class HelpDialog extends CloseDialog
 //  	V=Global.getParameter("systemviewer",false)?new SystemViewer():new Viewer();//~@@@@R~
 //        V=new Viewer();                                          //~@@@@R~
         V=new Viewer(this,R.id.Viewer);                            //~@@@@I~
+//      if (Ptitleid==R.string.HelpTitle_Mainframe)                //+1AhgR~
+//      	new ButtonAction(this,0,R.id.ButtonYouTube);           //+1AhgR~
       if (AG.layoutMdpi)                                           //~1A72I~
       {                                                            //~1A72I~
         int fontsz=12;                                             //~1A72I~
@@ -115,7 +118,7 @@ public class HelpDialog extends CloseDialog
 			doclose();
 			return;
 		}
-		AG.tryHelpFileOpen=false;                                  //+1Ad1I~
+		AG.tryHelpFileOpen=false;                                  //~1Ad1I~
 		display();
 	}
 	public void doclose ()
@@ -139,9 +142,9 @@ public class HelpDialog extends CloseDialog
 	{                                                              //~@@@@I~
 //  	Global.notewindow(this,"help");                            //~@@@@I~
       if (o.equals(AG.resource.getString(R.string.ButtonYouTube))) //~1Aa6I~
-	  {                                                            //+1Ad1I~
+	  {                                                            //~1Ad1I~
         showMovie();                                           //~v1E7R~//~1Aa6I~
-      }                                                            //+1Ad1I~
+      }                                                            //~1Ad1I~
       else                                                         //~1Aa6I~
 		super.doAction(o);
 	}
@@ -163,8 +166,8 @@ public class HelpDialog extends CloseDialog
       }                                                            //~1A72I~
       else                                                         //~1A72I~
 		V.setFont(Global.Monospaced);                              //~@@@@I~
-        if (Presid==R.string.Help_MainFrame)                       //~1Aa6I~
-        	new ButtonAction(this,0,R.id.ButtonYouTube);           //~1Aa6I~
+//      if (Presid==R.string.Help_MainFrame)                       //~1Aa6I~//~1AhgR~
+//      	new ButtonAction(this,0,R.id.ButtonYouTube);           //~1Aa6I~//~1AhgR~
 		V.setBackground(Global.gray);                              //~@@@@I~
 		String s=AG.resource.getString(Presid);                    //~@@@@I~
         String[] sa=s.split("\n");                                 //~@@@@I~

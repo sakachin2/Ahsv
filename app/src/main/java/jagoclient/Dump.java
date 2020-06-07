@@ -1,6 +1,8 @@
-//*CID://+1Ad8R~:                                   update#=   19; //+1Ad8R~
+//*CID://+1Ah4R~:                                   update#=   49; //+1Ah4R~
 //***********************************************                  //~@@@1I~
-//1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//+1Ad8I~
+//1Ah4 2020/05/31 openFileOutput:MODE_WORLD_READABLE deprecated at api17//+1Ah4I~
+//1Ah2 2020/05/31 for Android9(Pie)-api28(PlayStore requires),deprected. DialogFragment,Fragmentmanager//~1Ah2I~
+//1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
 //1Ab9 2015/05/09 Dump byte[]                                      //~1Ab9I~
 //1A6A 2015/02/20 Another Trace option if (Dump.C) for canvas drawing//~1A6AI~
 //1075:121207 control dumptrace by manifest debuggable option      //~v107I~
@@ -8,60 +10,110 @@
 //     exception dump                                              //~@@@1I~
 //     optional dump by ajago menu option                          //~@@@1I~
 //***********************************************                  //~@@@1I~
-package jagoclient;
+package jagoclient;                                                //~1Ad8R~
 
 import java.io.*;
 import java.util.*;
 
-import com.Ahsv.AG;                                                //~v@@@R~
-import com.Ahsv.Prop;                                              //~v@@@R~
-import com.Ahsv.Utils;                                             //~v@@@R~
+//import com.btmtest.utils.Alert;                                  //~1Ah2R~
+import com.Ahsv.Alert;                                             //~1Ah2I~
+import com.Ahsv.R;//~v@@@R~                                        //~1Ad8R~
+import com.Ahsv.AG;                           //~v@21I~     //~1Ad8R~
+import com.Ahsv.Utils;
+import com.btmtest.utils.UFile;
+import com.btmtest.utils.UView;
+
+import android.content.Context;
+//~v@@@R~
 
 public class Dump
-{	static PrintWriter Out=null;
-	static boolean Terminal=false;                                           //~1228I~
-	static public boolean exceptionOnly=false;                     //~1507R~
-	static public boolean Y;   //test before call Dump to avoid memory for parameter String//~1506I~
-	static public boolean C;   //split Canvas drawing              //~1A6AI~
-	static public boolean T;   //split UiTHread trace              //~1A6AI~
+{                                                                  //~1Ad8R~
+	public static  boolean Y;   //test before call Dump to avoid memory for parameter String//~1506I~//~1Ad8I~
+	public static  boolean C;   //split Canvas drawing              //~1A6AI~//~1Ad8I~
+	public static  boolean T;   //split UiTHread trace              //~1A6AI~//~1Ad8I~
+                                                                   //~1Ad8I~
+	private static PrintWriter Out=null;                           //~1Ad8R~
+    private static boolean Terminal=false;                         //~1Ad8R~
+	private static boolean exceptionOnly=false;                     //~1507R~//~1Ad8R~
+	private static boolean swSD;	//write to sdcard              //~1Ad8I~
+	private static boolean swNoMsg;	//no Toast                     //~1Ad8I~
+    //**************************************************************//~1Ad8I~
+	public static void openEx (String file,boolean PswSD)          //~1Ad8I~
+	{                                                              //~1Ad8I~
+    	swSD=PswSD;                                                //~1Ad8I~
+		openEx(file);                                              //~1Ad8I~
+    }                                                              //~1Ad8I~
+    //**************************************************************//~1Ad8I~
 	public static void openEx (String file)                        //~1504I~
 	{                                                              //~1504I~
 		open(file);                                                //~1504I~
-      if (AG.isDebuggable                                          //~v107R~
-      && Out!=null                                                 //~v107R~
-      && (AG.Options & AG.OPTIONS_TRACE)!=0                        //~v@@@I~
-      )                                                            //~v@@@I~
-      {                                                            //~v107R~
-        Y=true;                                                    //~v107R~
-      }                                                            //~v107R~
-      else                                                         //~v107R~
-      {                                                            //~v107R~
-    	exceptionOnly=true;                                        //~1506M~
-        Y=false;//dont call Dump except case of Exceoption         //~1506I~
-      }                                                            //~v107R~
+      	if (AG.isDebuggable                                          //~v107R~//~1Ad8R~
+      	&& (Out!=null || Terminal)                                                //~v107R~//~1Ad8R~
+      	)                                                            //~v@@@I~//~1Ad8R~
+      	{                                                            //~v107R~//~1Ad8R~
+        	Y=true;                                                    //~v107R~//~1Ad8R~
+      	}                                                            //~v107R~//~1Ad8R~
+      	else                                                         //~v107R~//~1Ad8R~
+      	{                                                            //~v107R~//~1Ad8R~
+    		exceptionOnly=true;                                        //~1506M~//~1Ad8R~
+        	Y=false;//dont call Dump except case of Exceoption         //~1506I~//~1Ad8R~
+      	}                                                            //~v107R~//~1Ad8R~
     }                                                              //~1504I~
-	public static void open (String file)
+    //**************************************************************//~1Ad8I~
+	public static void openExOnlyTerminal()                        //~1Ad8I~
+	{                                                              //~1Ad8I~
+      	Terminal=true;                                             //~1Ad8I~
+    	exceptionOnly=true;                                        //~1Ad8I~
+        Y=false;//dont call Dump except case of Exceoption         //~1Ad8I~
+    }                                                              //~1Ad8I~
+    //**************************************************************//~1Ad8I~
+	public static void open(String Pfile,boolean PswSD)            //~1Ad8I~
+	{                                                              //~1Ad8I~
+    	swSD=PswSD;                                                //~1Ad8I~
+		open(Pfile);                                               //~1Ad8I~
+    }                                                              //~1Ad8I~
+    //**************************************************************//~1Ad8I~
+	public static void open(String file)                           //~1Ad8R~
 	{                                                              //~1329R~
     	exceptionOnly=false;//not exception only                   //~1506I~
+        if (Terminal)                                              //~1Ad8I~
+        {                                                          //~1Ad8I~
+			Y = true; //call Dump                                  //~1Ad8I~
+        	return;                                                //~1Ad8I~
+        }                                                          //~1Ad8I~
     	if (Out!=null)                                             //~1329I~
         	return;                                                //~1329I~
-		try                                                        //~1329I~
-		{                                                          //~1227R~
-        	OutputStream out=Prop.openOutputData("",file);	//SD card//~1329R~//~v@@@R~
-        	if (out!=null)
-        	{//~1313R~
-        		Out=new PrintWriter(new OutputStreamWriter(out,"UTF-8"),true/*autoFlash*/);//~1227I~//~1309R~
-        		Out.println("Locale: "+Locale.getDefault()+"\n");
-                Y=true; //call Dump                                //~1506I~
-                Terminal=true;                                     //~1511I~
-        	}
-		}
-		catch (IOException e)
-		{	Out=null;
-            System.out.println("Dump open failed");                //~1329I~
+        if (file.equals(""))                                       //~1Ad8I~
+        {                                                          //~1Ad8I~
+            Terminal=true;                                         //~1Ad8I~
+			Y = true; //call Dump                                  //~1Ad8I~
+        }   		                                               //~1Ad8I~
+        else                                                       //~1Ad8I~
+        {                                                          //~1Ad8I~
+			try                                                        //~1329I~//~1Ad8I~
+			{                                                          //~1227R~//~1Ad8I~
+                FileOutputStream out;
+			    if (swSD)                                          //~1Ad8I~
+					out = UFile.openOutputSD("",file); // /sdcard//~1Ad8I~
+                else                                               //~1Ad8I~
+//					out = UFile.openOutputData(file, Context.MODE_WORLD_READABLE); // ../files//~1Ad8R~//+1Ah4R~
+  					out = UFile.openOutputData(file, Context.MODE_PRIVATE); // ../files//+1Ah4I~
+				if (out != null)                                     //~1Ad8R~
+				{//~1313R~                                         //~1Ad8R~
+					Out = new PrintWriter(new OutputStreamWriter(out, "UTF-8"), true/*autoFlash*/);//~1227I~//~1309R~//~1Ad8R~
+					Out.println("Locale: " + Locale.getDefault() + "\n");//~1Ad8R~
+					Y = true; //call Dump                                //~1506I~//~1Ad8R~
+				}
+			}   //~1Ad8R~
+			catch (IOException e)                                  //~1Ad8I~
+			{                                                      //~1Ad8I~
+				Out=null;                                          //~1Ad8I~
+            	System.out.println("Dump open failed");                //~1329I~//~1Ad8I~
+                Terminal=true;                                     //~1Ad8I~
+			}                                                      //~1Ad8I~
 		}
 	}
-	/** dump a string in a line */
+    //**************************************************************//~1Ad8I~
 	public synchronized static void println (String s)             //~1305R~
 	{                                                              //~1228R~
     	if (exceptionOnly)                                         //~1504I~
@@ -75,13 +127,11 @@ public class Dump
         }                                                          //~1425I~
   		if (Terminal)                                              //~1511R~
         {                                                          //~1425I~
-        	if (tidts==null)                                       //~v@@@I~
-            	tid=Utils.getThreadId();                   //~1425I~//~v@@@R~
-            else                                                   //~v@@@I~
-            	tid=tidts;                                         //~v@@@I~
-            System.out.println(tid+":"+s);                         //~1425I~//~v@@@R~
+	    	tidts=Utils.getThreadTimeStamp();                      //~1Ad8I~
+            System.out.println(tidts+":"+s);                         //~1425I~//~v@@@R~//~1Ad8R~
         }                                                          //~1425I~
 	}
+    //**************************************************************//~1Ad8I~
     private static void byte2string(StringBuffer Psb,int Poutoffs,byte[] Pbytes,int Pinpoffs,int Plen)//~1Ab9I~
     {                                                              //~1Ab9I~
     	String s;                                                  //~1Ab9I~
@@ -107,12 +157,14 @@ public class Dump
         }                                                          //~1Ab9I~
     }                                                              //~1Ab9I~
 //                                       00 00 00 00 - 00 00 00 00 - 00 00 00 00 - 00 00 00 00 - *0123456789abcdef*//~1Ab9I~
+    //**************************************************************//~1Ad8I~
     private static final String dumpfmt="            -             -             -               *                *";//~1Ab9I~
 	public synchronized static void println (String Ptitle,byte[] Pbytes)//~1Ab9I~
     {                                                              //~1Ab9I~
     	println(Ptitle,Pbytes,0,Pbytes.length);                    //~1Ab9I~
     }                                                              //~1Ab9I~
-	public synchronized static void println (String Ptitle,byte[] Pbytes,int Poffs,int Plen)//~1Ab9I~
+    //**************************************************************//~1Ad8I~
+	public synchronized static void println(String Ptitle,byte[] Pbytes,int Poffs,int Plen)//~1Ab9I~//~1Ad8R~
 	{                                                              //~1Ab9I~
     	if (exceptionOnly)                                         //~1Ab9I~
         	return;                                                //~1Ab9I~
@@ -170,40 +222,74 @@ public class Dump
             	System.out.println(s);                             //~1Ab9I~
         }                                                          //~1Ab9I~
 	}                                                              //~1Ab9I~
-//** Exception Dump                                                //~1309I~
+    //**************************************************************//~1Ad8I~
+	//** Exception Dump                                                //~1309I~//~1Ad8I~
+    //**************************************************************//~1Ad8I~
 	public synchronized static void println(Exception e,String s)  //~1309I~
 	{                                                              //~1309I~
-	    String tidts=Utils.getThreadTimeStamp();              //~1425I~//~v@@@R~
-        System.out.println(tidts+":"+s);                                 //~1309I~//~1425R~
-        e.printStackTrace();                                   //~1309I~//~1329I~
-  		if (Out!=null)                                             //~1309I~
-        {                                                          //~1309I~
-			Out.println(tidts+":"+s+" Exception:"+e.toString());   //~1425R~
-            StringWriter sw=new StringWriter();                    //~1311I~
-            PrintWriter pw= new PrintWriter(sw);                   //~1311I~
-            e.printStackTrace(pw); 
-			Out.println(tidts+":"+sw.toString());                  //~1425R~
-			Out.flush(); 
-			pw.close();//~1309I~
-        }                                                          //~1309I~
+		println(false,e,s);                        //~1Ad8I~
 	}                                                              //~1309I~
-    //**************************************************************//~1B0gI~//+1Ad8I~
-	public synchronized static void println(OutOfMemoryError e,String s)//~1B0gI~//+1Ad8I~
-	{                                                              //~1B0gI~//+1Ad8I~
-	    String tidts=Utils.getThreadTimeStamp();              //~1B0gI~//+1Ad8I~
-        System.out.println(tidts+":"+s);                           //~1B0gI~//+1Ad8I~
-        e.printStackTrace();                                       //~1B0gI~//+1Ad8I~
-  		if (Out!=null)                                             //~1B0gI~//+1Ad8I~
-        {                                                          //~1B0gI~//+1Ad8I~
-			Out.println(tidts+":"+s+" Exception:"+e.toString());   //~1B0gI~//+1Ad8I~
-            StringWriter sw=new StringWriter();                    //~1B0gI~//+1Ad8I~
-            PrintWriter pw= new PrintWriter(sw);                   //~1B0gI~//+1Ad8I~
-            e.printStackTrace(pw);                                 //~1B0gI~//+1Ad8I~
-			Out.println(tidts+":"+sw.toString());                  //~1B0gI~//+1Ad8I~
-			Out.flush();                                           //~1B0gI~//+1Ad8I~
-			pw.close();                                            //~1B0gI~//+1Ad8I~
-        }                                                          //~1B0gI~//+1Ad8I~
-	}                                                              //~1B0gI~//+1Ad8I~
+    //**************************************************************//~1Ad8I~
+	//** Exception Dump                                            //~1Ad8I~
+    //**************************************************************//~1Ad8I~
+	public synchronized static void printlnNoMsg(Exception e,String s)//~1Ad8I~
+	{                                                              //~1Ad8I~
+    	swNoMsg=true;                                              //~1Ad8I~
+		println(false,e,s);                                        //~1Ad8I~
+    	swNoMsg=false;                                             //~1Ad8I~
+	}                                                              //~1Ad8I~
+    //**************************************************************//~1Ad8I~
+	//** Exception Dump                                            //~1Ad8R~
+	//** is swmsg=true:show message dialog, false:show toast       //~1Ad8I~
+    //**************************************************************//~1Ad8I~
+	public synchronized static void println(Boolean Pswmsgdialog,Exception e,String s)//~1Ad8I~
+	{                                                              //~1Ad8I~
+	    String tidts= Utils.getThreadTimeStamp();                   //~1Ad8I~
+        StringWriter sw=new StringWriter();                        //~1Ad8I~
+        PrintWriter pw= new PrintWriter(sw);                       //~1Ad8I~
+        e.printStackTrace(pw);                                     //~1Ad8I~
+		String sst=sw.toString();                                 //~1Ad8I~
+        pw.close();                                                //~1Ad8I~
+        if (Terminal)                                              //~1Ad8I~
+        {                                                          //~1Ad8I~
+			System.out.println(tidts+"Dump.Exception:"+s+"\n"+sst);//~1Ad8R~
+        }                                                          //~1Ad8I~
+        else                                                       //~1Ad8I~
+  		if (Out!=null)                                             //~1Ad8I~
+        {                                                          //~1Ad8I~
+			Out.println(tidts+"Dump.Exception:"+s+"\n"+sst);       //~1Ad8R~
+			Out.flush();                                           //~1Ad8I~
+        }                                                          //~1Ad8I~
+        if (Pswmsgdialog)                                          //~1Ad8I~
+	        Alert.showMessage("Dump.Exception:"+s,e.toString());   //~1Ad8R~
+        else                                                       //~1Ad8I~
+        if (!swNoMsg)                                              //~1Ad8I~
+        	UView.showToastLong(R.string.ErrExceptionDetected,":"+s+":"+e.toString());//~1Ad8R~
+	}                                                              //~1Ad8I~
+    //**************************************************************//~1B0gI~//~1Ad8I~
+	public synchronized static void println(OutOfMemoryError e,String s)//~1B0gI~//~1Ad8I~
+	{                                                              //~1B0gI~//~1Ad8I~
+	    String tidts=Utils.getThreadTimeStamp();              //~1B0gI~//~1Ad8I~
+        if (Terminal)                                              //~1Ad8I~
+        {                                                          //~1Ad8I~
+            StringWriter sw=new StringWriter();                    //~1Ad8I~
+            PrintWriter pw= new PrintWriter(sw);                   //~1Ad8I~
+            e.printStackTrace(pw);                                 //~1Ad8I~
+			System.out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//~1Ad8R~
+			pw.close();                                            //~1Ad8I~
+        }                                                          //~1Ad8I~
+        else                                                       //~1Ad8I~
+  		if (Out!=null)                                             //~1B0gI~//~1Ad8I~
+        {                                                          //~1B0gI~//~1Ad8I~
+            StringWriter sw=new StringWriter();                    //~1B0gI~//~1Ad8I~
+            PrintWriter pw= new PrintWriter(sw);                   //~1B0gI~//~1Ad8I~
+            e.printStackTrace(pw);                                 //~1B0gI~//~1Ad8I~
+			Out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//~1Ad8R~
+			Out.flush();                                           //~1B0gI~//~1Ad8I~
+			pw.close();                                            //~1B0gI~//~1Ad8I~
+        }                                                          //~1B0gI~//~1Ad8I~
+	}                                                              //~1B0gI~//~1Ad8I~
+    //**************************************************************//~1Ad8I~
 	/** dump a string without linefeed */
 	public static void print (String s)
 	{                                                              //~1504R~
@@ -212,6 +298,7 @@ public class Dump
 		if (Out!=null) Out.print(s);                               //~1504I~
 		if (Terminal) System.out.print(s);
 	}
+    //**************************************************************//~1Ad8I~
 	/** close the dump file */
 	public static void close ()
 	{                                                              //~1503R~
@@ -222,14 +309,17 @@ public class Dump
         }                                                          //~1503I~
     	Out=null;                                                  //~1425I~
 	}
-	/** determine terminal dumps or not */
-	public static void terminal (boolean flag)
-	{	Terminal=flag;
-	}
+    //**************************************************************//~1Ad8I~
     public static void setOption(boolean Pflag)                    //~1507I~//~v@@@R~
     {                                                              //~1507I~//~v@@@R~
         println("DumpOption Changed to"+Pflag);                    //~1507I~//~v@@@R~
         Y=Pflag;    //debug dump                                   //~1507I~//~v@@@R~
         exceptionOnly=!Pflag;                                      //~1507I~//~v@@@R~
     }                                                              //~1507I~//~v@@@R~
+    //**************************************************************//~1Ad8I~
+    public static void println(String Pcmt,int[][] Pintss)         //~1Ad8I~
+    {                                                              //~1Ad8I~
+    	for (int ii=0;ii<Pintss.length;ii++)                       //~1Ad8I~
+	        println(Pcmt+" ii="+ii+"="+Arrays.toString(Pintss[ii]));//~1Ad8R~
+    }                                                              //~1Ad8I~
 }

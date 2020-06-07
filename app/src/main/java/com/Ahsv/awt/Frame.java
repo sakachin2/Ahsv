@@ -1,4 +1,4 @@
-//*CID://+v101R~:                             update#=   61;       //~v107I~//~v108R~//~@@@@R~//~@@@2R~//~v101R~
+//*CID://+v101R~:                             update#=   63;       //~v107I~//~v108R~//~@@@@R~//~@@@2R~//~v101R~
 //**********************************************************************//~v107I~
 //101e 2013/02/08 findViewById to Container(super of Frame and Dialog)//~v101I~
 //1084:121215 connection frame input field is untachable when restored after Who frame//~v108I~
@@ -16,7 +16,7 @@ import com.Ahsv.AG;                                                //~@@@@R~
 //import com.Ahsv.AjagoGMP;                                        //~@@@@R~
 import com.Ahsv.AKey;                                              //~@@@@R~
 import com.Ahsv.AView;                                             //~@@@@R~
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+v101R~
 import com.Ahsv.awt.Window;                                        //~@@@@R~
 import android.view.View;
 //import android.view.inputmethod.InputMethodManager;              //~v108R~
@@ -201,7 +201,7 @@ public class Frame extends Window //skip Window of Container-->Window-->Frame   
         	framelayoutview=AView.inflateView(resid);	//no setContentView until show()//~1217I~//~@@@@R~
 //            setGoFrameVisibility();                                //~1415R~//~@@@@R~
 	        componentView=framelayoutview;	//for Component.requestFocus;//~1405I~
-	        setContainerLayoutView(framelayoutview);	//for findViewById     //~@@@2I~//+v101R~
+	        setContainerLayoutView(framelayoutview);	//for findViewById     //~@@@2I~//~v101R~
             if (framelayoutresourceid==AG.frameId_MainFrame)       //~1218I~
 				initMainFrame();                                   //~1218I~
             else                                                   //~1218I~
@@ -221,7 +221,7 @@ public class Frame extends Window //skip Window of Container-->Window-->Frame   
         	return;                                                //~@@@2I~
         framelayoutview=AView.inflateView(Presid);   //no setContentView until show()//~@@@2I~
         componentView=framelayoutview;  //for Component.requestFocus;//~@@@2I~
-	    setContainerLayoutView(framelayoutview);	//for findViewById//+v101I~
+	    setContainerLayoutView(framelayoutview);	//for findViewById//~v101I~
         if (framelayoutresourceid==AG.frameId_MainFrame)           //~@@@2I~
             initMainFrame();                                       //~@@@2I~
         else                                                       //~@@@2I~

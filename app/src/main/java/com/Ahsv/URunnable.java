@@ -1,5 +1,7 @@
-//*CID://+1A6tR~: update#= 144;                                    //~1A6eR~//~1A6tR~
+//*CID://+1Ah8R~: update#= 151;                                    //~1A6eR~//~1A6tR~//~1Ah0R~//~1Ah8R~
 //**********************************************************************//~v106I~
+//1Ah8 2020/06/01 detect wifip2p discovery stopped(available from API16 android4.1 JellyBean)//~1Ah8I~
+//1Ah0 2020/05/30 for Android9-api28(PlayStore requires),deprected. ProgressDialog at Android8-api26//~1Ah0I~
 //1A6t 2015/02/18 (BUG)simpleProgress Dialog thread err exception  //~1A6tI~
 //1A6e 2015/02/13 runOnUiThread for processingdialog               //~1A6eI~
 //101b 2013/02/04 Without BTList                                   //~v101I~
@@ -8,7 +10,10 @@
 //**********************************************************************//~1107I~
 package com.Ahsv;                                         //~1107R~  //~1108R~//~1109R~//~@@@@R~
 
-import android.app.ProgressDialog;
+//import android.app.ProgressDialog;
+import com.ForDeprecated.ProgDlg;
+import com.ForDeprecated.ProgDlgData;
+
 import jagoclient.Dump;
 
 //**********************************************************************//~1107I~
@@ -133,10 +138,20 @@ public class URunnable                                             //~@@@@R~
 //****************************************                         //~1A6eM~
     public static void dismissDialog(URunnableData Pdata)          //~1A6tI~
     {                                                              //~1A6tI~
-    	if (Pdata==null)                                           //+1A6tI~
-        	return;                                                //+1A6tI~
-    	android.app.Dialog dlg=Pdata.progressDialog;       //~1A6tI~
+		if (Dump.Y) Dump.println("URunnable:dismissDialog");       //+1Ah8I~
+    	if (Pdata==null)                                           //~1A6tI~
+        	return;                                                //~1A6tI~
+        ProgDlgData progDlgData=Pdata.progDlgData;                 //~1Ah0I~
+    	if (progDlgData==null)                                     //~1Ah0I~
+        	return;                                                //~1Ah0I~
+        ProgDlg progDlg=progDlgData.progDlg;                       //~1Ah0I~
+    	if (progDlg==null)                                         //~1Ah0I~
+        	return;                                                //~1Ah0I~
+//  	android.app.Dialog dlg=Pdata.progressDialog;       //~1A6tI~//~1Ah0R~
+    	android.app.Dialog dlg=progDlg;                            //~1Ah0I~
 		dismissDialog(dlg);                                        //~1A6tI~
+        Pdata.progDlgData=null;                                    //~1Ah0I~
+                                                                   //~1Ah0I~
     }                                                              //~1A6tI~
     public static void dismissDialog(android.app.Dialog Pdialog)   //~1A6eM~
     {                                                              //~1A6eM~
@@ -168,6 +183,15 @@ public class URunnable                                             //~@@@@R~
         UiThread.runOnUiThread(uithreadi,dlg);                     //~1A6eI~
         return dlg;                                                //~1A6eI~
     }                                                              //~1A6eI~
+    public static URunnableData simpleProgressDialogShowCB(ProgDlgI Pcb,int Ptitleid,String Pmsg,boolean Pindeterminate,boolean Pcancelable)//~1Ah8I~
+    {                                                              //~1Ah8I~
+        URunnableData dlg=new URunnableData();	//asynchronously filled at uithread execution//~1Ah8I~
+        dlg.progDlgI=Pcb;                                          //~1Ah8I~
+        if (Dump.Y) Dump.println("URunnable:simpleProgressDialogShow msg="+Pmsg+",dialog="+dlg.toString());//~1Ah8I~
+	    SimpleProgressDialogShowI uithreadi=new URunnable().new SimpleProgressDialogShowI(Ptitleid,Pmsg,Pindeterminate,Pcancelable);//~1Ah8I~
+        UiThread.runOnUiThread(uithreadi,dlg);                     //~1Ah8I~
+        return dlg;                                                //~1Ah8I~
+    }                                                              //~1Ah8I~
     class SimpleProgressDialogShowI implements UiThreadI           //~1A6eI~
     {                                                              //~1A6eI~
         int titleid;                                               //~1A6eI~
@@ -184,13 +208,16 @@ public class URunnable                                             //~@@@@R~
         	if (Dump.Y) Dump.println("URunnable:SimpleProgressDialogShow:runOnUiThread");//~1A6eR~
 //          ProgressDialog dlg=(ProgressDialog)Pparm;              //~1A6eI~//~1A6tR~
             data=(URunnableData)Pparm;                             //~1A6tI~
-			ProgressDialog dlg=new ProgressDialog(AG.context);     //~1A6tR~
-			data.progressDialog=dlg;                               //~1A6tI~
-            dlg.setTitle(AG.resource.getString(titleid));           //~1A6eI~
-            dlg.setMessage(msg);                                   //~1A6eI~
-            dlg.setIndeterminate(indeterminate);                   //~1A6eI~
-            dlg.setCancelable(cancelable);                         //~1A6eI~
-	        dlg.show();                                           //~1A6eI~
+//            ProgressDialog dlg=new ProgressDialog(AG.context);     //~1A6tR~//~1Ah0R~
+//            data.progressDialog=dlg;                               //~1A6tI~//~1Ah0R~
+//            dlg.setTitle(AG.resource.getString(titleid));           //~1A6eI~//~1Ah0R~
+//            dlg.setMessage(msg);                                   //~1A6eI~//~1Ah0R~
+//            dlg.setIndeterminate(indeterminate);                   //~1A6eI~//~1Ah0R~
+//            dlg.setCancelable(cancelable);                         //~1A6eI~//~1Ah0R~
+//            dlg.show();                                           //~1A6eI~//~1Ah0R~
+			ProgDlgData pd=ProgDlg.showProgDlgSimple(data,titleid,msg,cancelable);//~1Ah0I~//~1Ah8R~
+            data.progDlgData=pd;        //for dismissDialog using URunnableData//~1Ah8R~
+//          pd.mtDlgI=data.progDlgI;    //callback                 //~1Ah8R~
         }                                                          //~1A6eI~
 	}                                                              //~1A6eI~
 }//class URunnable                                            //~1214R~//~@@@@R~

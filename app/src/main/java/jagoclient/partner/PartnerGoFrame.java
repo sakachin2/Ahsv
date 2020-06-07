@@ -1,6 +1,7 @@
-//*CID://+1Aa7R~:                                   update#=  110; //+1Aa7R~
+//*CID://+1AhgR~:                                   update#=  113; //+1AhgR~
 //****************************************************************************//~@@@1I~
-//1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //+1Aa7I~
+//1Ahg 2020/06/03 help text;string to helptext\
+//1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //~1Aa7I~
 //1A74 2015/02/23 toast for delayed response(Game not started,already end)//~1A74I~
 //1A6B 2015/02/21 IP game title;identify IP and WifiDirect(WD)     //~1A6BI~
 //1A06 2013/03/02 remaining ExtraTime was accounted.               //~1A06I~
@@ -19,7 +20,7 @@ package jagoclient.partner;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Aa7R~
 import com.Ahsv.awt.Frame;
 import com.Ahsv.awt.KeyEvent;                                      //~v107R~
 import com.Ahsv.awt.KeyListener;                                   //~v107R~
@@ -38,13 +39,13 @@ public class PartnerGoFrame extends TimedGoFrame                   //~@@@@I~
 	
 //*********************************************************************//+@@@@I~                                                             //~@@@@I~
     public PartnerGoFrame (PartnerFrame pf,                        //~@@@@I~
-//  	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions)//~@@@@R~//+1Aa7R~
-    	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions,//+1Aa7I~
-        int PaccepterBishop,int PaccepterKnight)                   //+1Aa7I~
+//  	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions)//~@@@@R~//~1Aa7R~
+    	int col, int si,int Pgameover,int Pgameover2, int tt,int et, int Pbishop, int Pknight, int Pgameoptions,//~1Aa7I~
+        int PaccepterBishop,int PaccepterKnight)                   //~1Aa7I~
     {                                                              //~@@@@I~
     	super((Frame)pf,AG.frameId_ConnectedGoFrame,AG.resource.getString(R.string.Title_PartnerMatch),//~@@@@R~
-//  			col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions);//~@@@@I~//+1Aa7R~
-    			col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions,PaccepterBishop,PaccepterKnight);//+1Aa7I~
+//  			col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions);//~@@@@I~//~1Aa7R~
+    			col,si,Pgameover,Pgameover2,tt,et,Pbishop,Pknight,Pgameoptions,PaccepterBishop,PaccepterKnight);//~1Aa7I~
         if (Dump.Y) Dump.println("@@@@PartnerGoFrame@@@@");        //~@@@@I~
 		PF=pf;
 //  	Col=col; TotalTime=tt; ExtraTime=et; ExtraMoves=em;        //~@@@@R~
@@ -91,7 +92,8 @@ public class PartnerGoFrame extends TimedGoFrame                   //~@@@@I~
 		}                                                          //~@@@1I~
         else if (o.equals(AG.resource.getString(R.string.Help)))   //~@@@@I~
 		{                                                          //~@@@@I~
-        	new HelpDialog(this,R.string.Help_GoFrame);                 //~@@@@R~
+//      	new HelpDialog(this,R.string.Help_GoFrame);                 //~@@@@R~//+1AhgR~
+        	new HelpDialog(this,R.string.Title_PartnerMatch,"GoFrame");//+1AhgI~
 		}                                                          //~@@@@I~
 		else super.doAction(o);
 	}

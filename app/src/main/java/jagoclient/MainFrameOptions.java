@@ -1,5 +1,6 @@
-//*CID://+1Ad7R~:                             update#=    8;       //~1Ad7R~
+//*CID://+1AhoR~:                             update#=   11;       //+1AhoR~
 //*****************************************************************************//~1A13I~
+//1Aho 2020/06/06 HelpDialog by html for MainFrameOptions          //+1AhoI~
 //1Ad7 2015/07/20 Canvas/UiThread TraceOption was not effective if OptionDialog is opened//~1Ad7I~
 //1A6A 2015/02/20 Another Trace option if (Dump.C) for canvas drawing, (Dump.T) for UiThread//~1A6AI~
 //1A13 2013/03/10 1touch option                                    //~1A13I~
@@ -10,11 +11,11 @@ import android.widget.EditText;
 
 import com.Ahsv.AG;
 import com.Ahsv.Prop;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Ad7R~
 import com.Ahsv.awt.Checkbox;
 import com.Ahsv.awt.Frame;
 
-import jagoclient.dialogs.HelpDialog;
+import com.btmtest.dialog.HelpDialog;                              //+1AhoR~
 import jagoclient.gui.ButtonAction;
 import jagoclient.gui.CloseDialog;
 import jagoclient.gui.DoActionListener;
@@ -22,9 +23,12 @@ import jagoclient.gui.FormTextField;
 
 //*CID://+@@@@R~:                             update#=    5;       //~@@@@I~
 
-//class MainFrameOptions extends CloseDialog                           //~@@@@I~//~3114R~//+1Ad7R~
-public class MainFrameOptions extends CloseDialog                  //+1Ad7I~
+//class MainFrameOptions extends CloseDialog                           //~@@@@I~//~3114R~//~1Ad7R~
+public class MainFrameOptions extends CloseDialog                  //~1Ad7I~
 {                                                                  //~@@@@R~
+    private static final int HELP_TITLEID=R.string.MainFrameOptions;//+1AhoI~
+    private static final String HELPFILE="MainOptions";            //+1AhoI~
+                                                                   //+1AhoI~
 	private Checkbox Coordinate,BigTimer,Trace;               //~@@@@I~    //~3114R~//~3119R~
 	private Checkbox TraceC,TraceT;                                //~1A6AI~
 	private Checkbox OneTouch;                                     //~1A13I~
@@ -124,7 +128,8 @@ public class MainFrameOptions extends CloseDialog                  //+1Ad7I~
 		}                                                          //~@@@@I~
     	else if (o.equals(AG.resource.getString(R.string.Help)))   //~@@@2I~//~@@@@I~
 		{                                                          //~@@@@I~
-        	new HelpDialog(null,R.string.Help_MainFrameOptions);          //~@@@@I~//~3114R~//~3208R~
+//        	new HelpDialog(null,R.string.Help_MainFrameOptions);          //~@@@@I~//~3114R~//~3208R~//+1AhoR~
+	    	HelpDialog.newInstance(HELP_TITLEID,HELPFILE).showDlg();//+1AhoI~
 		}                                                          //~@@@@I~
         else if (o.equals(AG.resource.getString(R.string.ActionDismissDialog)))	//modal but no inputWait//~3119R~
 		{                                                          //~3119I~

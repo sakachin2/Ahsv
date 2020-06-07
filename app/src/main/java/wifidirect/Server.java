@@ -1,4 +1,4 @@
-//*CID://+1AecR~:                             update#=   36;       //~1AecR~
+//*CID://+1AecR~:                             update#=   38;       //~1AecR~
 //*************************************************************************//~v107I~
 //1Aec 2015/07/26 set connection type for Server                   //~1AecI~
 //1A90 2015/04/18 (like as 1A84)WiFiDirect from Top panel          //~1A90I~
@@ -18,7 +18,7 @@ import java.net.Socket;
 
 import com.Ahsv.AG;                                              //~v101R~
 import com.Ahsv.AView;                                           //~v101R~
-import com.Ahsv.R;                                               //~v101R~
+import com.Ahsv.R;                                               //~v101R~//+1AecR~
 
 /**
 This is the server thread for partner connections. If anyone connects
@@ -75,7 +75,7 @@ public class Server extends Thread
                 PartnerFrame cf=                                 //~v107R~//~v101R~
 //                  new PartnerFrame(Global.resourceString("Server"),true);//layout.partnerframe //~v107R~//~v101R~//~1AecR~
                     new PartnerFrame(Global.resourceString("Server"),true, //layout.partnerframe//~1AecI~
-                    (swNFC ? jagoclient.partner.IPConnection.NFC_SERVER : jagoclient.partner.IPConnection.WD_SERVER));//+1AecR~
+                    (swNFC ? jagoclient.partner.IPConnection.NFC_SERVER : jagoclient.partner.IPConnection.WD_SERVER));//~1AecR~
 //                  new PartnerFrame(AG.resource.getString(R.string.IPServer),true);//~v101R~
 //                Global.setwindow(cf,"partner",500,400);          //~v107R~//~v101R~
 //              cf.show();                                       //~v107R~//~v101R~

@@ -28,17 +28,48 @@
         android:layout_height="wrap_content"
     >
 <!--/FrameLayout v1A65-->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-    >   <!--1Ae0-->
+    <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+        	android:orientation="vertical"
+    >
+
+	    <LinearLayout
+        	android:orientation="vertical"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+                 android:id="@+id/device_list_wd"
+    	>
+            <include layout="@layout/device_list_wd"
+            />
+	    </LinearLayout>
+	    <LinearLayout
+        	android:orientation="vertical"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+                 android:id="@+id/device_detail_wd"
+	        android:background="@android:color/background_dark"
+                  android:visibility="gone"
+    	>
+            <include layout="@layout/device_detail_wd"
+                android:background="@drawable/details_view"
+            />
+    	</LinearLayout>
+    	<LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+	        android:background="#ff101010"
+            android:layout_height="10dp"/>  <!--gap-->
+
+	</LinearLayout>
+  <!--/LinearLayout--> <!-- one layout in scrollview--> <!--1Aa3--><!--1Ae0-->
+  <!--/ScrollView-->                                    <!--1Aa3--><!--1Ae0-->
+  <!--/LinearLayout--> <!-- layout include scrollview--><!--1Aa3--><!--1Ae0-->
     <LinearLayout
             android:id="@+id/DialogButtons"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
 	        android:background="#ff101010"
-	        android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"> <!--1A65 id:DialogButtons for AxeDialog-->
                     <!--Button
                         android:layout_width="0dp"
@@ -115,54 +146,5 @@
                         android:layout_weight="1"
                     />
     </LinearLayout>
-    <LinearLayout
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-                 android:layout_alignParentTop="true"
-                 android:layout_above="@id/DialogButtons"
-        	android:orientation="vertical"
-    >
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        	android:orientation="vertical"
-    > <!--1Ae0-->
-
-	    <LinearLayout
-        	android:orientation="vertical"
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-                 android:id="@+id/device_detail_wd"
-	        android:background="@android:color/background_dark"
-	        android:layout_alignParentBottom="true"
-                  android:visibility="gone"
-    	>
-            <include layout="@layout/device_detail_wd"
-                android:background="@drawable/details_view"
-            />
-    	</LinearLayout>
-	    <LinearLayout
-        	android:orientation="vertical"
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-                 android:id="@+id/device_list_wd"
-                 android:layout_alignParentTop="true"
-                 android:layout_above="@id/device_detail_wd"
-    	>
-            <include layout="@layout/device_list_wd"
-            />
-	    </LinearLayout>
-    </RelativeLayout><!--1Ae0-->
-    	<LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-	        android:background="#ff101010"
-            android:layout_height="10dp"/>  <!--gap-->
-
-	</LinearLayout>
-    </RelativeLayout>    <!--1Ae0-->
-  <!--/LinearLayout--> <!-- one layout in scrollview--> <!--1Aa3--><!--1Ae0-->
-  <!--/ScrollView-->                                    <!--1Aa3--><!--1Ae0-->
-  <!--/LinearLayout--> <!-- layout include scrollview--><!--1Aa3--><!--1Ae0-->
 </LinearLayout>
 </LinearLayout>

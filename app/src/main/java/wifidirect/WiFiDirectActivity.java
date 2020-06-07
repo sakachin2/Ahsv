@@ -1,6 +1,7 @@
-//*CID://+1Ac4R~:                             update#=   61;       //+1Ac4R~
+//*CID://+1Ah8R~:                             update#=   66;       //~1Ac4R~//~1Ah8R~
 //*************************************************************************//~1A65I~
-//1Ac4 2015/07/06 WD:try disable wifi direct at unpair             //+1Ac4I~
+//1Ah8 2020/06/01 detect wifip2p discovery stopped(available from API16 android4.1 JellyBean)//~1Ah8I~
+//1Ac4 2015/07/06 WD:try disable wifi direct at unpair             //~1Ac4I~
 //1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//~1Ac0I~
 //1Aby 2015/06/21 NFCWD:system settings id is not ACTION_WIREESS_SETTING but ACTION_WIFI_SETTINGS//~1AbyI~
 //1Aa5 2015/04/20 test function for mdpi listview                  //~1Aa5I~
@@ -54,7 +55,8 @@ import wifidirect.DeviceListFragment.DeviceActionListener;
 import wifidirect.WDANFC;
                                                                    //~1A65I~
 import com.Ahsv.AG;                                                //~1A65I~
-import com.Ahsv.R;
+import com.Ahsv.AView;
+import com.Ahsv.R;                                                 //~1Ac4R~
 
 /**
  * An activity that uses WiFi Direct APIs to discover and connect with available
@@ -77,8 +79,8 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
     protected static final int DISCONNECT_CANCEL_ER=6;               //~1A6aI~//~1A6sR~
     protected static final int DISCONNECTED=7;                     //~1A6sI~
 //  private WifiP2pManager manager;                                //~1A6sR~
-//  protected WifiP2pManager manager;                              //~1A6sI~//+1Ac4R~
-    public WifiP2pManager manager;                                 //+1Ac4I~
+//  protected WifiP2pManager manager;                              //~1A6sI~//~1Ac4R~
+    public WifiP2pManager manager;                                 //~1Ac4I~
 //  private boolean isWifiP2pEnabled = false;                      //~1A6sR~
     protected boolean isWifiP2pEnabled = false;                    //~1A6sI~
     private boolean retryChannel = false;
@@ -86,8 +88,8 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
 //  private final IntentFilter intentFilter = new IntentFilter();  //~1A6sR~
     protected final IntentFilter intentFilter = new IntentFilter();//~1A6sI~
 //  private Channel channel;                                       //~1A6sR~
-//  protected Channel channel;                                     //~1A6sI~//+1Ac4R~
-    public Channel channel;                                        //+1Ac4I~
+//  protected Channel channel;                                     //~1A6sI~//~1Ac4R~
+    public Channel channel;                                        //~1Ac4I~
     private BroadcastReceiver receiver = null;
     //*******************************************************************//~1A65I~
 	public WiFiDirectActivity()                                    //~1A65I~
@@ -115,6 +117,7 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_DISCOVERY_CHANGED_ACTION);//~1Ah8I~
 
         manager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 //      channel = manager.initialize(this, getMainLooper(), null); //~1A65R~
@@ -225,7 +228,12 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
 //              final DeviceListFragment fragment = (DeviceListFragment) getFragmentManager()//~1A65R~
 //                      .findFragmentById(R.id.frag_list);         //~1A65R~
                 final DeviceListFragment fragment = WDA.getDeviceListFragment();//~1A65I~
-                fragment.onInitiateDiscovery();
+//              fragment.onInitiateDiscovery();                    //~1Ah8R~
+				if (fragment.swDiscovering)	//dup call             //~1Ah8I~
+                {                                                  //~1Ah8I~
+					AView.showToast(R.string.WD_DiscoveryDup);     //~1Ah8I~
+                    return true;                                   //~1Ah8I~
+                }                                                  //~1Ah8I~
                 manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
 
                     @Override
@@ -234,6 +242,7 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
                         Toast.makeText(getContext(),WDA.getResourceString(R.string.DiscoveryInitiated),//~1A65R~
                                 Toast.LENGTH_SHORT).show();
                         if (Dump.Y) Dump.println("WiFiDirectActivity discover onSuccess");//~1A6aI~
+						fragment.onInitiateDiscovery();            //~1Ah8I~
                     }
 
                     @Override
@@ -328,7 +337,7 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
         		if (Dump.Y) Dump.println("WiFiDirectActivity:disconnect removeGroup() success");//~1Ac0I~
                 fragment.getView().setVisibility(View.GONE);
     			notifyConnected(DISCONNECT_OK,null);               //~1A6aR~
-//              WDA.setWifiDirectStatus(false);//@@@@test          //+1Ac4I~
+//              WDA.setWifiDirectStatus(false);//@@@@test          //~1Ac4I~
             }
 
         });
@@ -479,7 +488,7 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
         case DISCONNECT_CANCEL_ER:                                 //~1A6aI~
             break;                                                 //~1A6aI~
         }                                                          //~1A6aI~
-//      Utils.chkNetwork();//@@@@test                              //~1Ac0I~//+1Ac4R~
+//      Utils.chkNetwork();//@@@@test                              //~1Ac0I~//~1Ac4R~
       }                                                            //~1Ac0I~
       catch(Exception e)                                           //~1Ac0I~
       {                                                            //~1Ac0I~
@@ -504,4 +513,23 @@ public class WiFiDirectActivity implements ChannelListener, DeviceActionListener
     	if (Dump.Y) Dump.println("WiFiDirectActivity discover sender side");//~1A6aI~
 	    buttonAction(DeviceListFragment.BTNID_DISCOVER);           //~1A6aR~
     }                                                              //~1A6aI~
+    //*****************************************************************//+1Ah8I~
+    public void cancelDiscover()                                   //+1Ah8I~
+    {                                                              //+1Ah8I~
+    	manager.stopPeerDiscovery(channel, new WifiP2pManager.ActionListener()//+1Ah8I~
+		{                                                          //+1Ah8I~
+                                                                   //+1Ah8I~
+                    @Override                                      //+1Ah8I~
+                    public void onSuccess()                        //+1Ah8I~
+					{                                              //+1Ah8I~
+                        if (Dump.Y) Dump.println("WiFiDirectActivity cancelDiscover onSuccess");//+1Ah8I~
+						AView.showToast(R.string.WD_DiscoveryCanceled);//+1Ah8I~
+                    }                                              //+1Ah8I~
+                    @Override                                      //+1Ah8I~
+                    public void onFailure(int reasonCode)          //+1Ah8I~
+					{                                              //+1Ah8I~
+                        if (Dump.Y) Dump.println("WiFiDirectActivity discover onFailure reason="+reasonCode);//+1Ah8I~
+                    }                                              //+1Ah8I~
+    	});                                                        //+1Ah8I~
+	}                                                              //+1Ah8I~
  }

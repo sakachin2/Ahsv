@@ -1,8 +1,8 @@
-//*CID://+@@@@R~:                             update#=    6;       //~@@@@I~
+//*CID://+@@@@R~:                             update#=    8;       //~@@@@I~
 package jagoclient.dialogs;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+@@@@R~
 import com.Ahsv.awt.ActionListener;                                //~2C26R~
 //import com.Ahsv.awt.FlowLayout;                                  //~2C26R~
 import com.Ahsv.awt.Frame;                                         //~2C26R~
@@ -59,8 +59,8 @@ public class Question extends CloseDialog
 //        O=o;                                                     //~2C26R~
 //        if (flag) Global.setpacked(this,"question",300,150,f);   //~2C26R~
 //        else Global.setpacked(this,"question",300,150);          //~2C26R~
-//        new MyLabel(" "+c+" ");                                  //+@@@@R~
-        new MyLabel(this,R.id.QMsg," "+c+" ");                     //+@@@@I~
+//        new MyLabel(" "+c+" ");                                  //~@@@@R~
+        new MyLabel(this,R.id.QMsg," "+c+" ");                     //~@@@@I~
         new ButtonAction(this,0,R.id.Yes);               //~@@@@R~
         new ButtonAction(this,0,R.id.No);                //~@@@@R~
 		validate();

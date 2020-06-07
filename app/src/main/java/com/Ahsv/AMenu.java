@@ -1,4 +1,4 @@
-//*CID://+1A51R~: update#= 225;                                    //+1A51R~
+//*CID://+1A51R~: update#= 228;                                    //~1A51R~
 //**********************************************************************//~1107I~
 //1A51 2014/10/03 actionBar as alternative of menu button for api>=11//~1A51I~
 //1091:121124 Menubar list OutOfBoundsException                    //~v109I~
@@ -17,6 +17,7 @@ import jagoclient.dialogs.SayDialog;
 import com.Ahsv.awt.MenuBar;                                       //~@@@@R~
 import com.Ahsv.Alert;                                             //~@@@@R~
 import com.Ahsv.AG;                                                //~@@@@R~
+import com.Ahsv.R;                                                 //+1A51R~
 
 
 import android.view.ContextMenu;
@@ -546,19 +547,19 @@ public class AMenu                                             //~1310R~//~@@@@R
 	{                                                              //~1314I~
         String str;                                                //~1314I~
     //********************                                         //~1314I~
-        if (AG.osVersion>=AG.HONEYCOMB)  //android3                //~1A51R~
-        {                                                          //~1A51R~
+//        if (AG.osVersion>=AG.HONEYCOMB)  //android3              //~1A51R~
+//        {                                                        //~1A51R~
             onCreateOptionMenu_V11(Pmenu);                         //~1A51R~
-            return;                                                //~1A51R~
-        }                                                          //~1A51R~
-	    menuDesc=AG.resource.getStringArray(R.array.MenuText);  //~1314I~//~1326R~
-        for (int ii=0;ii<MENU_CTR;ii++)                            //~1326R~
-		{                                                          //~1314I~
-        	str=menuDesc[ii];                                      //~1314I~
-            int id=menuId[ii];                                     //~1314I~
-            MenuItem item=Pmenu.add(0,id,0,str);                    //~1314I~
-            item.setIcon(icons[ii]);                               //~1314I~
-        }                                                          //~1314I~
+//            return;                                              //~1A51R~
+//        }                                                        //~1A51R~
+//        menuDesc=AG.resource.getStringArray(R.array.MenuText);  //~1314I~//~1326R~//~1A51R~
+//        for (int ii=0;ii<MENU_CTR;ii++)                            //~1326R~//~1A51R~
+//        {                                                          //~1314I~//~1A51R~
+//            str=menuDesc[ii];                                      //~1314I~//~1A51R~
+//            int id=menuId[ii];                                     //~1314I~//~1A51R~
+//            MenuItem item=Pmenu.add(0,id,0,str);                    //~1314I~//~1A51R~
+//            item.setIcon(icons[ii]);                               //~1314I~//~1A51R~
+//        }                                                          //~1314I~//~1A51R~
     }                                                              //~1314I~
 //**************                                                   //~1A51R~
  	public void onCreateOptionMenu_V11(Menu Pmenu)                 //~1A51R~

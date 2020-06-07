@@ -1,6 +1,6 @@
-//*CID://+1AecR~:                             update#=  148;       //+1AecR~
+//*CID://+1AecR~:                             update#=  150;       //~1AecR~
 //**********************************************************************************//~1A05I~
-//1Aec 2015/07/26 set connection type for Server                   //+1AecI~
+//1Aec 2015/07/26 set connection type for Server                   //~1AecI~
 //1Ac3 2015/07/06 WD:Unpare after active session was closed        //~1Ac3I~
 //1Aad 2015/04/29 change WiFiDirect(+NFC) portNo 6971-->6975       //~1AadI~
 //                Ajagoc use 6970,6971,6972; Asgts use 6974, Ahsv now use 6973 and 6975//~1AadI~
@@ -41,9 +41,9 @@ import com.Ahsv.AG;                                               //~v101R~//~1A
 import com.Ahsv.Prop;
 import com.Ahsv.Utils;
 import com.Ahsv.AView;                                            //~v101R~//~1A84R~
-import com.Ahsv.ProgDlg;                                          //~v101R~//~1A84R~
+import com.ForDeprecated.ProgDlg;                                          //~v101R~//~1A84R~
 import com.Ahsv.ProgDlgI;                                         //~v101R~//~1A84R~
-import com.Ahsv.R;                                                //~v101R~//~1A84R~
+import com.Ahsv.R;                                                //~v101R~//~1A84R~//+1AecR~
 
 import jagoclient.Dump;
 import jagoclient.Global;
@@ -417,8 +417,8 @@ public class IPConnection                                          //~1A84R~
         }                                                          //~1A05I~
 //  	portNo=getPortNo();                                        //~v101I~//~1A84R~
         if (S==null)                                               //~v101R~
-//      	S=new Server(portNo,false);                            //~v101R~//+1AecR~
-        	S=new Server(portNo,false,false/*not NFC*/);           //+1AecI~
+//      	S=new Server(portNo,false);                            //~v101R~//~1AecR~
+        	S=new Server(portNo,false,false/*not NFC*/);           //~1AecI~
 		return true; 	//dispose at boardquestion                 //~v101R~
   	}                                                              //~v101I~
 //    //******************************************                   //~v101I~//~1A84R~

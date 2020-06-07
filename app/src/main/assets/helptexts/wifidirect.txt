@@ -1,5 +1,3 @@
-(wifidirect.txt)
-
 Not all devices support "Wi-Fi Direct"
 Support of concurrent use of WiFi and WiFi-Direct
 depends device type.
@@ -34,3 +32,5 @@ Connect : (Client side)
   Request connection to the pair device.
 Game : start match if already paired
   and connected to the pair.
+
+(wifidirect.txt)

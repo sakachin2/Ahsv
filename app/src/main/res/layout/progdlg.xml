@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/PartnerFrame"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+	<LinearLayout 
+		 android:layout_width="wrap_content"
+		 android:layout_height="70dp"
+		 android:orientation="horizontal"
+             android:gravity="center_vertical"
+             android:layout_gravity="center_vertical"
+	>
+        <LinearLayout
+             android:layout_width="60dp"
+             android:layout_height="60dp"
+             android:orientation="horizontal"
+        >
+	        <include layout="@layout/progbar"/>
+        </LinearLayout>
+        <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="fill_parent" 
+             android:orientation="horizontal"
+             android:gravity="center_vertical"
+             android:layout_gravity="center_vertical"
+        >
+            <TextView
+                android:layout_height="fill_parent" 
+                 android:layout_width="wrap_content"
+                 android:layout_gravity="center_vertical"
+                 android:gravity="center_vertical"
+                 android:id="@+id/progMsg"
+                 android:textSize="20sp"
+            />
+        </LinearLayout>
+	</LinearLayout> 
+	<LinearLayout 
+         android:id="@+id/DialogButtons"
+		 android:layout_width="fill_parent"
+		 android:layout_height="wrap_content"
+		 android:orientation="horizontal"
+	>
+		<Button
+            android:id="@+id/Close" 
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content" 
+			android:layout_gravity="center_vertical"
+			android:text="@string/Close" 
+		/>
+	</LinearLayout>
+</LinearLayout>
+

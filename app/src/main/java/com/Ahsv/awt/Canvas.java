@@ -1,7 +1,7 @@
-//*CID://+1Ag9R~: update#= 411;                                    //+1Ag9R~
+//*CID://+1Ag9R~: update#= 413;                                    //~1Ag9R~
 //**********************************************************************//~1107I~
-//1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//+1Ag9I~
-//                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//+1Ag9I~
+//1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//~1Ag9I~
+//                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//~1Ag9I~
 //1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
 //1A6A 2015/02/20 Another Trace option if (Dump.C) for canvas drawing//~1A6AI~
 //1A13 2013/03/10 1touch option                                    //~1A13I~
@@ -31,7 +31,7 @@ import com.Ahsv.AKeyI;                                       //~1401I~//~@@@@R~
 import com.Ahsv.UiThreadI;                                         //~@@@@R~
 import com.Ahsv.Utils;                                             //~@@@@R~
 import com.Ahsv.AView;                                             //~@@@@R~
-import com.Ahsv.R;                                                 //~@@@@R~
+import com.Ahsv.R;                                                 //~@@@@R~//+1Ag9R~
 import com.Ahsv.awt.Dimension;                                     //~@@@@R~
 import com.Ahsv.awt.Image;                                         //~@@@@R~
 import com.Ahsv.awt.KeyListener;                                 //~1117I~//~@@@@R~
@@ -974,19 +974,19 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
 	    	canvasFrame.setFrameType(null);	//for UI thread ctl    //~@@@2I~
         }                                                          //~1422I~
     }                                                              //~1422I~
-    //***********************************************              //+1Ag9I~
-    //*from BoardSync at stop thread                               //+1Ag9I~
-    //***********************************************              //+1Ag9I~
-    private void onDestroy()                                       //+1Ag9I~
-    {                                                              //+1Ag9I~
-    	if (Dump.Y) Dump.println("Canvas:onDestroy");              //+1Ag9I~
-    	board.onDestroy();                                         //+1Ag9I~
-        boardImageCopy.recycle();                                  //+1Ag9I~
-        boardImageCopy=null;                                       //+1Ag9I~
-        activeImage=null;                                          //+1Ag9I~
-        graphics.recycle(true); //clear ptr tp androidcanvas and bitmap of boardimage copy was recycled 2 lines before,this is required because subcras has also reference to graphics//+1Ag9I~
-        graphics=null;                                             //+1Ag9I~
-    }                                                              //+1Ag9I~
+    //***********************************************              //~1Ag9I~
+    //*from BoardSync at stop thread                               //~1Ag9I~
+    //***********************************************              //~1Ag9I~
+    private void onDestroy()                                       //~1Ag9I~
+    {                                                              //~1Ag9I~
+    	if (Dump.Y) Dump.println("Canvas:onDestroy");              //~1Ag9I~
+    	board.onDestroy();                                         //~1Ag9I~
+        boardImageCopy.recycle();                                  //~1Ag9I~
+        boardImageCopy=null;                                       //~1Ag9I~
+        activeImage=null;                                          //~1Ag9I~
+        graphics.recycle(true); //clear ptr tp androidcanvas and bitmap of boardimage copy was recycled 2 lines before,this is required because subcras has also reference to graphics//~1Ag9I~
+        graphics=null;                                             //~1Ag9I~
+    }                                                              //~1Ag9I~
     //******************************************************       //~1424R~
     //*subthread Class                                             //~1424I~
     //******************************************************       //~1424I~
@@ -1125,7 +1125,7 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
 //                    }                                              //~1503I~//~@@@2R~
 //                    f.recycleBitmap();                             //~1503I~//~@@@2R~
 			        Window.recycleMyBitmapStack(recycleMyStack);   //~@@@2I~
-                    onDestroy();	//clear bitmap reference       //+1Ag9I~
+                    onDestroy();	//clear bitmap reference       //~1Ag9I~
                     break;                                         //~1503I~
                                                                  //~1420I~
                 case BOARD_DRAW_BIGLABEL:    //9                      //~1513I~//~@@@2R~

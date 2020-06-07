@@ -1,5 +1,3 @@
-(nfcwifi.txt)
-
 Wi-Fi Direct connection through NFC.
 
 Background color of message colomn is yellow
@@ -40,3 +38,5 @@ Game :
   start match after session established,
 Unpair :
   Use to connect to another device.
+
+(nfcwifi.txt)

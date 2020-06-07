@@ -1,6 +1,6 @@
-//*CID://+1AgcR~:                           update#=  272;         //+1AgcR~
+//*CID://+1AgcR~:                           update#=  274;         //~1AgcR~
 //*************************************************************************
-//1Agc 2016/10/11 2016/10/11 avoid to show nfc dialog when nfc is not attached, and set visibility=gone to nfc button//+1AgcR~
+//1Agc 2016/10/11 2016/10/11 avoid to show nfc dialog when nfc is not attached, and set visibility=gone to nfc button//~1AgcR~
 //1Af4 2016/07/07 add Secure optio to NFCBT                        //~1Af4I~
 //1Ad3 2015/07/19 Bypass NFCSelect, by NFS-WD and NFC-BT button directly.//~1Ad3I~
 //1Ac5 2015/07/09 NFCBT:confirmation dialog is not show and fails to pairig//~1Ac5I~
@@ -39,7 +39,7 @@ import com.Ahsv.AView;                                             //~1Ac5R~
 import com.Ahsv.Alert;                                             //~1Ac5R~
 import com.Ahsv.AlertI;                                            //~1Ac5R~
 import com.Ahsv.Prop;                                              //~1Ac5R~
-import com.Ahsv.R;                                                 //~1Ac5R~
+import com.Ahsv.R;                                                 //~1Ac5R~//+1AgcR~
 import com.Ahsv.awt.UButton;                                       //~1Ac5R~
 import com.axe.AxeDialog;
 
@@ -79,7 +79,7 @@ public class DialogNFCSelect extends AxeDialog
     private boolean swOK;                                          //~1Ab8I~
     private int selectedType;                                      //~1Ab7I~
 //  private String additionalData;                                 //~1Ab7I~//~1Ad3R~
-    private static boolean swNoNFC;                                //+1AgcR~
+    private static boolean swNoNFC;                                //~1AgcR~
 	//***********************************************************************************
 	public static DialogNFCSelect showDialog(MainFrame Pmf)
     {
@@ -102,7 +102,7 @@ public class DialogNFCSelect extends AxeDialog
         dlg.MF=Pmf;                                                //~1Ad3I~
         dlg.selectedType=NFCTYPE_IP;                               //~1Ad3I~
         SdialogNFC=dlg;                                            //~1Ad3I~
-      if (!swNoNFC)                                                //+1AgcR~
+      if (!swNoNFC)                                                //~1AgcR~
         dlg.MF.selectedNFCHandover(dlg.selectedType);                  //~1Ad3I~
         return dlg;                                                //~1Ad3I~
     }                                                              //~1Ad3I~
@@ -117,7 +117,7 @@ public class DialogNFCSelect extends AxeDialog
 //      dlg.selectedType=NFCTYPE_BT_INSECURE;                      //~1Ad3I~//~1Af4R~
         dlg.selectedType=DialogNFCBT.getSecureOptionFromProf() ? NFCTYPE_BT_SECURE : NFCTYPE_BT_INSECURE;//~1Af4I~
         SdialogNFC=dlg;                                            //~1Ad3I~
-      if (!swNoNFC)                                                //+1AgcR~
+      if (!swNoNFC)                                                //~1AgcR~
         dlg.MF.selectedNFCHandover(dlg.selectedType);                  //~1Ad3I~
         return dlg;                                                //~1Ad3I~
     }                                                              //~1Ad3I~
@@ -240,10 +240,10 @@ public class DialogNFCSelect extends AxeDialog
         NfcManager mgr=(NfcManager)AG.context.getSystemService(Context.NFC_SERVICE);//~1Ab7I~
         mNfcAdapter=mgr.getDefaultAdapter();                       //~1Ab7I~
         if (mNfcAdapter==null)                                     //~1Ab7I~
-        {                                                          //+1AgcI~
+        {                                                          //~1AgcI~
 	    	AView.showToast(R.string.ErrNoNFCAttachment);          //~1Ab7I~
-            swNoNFC=true;                                          //+1AgcI~
-        }                                                          //+1AgcI~
+            swNoNFC=true;                                          //~1AgcI~
+        }                                                          //~1AgcI~
         else                                                       //~1Ab7I~
         if (!mNfcAdapter.isEnabled())                              //~1Ab7I~
 	    	AView.showToast(R.string.ErrNFCDisabled);              //~1Ab7I~

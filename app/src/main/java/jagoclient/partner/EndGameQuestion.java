@@ -1,11 +1,11 @@
-//*CID://+1A1dR~:                             update#=    9;       //+1A1dR~
+//*CID://+1A1dR~:                             update#=   11;       //~1A1dR~
 //*****************************************************************************//~1A1cI~
-//1A1d 2013/03/17 popup at partner when decliened resign           //+1A1dI~
+//1A1d 2013/03/17 popup at partner when decliened resign           //~1A1dI~
 //*****************************************************************************//~1A1cI~
 package jagoclient.partner;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1A1dR~
 
 import jagoclient.Dump;
 import jagoclient.Global;
@@ -53,12 +53,12 @@ public class EndGameQuestion extends Question
 	 			G.doresign();                                      //~@@@@R~
             else                                                   //~@@@@I~
 	 			G.doendgame();                                     //~@@@@I~
-//  	else G.declineendgame();                                   //+1A1dR~
-    	else                                                       //+1A1dR~
-        {                                                          //+1A1dR~
-        	if (!resign)                                           //+1A1dR~
-    	     G.declineendgame();                                   //+1A1dR~
-        }                                                          //+1A1dR~
+//  	else G.declineendgame();                                   //~1A1dR~
+    	else                                                       //~1A1dR~
+        {                                                          //~1A1dR~
+        	if (!resign)                                           //~1A1dR~
+    	     G.declineendgame();                                   //~1A1dR~
+        }                                                          //~1A1dR~
 	}
 	public boolean close ()
 	{	G.declineendgame();

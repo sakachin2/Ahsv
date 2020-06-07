@@ -1,0 +1,30 @@
+Game Request
+Game starts when you accepted.
+You can not change the match condition.
+
+Opponent : Game requester.
+Timeout : in minutes.
+ExtraTimeout : in seconds.
+  After timeout, each next move should be in this time.
+Gameover count : Gameover when this number of pieces
+  ware captured.
+By difference count : after captured count difference
+  of twe players reached to this count,
+  gameover if the next move could not release
+  this condition.
+Bishop : Bishop initial position.
+Knight : Knight initial position.
+Change : Show dialog to set Bishop/Knight position.
+Allow Opponent to set Bishop/Knight(same piece count):
+  Shows requester\'s setting,
+  Change button is disabled if off
+Reflecting Bishop : Bishop can move reflecting
+  at border line except corner.
+Re-selectable : You can re-select the piece to be moved.
+  Yet, "react a move" is not allowed.
+Pass If Misplaced : Pass your turn
+  if placed to not movable square.
+2nd move : You are 2nd move.
+  It\'s Black on Chess board, White on Shorgi board.
+
+(BoardQuestion.txt)

@@ -1,5 +1,8 @@
-//*CID://+1Af9R~:                             update#=  155;       //~1Af9R~
+//*CID://+1AhiR~:                             update#=  160;       //+1AhiR~
 //**********************************************************************************//~1A36I~
+//1Ahi 2020/06/05 display ip addr on ipconnection waiting msg      //+1AhiI~
+//1Ahg 2020/06/03 help text;string to helptext\
+//1Ahf 2020/06/03 write EditPartner not at connect but OK button   //~1AhfI~
 //1Af9 2016/07/12 (Ajagoc)Additional to Server/Partner List update fuction, undelete.//~1Af9I~
 //1Aad 2015/04/29 change WiFiDirect(+NFC) portNo 6971-->6975       //~1AadI~
 //                Ajagoc use 6970,6971,6972; Asgts use 6974, Ahsv now use 6973 and 6975//~1AadI~
@@ -48,10 +51,10 @@ import android.widget.TextView;
 import com.Ahsv.AG;
 import com.Ahsv.AView;
 //import com.Ahsv.Alert;
-import com.Ahsv.ProgDlg;
+import com.ForDeprecated.ProgDlg;
 import com.Ahsv.ProgDlgI;
 import com.Ahsv.Prop;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Af9R~
 import com.Ahsv.Utils;
 import com.Ahsv.awt.Color;
 import com.Ahsv.awt.Component;
@@ -156,7 +159,7 @@ public class IPConnection extends CloseDialog
         new ButtonAction(this,0,R.id.Edit);                   //~v101I~
         new ButtonAction(this,0,R.id.Add);                    //~v101I~
         new ButtonAction(this,0,R.id.Delete);                 //~v101I~
-        new ButtonAction(this,0,R.id.UnDelete);                    //+1Af9I~
+        new ButtonAction(this,0,R.id.UnDelete);                    //~1Af9I~
         new ButtonAction(this,0,R.id.ListUp);                 //~v101I~
         new ButtonAction(this,0,R.id.ListDown);               //~v101I~
         new ButtonAction(this,0,R.id.OK);                     //~v101I~
@@ -298,7 +301,8 @@ public class IPConnection extends CloseDialog
             else                                                   //~v101I~
             if (o.equals(AG.resource.getString(R.string.Help)))    //~3117R~
             {                                                      //~3117R~
-                new HelpDialog(null,R.string.Help_IPConnection); //~3117R~//~v101R~
+//              new HelpDialog(null,R.string.Help_IPConnection); //~3117R~//~v101R~//~1AhgR~
+                new HelpDialog(null,R.string.Title_IPConnection,"IPConnection");//~1AhgI~
             }                                                      //~3117R~
             else                                                   //~v101I~
             if (o.equals(AG.resource.getString(R.string.ActionDismissDialog)))  //modal but no inputWait//~v101I~
@@ -689,6 +693,11 @@ public class IPConnection extends CloseDialog
 		updateplist ();                                            //~1A36I~
 		setSelection(Pname);                                       //~1A36I~
 	}                                                              //~1A36I~
+	public void writePartnerList()                                 //~1AhfR~
+	{                                                              //~1AhfR~
+    	if (Dump.Y) Dump.println("writePartnerList");              //~1AhfR~
+		writeplist();                                              //~1AhfR~
+	}                                                              //~1AhfR~
     //******************************************                   //~v101I~
 	/** update the list of partners */                             //~v101I~
 	private void writeplist()                                      //~v101R~
@@ -772,12 +781,15 @@ public class IPConnection extends CloseDialog
         {                                                          //~v101I~
         	String n="";                                           //~v101I~
         	int p=0;                                               //~v101I~
+        	String s="";                                           //+1AhiI~
         	if (partner!=null) // try connecting to this partner server, if not trying already//~v101I~
         	{                                                      //~v101I~
 	            n=partner.Name;                                    //~v101I~
                 p=partner.Port;                                    //~v101I~
+                s=partner.Server;                                  //+1AhiI~
             }                                                      //~v101I~
-            String msg=AG.resource.getString(R.string.Msg_WaitingIPConnect,n,p);//~v101I~
+//          String msg=AG.resource.getString(R.string.Msg_WaitingIPConnect,n,p);//~v101I~//+1AhiR~
+            String msg=AG.resource.getString(R.string.Msg_WaitingIPConnect2,n,s,p);//+1AhiI~
 			waitingResponse(R.string.Title_WaitingConnect,msg);    //~v101R~
 			connectPartner();                                      //~v101I~
         }                                                          //~v101I~

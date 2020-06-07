@@ -1,5 +1,6 @@
-//*CID://+1Af2R~:                           update#=  209;         //~1Af2R~
+//*CID://+1Ah7R~:                           update#=  213;         //~1Af2R~//~1Ah7R~
 //*************************************************************************
+//1Ah7 2020/06/01 WpsInfo deprecated at api28                      //~1Ah7I~
 //1Af2 2016/07/06 (Ajagot1w)Msg "Not NFC dialog" is not shown when NFC dialog proceeed to connected dialog//~1Af2I~
 //1Aec 2015/07/26 set connection type for Server                   //~1AecI~
 //1Ad3 2015/07/19 Bypass NFCSelect, by NFS-WD and NFC-BT button directly.//~1Ad3I~
@@ -43,7 +44,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.net.wifi.WpsInfo;
+//import android.net.wifi.WpsInfo;                                 //+1Ah7R~
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.nfc.NdefMessage;
@@ -59,9 +60,9 @@ import android.view.ViewGroup;
 import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.Alert;
-import com.Ahsv.ProgDlg;
+import com.ForDeprecated.ProgDlg;
 import com.Ahsv.ProgDlgI;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Af2R~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableData;
 import com.Ahsv.awt.Component;
@@ -268,7 +269,7 @@ public class DialogNFC extends AxeDialog
     	if (Dump.Y) Dump.println("DialogNFC:createNFCMsg");
 //      if (SdialogNFC==null)                                      //~1Af2R~
         if (SdialogNFC==null                                       //~1Af2I~
-        ||  SdialogNFC.swPaired)                                   //+1Af2R~
+        ||  SdialogNFC.swPaired)                                   //~1Af2R~
         {                                                          //~5218I~
 			new Message(Global.frame(),R.string.InfoCreateNullNFCMsg);//~5218R~
         	return null;
@@ -608,9 +609,10 @@ public class DialogNFC extends AxeDialog
     {
     //********************
         if (Dump.Y) Dump.println("DialogNFC:pairTo:"+peerAddr);
-        WifiP2pConfig config=new WifiP2pConfig();
-        config.deviceAddress=peerAddr;
-        config.wps.setup = WpsInfo.PBC;
+//        WifiP2pConfig config=new WifiP2pConfig();                //~1Ah7R~
+//        config.deviceAddress=peerAddr;                           //~1Ah7R~
+//        config.wps.setup = WpsInfo.PBC;                          //~1Ah7R~
+        WifiP2pConfig config=DeviceDetailFragment.getP2pConfig(peerAddr);//~1Ah7I~
 //      String tgt=peerName+" ( "+peerAddr+" )";                   //~1AbBR~
         String tgt=peerName+" ( "+DialogNFC.maskMacAddr(peerAddr)+" )";//~1AbBI~
 //  	dismissProgressDialog(progressDialog);                     //~1A77R~

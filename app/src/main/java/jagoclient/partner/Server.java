@@ -1,4 +1,4 @@
-//*CID://+101aR~:                             update#=   30;
+//*CID://+101aR~:                             update#=   32;
 //*************************************************************************//~v107I~
 //101a 2013/01/30 IP connection                                    //~v101I~
 //1071:121204 partner connection using Bluetooth SPP               //~v107I~
@@ -15,7 +15,7 @@ import java.net.Socket;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+101aR~
 
 /**
 This is the server thread for partner connections. If anyone connects

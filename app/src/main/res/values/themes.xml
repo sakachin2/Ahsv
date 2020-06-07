@@ -2,4 +2,27 @@
 <resources>
     <style name="ThemeV10" parent="@android:style/Theme">
     </style>
+    <!--style name="AppMainTheme" parent="@android:style/Theme.Holo"-->
+    <!--style name="AppMainTheme" parent="Theme.AppCompat.Light"-->
+    <style name="AppMainTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:actionBarStyle">@style/NoActionBarIcon</item>
+    </style>
+    <style name="AppMainTheme" parent="@android:style/Theme.Holo">
+        <item name="android:windowActionBar">true</item>
+        <item name="android:windowNoTitle">false</item>
+        <!--item name="android:buttonStyle">@android:style/Widget.Holo.Button</item-->
+        <item name="android:buttonStyle">@android:style/Widget.Button</item> <!-- black on white(Holo is white on black-->
+        <!--item name="android:actionBarStyle">@style/NoActionBarIcon</item-->
+        <!--item name="actionBarStyle">@style/NoActionBarIcon</item-->
+    </style>  
+    <!--style name="NoActionBarIcon" parent="@android:style/Widget.Holo.ActionBar"-->
+    <style name="NoActionBarIcon" parent="Widget.AppCompat.ActionBar">
+        <!--item name="android:displayOptions">showTitle</item-->
+        <item name="android:height">20dp</item>
+    </style>  
+    <style name="AlertDialogThemeCustom" parent="android:Theme.Holo.Light.Dialog"> 
+    	<!--item name="android:layout_width">wrap_content</item-->
+    </style>
 </resources>

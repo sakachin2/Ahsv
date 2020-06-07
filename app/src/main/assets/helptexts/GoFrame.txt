@@ -1,0 +1,17 @@
+Touch a piece of your color to be moved,
+then touch destination square where move to.
+Cursor is moved also by slide.
+Piece or Square is selected when touched twice.
+Yellow button under the board displaying position
+is alternative of the 2nd touch
+(OneTouch mode is optional on MainOption)
+Captured pieces are listed under the board.
+  Yellow boxes shows remaining diffrence count,
+  White  boxes shows up to gameover count.
+-----
+Resign : Give-up and you lose this game.
+  Push in your turn for Local match.
+Close : This button appears after gameover.
+  Start next game after once closed.
+
+(GoFrame.txt)

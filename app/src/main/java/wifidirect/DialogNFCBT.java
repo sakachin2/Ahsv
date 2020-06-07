@@ -1,4 +1,4 @@
-//*CID://+1Af8R~:                             update#=  169;       //~1Af7R~//~1Af8R~
+//*CID://+1Af8R~:                             update#=  171;       //~1Af7R~//~1Af8R~
 //*****************************************************************//~v101I~
 //1Af8 2016/07/09 DialogNFCBT,not nfc msg when listening status    //~1Af8I~
 //1Af7 2016/07/08 IllegalArgumentException:null is not valid Bluetooth addr at ConnectButton//~1Af7I~
@@ -68,9 +68,9 @@ import com.Ahsv.ABT;                                              //~v101R~//~1A
 import com.Ahsv.AG;                                               //~v101R~//~1AbBR~
 import com.Ahsv.AView;                                            //~v101R~//~1AbBR~
 import com.Ahsv.Alert;                                             //~1AbBR~
-import com.Ahsv.ProgDlg;                                          //~v101R~//~1AbBR~
+import com.ForDeprecated.ProgDlg;                                          //~v101R~//~1AbBR~
 import com.Ahsv.Prop;
-import com.Ahsv.R;                                                //~v101R~//~1AbBR~
+import com.Ahsv.R;                                                //~v101R~//~1AbBR~//+1Af8R~
 import com.Ahsv.UiThread;                                          //~1AbBR~
 import com.Ahsv.UiThreadI;                                         //~1AbBR~
 import com.Ahsv.Utils;                                             //~1AbBR~
@@ -283,8 +283,8 @@ public class DialogNFCBT extends BluetoothConnection               //~1Ab8I~
     {                                                              //~1Ab8I~
         String msg=AG.resource.getString(Presid);                  //~1Ab8I~
         tvMsg.setText(msg);                                        //~1Ab8I~
-//      if (AG.activeSessionType!=0)                               //~1AbrI~//+1Af8R~
-		if (Presid!=TEXTID_INITIAL)                                //+1Af8I~
+//      if (AG.activeSessionType!=0)                               //~1AbrI~//~1Af8R~
+		if (Presid!=TEXTID_INITIAL)                                //~1Af8I~
             tvMsg.setBackgroundColor(Color.WHITE);                 //~1AbrI~
     }                                                              //~1Ab8I~
     //******************************************                   //~1A6kI~

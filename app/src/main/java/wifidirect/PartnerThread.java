@@ -1,6 +1,6 @@
-//*CID://+1Ac3R~:                             update#=   27;       //+1Ac3R~
+//*CID://+1Ac3R~:                             update#=   29;       //~1Ac3R~
 //*******************************************************************//~3202I~
-//1Ac3*2015/07/06 WD:Unpare after active session was closed        //+1Ac3I~
+//1Ac3*2015/07/06 WD:Unpare after active session was closed        //~1Ac3I~
 //1Ac1 2015/07/06 WD:try for exclusivity of WiFi and WiFiDirect,like as BT:1AbM exchange @@@@end & @@@@!end before close//~1Ac1I~
 //1A8g 2015/03/05 chk only one session alive(Ip,Direct,BT)         //~1A8gI~
 //1A8fk2015/03/01 display remote IP address                        //~1A8fI~
@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 import wifidirect.PartnerFrame;                                    //~1A8cI~
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1Ac3R~
 import com.Ahsv.Utils;
 import com.Ahsv.awt.TextField;                                     //~2C26R~
 
@@ -44,7 +44,7 @@ public class PartnerThread extends jagoclient.partner.PartnerThread//~1A8cI~
 //    Viewer T;                                                    //~1A8cR~
 //    PartnerFrame PF;                                             //~1A8cR~
 	TextField Input;
-	private boolean swUnpair;                                      //+1Ac3I~
+	private boolean swUnpair;                                      //~1Ac3I~
 	public PartnerThread (BufferedReader in, PrintWriter out,
 		TextField input/*null*/, Viewer t/*null*/, PartnerFrame pf)//~3201R~
 //  {	In=in; Out=out; T=t; PF=pf; Input=input;                   //~1A8cR~
@@ -132,19 +132,19 @@ public class PartnerThread extends jagoclient.partner.PartnerThread//~1A8cI~
         {                                                          //~1Ac1I~
         	Dump.println(e,"wifidirect.PartnerThread");            //~1Ac1I~
 		}                                                          //~1Ac1I~
-        if (swUnpair)                                              //+1Ac3I~
-        	WDA.unpairFromPT();                                    //+1Ac3I~
-        if (Dump.Y) Dump.println("wifidirect.PartnerThread===== Run Terminated");  //~3120I~//~@@@9R~//+1Ac3I~
+        if (swUnpair)                                              //~1Ac3I~
+        	WDA.unpairFromPT();                                    //~1Ac3I~
+        if (Dump.Y) Dump.println("wifidirect.PartnerThread===== Run Terminated");  //~3120I~//~@@@9R~//~1Ac3I~
         AG.RemoteStatus=0;                                             //~3131I~
         AG.RemoteInetAddress=null;                                 //~1A8fI~
         AG.LocalInetAddress=null;                                  //~1A8fI~
         AG.activeSessionType=0;                                    //~1A8gI~
 	}
-    //****************************************************         //+1Ac3I~
-    public void unpair(boolean Punpair)                            //+1Ac3I~
-    {                                                              //+1Ac3I~
-        if (Dump.Y) Dump.println("wifidirect.PartnerThread unpair="+Punpair);//+1Ac3I~
-        swUnpair=Punpair;                                          //+1Ac3I~
-    }                                                              //+1Ac3I~
+    //****************************************************         //~1Ac3I~
+    public void unpair(boolean Punpair)                            //~1Ac3I~
+    {                                                              //~1Ac3I~
+        if (Dump.Y) Dump.println("wifidirect.PartnerThread unpair="+Punpair);//~1Ac3I~
+        swUnpair=Punpair;                                          //~1Ac3I~
+    }                                                              //~1Ac3I~
 }
 

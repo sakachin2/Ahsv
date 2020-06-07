@@ -1,6 +1,6 @@
-//*CID://+1Ad2R~:                             update#=   10;       //+1Ad2R~
+//*CID://+1Ad2R~:                             update#=   12;       //~1Ad2R~
 //************************************************************************//~v102I~
-//1Ad2 2015/07/17 HelpDialog by helptext(//1A1j 2013/03/19 change Help file encoding to utf8 (path change drop jagoclient from jagoclient/helptexts)//+1Ad2I~
+//1Ad2 2015/07/17 HelpDialog by helptext(//1A1j 2013/03/19 change Help file encoding to utf8 (path change drop jagoclient from jagoclient/helptexts)//~1Ad2I~
 //1077:121208 control greeting by app start counter                //~v107I~
 //1075:121207 control dumptrace by manifest debuggable option      //~v107I~
 //1074:121207 no detail exception info for SDcard/resources        //~v107I~
@@ -8,6 +8,7 @@
 //************************************************************************//~v102I~
 package com.Ahsv;                                                 //~1110I~//~v107R~
                                                                    //~1110I~
+import com.Ahsv.R;                                                 //+1Ad2R~
                                                                    //~1110I~
 import jagoclient.Dump;
 import jagoclient.Global;
@@ -169,8 +170,8 @@ public class Prop                                             //~1110I~//~v107R~
 	{                                                              //~1412I~                                     //~1412I~                                               //~1412I~
     //***************************                                  //~1412I~
         if (Dump.Y) Dump.println("getHelpFilename:"+Pfilename);    //~1506R~
-//  	if (!Pfilename.startsWith(Global.home()+"jagoclient/helptexts"))//~1412R~//+1Ad2R~
-    	if (!Pfilename.startsWith(Global.home()+"helptexts"))      //+1Ad2I~
+//  	if (!Pfilename.startsWith(Global.home()+"jagoclient/helptexts"))//~1412R~//~1Ad2R~
+    	if (!Pfilename.startsWith(Global.home()+"helptexts"))      //~1Ad2I~
         	return null;                                           //~1412I~
         String helpfile=getSDPath(Pfilename);                             //~1412I~
       if (helpfile!=null)                                          //~v102I~
@@ -210,8 +211,8 @@ public class Prop                                             //~1110I~//~v107R~
     //***************************                                  //~1419I~
         if (Dump.Y) Dump.println("getHelpFilename:"+Pfilename);    //~1506R~
         home=Global.home();//~1419I~
-//  	if (!Pfilename.startsWith(home+"jagoclient/helptexts"))//~1419I~//+1Ad2R~
-    	if (!Pfilename.startsWith(home+"helptexts"))               //+1Ad2I~
+//  	if (!Pfilename.startsWith(home+"jagoclient/helptexts"))//~1419I~//~1Ad2R~
+    	if (!Pfilename.startsWith(home+"helptexts"))               //~1Ad2I~
         	return null;                                           //~1419I~
         filename=Pfilename.substring(home.length());                //~1419I~
 		is=openInputSD(filename);   //check SD card                //~1419I~

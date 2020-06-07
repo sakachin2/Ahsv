@@ -1,4 +1,4 @@
-//*CID://+1AabR~:                           update#=  223;         //~1AabR~
+//*CID://+1AabR~:                           update#=  225;         //~1AabR~
 //*************************************************************************
 //1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
 //1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //~1Aa7I~
@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1AabR~
 import com.Ahsv.awt.Color;
 import com.Ahsv.awt.Component;
 import com.Ahsv.awt.Image;
@@ -151,9 +151,9 @@ public class SetupBK extends AxeDialog                             //~1Aa7R~
     	tv2ndPlayer=(TextView)layoutView.findViewById(R.id.BK1stPlayer);//~1AabR~
         if (sw2ndPlayer)                                           //~1AabI~
         {                                                          //~1AabI~
-        	String b=GameQuestion.putPieces2(posB1,boardSize);     //+1AabI~
-        	String k=GameQuestion.putPieces2(posK1,boardSize);     //+1AabI~
-        	count1st=AG.resource.getString(R.string.BKCount1stPlayer,b,k);//+1AabR~
+        	String b=GameQuestion.putPieces2(posB1,boardSize);     //~1AabI~
+        	String k=GameQuestion.putPieces2(posK1,boardSize);     //~1AabI~
+        	count1st=AG.resource.getString(R.string.BKCount1stPlayer,b,k);//~1AabR~
         }                                                          //~1AabI~
         else                                                       //~1AabI~
         	count1st=AG.resource.getString(R.string.BKThisIs1stPlayer);//~1AabI~

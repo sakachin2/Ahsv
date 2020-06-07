@@ -1,6 +1,6 @@
-//*CID://+1A8gR~:                             update#=   23;       //+1A8gR~
+//*CID://+1A8gR~:                             update#=   25;       //~1A8gR~
 //*******************************************************************//~3202I~
-//1A8g 2015/03/05 chk only one session alive(Ip,Direct,BT)         //+1A8gI~
+//1A8g 2015/03/05 chk only one session alive(Ip,Direct,BT)         //~1A8gI~
 //1A8fk2015/03/01 display remote IP address                        //~1A8fI~
 //1A8ck2015/03/01 extends PartnerFrame/PartnerThread to wifidirect //~1A8cI~
 //101a 2013/01/30 IP connection                                    //~3202I~
@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1A8gR~
 import com.Ahsv.awt.TextField;                                     //~2C26R~
 
 //import rene.viewer.Viewer;                                       //~1318R~
@@ -49,10 +49,10 @@ public class PartnerThread extends Thread
     	startMsgThread();                                          //~3202I~
 	}
 	public void run ()
-//  {	try                                                        //+1A8gR~
-    {                                                              //+1A8gI~
-        AG.activeSessionType=AG.AST_IP;                            //+1A8gI~
-    	try                                                        //+1A8gI~
+//  {	try                                                        //~1A8gR~
+    {                                                              //~1A8gI~
+        AG.activeSessionType=AG.AST_IP;                            //~1A8gI~
+    	try                                                        //~1A8gI~
 //  	{	while (true)                                           //~@@@9R~
     	{                                                          //~@@@9I~
             if (Dump.Y) Dump.println("PartnerThread=====started="+this.toString());//~@@@9I~
@@ -101,7 +101,7 @@ public class PartnerThread extends Thread
         AG.RemoteStatus=0;                                             //~3131I~
         AG.RemoteInetAddressLAN=null;                              //~1A8fI~
         AG.LocalInetAddressLAN=null;                               //~1A8fI~
-        AG.activeSessionType=0;                                    //+1A8gI~
+        AG.activeSessionType=0;                                    //~1A8gI~
 	}
     private void startMsgThread()                                       //~3202I~
     {                                                              //~3202I~

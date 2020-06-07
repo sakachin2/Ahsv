@@ -1,0 +1,35 @@
+Game Setup
+Game start by "Start" for "Local",
+For "BT"/"IP",game starts when you "Request",
+and opponent "Accept".
+
+Your Name : It was set at Main Panel "Settings".
+Board : It was selected at Main Panel.
+(Opponent : opponent name for Local match).
+Timeout : in minutes. leave to space for unlimited.
+ExtraTimeout : in seconds.
+  After timeout, each next move should be in this time.
+Gameover count : Gameover when this number of pieces
+  ware captured.
+By difference count : after captured count difference
+  of twe players reached to this count,
+  gameover if the next move could not release
+  this condition.
+Bishop : Bishop initial position.
+Knight : Knight initial position.
+Change : Show dialog to set Bishop/Knight position.
+(For Local 2\'nd Player) : show only when "Local" match.
+  Set Bishop/Knight position of 2\'nd player.
+Allow Opponent to set Bishop/Knight(same piece count):
+  For wireless match,
+  allows Opponent to set own Bishop/Knight position
+Reflecting Bishop : Bishop can move reflecting
+  (change direction) once at border line except corner.
+Re-selectable : You can re-select the piece to be moved.
+  Yet, "react a move" is not allowed.
+Pass If Misplaced : Pass your turn
+  if placed to not movable square.
+1st move : You are 1st move.
+  It\'s White on Chess board, Black on Shorgi board.
+
+(GameQuestion.txt)

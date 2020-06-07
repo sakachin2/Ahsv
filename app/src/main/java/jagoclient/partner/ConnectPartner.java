@@ -1,12 +1,13 @@
-//*CID://+v101R~:                             update#=    2;       //~v101I~
+//*CID://+aAhiR~:                             update#=    5;       //+aAhiR~
 //*******************************************************************************//~v101I~
-//1A1c 2013/03/17 display portNo in msg "No connection"            //+v101I~
+//1Ahi 2020/06/05 display ip addr on ipconnection waiting msg      //+aAhiI~
+//1A1c 2013/03/17 display portNo in msg "No connection"            //~v101I~
 //101a 2013/01/30 IP connection                                    //~v101I~
 //*******************************************************************************//~v101I~
 package jagoclient.partner;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~v101R~
 
 import jagoclient.Global;
 import jagoclient.dialogs.Message;
@@ -48,8 +49,9 @@ public class ConnectPartner extends Thread
 		{                                                          //~v101R~
             PartnerFrame.dismissWaitingDialog();                             //~v101R~
 			new Message(Global.frame(),
-//  			Global.resourceString("No_connection_to_")+P.Server);//+v101R~
-    			AG.resource.getString(R.string.Err_No_connection_to_,P.Server,P.Port));//+v101I~
+//  			Global.resourceString("No_connection_to_")+P.Server);//~v101R~
+//  			AG.resource.getString(R.string.Err_No_connection_to_,P.Server,P.Port));//~v101I~//+aAhiR~
+    			AG.resource.getString(R.string.Err_No_connection_to_2,P.Name,P.Server,P.Port));//+aAhiI~
 			try
 			{	sleep(10000);
 			}

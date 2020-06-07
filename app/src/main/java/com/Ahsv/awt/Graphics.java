@@ -1,7 +1,8 @@
-//*CID://+1Ag9R~:                             update#=   15;       //~@@@@I~//+1Ag9R~
+//*CID://+1Ah3R~:                             update#=   17;       //~1Ah3R~
 //**************************************************************************//~1A6AI~
-//1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//+1Ag9I~
-//                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//+1Ag9I~
+//1Ah3 2020/05/31 clipRect(rectF,OP_REPLACE) deprecated at android.P//~1Ah3I~
+//1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//~1Ag9I~
+//                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//~1Ag9I~
 //1A6A 2015/02/20 Another Trace option if (Dump.C) for canvas drawing//~1A6AI~
 //**************************************************************************//~1A6AI~
 package com.Ahsv.awt;                                              //~@@@@R~
@@ -144,7 +145,10 @@ public class Graphics
     {                                                              //~1117I~
     	Rect rect=new Rect(Px,Py,Px+Pw,Py+Ph);                    //~1303I~
 //      if (Dump.C) Dump.println("Graphics setclip rect="+rect.toString());//~1506R~//~2C15R~//~1A6AR~
-    	androidCanvas.clipRect(rect,Op.REPLACE);//~1117R~//~1120R~//~1303R~
+//  	androidCanvas.clipRect(rect,Op.REPLACE);//~1117R~//~1120R~//~1303R~//~1Ah3R~
+    	androidCanvas.save();                                       //~1Ah3I~
+    	androidCanvas.clipRect(rect);                              //~1Ah3I~
+    	androidCanvas.restore();                                    //~1Ah3I~
         rect=androidCanvas.getClipBounds();                   //~1303I~
 //      if (Dump.C) Dump.println("Graphics canvas="+((Object)androidCanvas).toString());//~1506R~//~2C15R~//~1A6AR~
 //      if (Dump.C) Dump.println("Graphics setclip rect="+rect.top+"-"+rect.left+","+rect.bottom+"-"+rect.right);//~1506R~//~2C15R~//~1A6AR~
@@ -179,7 +183,8 @@ public class Graphics
         if (Dump.C) Dump.println("Graphic drawBitmapUI androidcanvas="+androidCanvas.toString());//~1301I~//~1513R~//~@@@@R~//~1A6AR~
         if (Dump.C) Dump.println("src bitmap rect="+srcbitmap.getWidth()+","+srcbitmap.getHeight());//~1506R~//~1A6AR~
         if (Dump.C) Dump.println("Graphics drawImageUI image srcrect="+srcrect.toString()+",dest="+destrect.toString());//~1228R~//~1506R~//~1A6AR~
-        if (Dump.C) Dump.println("Canvas drawBitmapUI width="+androidCanvas.getWidth()+",matrix="+androidCanvas.getMatrix().toString());//~1506R~//~1A6AR~
+//      if (Dump.C) Dump.println("Canvas drawBitmapUI width="+androidCanvas.getWidth()+",matrix="+androidCanvas.getMatrix().toString());//~1506R~//~1A6AR~//+1Ah3R~
+        if (Dump.C) Dump.println("Canvas drawBitmapUI width="+androidCanvas.getWidth());//+1Ah3I~
         try                                                        //~1513I~
         {                                                          //~1513I~
         	androidCanvas.drawBitmap(srcbitmap,srcrect,destrect,paintbitmap);    //~1301R~//~1303R~//~1513R~
@@ -342,21 +347,21 @@ public class Graphics
         	srcbitmap=Pbitmap;view=Pview;                          //~1414I~
         }                                                          //~1414I~
     }                                                              //~1302I~
-//*****************************************************************************//+1Ag9I~
-    public void recycle()                                          //+1Ag9I~
-    {                                                              //+1Ag9I~
-    	if (tgtbitmap!=null)                                       //+1Ag9I~
-        {                                                          //+1Ag9I~
-	    	if (Dump.Y) Dump.println("Graphics:recycle ref cleared="+tgtbitmap.toString()+",size="+Image.getByteCount(tgtbitmap));//+1Ag9I~
-    		tgtbitmap=null;                                        //+1Ag9I~
-        }                                                          //+1Ag9I~
-	}                                                              //+1Ag9I~
-//*****************************************************************************//+1Ag9I~
-    public void recycle(boolean PclearCanvas)                      //+1Ag9I~
-    {                                                              //+1Ag9I~
-	    if (Dump.Y) Dump.println("Graphics:recycle claerCanvas");  //+1Ag9I~
-        recycle();                                                 //+1Ag9I~
-        if (PclearCanvas)                                          //+1Ag9I~
-    		androidCanvas=null;                                    //+1Ag9I~
-	}                                                              //+1Ag9I~
+//*****************************************************************************//~1Ag9I~
+    public void recycle()                                          //~1Ag9I~
+    {                                                              //~1Ag9I~
+    	if (tgtbitmap!=null)                                       //~1Ag9I~
+        {                                                          //~1Ag9I~
+	    	if (Dump.Y) Dump.println("Graphics:recycle ref cleared="+tgtbitmap.toString()+",size="+Image.getByteCount(tgtbitmap));//~1Ag9I~
+    		tgtbitmap=null;                                        //~1Ag9I~
+        }                                                          //~1Ag9I~
+	}                                                              //~1Ag9I~
+//*****************************************************************************//~1Ag9I~
+    public void recycle(boolean PclearCanvas)                      //~1Ag9I~
+    {                                                              //~1Ag9I~
+	    if (Dump.Y) Dump.println("Graphics:recycle claerCanvas");  //~1Ag9I~
+        recycle();                                                 //~1Ag9I~
+        if (PclearCanvas)                                          //~1Ag9I~
+    		androidCanvas=null;                                    //~1Ag9I~
+	}                                                              //~1Ag9I~
 }//class                                                           //~1112I~

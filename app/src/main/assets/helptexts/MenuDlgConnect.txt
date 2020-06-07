@@ -1,0 +1,28 @@
+** Connection Type **
+"Local" : two players matches on a terminal.
+"Bluetooth" : Connect two devices using bluetooth.
+"IP" : Connect two devices thru Wi-Fi Access Point such as wireless rooter.
+  Specify IP-address to connect.
+"WiFi Direct" : Wi-Fi Direct(Peer to Peer) IP connection.
+  Wi-Fi access point is not required.
+"NFC-Bluetooth" : For the device equipped NFC tag,
+  establish Bluetooth connection
+"NFC-WD" : For the device equipped NFC tag,
+  establish Wi-Fi Direct connection
+----------------
+It seems to me that Bluetooth is easy to use. If it is troublesome, try Wifi Direct.
+To change connection type among (NFC)Bluetooth, IP and (NFC)WiFi Direct and to change device to connect,
+disconnect once current session.
+"Discover"ing neighbor process takes some time at first in both case.
+
+This App supports only legacy mode Bluetooth.
+Device supporting only BLE(Low Enagy) mode is not available, try "Wifi Direct".
+Radio-frequency interference may occur if the device has telephone function.
+If the device is dual-band(2.4GHz and 5GHz), assign 5GHz to telephone.
+Bluetooth uses 2.4GHz.
+IP may cause transmission delay by base protocol.
+(Detecting connection failure may take considarable time).
+
+From Android6.0(MarchMallow), you may be asked to give permission to use Wifi Direct.
+
+(MenuDlgConnect 2020/06/05)

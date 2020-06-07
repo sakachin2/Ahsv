@@ -1,5 +1,8 @@
-//*CID://+1Ad3R~:                             update#=  135;       //~1Ad3R~
+//*CID://+1AhkR~:                             update#=  145;       //~1AhkR~
 //***********************************************************************//~v101I~
+//1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
+//1Ahg 2020/06/03 MainFrame help;string to helptext\
+//1Ahd 2020/06/03 WifiDirect required PERMISSION_LOCATION          //~1AhdI~
 //1Ad3 2015/07/19 Bypass NFCSelect, by NFS-WD and NFC-BT button directly.//~1Ad3I~
 //1Abd 2015/06/15 use not Toast but Dialog for err of Alive Session exist//~1AbdI~
 //1Ab8 2015/05/08 NFC Bluetooth handover v3(DialogNFCSelect distributes only)//~1Ab8I~
@@ -24,10 +27,11 @@ import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.Alert;
 import com.Ahsv.Prop;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1Ad3R~
 import com.Ahsv.Utils;                                             //~@@@@R~
 import com.Ahsv.awt.CheckboxMenuItem;                              //~@@@@R~
 import com.Ahsv.awt.MenuItem;                                      //~@@@@R~
+import com.btmtest.dialog.MenuDlgConnect;
 
 import jagoclient.board.Board;
 import jagoclient.board.GoFrame;
@@ -35,18 +39,21 @@ import jagoclient.dialogs.*;
 import jagoclient.gui.*;
 import jagoclient.partner.BluetoothConnection;
 import jagoclient.partner.IPConnection;
+import wifidirect.WDA;
 
 public class MainFrame extends GoFrame                             //~@@@2I~
-{	CheckboxMenuItem 
+{                                                                  //~1AhgR~
+	private static final int HELPTITLEID=R.string.HelpTitle_Mainframe;//~1AhgI~
+	CheckboxMenuItem                                               //~1AhgI~
 		StartPublicServer,TimerInTitle,BigTimer,ExtraInformation,ExtraSendField,
 		DoSound,SimpleSound,BeepOnly,Warning,RelayCheck,Automatic,
 		EveryMove,FineBoard,Navigation;
 	MenuItem StartServer;
 //    public Server S=null;                                        //~v101R~
 //  private GoFrame GF;                                            //~@@@@I~//~@@@2R~
-    private ButtonAction btnNFC;                                   //~1A6sI~
-    private ButtonAction btnNFCBT;                                 //~1Ad3I~
-    private ButtonAction btnWiFiDirect;                            //~1A90I~
+//  private ButtonAction btnNFC;                                   //~1A6sI~//~1AhkR~
+//  private ButtonAction btnNFCBT;                                 //~1Ad3I~//~1AhkR~
+//  private ButtonAction btnWiFiDirect;                            //~1A90I~//~1AhkR~
 
 	public MainFrame (String c)
 //  {   super(c+" "+Global.resourceString("Version"));             //~1524R~//~@@@@R~
@@ -74,19 +81,20 @@ public class MainFrame extends GoFrame                             //~@@@2I~
         new ButtonAction(this,0,R.id.ChangeBoard,swSmall);         //~v101R~
         new ButtonAction(this,0,R.id.ChangePiece,swSmall);         //~v101R~
         new ButtonAction(this,0,R.id.Options,swSmall);             //~v101R~
-        new ButtonAction(this,0,R.id.LocalGame,swSmall);           //~v101R~
-        new ButtonAction(this,0,R.id.RemoteGame,swSmall);          //~v101R~
-        new ButtonAction(this,0,R.id.RemoteIP,swSmall);            //~v101R~
+//      new ButtonAction(this,0,R.id.LocalGame,swSmall);           //~v101R~//~1AhkR~
+//      new ButtonAction(this,0,R.id.RemoteGame,swSmall);          //~v101R~//~1AhkR~
+//      new ButtonAction(this,0,R.id.RemoteIP,swSmall);            //~v101R~//~1AhkR~
         new ButtonAction(this,0,R.id.Help,swSmall);                //~v101R~
-        btnNFC=new ButtonAction(this,0,R.id.WiFiNFCButton,swSmall);//~1A6sI~
-        btnNFCBT=new ButtonAction(this,0,R.id.BTNFCButton,swSmall);//~1Ad3I~
-        btnWiFiDirect=new ButtonAction(this,0,R.id.WiFiDirectButton,swSmall);//~1A90I~
-        if (AG.osVersion<AG.ICE_CREAM_SANDWICH)  //android4        //~1A6sI~
-        {                                                          //~1A90I~
-	        btnNFC.setEnabled(false);                              //~1A6sI~
-	        btnNFCBT.setEnabled(false);                            //~1Ad3I~
-	        btnWiFiDirect.setEnabled(false);                       //~1A90I~
-        }                                                          //~1A90I~
+        new ButtonAction(this,0,R.id.Connections,swSmall);         //~1AhkI~
+//      btnNFC=new ButtonAction(this,0,R.id.WiFiNFCButton,swSmall);//~1A6sI~//~1AhkR~
+//      btnNFCBT=new ButtonAction(this,0,R.id.BTNFCButton,swSmall);//~1Ad3I~//~1AhkR~
+//      btnWiFiDirect=new ButtonAction(this,0,R.id.WiFiDirectButton,swSmall);//~1A90I~//~1AhkR~
+//      if (AG.osVersion<AG.ICE_CREAM_SANDWICH)  //android4        //~1A6sI~//~1AhkR~
+//      {                                                          //~1A90I~//~1AhkR~
+//          btnNFC.setEnabled(false);                              //~1A6sI~//~1AhkR~
+//          btnNFCBT.setEnabled(false);                            //~1Ad3I~//~1AhkR~
+//          btnWiFiDirect.setEnabled(false);                       //~1A90I~//~1AhkR~
+//      }                                                          //~1A90I~//~1AhkR~
         Show=true;                                                 //~@@@2I~
 		setVisible(true);                                          //~@@@2I~
 		repaint();                                                 //~@@@2I~
@@ -139,24 +147,33 @@ public class MainFrame extends GoFrame                             //~@@@2I~
             new MainFrameOptions(this);                            //~@@@2I~
         }                                                          //~@@@2I~
         else                                                       //~@@@2I~
-        if (o.equals(AG.resource.getString(R.string.LocalGame)))   //~@@@2R~
+        if (o.equals(AG.resource.getString(R.string.Label_Connections))) //~1AhkI~
+        {                                                          //~1AhkI~
+            connectionMenu();                                      //~1AhkI~
+        }                                                          //~1AhkI~
+        else                                                       //~1AhkI~
+//      if (o.equals(AG.resource.getString(R.string.LocalGame)))   //~@@@2R~//+1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_LocalGame)))//+1AhkI~
         {                                                          //~@@@2I~
             startLocalGame();                                      //~@@@2I~
         }                                                          //~@@@2I~
         else                                                       //~@@@2I~
-        if (o.equals(AG.resource.getString(R.string.RemoteGame)))  //~@@@2R~
+//      if (o.equals(AG.resource.getString(R.string.RemoteGame)))  //~@@@2R~//+1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_RemoteGame)))//+1AhkI~
         {                                                          //~@@@2I~
             startRemoteGame();                                     //~@@@2R~
         }                                                          //~@@@2I~
         else                                                       //~@@@2I~
-        if (o.equals(AG.resource.getString(R.string.RemoteIP)))    //~v101I~
+//      if (o.equals(AG.resource.getString(R.string.RemoteIP)))    //~v101I~//+1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_RemoteIP)))//+1AhkI~
         {                                                          //~v101I~
             startRemoteIP();                                       //~v101I~
         }                                                          //~v101I~
         else                                                       //~v101I~
         if (o.equals(AG.resource.getString(R.string.Help)))        //~@@@@I~
         {                                                          //~@@@@I~
-			new HelpDialog(this,R.string.Help_MainFrame);               //~@@@@I~
+//  		new HelpDialog(this,R.string.Help_MainFrame);               //~@@@@I~//~1AhgR~
+			new HelpDialog(null/*currentFrame*/,HELPTITLEID,"Mainframe");//~1AbzI~//~1AhgI~
         }                                                          //~@@@@I~
         else                                                       //~@@@@I~
         if (o.equals(AG.resource.getString(R.string.ActionRestoreFrame)))//~@@@@I~//~@@@2R~
@@ -164,7 +181,8 @@ public class MainFrame extends GoFrame                             //~@@@2I~
 			restoreFrame();                                        //~@@@@I~
         }                                                          //~@@@@I~
         else                                                       //~1A6sI~
-        if (o.equals(AG.resource.getString(R.string.WiFiNFCButton)))//~1A6sI~
+//      if (o.equals(AG.resource.getString(R.string.WiFiNFCButton)))//~1A6sI~//+1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_WiFiNFCButton)))//+1AhkI~
         {                                                          //~1A6sI~
 //        if (AG.swNFCBT)                                             //~1Ab1I~//~1Ab6R~//~1Ab7R~//~1Ad3R~
     		selectNFCHandover();                                   //~1Ab1I~//~1Ab6R~//~1Ab7R~
@@ -172,12 +190,14 @@ public class MainFrame extends GoFrame                             //~@@@2I~
 //  		prepareNFC();                                          //~1A6sI~//~1Ad3R~
         }                                                          //~1A6sI~
         else                                                       //~1Ad3I~
-        if (o.equals(AG.resource.getString(R.string.BTNFCButton))) //~1Ad3I~
+//      if (o.equals(AG.resource.getString(R.string.BTNFCButton))) //~1Ad3I~//+1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_BTNFCButton)))//+1AhkI~
         {                                                          //~1Ad3I~
     		selectNFCHandoverBT();                                 //~1Ad3I~
         }                                                          //~1Ad3I~
         else                                                       //~1A90I~
-        if (o.equals(AG.resource.getString(R.string.WiFiDirectButton)))//~1A90I~
+//      if (o.equals(AG.resource.getString(R.string.WiFiDirectButton)))//~1A90I~//+1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_WiFiDirectButton)))//+1AhkI~
         {                                                          //~1A90I~
             startRemoteIP(true/*WiFiDirect*/);	                   //~1A90I~
         }                                                          //~1A90I~
@@ -241,6 +261,8 @@ public class MainFrame extends GoFrame                             //~@@@2I~
         }                                                       
     	if (isAliveOtherSession(AG.AST_WD,false/*dupok*/))         //~1A8gR~
             return;                                                //~1A8gR~
+        if (!WDA.chkGranted())                                     //~1AhdM~
+            return;                                                //~1AhdM~
 		new wifidirect.IPConnection();	//open dialog              //~1A90I~
     }                                                              //~1A90I~
     //***********************************************************************//~1A6sI~
@@ -294,11 +316,11 @@ public class MainFrame extends GoFrame                             //~@@@2I~
     private void selectNFCHandover()                               //~1Ab1I~//~1Ab6R~//~1Ab7R~
     {                                                              //~1Ab1I~//~1Ab6R~//~1Ab7R~
 //      DialogNFCSelect.showDialog(this);                          //~1Ab1R~//~1Ab6R~//~1Ab7R~//~1Ad3R~
-    	prepareNFCAhsv();                                          //+1Ad3I~
+    	prepareNFCAhsv();                                          //~1Ad3I~
     }                                                              //~1Ab1I~//~1Ab6R~//~1Ab7R~
     private void selectNFCHandoverBT()                             //~1Ad3I~
     {                                                              //~1Ad3I~
-    	prepareNFCBTAhsv();                                        //+1Ad3I~
+    	prepareNFCBTAhsv();                                        //~1Ad3I~
     }                                                              //~1Ad3I~
     public void selectedNFCHandover(int PhandoverType)           //~1Ab1I~//~1Ab6R~//~1Ab7R~//~1Ab8R~
     {                                                              //~1Ab1I~//~1Ab6R~//~1Ab7R~
@@ -319,27 +341,32 @@ public class MainFrame extends GoFrame                             //~@@@2I~
 //          return;                                                //~1Ab1I~//~1Ab6R~//~1Ab7R~
         DialogNFCBT.showDialog(this,PhandoverType);                                  //~1Ab1I~//~1Ab6R~//~1Ab7R~//~1Ab8R~
     }                                                              //~1Ab1I~//~1Ab6R~//~1Ab7R~
-    //***********************************************************************//+1Ad3I~
-    private void prepareNFCAhsv()                                  //+1Ad3I~
-    {                                                              //+1Ad3I~
-        if ((AG.RemoteStatus & AG.RS_BT)!=0)                       //+1Ad3I~
-        {                                                          //+1Ad3I~
-            new Message(this,R.string.ErrNowBTConnected);          //+1Ad3I~
-            return;                                                //+1Ad3I~
-        }                                                          //+1Ad3I~
-    	if (isAliveOtherSession(AG.AST_WD,false/*dupok*/))         //+1Ad3I~
-            return;                                                //+1Ad3I~
-        DialogNFCSelect.showDialogNFCWD(this);                     //+1Ad3I~
-    }                                                              //+1Ad3I~
-    //***********************************************************************//+1Ad3I~
-    private void prepareNFCBTAhsv()                                //+1Ad3I~
-    {                                                              //+1Ad3I~
-        if ((AG.RemoteStatus & AG.RS_IP)!=0)                       //+1Ad3I~
-        {                                                          //+1Ad3I~
-            new Message(this,R.string.ErrNowIPConnected);          //+1Ad3I~
-            return;                                                //+1Ad3I~
-        }                                                          //+1Ad3I~
-        DialogNFCSelect.showDialogNFCBT(this);                     //+1Ad3M~
-    }                                                              //+1Ad3I~
+    //***********************************************************************//~1Ad3I~
+    private void prepareNFCAhsv()                                  //~1Ad3I~
+    {                                                              //~1Ad3I~
+        if ((AG.RemoteStatus & AG.RS_BT)!=0)                       //~1Ad3I~
+        {                                                          //~1Ad3I~
+            new Message(this,R.string.ErrNowBTConnected);          //~1Ad3I~
+            return;                                                //~1Ad3I~
+        }                                                          //~1Ad3I~
+    	if (isAliveOtherSession(AG.AST_WD,false/*dupok*/))         //~1Ad3I~
+            return;                                                //~1Ad3I~
+        DialogNFCSelect.showDialogNFCWD(this);                     //~1Ad3I~
+    }                                                              //~1Ad3I~
+    //***********************************************************************//~1Ad3I~
+    private void prepareNFCBTAhsv()                                //~1Ad3I~
+    {                                                              //~1Ad3I~
+        if ((AG.RemoteStatus & AG.RS_IP)!=0)                       //~1Ad3I~
+        {                                                          //~1Ad3I~
+            new Message(this,R.string.ErrNowIPConnected);          //~1Ad3I~
+            return;                                                //~1Ad3I~
+        }                                                          //~1Ad3I~
+        DialogNFCSelect.showDialogNFCBT(this);                     //~1Ad3M~
+    }                                                              //~1Ad3I~
+    //***********************************************************************//~1AhkI~
+    private void connectionMenu()                                  //~1AhkI~
+    {                                                              //~1AhkI~
+        MenuDlgConnect.showMenu(this);                              //~1AhkI~
+    }                                                              //~1AhkI~
 }
 

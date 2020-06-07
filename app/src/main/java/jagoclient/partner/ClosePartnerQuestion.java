@@ -1,14 +1,14 @@
 package jagoclient.partner;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+0530R~
 
 import jagoclient.dialogs.Question;
 
 class ClosePartnerQuestion extends Question
 {	public ClosePartnerQuestion (PartnerFrame g)
-//	{	super(g,Global.resourceString("This_will_close_your_connection_"),Global.resourceString("Close"),g,true);//+3119R~
-	{	super(g,AG.resource.getString(R.string.This_will_close_your_connection),AG.resource.getString(R.string.Title_ClosePartnerQuestion),g,true,false);//+3119I~
+//	{	super(g,Global.resourceString("This_will_close_your_connection_"),Global.resourceString("Close"),g,true);//~3119R~
+	{	super(g,AG.resource.getString(R.string.This_will_close_your_connection),AG.resource.getString(R.string.Title_ClosePartnerQuestion),g,true,false);//~3119I~
 		show();
 	}
 	public void tell (Question q, Object o, boolean f)

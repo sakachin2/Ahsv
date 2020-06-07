@@ -1,5 +1,6 @@
-//*CID://+1AabR~:                             update#=  102;       //~1AabR~
+//*CID://+1AhgR~:                             update#=  105;       //~1AabR~//+1AhgR~
 //**************************************************************************//~1022I~
+//1Ahg 2020/06/03 help text;string to helptext\
 //1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
 //1Aa9 2015/04/21 (BUG)Button of GameQuestion except Help dose not work after ChangeBK button//~1Aa9I~
 //                GameQuestion(ModalDialog) run on subthread at connection complete.//~1Aa9I~
@@ -21,7 +22,7 @@ import android.view.View;
 import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.Prop;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //~1AabR~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableI;
 import com.Ahsv.awt.Checkbox;
@@ -244,7 +245,8 @@ public class GameQuestion extends CloseDialog
 		}
         else if (o.equals(AG.resource.getString(R.string.Help)))   //~2C30I~//~@@@@I~
 		{                                                          //~2C30I~//~@@@@I~
-			new HelpDialog(null,R.string.Help_GameQuestion);           //~2C30I~//~@@@@I~
+//  		new HelpDialog(null,R.string.Help_GameQuestion);           //~2C30I~//~@@@@I~//+1AhgR~
+    		new HelpDialog(null,R.string.Title_GameQuestion,"GameQuestion");//+1AhgI~
 		}                                                          //~2C30I~//~@@@@I~
         else if (o.equals(AG.resource.getString(R.string.ChangeBKButton)))//~1Aa7R~
 		{                                                          //~1Aa7R~
@@ -426,14 +428,14 @@ public class GameQuestion extends CloseDialog
 	}                                                              //~v108I~//~@@@2M~
 //************************************************************     //~v108I~//~@@@2M~
 	public static String putPieces(int Ppieces)                    //~v108I~//~@@@2M~
-    {                                                              //+1AabI~
-		return putPieces2(Ppieces,AG.propBoardSize);               //+1AabI~
-                                                                   //+1AabI~
-    }                                                              //+1AabI~
-	public static String putPieces2(int Ppieces,int Pboardsz)      //+1AabI~
+    {                                                              //~1AabI~
+		return putPieces2(Ppieces,AG.propBoardSize);               //~1AabI~
+                                                                   //~1AabI~
+    }                                                              //~1AabI~
+	public static String putPieces2(int Ppieces,int Pboardsz)      //~1AabI~
 	{                                                              //~v108I~//~@@@2M~
-//      int boardsz=AG.propBoardSize;                                  //~v108I~//~@@@2M~//+1AabR~
-        int boardsz=Pboardsz;                                      //+1AabI~
+//      int boardsz=AG.propBoardSize;                                  //~v108I~//~@@@2M~//~1AabR~
+        int boardsz=Pboardsz;                                      //~1AabI~
         int pos=Ppieces >> 8;                                      //~v108I~//~@@@2M~
                                                                    //~v108I~//~@@@2M~
         String pieces="";                                          //~v108I~//~@@@2M~

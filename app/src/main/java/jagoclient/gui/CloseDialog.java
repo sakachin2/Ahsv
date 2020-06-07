@@ -9,7 +9,7 @@ package jagoclient.gui;
 import android.graphics.Point;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+0530R~
 import com.Ahsv.awt.ActionEvent;                                   //~2C26R~
 import com.Ahsv.awt.ActionListener;                                //~2C26R~
 import com.Ahsv.awt.Dialog;                                        //~2C26R~
@@ -36,10 +36,10 @@ public class CloseDialog extends Dialog
 	    addWindowListener(this);
 	    setTitle(s);
 	}
-	public CloseDialog (Frame f, String s, int Presid, boolean modal,boolean waitInput)//+3114I~
-	{	super(f,s,Presid,modal,waitInput);                                   //+3114I~
-	    addWindowListener(this);                                   //+3114I~
-	}                                                              //+3114I~
+	public CloseDialog (Frame f, String s, int Presid, boolean modal,boolean waitInput)//~3114I~
+	{	super(f,s,Presid,modal,waitInput);                                   //~3114I~
+	    addWindowListener(this);                                   //~3114I~
+	}                                                              //~3114I~
 	public void windowActivated (WindowEvent e) {}
 	public void windowClosed (WindowEvent e) {}
 	public void windowClosing (WindowEvent e)

@@ -1,63 +1,7 @@
 # Ahsv.README.md
 *************************************************************************
-#"Ahsv" Android Studio Project Source
-*************************************************************************
+V1.20 2020/06/07
 
-"Hasami-Shogi" is a familiar board game in Japan.
-"Shogi" game itself requires deep-thinking more over Chess,
-on the other hand, "Hasami-Shogi" is playing
-among children using Shogi pieces and board.
-("Hasami" is a form of Japanese verb "Hasamu"
-that means "sandwich" used as like as
-who sandwiches anything between two something.)
+English:            See README_en.txt
 
-This app is not a robot but for match with your friends.
-If there are two devices, you can match through wireless(Bluetooth or IP).
-(You can enjoy "Chat" with your partner.)
-You can select board and pieces from "Shogi"(9x9) and "Chess"(8x8).
-Message is by English,
-you will be soon accustomed also to Japanese gliph on Shogi pieces.
-Games's objective is to capture opponent's pieces
-until gameover count.
-Pieces are captured when you sandwiched opponent's piece
-vertically and/or horizontally,
-or hold opponent's pieces at corner or border.
-See "Help" for how to move and how to capture.
-Entry of Bishop and/or Knight are not usual,
-but optional in this variant.
-
-   .Bluetooth connection.
-      It reaches about 10m.
-   .IP connection.
-      Connect on private LAN with known IP address.
-      Or connect by WiFi Direct it reaches about a few 10 meters,
-      it is available from android 4.
-   For device with NFC attachment, Bluetooth or Wi-Fi Direct connection 
-   starts by closing the part of NFC tag in the range of 10 cm.
-   (Note)Support of mixed use of Wi-Fi and Wi-Fi Direct depends device type.
-         It may cause too slow response or disturb telephone function.
-
-*************************************************************************
-(Japanese)
-# "Ahsv" Android Studio ƒvƒƒWƒFƒNƒg ƒ\[ƒX
-*************************************************************************
-
-*** ‚Í‚³‚İ«Šû ***
-ƒƒ{ƒbƒg‚Å‚Í‚ ‚è‚Ü‚¹‚ñA‘Îí—pƒAƒvƒŠ‚Å‚·
-’[––‚ª‚Q‚Â‚ ‚éê‡‚Í–³ü(Bluetooth‚Ü‚½‚ÍIP)‚Å‘Îí
-(‘Îí’†‚Ìƒ`ƒƒƒbƒg‚àƒTƒ|[ƒg)
-”Õ‚Æ‹î‚Í«Šû‚Æƒ`ƒFƒX‚Æ‚Ç‚¿‚ç‚©‘I‚×‚Ü‚·
-•b“Ç‚İ‚ ‚èA
-•’Ê‚Ì‚Í‚³‚İ«Šû‚Æˆá‚¢AƒIƒvƒVƒ‡ƒ“‚Å(”½Ë)Šp‚ÆŒj‚àg—p‚Å‚«‚Ü‚· 
-’É‰õ‚É‹Z‚ğŒˆ‚ß‚Ü‚µ‚å‚¤
-
-   .Bluetooth Ú‘±
-      ‚P‚O‚ˆÈ“à‚Ì‹——£‚ÅÚ‘±‚Å‚«‚Ü‚·
-   .IP Ú‘±
-      ƒvƒ‰ƒCƒx[ƒgLAN‚ÉÚ‘±‚·‚é‚©
-      Android-4 ˆÈ~‚È‚çWiFiƒ_ƒCƒŒƒNƒg‚Å‹ß‹——£Ú‘±(”‚P‚O‚‚Ü‚Å“Í‚«‚Ü‚·)A
-
-   NFC‹@”\‚Â‚«‚Ì’[––‚È‚çNFCƒ^ƒO‚Ì•”•ª‚ğ10cmˆÈ“à‚É‹ß‚Ã‚¯‚é‚¾‚¯‚Å
-   Bluetooth ‚© Wi-Fiƒ_ƒCƒŒƒNƒg‚ÅÚ‘±‚Å‚«‚Ü‚·
-   (’) WiFi ‚Æ WiFiƒ_ƒCƒŒƒNƒg ‚ğ¬—p‚ÌƒTƒ|[ƒg‚ÍƒfƒoƒCƒXƒ^ƒCƒv‚ÉˆË‘¶‚µ‚Ü‚·
-        IPÚ‘±‚Ì‰“š‚ª’x‚­‚È‚Á‚½‚èA“d˜b‹@”\‚É‰e‹¿‚ªo‚é‰Â”\«‚ª‚ ‚è‚Ü‚·
+æ—¥æœ¬èª(Japanese):   README_jp.txt ã‚’è¦‹ã¦ãã ã•ã„

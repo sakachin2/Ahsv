@@ -1,6 +1,6 @@
-//*CID://+1AedR~:                             update#=  126;       //+1AedR~
+//*CID://+1AedR~:                             update#=  130;       //~1AedR~
 //**********************************************************************//~v107I~
-//1Aed 2015/07/30 show secure/insecure option to waiting msg       //+1AedI~
+//1Aed 2015/07/30 show secure/insecure option to waiting msg       //~1AedI~
 //1Ac5 2015/07/09 NFCBT:confirmation dialog is not show and fails to pairig//~1Ac5I~
 //                (LocalBluetoothPreference:"Found no reason to show dialog",requires discovaring status in the 60 sec before)//~1Ac5I~
 //                Issue waring whne NFCBT-Secure                   //~1Ac5I~
@@ -29,6 +29,7 @@ import android.bluetooth.BluetoothSocket;                          //~v107I~
 import com.Ahsv.BT.BTControl;                                      //~v107R~
 import com.Ahsv.BT.BTDiscover;
 import com.Ahsv.BT.BTService;
+import com.Ahsv.R;                                                 //~1AedR~
 //import com.Ahsv.BT.BTList;                                       //~@@@2R~
 import com.Ahsv.jagoclient.partner.PartnerFrame;                   //~v107R~
 import com.Ahsv.jagoclient.partner.Server;                         //~v107R~
@@ -61,7 +62,7 @@ public class ABT                                               //~1122R~//~v107R
 //    private boolean swBTavail;                                     //~v107I~//~@@@2R~
 //    private static Menu bluetooth;                                 //~v107I~//~@@@2R~
 	public boolean swDestroy;                                      //~@@@2R~
-	private boolean swSecureConnect;                               //+1AedI~
+	private boolean swSecureConnect;                               //~1AedI~
     public boolean swNFC,swSecureNFC;                              //~1AbbI~
     public boolean swSecureNonNFCAccept;                           //~1AbtI~
     public ABT()                                                   //~v107R~
@@ -295,12 +296,12 @@ public class ABT                                               //~1122R~//~v107R
     {                                                              //~@@@2I~
     	int rc;                                                    //~@@@2I~
     //**********************                                       //~@@@2I~
-    	swSecureConnect=Psecure;                                   //+1AedI~
+    	swSecureConnect=Psecure;                                   //~1AedI~
 	    requestDeviceName=Pname;                                   //~@@@2I~
     	if (Dump.Y) Dump.println("ABT:connect device="+Pname+",addr="+Paddr);//~@@@2R~
         if (mBTC==null)                                            //~@@@2I~
             return;                                                 //~@@@2I~
-    	if (MainFrame.isAliveOtherSession(AG.AST_BT,true/*dupok*/))//~1A8gI~
+    	if (MainFrame.isAliveOtherSession(AG.AST_BT,true/*duper*/))//~1A8gI~//+1AedR~
             return;                                                //~1A8gI~
         swConnect=true;                                            //~@@@2I~
 //      rc=mBTC.BTconnect(Paddr);                                  //~@@@2I~//~1A60R~
@@ -416,13 +417,13 @@ public class ABT                                               //~1122R~//~v107R
         swConnect=false;                                           //~@@@2I~
         PartnerFrame.dismissWaitingDialog();                       //~@@@2I~
       if (flag==BTService.CONN_FAILED)                             //~1A6mI~
-      {                                                            //+1AedI~
-    	String secureopt=AG.resource.getString(swSecureConnect ? R.string.BTSecure : R.string.BTInSecure);//+1AedI~
+      {                                                            //~1AedI~
+    	String secureopt=AG.resource.getString(swSecureConnect ? R.string.BTSecure : R.string.BTInSecure);//~1AedI~
 		new Message(Global.frame(),                                //~@@@2I~
 //  		Global.resourceString("No_connection_to_")+requestDeviceName);//~@@@2I~//~1A6iR~
-//  		AG.resource.getString(R.string.Err_No_connection_to_BT,requestDeviceName));//~1A6iI~//+1AedR~
-    		AG.resource.getString(R.string.Err_No_connection_to_BT,requestDeviceName,secureopt));//+1AedI~
-      }                                                            //+1AedI~
+//  		AG.resource.getString(R.string.Err_No_connection_to_BT,requestDeviceName));//~1A6iI~//~1AedR~
+    		AG.resource.getString(R.string.Err_No_connection_to_BT,requestDeviceName,secureopt));//~1AedI~
+      }                                                            //~1AedI~
       else                                                         //~1A6mI~
 		new Message(Global.frame(),                                //~1A6mI~
     		Global.resourceString("No_connection_to_")+requestDeviceName);//~1A6mI~
@@ -462,6 +463,7 @@ public class ABT                                               //~1122R~//~v107R
 //***************************************************************************//~@@@2I~
     public String[] getNewDevice()                                 //~@@@2I~
     {                                                              //~@@@2I~
+    	if (Dump.Y) Dump.println("ABT.getNewDevice "+ Utils.toString(BTDiscover.newDevice));//~1AedI~
         return BTDiscover.newDevice;                             //~@@@2I~
     }                                                              //~@@@2I~
 //***************************************************************************//~1A6bI~

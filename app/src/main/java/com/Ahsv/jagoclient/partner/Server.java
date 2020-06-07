@@ -1,4 +1,4 @@
-//*CID://+v107R~:                             update#=   28;       //~v107I~
+//*CID://+v107R~:                             update#=   30;       //~v107I~
 //******************************************************************************************************************//~v101R~//~v107I~
 //1071:121204 partner connection using Bluetooth SPP               //~v107I~
 //******************************************************************************************************************//~v107I~
@@ -9,7 +9,7 @@ import jagoclient.Dump;
 //import jagoclient.partner.PartnerFrame;                          //~v107R~
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+v107R~
 import com.Ahsv.jagoclient.partner.PartnerFrame;                   //~v107R~
 //import jagoclient.partner.partner.Partner;
 

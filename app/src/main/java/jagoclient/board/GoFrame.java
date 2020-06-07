@@ -1,4 +1,4 @@
-//*CID://+1Ad9R~:                             update#=   97;       //~1Ad9R~
+//*CID://+1Ad9R~:                             update#=   99;       //~1Ad9R~
 //**************************************************************   //~1A38I~
 //1Ad9 2015/07/21 additional to 1Ad6(OutOfMemory)                  //~1Ad9I~
 //1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //~1Aa7I~
@@ -17,7 +17,7 @@ import java.io.*;
 
 //import com.Ahsv.awt.BorderLayout;                                //~@@@@R~
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+1Ad9R~
 import com.Ahsv.URunnable;
 import com.Ahsv.URunnableI;
 import com.Ahsv.Utils;
@@ -2056,7 +2056,7 @@ public class GoFrame extends CloseFrame
 	{                                                              //~@@@@I~
         if (Dump.Y) Dump.println("changeBoardUi entry");           //~@@@2R~
     	B.stopThread();   //stop BoardSync thread and recycle Board bitmap//~@@@2R~
-        Utils.sleep(100);//give timing of recycle Bitmap at stopThread()//+1Ad9R~
+        Utils.sleep(100);//give timing of recycle Bitmap at stopThread()//~1Ad9R~
         if (Dump.Y) Dump.println("changeBoardUi new Board");       //~@@@2I~
         B=new Board(AG.propBoardSize,this);  //boardsize was set at MainFrame//~@@@@R~
         if (Dump.Y) Dump.println("changeBoardUi new Board return");//~@@@2I~

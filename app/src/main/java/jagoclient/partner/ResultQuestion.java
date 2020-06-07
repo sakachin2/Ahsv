@@ -1,7 +1,7 @@
 package jagoclient.partner;
 
 import com.Ahsv.AG;
-import com.Ahsv.R;
+import com.Ahsv.R;                                                 //+0530R~
 
 import jagoclient.dialogs.Question;
 
@@ -16,10 +16,10 @@ public class ResultQuestion extends Question
 	@param b,w Black and White results
 	*/
 	public ResultQuestion (PartnerFrame g, String m, int b, int w)
-//  {	super(g,m,Global.resourceString("Result"),g,true); B=b; W=w; G=g;//+3119R~
-    {                                                              //+3119I~
-    	super(g,m,AG.resource.getString(R.string.Title_ResultQuestion),g,true,false);//+3119I~
-		B=b; W=w; G=g;                                             //+3119I~
+//  {	super(g,m,Global.resourceString("Result"),g,true); B=b; W=w; G=g;//~3119R~
+    {                                                              //~3119I~
+    	super(g,m,AG.resource.getString(R.string.Title_ResultQuestion),g,true,false);//~3119I~
+		B=b; W=w; G=g;                                             //~3119I~
 		show();
 	}
 	public void tell (Question q, Object o, boolean f)
