@@ -1,5 +1,6 @@
-//*CID://+1AhkR~:                             update#=  145;       //~1AhkR~
+//*CID://+1AhpR~:                             update#=  148;       //~1AhpR~
 //***********************************************************************//~v101I~
+//1Ahp 2020/06/08 add "Debug" to title                             //~1AhpI~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //1Ahg 2020/06/03 MainFrame help;string to helptext\
 //1Ahd 2020/06/03 WifiDirect required PERMISSION_LOCATION          //~1AhdI~
@@ -26,12 +27,16 @@ import wifidirect.DialogNFCSelect;
 import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.Alert;
+import com.Ahsv.BuildConfig;
 import com.Ahsv.Prop;
 import com.Ahsv.R;                                                 //~1Ad3R~
 import com.Ahsv.Utils;                                             //~@@@@R~
 import com.Ahsv.awt.CheckboxMenuItem;                              //~@@@@R~
 import com.Ahsv.awt.MenuItem;                                      //~@@@@R~
 import com.btmtest.dialog.MenuDlgConnect;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jagoclient.board.Board;
 import jagoclient.board.GoFrame;
@@ -60,7 +65,9 @@ public class MainFrame extends GoFrame                             //~@@@2I~
     {                                                              //~@@@@I~
 //     	super(AG.frameId_MainFrame,c+" "+AG.appVersion);                                //~@@@@I~//~@@@2R~//~1A66R~
        	super( (AG.screenDencityMdpiSmallV || AG.screenDencityMdpiSmallH/*mdpi and height or width <=320*/ ? R.layout.mainframe_mdpi : R.layout.mainframe),//~1A66R~
-				c+" "+AG.appVersion);                              //~1A66I~
+  				c+" "+AG.appVersion);                              //~1A66I~//+1AhpR~
+        if (AG.isDebuggable)                                       //+1AhpI~
+        	setTitle(c+" "+AG.appVersion+"  "+getTimestampMade());       //+1AhpI~
 		int boardsz,piecetype;                                     //~@@@@R~
 		if (AG.isLangJP)                                           //~@@@@I~
         {                                                          //~@@@@I~
@@ -152,20 +159,20 @@ public class MainFrame extends GoFrame                             //~@@@2I~
             connectionMenu();                                      //~1AhkI~
         }                                                          //~1AhkI~
         else                                                       //~1AhkI~
-//      if (o.equals(AG.resource.getString(R.string.LocalGame)))   //~@@@2R~//+1AhkR~
-        if (o.equals(AG.resource.getString(R.string.Label_LocalGame)))//+1AhkI~
+//      if (o.equals(AG.resource.getString(R.string.LocalGame)))   //~@@@2R~//~1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_LocalGame)))//~1AhkI~
         {                                                          //~@@@2I~
             startLocalGame();                                      //~@@@2I~
         }                                                          //~@@@2I~
         else                                                       //~@@@2I~
-//      if (o.equals(AG.resource.getString(R.string.RemoteGame)))  //~@@@2R~//+1AhkR~
-        if (o.equals(AG.resource.getString(R.string.Label_RemoteGame)))//+1AhkI~
+//      if (o.equals(AG.resource.getString(R.string.RemoteGame)))  //~@@@2R~//~1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_RemoteGame)))//~1AhkI~
         {                                                          //~@@@2I~
             startRemoteGame();                                     //~@@@2R~
         }                                                          //~@@@2I~
         else                                                       //~@@@2I~
-//      if (o.equals(AG.resource.getString(R.string.RemoteIP)))    //~v101I~//+1AhkR~
-        if (o.equals(AG.resource.getString(R.string.Label_RemoteIP)))//+1AhkI~
+//      if (o.equals(AG.resource.getString(R.string.RemoteIP)))    //~v101I~//~1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_RemoteIP)))//~1AhkI~
         {                                                          //~v101I~
             startRemoteIP();                                       //~v101I~
         }                                                          //~v101I~
@@ -181,8 +188,8 @@ public class MainFrame extends GoFrame                             //~@@@2I~
 			restoreFrame();                                        //~@@@@I~
         }                                                          //~@@@@I~
         else                                                       //~1A6sI~
-//      if (o.equals(AG.resource.getString(R.string.WiFiNFCButton)))//~1A6sI~//+1AhkR~
-        if (o.equals(AG.resource.getString(R.string.Label_WiFiNFCButton)))//+1AhkI~
+//      if (o.equals(AG.resource.getString(R.string.WiFiNFCButton)))//~1A6sI~//~1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_WiFiNFCButton)))//~1AhkI~
         {                                                          //~1A6sI~
 //        if (AG.swNFCBT)                                             //~1Ab1I~//~1Ab6R~//~1Ab7R~//~1Ad3R~
     		selectNFCHandover();                                   //~1Ab1I~//~1Ab6R~//~1Ab7R~
@@ -190,14 +197,14 @@ public class MainFrame extends GoFrame                             //~@@@2I~
 //  		prepareNFC();                                          //~1A6sI~//~1Ad3R~
         }                                                          //~1A6sI~
         else                                                       //~1Ad3I~
-//      if (o.equals(AG.resource.getString(R.string.BTNFCButton))) //~1Ad3I~//+1AhkR~
-        if (o.equals(AG.resource.getString(R.string.Label_BTNFCButton)))//+1AhkI~
+//      if (o.equals(AG.resource.getString(R.string.BTNFCButton))) //~1Ad3I~//~1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_BTNFCButton)))//~1AhkI~
         {                                                          //~1Ad3I~
     		selectNFCHandoverBT();                                 //~1Ad3I~
         }                                                          //~1Ad3I~
         else                                                       //~1A90I~
-//      if (o.equals(AG.resource.getString(R.string.WiFiDirectButton)))//~1A90I~//+1AhkR~
-        if (o.equals(AG.resource.getString(R.string.Label_WiFiDirectButton)))//+1AhkI~
+//      if (o.equals(AG.resource.getString(R.string.WiFiDirectButton)))//~1A90I~//~1AhkR~
+        if (o.equals(AG.resource.getString(R.string.Label_WiFiDirectButton)))//~1AhkI~
         {                                                          //~1A90I~
             startRemoteIP(true/*WiFiDirect*/);	                   //~1A90I~
         }                                                          //~1A90I~
@@ -368,5 +375,14 @@ public class MainFrame extends GoFrame                             //~@@@2I~
     {                                                              //~1AhkI~
         MenuDlgConnect.showMenu(this);                              //~1AhkI~
     }                                                              //~1AhkI~
+	//*************************                                    //~v@21I~//~1AhpI~
+    private String getTimestampMade()                   //~v@21I~  //~1AhpI~
+    {                                                              //~v@21I~//~1AhpI~
+    	Date ts=new Date(BuildConfig.TIMESTAMP);                   //~v@21I~//~1AhpI~
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd-HH.mm.ss");//~v@21I~//~1AhpI~
+        String sts=sdf.format(ts);                                 //~v@21I~//~1AhpI~
+        if (Dump.Y) Dump.println("MainFrame.getTimeStampMade date="+sts);//~v@21I~//~9620R~//~1AhpI~
+        return sts;                                                //~1AhpI~
+    }                                                              //~v@21I~//~1AhpI~
 }
 
