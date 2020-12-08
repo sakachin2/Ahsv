@@ -1,0 +1,22 @@
+Privacy Policy of com.AhsvA9 
+2020/12/08
+
+Advetisement: is not contaioned.
+Pemission use
+    Save Game score
+        android.permission.WRITE_EXTERNAL_STORAGE
+    Neighbor Communication Using Bluetooth
+        android.permission.BLUETOOTH_ADMIN
+        android.permission.BLUETOOTH
+    Neighbor Communication Using WiFiDirect
+        android.permission.ACCESS_WIFI_STATE
+        android.permission.CHANGE_WIFI_STATE
+        android.permission.ACCESS_FINE_LOCATION
+        android.permission.ACCESS_NETWORK_STATE
+        android.permission.CHANGE_NETWORK_STATE
+        android.permission.INTERNET
+    moveAppToFront when received msg from paired device.
+        android.permission.REORDER_TASKS
+        android.permission.GET_TASKS
+    use NFC to find Neighbor
+    	android.permission.NFC

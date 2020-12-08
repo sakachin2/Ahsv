@@ -1,11 +1,13 @@
-//*CID://+1A6fR~:                             update#=    1;       //+1A6fI~
-//**********************************************************************************//+1A6fI~
-//1A6f 2015/02/13 support custom layout of ListView for BluetoothConnection to show available/paired status//+1A6fI~
-//**********************************************************************************//+1A6fI~
+//*CID://+va40R~:                             update#=    3;       //~va40R~
+//**********************************************************************************//~1A6fI~
+//2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //~va40I~
+//1A6f 2015/02/13 support custom layout of ListView for BluetoothConnection to show available/paired status//~1A6fI~
+//**********************************************************************************//~1A6fI~
 package com.Ahsv.awt;                                                //~1108R~//~1109R~//~2C26R~
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
@@ -21,7 +23,7 @@ public class Color extends Drawable/* view.getBackground returns Drawable*/ //an
     public final static Color blue      = new Color(0, 0, 255);    //~1127I~
     public final static Color pink      = new Color(255, 175, 175);//~1127I~
     public final static Color darkGray  = new Color(64, 64, 64);   //~1212I~
-    public final static Color orange    = new Color(255,100, 0);   //+1A6fI~
+    public final static Color orange    = new Color(255,100, 0);   //~1A6fI~
                                                                    //~1127I~
     private static final double FACTOR = 0.7;                      //~1108R~//~1127M~
 //***********************************                              //~1127I~
@@ -96,10 +98,12 @@ public class Color extends Drawable/* view.getBackground returns Drawable*/ //an
 	public void draw(Canvas arg0)
 	{
 	}
+	@SuppressWarnings("deprecation")                               //+va40I~
 	@Override
 	public int getOpacity()
 	{
-		return 0;
+//  	return 0;                                                  //~va40R~
+    	return PixelFormat.UNKNOWN; //no user                      //~va40I~
 	}
 	@Override
 	public void setAlpha(int alpha)

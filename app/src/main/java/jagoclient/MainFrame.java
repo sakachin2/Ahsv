@@ -1,5 +1,6 @@
-//*CID://+1AhpR~:                             update#=  148;       //~1AhpR~
+//*CID://+1ai2R~:                             update#=  150;       //+1ai2R~
 //***********************************************************************//~v101I~
+//2020/12/05 1ai2 deprecated NFC function(set...Callback);drop NFC when Android10(api29)//+1ai2I~
 //1Ahp 2020/06/08 add "Debug" to title                             //~1AhpI~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //1Ahg 2020/06/03 MainFrame help;string to helptext\
@@ -19,6 +20,8 @@
 //101a 2013/01/30 IP connection                                    //~v101I~
 //***********************************************************************//~v101I~
 package jagoclient;
+
+import android.os.Build;
 
 import wifidirect.DialogNFC;
 import wifidirect.DialogNFCBT;
@@ -65,9 +68,9 @@ public class MainFrame extends GoFrame                             //~@@@2I~
     {                                                              //~@@@@I~
 //     	super(AG.frameId_MainFrame,c+" "+AG.appVersion);                                //~@@@@I~//~@@@2R~//~1A66R~
        	super( (AG.screenDencityMdpiSmallV || AG.screenDencityMdpiSmallH/*mdpi and height or width <=320*/ ? R.layout.mainframe_mdpi : R.layout.mainframe),//~1A66R~
-  				c+" "+AG.appVersion);                              //~1A66I~//+1AhpR~
-        if (AG.isDebuggable)                                       //+1AhpI~
-        	setTitle(c+" "+AG.appVersion+"  "+getTimestampMade());       //+1AhpI~
+  				c+" "+AG.appVersion);                              //~1A66I~//~1AhpR~
+        if (AG.isDebuggable)                                       //~1AhpI~
+        	setTitle(c+" "+AG.appVersion+"  "+getTimestampMade());       //~1AhpI~
 		int boardsz,piecetype;                                     //~@@@@R~
 		if (AG.isLangJP)                                           //~@@@@I~
         {                                                          //~@@@@I~
@@ -320,13 +323,27 @@ public class MainFrame extends GoFrame                             //~@@@2I~
 //*****************************************************************************//~1Ab1I~//~1Ab6R~//~1Ab7R~
 //*select WiFiDirect or Bluetooth for NFC handover                 //~1Ab1I~//~1Ab6R~//~1Ab7R~
 //*****************************************************************************//~1Ab1I~//~1Ab6R~//~1Ab7R~
+    private void errNFCSupport()                                   //+1ai2R~
+    {                                                              //+1ai2R~
+		AView.showToastLong(R.string.ErrNoNFCSupport);                    //~1314I~//~1329R~//~2B15R~//~@@@@I~//+1ai2R~
+    }                                                              //+1ai2R~
     private void selectNFCHandover()                               //~1Ab1I~//~1Ab6R~//~1Ab7R~
     {                                                              //~1Ab1I~//~1Ab6R~//~1Ab7R~
 //      DialogNFCSelect.showDialog(this);                          //~1Ab1R~//~1Ab6R~//~1Ab7R~//~1Ad3R~
+		if (Build.VERSION.SDK_INT>=29)   //Android10               //+1ai2R~
+    	{                                                          //+1ai2R~
+        	errNFCSupport();                                       //+1ai2R~
+        	return;                                                //+1ai2R~
+        }                                                          //+1ai2R~
     	prepareNFCAhsv();                                          //~1Ad3I~
     }                                                              //~1Ab1I~//~1Ab6R~//~1Ab7R~
     private void selectNFCHandoverBT()                             //~1Ad3I~
     {                                                              //~1Ad3I~
+		if (Build.VERSION.SDK_INT>=29)   //Android10               //+1ai2R~
+    	{                                                          //+1ai2R~
+        	errNFCSupport();                                       //+1ai2R~
+        	return;                                                //+1ai2R~
+        }                                                          //+1ai2R~
     	prepareNFCBTAhsv();                                        //~1Ad3I~
     }                                                              //~1Ad3I~
     public void selectedNFCHandover(int PhandoverType)           //~1Ab1I~//~1Ab6R~//~1Ab7R~//~1Ab8R~

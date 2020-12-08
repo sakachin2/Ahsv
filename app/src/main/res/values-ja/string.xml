@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ahsv</string>
     <string name="app_nameE">Ahsv</string>
-    <string name="Version">V1.21</string>
+    <string name="Version">V1.22</string>
     <string name="AppTitle">%1$s : %2$s  (%3$s)</string>
 
     <string name="NoRegisteredContextMenu">"このパネルにメニューはありません"</string>
@@ -555,6 +555,7 @@
     <string name="InfoGameAlreadyEnded">ゲームは既に終了しています</string>
 <!--1A78-->
     <string name="ErrNoNFCAttachment">NFC が装着されていません</string> <!--1Agc-->
+    <string name="ErrNoNFCSupport">Android10以降は NFC はサポートされません</string> <!--1Agc-->
     <string name="ErrNFCDisabled">NFC が無効になっています、\"NFC設定\"をしてください</string>
 <!--20150228kan-->
     <string name="Title_ConfirmDisconnect">切断の確認</string>

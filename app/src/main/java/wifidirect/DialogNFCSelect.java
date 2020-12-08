@@ -1,5 +1,6 @@
-//*CID://+1AgcR~:                           update#=  274;         //~1AgcR~
+//*CID://+1Ai1R~:                           update#=  275;         //+1Ai1R~
 //*************************************************************************
+//2020/11/19 1ai1 no caller                                        //+1Ai1I~
 //1Agc 2016/10/11 2016/10/11 avoid to show nfc dialog when nfc is not attached, and set visibility=gone to nfc button//~1AgcR~
 //1Af4 2016/07/07 add Secure optio to NFCBT                        //~1Af4I~
 //1Ad3 2015/07/19 Bypass NFCSelect, by NFS-WD and NFC-BT button directly.//~1Ad3I~
@@ -39,7 +40,7 @@ import com.Ahsv.AView;                                             //~1Ac5R~
 import com.Ahsv.Alert;                                             //~1Ac5R~
 import com.Ahsv.AlertI;                                            //~1Ac5R~
 import com.Ahsv.Prop;                                              //~1Ac5R~
-import com.Ahsv.R;                                                 //~1Ac5R~//+1AgcR~
+import com.Ahsv.R;                                                 //~1Ac5R~//~1AgcR~
 import com.Ahsv.awt.UButton;                                       //~1Ac5R~
 import com.axe.AxeDialog;
 
@@ -80,18 +81,18 @@ public class DialogNFCSelect extends AxeDialog
     private int selectedType;                                      //~1Ab7I~
 //  private String additionalData;                                 //~1Ab7I~//~1Ad3R~
     private static boolean swNoNFC;                                //~1AgcR~
-	//***********************************************************************************
-	public static DialogNFCSelect showDialog(MainFrame Pmf)
-    {
-        if (transferToCurrentActive(Pmf))                          //~1AbgI~
-            return null;                                                //~1AbgI~
-    	DialogNFCSelect dlg=new DialogNFCSelect();                       //~1Ab7R~
-        String title=AG.resource.getString(TITLEID);
-        dlg.MF=Pmf;
-		dlg.showDialog(title);
-        SdialogNFC=dlg;                                            //~1Ab7R~
-        return dlg;
-    }
+//    //***********************************************************************************//+1Ai1R~
+//    public static DialogNFCSelect showDialog(MainFrame Pmf)      //+1Ai1R~
+//    {                                                            //+1Ai1R~
+//        if (transferToCurrentActive(Pmf))                          //~1AbgI~//+1Ai1R~
+//            return null;                                                //~1AbgI~//+1Ai1R~
+//        DialogNFCSelect dlg=new DialogNFCSelect();                       //~1Ab7R~//+1Ai1R~
+//        String title=AG.resource.getString(TITLEID);             //+1Ai1R~
+//        dlg.MF=Pmf;                                              //+1Ai1R~
+//        dlg.showDialog(title);                                   //+1Ai1R~
+//        SdialogNFC=dlg;                                            //~1Ab7R~//+1Ai1R~
+//        return dlg;                                              //+1Ai1R~
+//    }                                                            //+1Ai1R~
 	//***********************************************************************************//~1Ad3I~
 	public static DialogNFCSelect showDialogNFCWD(MainFrame Pmf)   //~1Ad3I~
     {                                                              //~1Ad3I~

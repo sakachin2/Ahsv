@@ -1,6 +1,7 @@
-//*CID://+1AbDR~:                             update#=  114;       //+1AbDR~
+//*CID://+1Ai2R~:                             update#=  119;       //~1Ai2R~
 //*************************************************************************//~1A65I~
-//1AbD 2015/06/27 (Bug)DialogNFC.sendNFCMsg was called twice.      //+1AbDI~
+//2020/12/05 1ai2 deprecated NFC function(set...Callback);drop NFC when Android10(api29)//~1Ai2I~
+//1AbD 2015/06/27 (Bug)DialogNFC.sendNFCMsg was called twice.      //~1AbDI~
 //1Ab8 2015/05/08 NFC Bluetooth handover v3(DialogNFCSelect distributes only)//~1Ab8I~
 //1A81 2015/02/24 ANFC is not used now                             //~1A81I~
 //1A6G 2015/02/22 (BUG)on emulater mAdapter is null(NPE)           //~1A6GI~
@@ -23,10 +24,12 @@ import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcAdapter.CreateNdefMessageCallback;
-import android.nfc.NfcAdapter.OnNdefPushCompleteCallback;
+//import android.nfc.NfcAdapter.CreateNdefMessageCallback;         //+1Ai2R~
+//import android.nfc.NfcAdapter.OnNdefPushCompleteCallback;        //+1Ai2R~
+import android.nfc.NfcAdapter.*;                                   //+1Ai2I~
 import android.nfc.NfcEvent;
-                                                                   //~1A65I~
+import android.os.Build;
+//~1A65I~
 import com.Ahsv.AG;                                                //~1A65I~
 //import com.Ahsv.ANFC;                                            //~1A81R~
 
@@ -147,9 +150,14 @@ public class WDANFC                                                //~1A6aR~
 //    }                                                              //~1A6aI~//~1A81R~
 	//*************************************************************************//~1A6jI~
     public static void onResume() {                                //~1A6jR~
-   	    if (Dump.Y) Dump.println("WDANFC:AMain:onResume");         //~1A6jR~
+   	    if (Dump.Y) Dump.println("WDANFC:onResume");         //~1A6jR~//~1Ai2R~
         if (AG.osVersion<AG.ICE_CREAM_SANDWICH)  //android4        //~1A6jI~
         	return;                                                //~1A6jI~
+		if (Build.VERSION.SDK_INT>=29)   //Android10               //~1Ai2I~
+        {                                                          //~1Ai2I~
+   	    	if (Dump.Y) Dump.println("WDANFC:onResume bypass initAdapter by Android10");//~1Ai2I~
+        	return;                                                //~1Ai2I~
+        }                                                          //~1Ai2I~
         try                                                        //~1A6jI~
         {                                                          //~1A6jI~
         	if (mAdapter==null)                                     //~1A6jI~
@@ -214,7 +222,9 @@ public class WDANFC                                                //~1A6aR~
         }                                                          //~1A6jI~
     }                                                              //~1A6jI~
 	//*************************************************************************//~1A6jI~
-    public static void setCreateMsgCallback()                      //~1A6jI~
+    @SuppressWarnings("deprecation")                               //~1Ai2I~
+//  public static void setCreateMsgCallback()                      //~1A6jI~//~1Ai2R~
+    private static void setCreateMsgCallback()                     //~1Ai2I~
 	{                                                              //~1A6jI~
     	CreateNdefMessageCallback cb=new CreateNdefMessageCallback()//~1A6jI~
                         {                                          //~1A6jI~
@@ -230,7 +240,9 @@ public class WDANFC                                                //~1A6aR~
 		mAdapter.setNdefPushMessageCallback(cb,AG.activity);       //~1A6jI~
 	}                                                              //~1A6jI~
 	//*************************************************************************//~1A6jI~
-    public static void setSendMsgCompCallback()                     //~1A6jI~
+    @SuppressWarnings("deprecation")                               //~1Ai2I~
+//  public static void setSendMsgCompCallback()                     //~1A6jI~//~1Ai2R~
+    private static void setSendMsgCompCallback()                   //~1Ai2I~
 	{                                                              //~1A6jI~
 		OnNdefPushCompleteCallback cb=new OnNdefPushCompleteCallback()//~1A6jI~
                         {
@@ -240,7 +252,7 @@ public class WDANFC                                                //~1A6aR~
                                 if (Dump.Y) Dump.println("WDANFC:onNdefPushComplete");//~1A6jI~
        							if (AG.swNFCBT)                    //~1Ab8I~
 	                                DialogNFCSelect.sendNFCMsg(Pevent);//~1Ab8I~
-                                else                               //+1AbDR~
+                                else                               //~1AbDR~
                                 DialogNFC.sendNFCMsg(Pevent);      //~1A6sR~
                             }                                      //~1A6jI~
 

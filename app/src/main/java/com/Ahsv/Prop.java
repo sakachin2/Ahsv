@@ -1,5 +1,6 @@
-//*CID://+1Ad2R~:                             update#=   12;       //~1Ad2R~
+//*CID://+va40R~:                             update#=   13;       //+va40R~
 //************************************************************************//~v102I~
+//2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //+va40I~
 //1Ad2 2015/07/17 HelpDialog by helptext(//1A1j 2013/03/19 change Help file encoding to utf8 (path change drop jagoclient from jagoclient/helptexts)//~1Ad2I~
 //1077:121208 control greeting by app start counter                //~v107I~
 //1075:121207 control dumptrace by manifest debuggable option      //~v107I~
@@ -8,8 +9,9 @@
 //************************************************************************//~v102I~
 package com.Ahsv;                                                 //~1110I~//~v107R~
                                                                    //~1110I~
-import com.Ahsv.R;                                                 //+1Ad2R~
-                                                                   //~1110I~
+import com.Ahsv.R;                                                 //~1Ad2R~
+import com.btmtest.utils.UFile;
+//~1110I~
 import jagoclient.Dump;
 import jagoclient.Global;
 
@@ -606,44 +608,48 @@ public class Prop                                             //~1110I~//~v107R~
     {                                                              //~1313I~
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);//~1313I~
     }                                                              //~1313I~
-    public static String getSDPath(String Pfile)                   //~1313R~
-    {                                                              //~1313I~
-		String path;                                               //~1313I~
-		
-    //************                                                 //~1313I~
-        if (!availableAjagoSD)                                     //~1313I~
-        	return null;                                           //~1313I~
-        path=dirAjagoSD;                                           //~1313I~
-        if (path==null)                                            //~1313I~
-        {                                                          //~1313I~
-			String approot=AG.appName;//~1323I~                    //~1402R~
-            if (!isSDMounted())                                    //~1313I~
-            {                                                      //~1313I~
-                availableAjagoSD=false;                            //~1313I~
-                return null;                                       //~1313I~
-            }                                                      //~1313I~
-        	path=Environment.getExternalStorageDirectory().getPath()+System.getProperty("file.separator")+approot;//~1323R~
-            File f=new File(path);
-        	if (!f.exists())	                                   //~1313I~
-            {                                                      //~1313I~
-            	if (!f.mkdir())                                 //~1313I~
-                {                                                  //~1313I~
-		        	availableAjagoSD=false;                        //~1313I~
-			        if (Dump.Y) Dump.println("getSDpath mkdir failed:"+path);//~1506R~
-        			return null;                                   //~1313I~
-                }                                                  //~1313I~
-            }                                                      //~1313I~
-        	dirAjagoSD=path;                                       //~1313I~
-            if (Dump.Y) Dump.println("SDcard dir="+path);                       //~1313I~//~1506R~
-		}                                                          //~1313I~
-        if (!Pfile.equals(""))                                     //~1313I~
-        	if (Pfile.startsWith("/"))                            //~1412I~
-        		path+=Pfile;                                       //~1412I~
-            else                                                   //~1412I~
-        		path+="/"+Pfile;                                   //~1412R~
-        if (Dump.Y) Dump.println("GetSDpath:"+path);               //~1506R~
-        return path;                                               //~1313R~
-    }                                                              //~1313I~
+//    public static String getSDPath(String Pfile)                   //~1313R~//+va40R~
+//    {                                                              //~1313I~//+va40R~
+//        String path;                                               //~1313I~//+va40R~
+//                                                                 //+va40R~
+//    //************                                                 //~1313I~//+va40R~
+//        if (!availableAjagoSD)                                     //~1313I~//+va40R~
+//            return null;                                           //~1313I~//+va40R~
+//        path=dirAjagoSD;                                           //~1313I~//+va40R~
+//        if (path==null)                                            //~1313I~//+va40R~
+//        {                                                          //~1313I~//+va40R~
+//            String approot=AG.appName;//~1323I~                    //~1402R~//+va40R~
+//            if (!isSDMounted())                                    //~1313I~//+va40R~
+//            {                                                      //~1313I~//+va40R~
+//                availableAjagoSD=false;                            //~1313I~//+va40R~
+//                return null;                                       //~1313I~//+va40R~
+//            }                                                      //~1313I~//+va40R~
+//            path=Environment.getExternalStorageDirectory().getPath()+System.getProperty("file.separator")+approot;//~1323R~//+va40R~
+//            File f=new File(path);                               //+va40R~
+//            if (!f.exists())                                       //~1313I~//+va40R~
+//            {                                                      //~1313I~//+va40R~
+//                if (!f.mkdir())                                 //~1313I~//+va40R~
+//                {                                                  //~1313I~//+va40R~
+//                    availableAjagoSD=false;                        //~1313I~//+va40R~
+//                    if (Dump.Y) Dump.println("getSDpath mkdir failed:"+path);//~1506R~//+va40R~
+//                    return null;                                   //~1313I~//+va40R~
+//                }                                                  //~1313I~//+va40R~
+//            }                                                      //~1313I~//+va40R~
+//            dirAjagoSD=path;                                       //~1313I~//+va40R~
+//            if (Dump.Y) Dump.println("SDcard dir="+path);                       //~1313I~//~1506R~//+va40R~
+//        }                                                          //~1313I~//+va40R~
+//        if (!Pfile.equals(""))                                     //~1313I~//+va40R~
+//            if (Pfile.startsWith("/"))                            //~1412I~//+va40R~
+//                path+=Pfile;                                       //~1412I~//+va40R~
+//            else                                                   //~1412I~//+va40R~
+//                path+="/"+Pfile;                                   //~1412R~//+va40R~
+//        if (Dump.Y) Dump.println("GetSDpath:"+path);               //~1506R~//+va40R~
+//        return path;                                               //~1313R~//+va40R~
+//    }                                                              //~1313I~//+va40R~
+    public static String getSDPath(String Pfile)                   //+va40I~
+    {                                                              //+va40I~
+        return UFile.getSDPath(Pfile);                             //+va40I~
+    }                                                              //+va40I~
 //**********************************************************************//~1402I~
 //*Preference read/write                                               *//~1402I~
 //**********************************************************************//~1402I~

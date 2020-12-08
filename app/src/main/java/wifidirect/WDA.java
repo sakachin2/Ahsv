@@ -1,6 +1,7 @@
-//*CID://+1AhdR~:                             update#=   95;       //+1AhdR~
+//*CID://+va40R~:                             update#=   96;       //+va40R~
 //*************************************************************************//~1A65I~
-//1Ahd 2020/06/03 WifiDirect required PERMISSION_LOCATION          //+1AhdI~
+//2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //+va40I~
+//1Ahd 2020/06/03 WifiDirect required PERMISSION_LOCATION          //~1AhdI~
 //1Ahc 2020/06/03 expand WDA dialog portrait width of Huawei7(Android6)//~1AhcI~
 //1Ad2 2015/07/17 HelpDialog by helptext                           //~1Ad2I~
 //1Ac4 2015/07/06 WD:try disable wifi direct at unpair             //~1Ac4I~
@@ -29,8 +30,9 @@ import android.content.res.Resources;
 import android.net.wifi.p2p.WifiP2pDevice;                       //~1A65R~
 import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
-import android.net.wifi.WifiConfiguration;
+//import android.net.wifi.WifiConfiguration;                       //+va40R~
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -141,7 +143,9 @@ public class WDA extends AxeDialog                                 //~1A65R~
 //        else                                                     //~1Ac4I~
         if (!wm.isWifiEnabled())                                   //~1A65I~
         {                                                          //~1A65I~
-        	if (wm.setWifiEnabled(true))//success                  //~1A65I~
+        	if (Dump.Y) Dump.println("WDA:enableWiFi_ICE_CREAM_SANDWITCH isWifiEnabled:false");//+va40I~
+//      	if (wm.setWifiEnabled(true))//success                  //~1A65I~//+va40R~
+        	if (setWifiEnabled(wm,true))                           //+va40I~
 				AView.showToastLong(R.string.InfoWifiEnabled);            //~1A65I~
             else                                                   //~1A65I~
             {                                                      //~1A65I~
@@ -155,6 +159,30 @@ public class WDA extends AxeDialog                                 //~1A65R~
 //            SWDA.swWifiEnable=rc;                                  //~1A6CI~//~1A90R~
         return rc;                                                 //~1A65I~
     }                                                              //~1A65I~
+	//***********************************************************************************//+va40I~
+    private static boolean setWifiEnabled(WifiManager Pwm,boolean Penable)//+va40I~
+    {                                                              //+va40I~
+        if (Dump.Y) Dump.println("WDA.setWifiEnabled Penable="+Penable);//+va40I~
+		if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q) //api29 android10//+va40I~
+			return setWifiEnabled_From29(Pwm,Penable);             //+va40I~
+        else                                                       //+va40I~
+			return setWifiEnabled_Bellow29(Pwm,Penable);           //+va40I~
+    }                                                              //+va40I~
+	//***********************************************************************************//+va40I~
+	@SuppressWarnings("deprecation")                               //+va40I~
+    private static boolean setWifiEnabled_Bellow29(WifiManager Pwm,boolean Penable)//+va40I~
+    {                                                              //+va40I~
+		boolean rc=Pwm.setWifiEnabled(Penable);                    //+va40I~
+        if (Dump.Y) Dump.println("setWifiEnabled_Bellow29 Penable="+Penable+",rc="+rc);//+va40I~
+        return rc;                                                 //+va40I~
+    }                                                              //+va40I~
+	//***********************************************************************************//+va40I~
+    private static boolean setWifiEnabled_From29(WifiManager Pwm,boolean Penable)//+va40I~
+    {                                                              //+va40I~
+		boolean rc=false;	//app could not change                 //+va40I~
+        if (Dump.Y) Dump.println("setWifiEnabled_From29 Penable="+Penable+",rc="+rc);//+va40I~
+        return rc;                                                 //+va40I~
+    }                                                              //+va40I~
 	//***********************************************************************************//~1A6CI~
     public static boolean disableWiFi()                            //~1A6CI~
     {                                                              //~1A6CI~
@@ -172,7 +200,8 @@ public class WDA extends AxeDialog                                 //~1A65R~
         if (Dump.Y) Dump.println("WDA:disableWiFi old="+wm.isWifiEnabled());//~1Ac4I~
         if (wm.isWifiEnabled())                                    //~1A6CI~
         {                                                          //~1A6CI~
-        	if (wm.setWifiEnabled(false))                          //~1A6CI~
+//      	if (wm.setWifiEnabled(false))                          //~1A6CI~//+va40R~
+        	if (setWifiEnabled(wm,false))                          //+va40I~
 				AView.showToastLong(R.string.InfoWifiDisabled);    //~1A6CI~
             else                                                   //~1A6CI~
             {                                                      //~1A6CI~
@@ -573,129 +602,129 @@ public class WDA extends AxeDialog                                 //~1A65R~
       		Dump.println(e,"WDA:runfunc");                         //~1Ac3I~
       	}                                                          //~1Ac3I~
     }                                                              //~1Ac3I~
-//***************************************************************  //~1Ac4I~
-//*disable wifidirect                                              //~1Ac4I~
-//***************************************************************  //~1Ac4I~
-    public static boolean setWifiDirectStatus(boolean Penable)     //~1Ac4I~
-    {                                                              //~1Ac4I~
-        if (Dump.Y) Dump.println("setWWifiDirectState parmenable="+Penable);//~1Ac4I~
-    	wifiApManager mgr=SWDA.new wifiApManager();                //~1Ac4I~
-        if (mgr.swNoMethod)                                        //~1Ac4I~
-        	return false;                                          //~1Ac4I~
-        return mgr.setState(Penable);                              //~1Ac4I~
-    }                                                              //~1Ac4I~
-    class wifiApManager                                            //~1Ac4I~
-    {                                                              //~1Ac4I~
-    	private final WifiManager wifiManager;                     //~1Ac4I~
-        private Method ctlMethod,cfgMethod,statMethod;             //~1Ac4I~
-        public boolean swNoMethod;                                 //~1Ac4I~
-        public wifiApManager()                                     //~1Ac4I~
-        {                                                          //~1Ac4I~
-        	wifiManager=(WifiManager)AG.context.getSystemService(Context.WIFI_SERVICE);//~1Ac4I~
-            try                                                    //~1Ac4I~
-			{                                                      //~1Ac4I~
-				ctlMethod=wifiManager.getClass().getMethod("setWifiApEnabled",WifiConfiguration.class,boolean.class);//~1Ac4I~
-            	cfgMethod=wifiManager.getClass().getMethod("getWifiApConfiguration");//~1Ac4I~
-            	statMethod=wifiManager.getClass().getMethod("getWifiApState");//~1Ac4I~
-			}                                                      //~1Ac4I~
-            catch (NoSuchMethodException e)                        //~1Ac4I~
-			{                                                      //~1Ac4I~
-            	Dump.println(e,"WDA.wifiApManager constructor");   //~1Ac4I~
-				e.printStackTrace();                               //~1Ac4I~
-                swNoMethod=true;                                   //~1Ac4I~
-			}                                                      //~1Ac4I~
-            if (Dump.Y) Dump.println("WDA.wifiApManager:wifiApManager ctlM="+ctlMethod+",cfgMethod="+cfgMethod+",staeMethod="+statMethod);//~1Ac4I~
-        }                                                          //~1Ac4I~
-        private WifiConfiguration getCfg()                         //~1Ac4I~
-        {                                                          //~1Ac4I~
-        	try                                                    //~1Ac4I~
-            {                                                      //~1Ac4I~
-            	return (WifiConfiguration)cfgMethod.invoke(wifiManager);//~1Ac4I~
-            }                                                      //~1Ac4I~
-            catch(Exception e)                                     //~1Ac4I~
-            {                                                      //~1Ac4I~
-            	Dump.println(e,"WDA:wifiApManager.getCfg");        //~1Ac4I~
-            }                                                      //~1Ac4I~
-            return null;                                           //~1Ac4I~
-        }                                                          //~1Ac4I~
-        public boolean setState(boolean Penable)                   //~1Ac4I~
-        {                                                          //~1Ac4I~
-            WifiConfiguration cfg=getCfg();                        //~1Ac4I~
-            if (cfg!=null)                                         //~1Ac4I~
-            {                                                      //~1Ac4I~
-		        return setState(cfg,Penable);                      //~1Ac4I~
-            }                                                      //~1Ac4I~
-        	return false;                                          //~1Ac4I~
-        }                                                          //~1Ac4I~
-        public boolean setState(WifiConfiguration Pcfg,boolean Penable)//~1Ac4I~
-        {                                                          //~1Ac4I~
-        	try                                                    //~1Ac4I~
-            {                                                      //~1Ac4I~
-                int stat=(Integer)statMethod.invoke(wifiManager);  //~1Ac4I~
-            	if (Dump.Y) Dump.println("WDA.wifiApManager:setState before parm enable="+Penable+",wifi isenable="+wifiManager.isWifiEnabled()+",getstate="+wifiManager.getWifiState()+",apstat="+stat);//~1Ac4I~
-//          	wifiManager.setWifiEnabled(!Penable);  //disable wifi case p2p disable//~1Ac4I~
-            	boolean rc=(Boolean)ctlMethod.invoke(wifiManager,Pcfg,Penable);//~1Ac4I~
-            	if (Dump.Y) Dump.println("WDA.wifiApManager:setState after parm enable="+Penable+",wifi isenable="+wifiManager.isWifiEnabled()+",getstate="+wifiManager.getWifiState()+",apstat="+stat);//~1Ac4I~
-            	if (Dump.Y) Dump.println("WDA.wifiApManager:setState rc="+rc);//~1Ac4I~
-                return rc;                                         //~1Ac4I~
-            }                                                      //~1Ac4I~
-            catch(Exception e)                                     //~1Ac4I~
-            {                                                      //~1Ac4I~
-            	Dump.println(e,"WDA:wifiApManager.getCfg");        //~1Ac4I~
-            }                                                      //~1Ac4I~
-            return false;                                          //~1Ac4I~
-        }                                                          //~1Ac4I~
-    }                                                              //~1Ac4I~
-//***************************************************************  //~1Ac4I~
-//*disable wifidirect 2'nd way                                     //~1Ac4I~
-//***************************************************************  //~1Ac4I~
-    public static boolean setWifiP2pState(boolean Penable)         //~1Ac4I~
-    {                                                              //~1Ac4I~
-        boolean rc=false;                                          //~1Ac4I~
-        if (Dump.Y) Dump.println("setWifiP2pState parmenable="+Penable);//~1Ac4I~
-    	WifiP2pManager mgr=SWDA.aWDActivity.manager;               //~1Ac4I~
-        Channel channel=SWDA.aWDActivity.channel;                  //~1Ac4I~
-        Method method;                                             //~1Ac4I~
-        try                                                        //~1Ac4I~
-        {                                                          //~1Ac4I~
-            if (Penable)                                           //~1Ac4I~
-            	method=mgr.getClass().getMethod("enableP2p",Channel.class);//~1Ac4I~
-            else                                                   //~1Ac4I~
-            	method=mgr.getClass().getMethod("disableP2p",Channel.class);//~1Ac4I~
-            method.invoke(mgr,channel);                            //~1Ac4I~
-            rc=true;                                               //~1Ac4I~
-        }                                                          //~1Ac4I~
-        catch (Exception e)                                        //~1Ac4I~
-        {                                                          //~1Ac4I~
-            Dump.println(e,"WDA:setWifiP2pState");                 //~1Ac4I~
-            e.printStackTrace();                                   //~1Ac4I~
-        }                                                          //~1Ac4I~
-        return rc;                                                 //~1Ac4I~
-    }                                                              //~1Ac4I~
-//**********************************                               //~v@@@I~//+1AhdI~
-    public static boolean chkGranted()                                   //~v@@@I~//+1AhdI~
-    {                                                              //~v@@@I~//+1AhdI~
-        if (Dump.Y) Dump.println("WDA.chkGranted");  //~v@@@I~     //+1AhdI~
-		boolean rc= UView.isPermissionGrantedLocation();                    //~v@@@I~//+1AhdI~
-        if (!rc)                                                   //~v@@@I~//+1AhdI~
-        {                                                           //~v@@@I~//+1AhdI~
-		    UView.requestPermissionLocation(AMain.PERMISSION_LOCATION);//~v@@@I~//+1AhdI~
-        }                                                          //~v@@@I~//+1AhdI~
-        if (Dump.Y) Dump.println("WDA.chkGranted rc="+rc);      //~v@@@I~//+1AhdI~
-        return rc;                                                 //~v@@@I~//+1AhdI~
-    }                                                              //~v@@@I~//+1AhdI~
-//**********************************                               //~v@@@I~//+1AhdI~
-    public static void grantedWifi(boolean PswGranted)             //~v@@@I~//+1AhdI~
-    {                                                              //~v@@@I~//+1AhdI~
-    	boolean rc;                                                //~v@@@I~//+1AhdI~
-        if (Dump.Y) Dump.println("WD.grantedWifi PswGranted="+PswGranted);//~v@@@I~//+1AhdI~
-        if (!PswGranted)                                           //~v@@@I~//+1AhdI~
-        {                                                          //~v@@@I~//+1AhdI~
-//        	MainView.drawMsg(R.string.WifiDirectRequiresGranted);  //~v@@@I~//+1AhdI~
-          	UView.showToastLong(R.string.WifiDirectRequiresGranted);//+1AhdI~
-            return;                                                //~v@@@I~//+1AhdI~
-        }	                                                       //~v@@@I~//+1AhdI~
-		UView.showToast(R.string.WifiDirectGranted);               //~v@@@I~//+1AhdI~
-//    	connectWifiDirectGranted();                                //~v@@@I~//+1AhdI~
-    }                                                              //~v@@@I~//+1AhdI~
+////***************************************************************  //~1Ac4I~//+va40R~
+////*disable wifidirect                                              //~1Ac4I~//+va40R~
+////***************************************************************  //~1Ac4I~//+va40R~
+//    public static boolean setWifiDirectStatus(boolean Penable)     //~1Ac4I~//+va40R~
+//    {                                                              //~1Ac4I~//+va40R~
+//        if (Dump.Y) Dump.println("setWWifiDirectState parmenable="+Penable);//~1Ac4I~//+va40R~
+//        wifiApManager mgr=SWDA.new wifiApManager();                //~1Ac4I~//+va40R~
+//        if (mgr.swNoMethod)                                        //~1Ac4I~//+va40R~
+//            return false;                                          //~1Ac4I~//+va40R~
+//        return mgr.setState(Penable);                              //~1Ac4I~//+va40R~
+//    }                                                              //~1Ac4I~//+va40R~
+//    class wifiApManager                                            //~1Ac4I~//+va40R~
+//    {                                                              //~1Ac4I~//+va40R~
+//        private final WifiManager wifiManager;                     //~1Ac4I~//+va40R~
+//        private Method ctlMethod,cfgMethod,statMethod;             //~1Ac4I~//+va40R~
+//        public boolean swNoMethod;                                 //~1Ac4I~//+va40R~
+//        public wifiApManager()                                     //~1Ac4I~//+va40R~
+//        {                                                          //~1Ac4I~//+va40R~
+//            wifiManager=(WifiManager)AG.context.getSystemService(Context.WIFI_SERVICE);//~1Ac4I~//+va40R~
+//            try                                                    //~1Ac4I~//+va40R~
+//            {                                                      //~1Ac4I~//+va40R~
+//                ctlMethod=wifiManager.getClass().getMethod("setWifiApEnabled",WifiConfiguration.class,boolean.class);//~1Ac4I~//+va40R~
+//                cfgMethod=wifiManager.getClass().getMethod("getWifiApConfiguration");//~1Ac4I~//+va40R~
+//                statMethod=wifiManager.getClass().getMethod("getWifiApState");//~1Ac4I~//+va40R~
+//            }                                                      //~1Ac4I~//+va40R~
+//            catch (NoSuchMethodException e)                        //~1Ac4I~//+va40R~
+//            {                                                      //~1Ac4I~//+va40R~
+//                Dump.println(e,"WDA.wifiApManager constructor");   //~1Ac4I~//+va40R~
+//                e.printStackTrace();                               //~1Ac4I~//+va40R~
+//                swNoMethod=true;                                   //~1Ac4I~//+va40R~
+//            }                                                      //~1Ac4I~//+va40R~
+//            if (Dump.Y) Dump.println("WDA.wifiApManager:wifiApManager ctlM="+ctlMethod+",cfgMethod="+cfgMethod+",staeMethod="+statMethod);//~1Ac4I~//+va40R~
+//        }                                                          //~1Ac4I~//+va40R~
+//        private WifiConfiguration getCfg()                         //~1Ac4I~//+va40R~
+//        {                                                          //~1Ac4I~//+va40R~
+//            try                                                    //~1Ac4I~//+va40R~
+//            {                                                      //~1Ac4I~//+va40R~
+//                return (WifiConfiguration)cfgMethod.invoke(wifiManager);//~1Ac4I~//+va40R~
+//            }                                                      //~1Ac4I~//+va40R~
+//            catch(Exception e)                                     //~1Ac4I~//+va40R~
+//            {                                                      //~1Ac4I~//+va40R~
+//                Dump.println(e,"WDA:wifiApManager.getCfg");        //~1Ac4I~//+va40R~
+//            }                                                      //~1Ac4I~//+va40R~
+//            return null;                                           //~1Ac4I~//+va40R~
+//        }                                                          //~1Ac4I~//+va40R~
+//        public boolean setState(boolean Penable)                   //~1Ac4I~//+va40R~
+//        {                                                          //~1Ac4I~//+va40R~
+//            WifiConfiguration cfg=getCfg();                        //~1Ac4I~//+va40R~
+//            if (cfg!=null)                                         //~1Ac4I~//+va40R~
+//            {                                                      //~1Ac4I~//+va40R~
+//                return setState(cfg,Penable);                      //~1Ac4I~//+va40R~
+//            }                                                      //~1Ac4I~//+va40R~
+//            return false;                                          //~1Ac4I~//+va40R~
+//        }                                                          //~1Ac4I~//+va40R~
+//        public boolean setState(WifiConfiguration Pcfg,boolean Penable)//~1Ac4I~//+va40R~
+//        {                                                          //~1Ac4I~//+va40R~
+//            try                                                    //~1Ac4I~//+va40R~
+//            {                                                      //~1Ac4I~//+va40R~
+//                int stat=(Integer)statMethod.invoke(wifiManager);  //~1Ac4I~//+va40R~
+//                if (Dump.Y) Dump.println("WDA.wifiApManager:setState before parm enable="+Penable+",wifi isenable="+wifiManager.isWifiEnabled()+",getstate="+wifiManager.getWifiState()+",apstat="+stat);//~1Ac4I~//+va40R~
+////              wifiManager.setWifiEnabled(!Penable);  //disable wifi case p2p disable//~1Ac4I~//+va40R~
+//                boolean rc=(Boolean)ctlMethod.invoke(wifiManager,Pcfg,Penable);//~1Ac4I~//+va40R~
+//                if (Dump.Y) Dump.println("WDA.wifiApManager:setState after parm enable="+Penable+",wifi isenable="+wifiManager.isWifiEnabled()+",getstate="+wifiManager.getWifiState()+",apstat="+stat);//~1Ac4I~//+va40R~
+//                if (Dump.Y) Dump.println("WDA.wifiApManager:setState rc="+rc);//~1Ac4I~//+va40R~
+//                return rc;                                         //~1Ac4I~//+va40R~
+//            }                                                      //~1Ac4I~//+va40R~
+//            catch(Exception e)                                     //~1Ac4I~//+va40R~
+//            {                                                      //~1Ac4I~//+va40R~
+//                Dump.println(e,"WDA:wifiApManager.getCfg");        //~1Ac4I~//+va40R~
+//            }                                                      //~1Ac4I~//+va40R~
+//            return false;                                          //~1Ac4I~//+va40R~
+//        }                                                          //~1Ac4I~//+va40R~
+//    }                                                              //~1Ac4I~//+va40R~
+////***************************************************************  //~1Ac4I~//+va40R~
+////*disable wifidirect 2'nd way                                     //~1Ac4I~//+va40R~
+////***************************************************************  //~1Ac4I~//+va40R~
+//    public static boolean setWifiP2pState(boolean Penable)         //~1Ac4I~//+va40R~
+//    {                                                              //~1Ac4I~//+va40R~
+//        boolean rc=false;                                          //~1Ac4I~//+va40R~
+//        if (Dump.Y) Dump.println("setWifiP2pState parmenable="+Penable);//~1Ac4I~//+va40R~
+//        WifiP2pManager mgr=SWDA.aWDActivity.manager;               //~1Ac4I~//+va40R~
+//        Channel channel=SWDA.aWDActivity.channel;                  //~1Ac4I~//+va40R~
+//        Method method;                                             //~1Ac4I~//+va40R~
+//        try                                                        //~1Ac4I~//+va40R~
+//        {                                                          //~1Ac4I~//+va40R~
+//            if (Penable)                                           //~1Ac4I~//+va40R~
+//                method=mgr.getClass().getMethod("enableP2p",Channel.class);//~1Ac4I~//+va40R~
+//            else                                                   //~1Ac4I~//+va40R~
+//                method=mgr.getClass().getMethod("disableP2p",Channel.class);//~1Ac4I~//+va40R~
+//            method.invoke(mgr,channel);                            //~1Ac4I~//+va40R~
+//            rc=true;                                               //~1Ac4I~//+va40R~
+//        }                                                          //~1Ac4I~//+va40R~
+//        catch (Exception e)                                        //~1Ac4I~//+va40R~
+//        {                                                          //~1Ac4I~//+va40R~
+//            Dump.println(e,"WDA:setWifiP2pState");                 //~1Ac4I~//+va40R~
+//            e.printStackTrace();                                   //~1Ac4I~//+va40R~
+//        }                                                          //~1Ac4I~//+va40R~
+//        return rc;                                                 //~1Ac4I~//+va40R~
+//    }                                                              //~1Ac4I~//+va40R~
+//**********************************                               //~v@@@I~//~1AhdI~
+    public static boolean chkGranted()                                   //~v@@@I~//~1AhdI~
+    {                                                              //~v@@@I~//~1AhdI~
+        if (Dump.Y) Dump.println("WDA.chkGranted");  //~v@@@I~     //~1AhdI~
+		boolean rc= UView.isPermissionGrantedLocation();                    //~v@@@I~//~1AhdI~
+        if (!rc)                                                   //~v@@@I~//~1AhdI~
+        {                                                           //~v@@@I~//~1AhdI~
+		    UView.requestPermissionLocation(AMain.PERMISSION_LOCATION);//~v@@@I~//~1AhdI~
+        }                                                          //~v@@@I~//~1AhdI~
+        if (Dump.Y) Dump.println("WDA.chkGranted rc="+rc);      //~v@@@I~//~1AhdI~
+        return rc;                                                 //~v@@@I~//~1AhdI~
+    }                                                              //~v@@@I~//~1AhdI~
+//**********************************                               //~v@@@I~//~1AhdI~
+    public static void grantedWifi(boolean PswGranted)             //~v@@@I~//~1AhdI~
+    {                                                              //~v@@@I~//~1AhdI~
+    	boolean rc;                                                //~v@@@I~//~1AhdI~
+        if (Dump.Y) Dump.println("WD.grantedWifi PswGranted="+PswGranted);//~v@@@I~//~1AhdI~
+        if (!PswGranted)                                           //~v@@@I~//~1AhdI~
+        {                                                          //~v@@@I~//~1AhdI~
+//        	MainView.drawMsg(R.string.WifiDirectRequiresGranted);  //~v@@@I~//~1AhdI~
+          	UView.showToastLong(R.string.WifiDirectRequiresGranted);//~1AhdI~
+            return;                                                //~v@@@I~//~1AhdI~
+        }	                                                       //~v@@@I~//~1AhdI~
+		UView.showToast(R.string.WifiDirectGranted);               //~v@@@I~//~1AhdI~
+//    	connectWifiDirectGranted();                                //~v@@@I~//~1AhdI~
+    }                                                              //~v@@@I~//~1AhdI~
 }

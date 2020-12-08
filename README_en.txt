@@ -27,10 +27,11 @@ but optional in this variant.
       Connect thru WiFi access point with known IP address.
       Or connect by WiFi Direct it reaches about a few 10 meters,
       it is available from android 4.
-   For device with NFC attachment, Bluetooth or Wi-Fi Direct connection 
+   For device with NFC attachment on <=Android-9, Bluetooth or Wi-Fi Direct connection 
    starts by closing the part of NFC tag in the range of 10 cm.
    (Note)Support of mixed use of Wi-Fi and Wi-Fi Direct depends device type.
          It may cause too slow response or disturb telephone function.
 
+V122 2020/12/06 revision for Android10.
 V121 2020/06/07 revision for Android9.
 V100 2013/01/30 

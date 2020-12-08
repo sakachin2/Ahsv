@@ -1,5 +1,6 @@
-//*CID://+1AhkR~: update#= 178;                                    //~1Ah1R~//~1AhkR~
+//*CID://+va40R~: update#= 180;                                    //~va40R~
 //**********************************************************************//~1107I~
+//2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //~va40I~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
 //1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//~1Ac0I~
@@ -36,7 +37,7 @@ import android.content.pm.PackageManager.NameNotFoundException;    //~v107R~
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.net.NetworkInfo;
+//import android.net.NetworkInfo;                                  //+va40R~
 import android.net.Uri;
 import android.os.Build;
 
@@ -468,49 +469,49 @@ public class Utils                                            //~1309R~//~@@@@R~
         intent.setData(Uri.parse(Purl));                           //~v1E7I~//~1Aa6I~
         AG.activity.startActivity(intent);                         //~v1E7I~//~1Aa6I~
 	}                                                              //~v1E7I~//~1Aa6I~
-//***********************************************************************//~1Ac0I~
-    public static void chkNetwork()                                //~1Ac0I~
-    {                                                              //~1Ac0I~
-		if (AG.osVersion>= Build.VERSION_CODES.M)   //23             //~1Ah1I~
-		    chkNetwork_M();                                         //~1Ah1I~
-        else                                                       //~1Ah1I~
-	    	chkNetwork_L();                                         //~1Ah1I~
-    }                                                              //~1Ah1I~
-    //*******************                                          //~1Ah1I~
-	@SuppressWarnings("deprecation")                               //~1Ah1I~
-    public static void chkNetwork_L()      //<23                   //~1Ah1R~
-    {                                                              //~1Ah1I~
-        ConnectivityManager cm=getCM();                            //~1Ac0I~
-        NetworkInfo[] infos=cm.getAllNetworkInfo();                //~1Ac0I~
-        if (Dump.Y) Dump.println("Utils:chkNetwork_L ctr="+infos.length);//~1Ac0I~//~1Ah1R~
-        for (NetworkInfo ni:infos)                                 //~1Ac0I~
-        {                                                          //~1Ac0I~
-        	String typename=ni.getTypeName();                      //~1Ac0I~
-        	String subtypename=ni.getSubtypeName();                //~1Ac0I~
-        	boolean connected=ni.isConnected();                    //~1Ac0I~
-            if (Dump.Y) Dump.println("Utils:chkNetwork_L type="+typename+",subtype="+subtypename+",connected="+connected+",tostring="+ni.toString());//~1Ac0I~//~1Ah1R~
-        }                                                          //~1Ac0I~
-    }                                                              //~1Ac0I~
-//***********************************************************************//~1Ah1I~
-	@TargetApi(Build.VERSION_CODES.M)   //>=23                     //~1Ah1R~
-    public static void chkNetwork_M()                              //~1Ah1I~
-    {                                                              //~1Ah1I~
-        ConnectivityManager cm=getCM();                            //~1Ah1I~
-        Network[] anw=cm.getAllNetworks();                         //~1Ah1I~
-        if (Dump.Y) Dump.println("Utils:chkNetwork_M ctr="+anw.length);//~1Ah1I~
-        NetworkInfo ni;                                            //~1Ah1I~
-        for (Network nw:anw)                                       //~1Ah1I~
-        {                                                          //~1Ah1I~
-        	ni=cm.getNetworkInfo(nw);                           //~1Ah1I~
-            if (ni!=null)                                          //~1Ah1I~
-            {                                                      //~1Ah1I~
-//      		String typename=ni.getTypeName();                  //~1Ah1R~
-        		String subtypename=ni.getSubtypeName();            //~1Ah1I~
-        		boolean connected=ni.isConnected();                //~1Ah1I~
-            	if (Dump.Y) Dump.println("Utils:chkNetwork_M subtype="+subtypename+",connected="+connected+",tostring="+ni.toString());//~1Ah1R~
-            }                                                      //~1Ah1I~
-        }                                                          //~1Ah1I~
-    }                                                              //~1Ah1I~
+////***********************************************************************//~1Ac0I~//~va40R~
+//    public static void chkNetwork()                                //~1Ac0I~//~va40R~
+//    {                                                              //~1Ac0I~//~va40R~
+//        if (AG.osVersion>= Build.VERSION_CODES.M)   //23             //~1Ah1I~//~va40R~
+//            chkNetwork_M();                                         //~1Ah1I~//~va40R~
+//        else                                                       //~1Ah1I~//~va40R~
+//            chkNetwork_L();                                         //~1Ah1I~//~va40R~
+//    }                                                              //~1Ah1I~//~va40R~
+//    //*******************                                          //~1Ah1I~//~va40R~
+//    @SuppressWarnings("deprecation")                               //~1Ah1I~//~va40R~
+//    public static void chkNetwork_L()      //<23                   //~1Ah1R~//~va40R~
+//    {                                                              //~1Ah1I~//~va40R~
+//        ConnectivityManager cm=getCM();                            //~1Ac0I~//~va40R~
+//        NetworkInfo[] infos=cm.getAllNetworkInfo();                //~1Ac0I~//~va40R~
+//        if (Dump.Y) Dump.println("Utils:chkNetwork_L ctr="+infos.length);//~1Ac0I~//~1Ah1R~//~va40R~
+//        for (NetworkInfo ni:infos)                                 //~1Ac0I~//~va40R~
+//        {                                                          //~1Ac0I~//~va40R~
+//            String typename=ni.getTypeName();                      //~1Ac0I~//~va40R~
+//            String subtypename=ni.getSubtypeName();                //~1Ac0I~//~va40R~
+//            boolean connected=ni.isConnected();                    //~1Ac0I~//~va40R~
+//            if (Dump.Y) Dump.println("Utils:chkNetwork_L type="+typename+",subtype="+subtypename+",connected="+connected+",tostring="+ni.toString());//~1Ac0I~//~1Ah1R~//~va40R~
+//        }                                                          //~1Ac0I~//~va40R~
+//    }                                                              //~1Ac0I~//~va40R~
+////***********************************************************************//~1Ah1I~//~va40R~
+//    @TargetApi(Build.VERSION_CODES.M)   //>=23                     //~1Ah1R~//~va40R~
+//    public static void chkNetwork_M()                              //~1Ah1I~//~va40R~
+//    {                                                              //~1Ah1I~//~va40R~
+//        ConnectivityManager cm=getCM();                            //~1Ah1I~//~va40R~
+//        Network[] anw=cm.getAllNetworks();                         //~1Ah1I~//~va40R~
+//        if (Dump.Y) Dump.println("Utils:chkNetwork_M ctr="+anw.length);//~1Ah1I~//~va40R~
+//        NetworkInfo ni;                                            //~1Ah1I~//~va40R~
+//        for (Network nw:anw)                                       //~1Ah1I~//~va40R~
+//        {                                                          //~1Ah1I~//~va40R~
+//            ni=cm.getNetworkInfo(nw);                           //~1Ah1I~//~va40R~
+//            if (ni!=null)                                          //~1Ah1I~//~va40R~
+//            {                                                      //~1Ah1I~//~va40R~
+////              String typename=ni.getTypeName();                  //~1Ah1R~//~va40R~
+//                String subtypename=ni.getSubtypeName();            //~1Ah1I~//~va40R~
+//                boolean connected=ni.isConnected();                //~1Ah1I~//~va40R~
+//                if (Dump.Y) Dump.println("Utils:chkNetwork_M subtype="+subtypename+",connected="+connected+",tostring="+ni.toString());//~1Ah1R~//~va40R~
+//            }                                                      //~1Ah1I~//~va40R~
+//        }                                                          //~1Ah1I~//~va40R~
+//    }                                                              //~1Ah1I~//~va40R~
 //***********************************************************************//~1Ac0I~
     public static ConnectivityManager getCM()                      //~1Ac0I~
     {                                                              //~1Ac0I~
@@ -639,11 +640,11 @@ public class Utils                                            //~1309R~//~@@@@R~
         	return "";                                             //~1Ah1I~
     	return AG.resource.getString(Presid);                      //~1Ah1I~
     }                                                              //~1Ah1I~
-//**********************                                           //+1AhkI~
-    public static String[] getStrArray(int Presid)                   //+1AhkI~
-	{                                                              //+1AhkI~
-    	return AG.resource.getStringArray(Presid);                 //+1AhkI~
-    }                                                              //+1AhkI~
+//**********************                                           //~1AhkI~
+    public static String[] getStrArray(int Presid)                   //~1AhkI~
+	{                                                              //~1AhkI~
+    	return AG.resource.getStringArray(Presid);                 //~1AhkI~
+    }                                                              //~1AhkI~
 //**********************                                           //~1Ah1I~
     public static String getStr(int Presid,String P1)              //~1Ah1I~
 	{                                                              //~1Ah1I~

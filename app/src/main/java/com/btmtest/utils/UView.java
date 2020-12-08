@@ -19,8 +19,8 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 //import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -30,13 +30,9 @@ import android.view.WindowManager;
 //import android.app.DialogFragment;                                 //~v@@@I~//~1Ah2R~
 //import android.support.v4.app.DialogFragment;                    //~1Ah2R~
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import java.util.EmptyStackException;
-import de.greenrobot.event.EventBus;
 import jagoclient.Dump;
 
-import com.Ahsv.Alert;
 import com.Ahsv.R;                                                 //~1Ah1R~
 import com.Ahsv.AView;                                             //~1Ah1I~
                                                                    //~v@@@I~

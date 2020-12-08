@@ -19,7 +19,6 @@
 package com.Ahsv;                                                  //~v107R~//~@@@@R~
 
 import com.Ahsv.awt.Frame;
-import com.Ahsv.R;                                                 //~1AbkR~
 import com.btmtest.utils.UView;
 
 import wifidirect.DialogNFC;
@@ -34,7 +33,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;                                          //~1109I~
                                                                    //~1109I~
 import android.view.ContextMenu;

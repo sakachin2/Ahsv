@@ -1,6 +1,6 @@
-//*CID://+1AhkR~: update#= 215;                                    //~1Ah1R~//+1AhkR~
+//*CID://+1AhkR~: update#= 218;                                    //+1AhkR~
 //**********************************************************************//~v101I~
-//1Ahk 2020/06/05 Connect button for all connection type           //+1AhkI~
+//1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
 //1Afa 2016/10/11 2016/07/11 Delete main function to avoid selected main as entrypoint for eclips starter//~1AfaI~
 //1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
@@ -22,14 +22,17 @@ import com.Ahsv.awt.Window;                                        //~@@@@R~
 import com.Ahsv.R;                                                 //~1AfaR~
 
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;                                    //~0913I~
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -39,6 +42,9 @@ import android.widget.Toast;
 
 import android.widget.TextView;
 import android.view.WindowManager;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 public class AView extends View                                  //~0914R~//~dataR~//~@@@@R~
@@ -52,12 +58,12 @@ public class AView extends View                                  //~0914R~//~dat
     private static final int GREETING_LONG=3;                      //~v107R~//~@@@@R~
     private static final int GREETING_SHORT=6;                    //~v107R~//~@@@@R~
     private static final int SMALL_VIEW_LIMIT=400;             //~@@@@I~
-//  private static final int SMALL_VIEW_HEIGHT=28;	//dp           //~@@@@R~//+1AhkR~
-    private static final int SMALL_VIEW_HEIGHT=32;	//dp           //+1AhkI~
+//  private static final int SMALL_VIEW_HEIGHT=28;	//dp           //~@@@@R~//~1AhkR~
+    private static final int SMALL_VIEW_HEIGHT=32;	//dp           //~1AhkI~
     private static final int SMALL_IMAGE_HEIGHT=20;	//dp           //~@@@@I~
-//  private static final int SMALL_TEXT_SIZE=8;	//sp               //~@@@@R~//+1AhkR~
-    private static final int SMALL_TEXT_SIZE=12;	//sp           //+1AhkI~
-    private static final int BASE_NEXUS7=800;                      //+1AhkI~
+//  private static final int SMALL_TEXT_SIZE=8;	//sp               //~@@@@R~//~1AhkR~
+    private static final int SMALL_TEXT_SIZE=12;	//sp           //~1AhkI~
+    private static final int BASE_NEXUS7=800;                      //~1AhkI~
 //    private static final String[] Stab_tags={"MainFrame_tag_Servers","MainFrame_tag_Partners"};//~1122I~//~@@@@R~
 //    private Button[] tabbtns=new Button[2];                          //~1122I~
 //    private TabHost tabhost;                                       //~1122I~//~@@@@R~
@@ -156,10 +162,10 @@ public class AView extends View                                  //~0914R~//~dat
         AG.sp2pix=AG.resource.getDisplayMetrics().scaledDensity;   //~@@@@I~
         if (Dump.Y) Dump.println("AView: dp2pix="+AG.dip2pix); //~1506R~//~@@@@R~
         AG.portrait=(AG.scrWidth<AG.scrHeight);                    //~1223R~
-        int ww=Math.min(AG.scrWidth,AG.scrHeight);                 //+1AhkI~
-        AG.swSmallDevice=ww<BASE_NEXUS7;                           //+1AhkI~
-//      if (AG.scrHeight-AG.scrWidth<SMALL_VIEW_LIMIT)             //~@@@@R~//+1AhkR~
-        if (AG.swSmallDevice)                                      //+1AhkI~
+        int ww=Math.min(AG.scrWidth,AG.scrHeight);                 //~1AhkI~
+        AG.swSmallDevice=ww<BASE_NEXUS7;                           //~1AhkI~
+//      if (AG.scrHeight-AG.scrWidth<SMALL_VIEW_LIMIT)             //~@@@@R~//~1AhkR~
+        if (AG.swSmallDevice)                                      //~1AhkI~
         {                                                          //~@@@@R~
             AG.smallButton=true;                                   //~@@@@R~
             AG.smallViewHeight=(int)(SMALL_VIEW_HEIGHT*AG.dip2pix);//pix//~@@@@R~

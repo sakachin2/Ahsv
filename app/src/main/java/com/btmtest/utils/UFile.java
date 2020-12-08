@@ -1,5 +1,7 @@
-//*CID://+1AH1R~:                             update#=   79;       //~1Ad2R~//~v@@@R~//~1AH1R~
+//*CID://+va42R~:                             update#=   82;       //~va42R~//~va40R~//+va42R~
 //************************************************************************//~v102I~
+//2020/11/19 va42 of BTMJ5 At Android10, mkdir /sdcard/eMahjong fails//~va42I~
+//2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //~va42I~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1AH1I~
 //************************************************************************//~v102I~
 package com.btmtest.utils;                                        //~1110I~//~v107R~//~1Ad2R~
@@ -833,32 +835,55 @@ public class UFile                                                 //~v@@@R~
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);//~1313I~
     }                                                              //~1313I~
 //*******************************                                  //~v@@@I~
+	@SuppressWarnings("deprecation")                               //~va42I~
 	@TargetApi(19)     //KitKat                                    //~v@@@I~
-    public static String getPublicPath19()                         //~v@@@I~
+//  public static String getPublicPath19()                         //~v@@@I~//~va42R~
+    private static String getPublicPath19()                        //~va42I~
     {                                                              //~v@@@I~
         String path=Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS).getPath();//~v@@@I~
         if (Dump.Y) Dump.println("Ufile.getPublicPath19 ="+path);  //~v@@@I~
         return path;                                               //~v@@@I~
     }                                                              //~v@@@I~
-    public static String getPublicPath()                           //~v@@@I~
+	@SuppressWarnings("deprecation")                               //~va42I~
+//  public static String getPublicPath()                           //~v@@@I~//~va42R~
+    private static String getPublicPath()                          //~va42I~
     {                                                              //~v@@@I~
         String path=Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).getPath();//traditional picture and video//~v@@@I~
         if (Dump.Y) Dump.println("Ufile.getPublicPath ="+path);    //~v@@@I~
         return path;                                               //~v@@@I~
     }                                                              //~v@@@I~
+	@SuppressWarnings("deprecation")                               //+va42I~
+    private static String getExternalPath()                        //+va42I~
+    {                                                              //+va42I~
+        String path=Environment.getExternalStorageDirectory().getPath();//+va42I~
+        if (Dump.Y) Dump.println("Ufile.getExternbalPath="+path);  //+va42I~
+        return path;                                               //+va42I~
+    }                                                              //+va42I~
 //**************************************************************** //~v@@@I~
     public static String[] getSDPaths()                            //~v@@@I~
     {                                                              //~v@@@I~
         String path;                                               //~v@@@I~
     	List<String> list=new ArrayList<>();                       //~v@@@I~
-        path=Environment.getExternalStorageDirectory().getPath();  //~v@@@I~
-        list.add(path);                                            //~v@@@I~
-        if (AG.osVersion>=19) // Kitkat android 4.4                //~v@@@I~
-			path=getPublicPath19();                                //~v@@@I~
-        else                                                       //~v@@@I~
-			path=getPublicPath();                                  //~v@@@I~
-        list.add(path);                                            //~v@@@I~
+//        path=Environment.getExternalStorageDirectory().getPath();  //~v@@@I~//~va42R~
+//        list.add(path);                                            //~v@@@I~//~va42R~
+//        if (AG.osVersion>=19) // Kitkat android 4.4                //~v@@@I~//~va42R~
+//            path=getPublicPath19();                                //~v@@@I~//~va42R~
+//        else                                                       //~v@@@I~//~va42R~
+//            path=getPublicPath();                                  //~v@@@I~//~va42R~
+//        list.add(path);                                            //~v@@@I~//~va42R~
         list.add("/sdcard");                                       //~v@@@I~
+        if (AG.osVersion<=29) //allow on 29:android10 by manifest: application-->requestLagacyExternalStorage="true" (ignored when target=androd11)//~va42I~
+        {                                                          //~va42I~
+        	path=getExternalPath();                                //~va42I~
+        	list.add(path);                                        //~va42I~
+	        if (Dump.Y) Dump.println("Ufile.getSDPaths getExternalStorageDirectory="+path);//~va42I~
+        }                                                          //~va42I~
+        if (AG.osVersion>=19) // Kitkat android 4.4                //~va42I~
+            path=getPublicPath19();                                //~va42I~
+        else                                                       //~va42I~
+            path=getPublicPath();                                  //~va42I~
+        if (Dump.Y) Dump.println("Ufile.getSDPaths getExternalStoragePublicDirectory="+path);//~va42I~
+        list.add(path);                                            //~va42I~
                                                                    //~v@@@I~
         String[] ar=new String[list.size()];                       //~v@@@I~
         list.toArray(ar);                                          //~v@@@I~
@@ -1151,8 +1176,8 @@ public class UFile                                                 //~v@@@R~
         if (Dump.Y) Dump.println("UFile.grantedExternalStorage PswGranted="+PswGranted);//~v@@@I~
         if (!PswGranted)                                           //~v@@@I~
         {                                                          //~v@@@I~
-//        	MainView.drawMsg(R.string.ExternalStorageForSDRequiresGranted);//~v@@@I~//+1AH1R~
-          	UView.showToastLong(R.string.ExternalStorageForSDRequiresGranted);//+1AH1I~
+//        	MainView.drawMsg(R.string.ExternalStorageForSDRequiresGranted);//~v@@@I~//~1AH1R~
+          	UView.showToastLong(R.string.ExternalStorageForSDRequiresGranted);//~1AH1I~
             return;                                                //~v@@@I~
         }	                                                       //~v@@@I~
 		UView.showToast(R.string.ExternalStorageForSDGranted);     //~v@@@I~
