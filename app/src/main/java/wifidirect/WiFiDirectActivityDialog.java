@@ -1,5 +1,6 @@
-//*CID://+va40R~:                             update#=  144;       //~va40R~
+//*CID://+1amaR~:                             update#=  145;       //+1amaR~
 //*************************************************************************
+//1ama 2022/10/30 deprecated api33; getPercelableExtra;            //+1amaI~
 //2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //~va40I~
 //1Ac0 2015/07/06 for mutual exclusive problem of IP and wifidirect;try to use connectivityManager API//~1Ac0I~
 //1Abx 2015/06/21 NFCWD:dismiss waiting dialog of makepair at disconnected(with no Accesspoint status)//~1AbxI~
@@ -96,7 +97,7 @@ class WiFiDirectActivityDialog extends WiFiDirectActivity
                 Dump.println("WiFiDirectActivityDialog:discoverButton issue manager.discoverPeer");
 //          if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {//~va40R~
             if (!UView.isPermissionGrantedLocation())              //~va40I~
-            {                                                      //+va40I~
+            {                                                      //~va40I~
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -379,7 +380,8 @@ class WiFiDirectActivityDialog extends WiFiDirectActivity
 //                      .getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);//~va40R~
 //              if (networkInfo.isConnected())                     //~va40R~
                 boolean swPaired;                                  //~va40I~
-                WifiP2pInfo p2pinfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);//~va40I~
+//              WifiP2pInfo p2pinfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);//~va40I~//+1amaR~
+                WifiP2pInfo p2pinfo = WiFiDirectBroadcastReceiver.getParcelableExtraWD(intent,WifiP2pManager.EXTRA_WIFI_P2P_INFO);//+1amaI~
                 swPaired = p2pinfo.groupFormed;                    //~va40I~
                 if (Dump.Y)
                     Dump.println("WiFiDirectActivityDialog.onReceive swPaired=" + swPaired + ",WifiP2pInfo=" + Utils.toString(p2pinfo));//~va40I~
@@ -420,7 +422,8 @@ class WiFiDirectActivityDialog extends WiFiDirectActivity
             if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action))
             {
                 if (Dump.Y) Dump.println("WiFiDirectBroadCastReceiver:onReceive:P2P this device changed");
-				Object parm=intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE);
+//  			Object parm=intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE);//+1amaR~
+    			Object parm=WiFiDirectBroadcastReceiver.getParcelableExtraWD(intent,WifiP2pManager.EXTRA_WIFI_P2P_DEVICE);//+1amaI~
       			UiThread.runOnUiThreadXfer(this/*UiThreadI*/,parm);
             }
       	}

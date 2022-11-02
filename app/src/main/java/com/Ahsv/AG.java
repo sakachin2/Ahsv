@@ -1,5 +1,11 @@
-//*CID://+1AhjR~:                             update#=  200;       //~1AhjR~
+//*CID://+1AmsR~:                             update#=  224;       //+1AmsR~
 //******************************************************************************************************************//~v101R~
+//1ams 2022/11/01 control request permission to avoid 1amh:"null permission result".(W Activity: Can request only one set of permissions at a time)//+1AmsI~
+//1am9 2022/10/30 android12(api31) Bluetooth permission is runtime permission//~1Am9I~
+//1am3 2022/10/29 a0droid12(api31) Display.getRealSize, getRealMetrics//~1Am3I~
+//1ak3 2021/09/10 picker(ACTION_PICK) for API30                    //~1Ak3I~
+//1ak2 2021/09/04 access external audio file                       //~1Ak2I~
+//1ak0 2021/08/26 androd11:externalStorage:ScopedStorage           //~1Ak0I~
 //1Ahj 2020/06/05 IP io on mainthread fails by android.os.NetworkOnMainThreadException//~1AhjI~
 //1Ah2 2020/05/31 for Android9(Pie)-api28(PlayStore requires),deprected. DialogFragment,Fragmentmanager//~1Ah2I~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
@@ -56,8 +62,12 @@ import jagoclient.partner.IPConnection;
 import jagoclient.partner.partner.MsgThread;
 //import com.Ahsv.jagoclient.partner.PartnerFrame;                    //~@@@@I~//~1A8gR~
 import com.Ahsv.R;                                               //~1120I~//~v107R~
+import com.btmtest.utils.UMediaStore;
+import com.btmtest.utils.UScoped;
+import com.btmtest.utils.UPermission;                              //+1AmsI~
+
 import wifidirect.WDANFC;
-import wifidirect.IPSubThread;                               //~@@01I~//+1AhjR~
+import wifidirect.IPSubThread;                               //~@@01I~//~1AhjR~
 
 import jagoclient.Dump;
 import jagoclient.MainFrameOptions;                                //~1Ad7I~
@@ -74,6 +84,7 @@ import android.graphics.Canvas;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import androidx.core.content.ContextCompat;                        //~1Ak3I~
 
 
 class IdTblEntry                                                   //~1120I~
@@ -89,11 +100,17 @@ public class AG                                                    //~1107R~
 {                                                                  //~1109R~
     public static final int ACTIVITY_REQUEST_ENABLE_BT = 2;       //~1A6aI~
     public static final int ACTIVITY_REQUEST_NFCBEAM   = 3;       //~1A6aI~
+    public static final int ACTIVITY_REQUEST_PICKUP_AUDIO   = 10;  //~1Ak2I~
+    public static final int ACTIVITY_REQUEST_SCOPED    = 100;      //~1Ak0I~
+    public static final int ACTIVITY_REQUEST_SCOPED_OPEN_TREE = ACTIVITY_REQUEST_SCOPED+1;//~1Ak0I~
+    public static final int ACTIVITY_REQUEST_SCOPED_LAST=110;      //~1Ak0I~
                                                                    //~1A6aI~
     public final static String PKEY_PIECE_TYPE="PieceType";        //~@@@@R~
     public final static String PKEY_BOARD_SIZE="BoardSize";       //~@@@@I~
     public static final String PKEY_OPTIONS="Options";             //~@@@@I~
     public static final String PKEY_YOURNAME="YourName";           //~@@@@I~
+    public static final String PKEY_BGM_STRURI="BGMStrUri";        //~1Ak2I~
+    public static final String PKEY_BGM_TITLE="BGMTitle";          //~1Ak2I~
     public static final Color cursorColor=new Color(0x00,0xff,0x20);//~@@@2I~//~@@@@R~
 	public static final Color selectedColor=new Color(0x00,0x20,0xff);//~@@@2R~//~@@@@R~
     public static final Color capturedColor=new Color(0xff,0x00,0x00);//~@@@@I~//~@@@2I~//~@@@@I~
@@ -130,6 +147,7 @@ public class AG                                                    //~1107R~
     public static final int OPTIONS_1TOUCH                	=0x2000;  //1touch on freeboard//~1A13I~
     public static final int OPTIONS_TRACE_CANVAS           	=0x4000;//~1A6AI~
     public static final int OPTIONS_TRACE_UITHREAD         	=0x8000;//~1A6AI~
+    public static final int OPTIONS_BGM                   =0x010000;//~1Ak2I~
     public static String YourName,LocalOpponentName;                                                               //~@@@@I~
     public static String language;                                 //~1531I~//~@@@@I~
     public static String Glocale;                                  //~@@@@I~
@@ -243,6 +261,13 @@ public class AG                                                    //~1107R~
 //*UFile                                                           //~1Ah1I~
 	public  static boolean swSDAvailable=true;                     //~1Ah1R~
 	public  static String dirSD;                                   //~1Ah1R~
+                                                                   //~1Ak0I~
+	public  static UScoped aUScoped;                               //~1Ak0I~
+	public  static boolean swScoped;                               //~1Ak0I~
+	public  static UMediaStore aUMediaStore;                       //~1Ak2I~
+	public  static boolean swGrantedExternalStorageRead,swGrantedExternalStorageWrite;//~1Ak2R~
+	public  static boolean swSmallFont;                            //~1Ak3I~
+    public  static int dialogPaddingHorizontal; //by UFDlg                 //~@@01I~//~1Ak3R~
                                                                    //~1120I~
 //****************                                                 //~1109I~
 	public  static final String ListServer ="ListView_Server";     //~1120I~
@@ -411,6 +436,17 @@ public class AG                                                    //~1107R~
 //    public static boolean   Utils_stopFinish;   //Utils                                 //~1309I~//~@@@@R~
     public static int Board_SpieceImageSize;                       //~@@@@I~
 //************************************                             //~@@@@I~
+    public  static int       scrStatusBarHeight;	//API30, by insets     //~vaj0I~//~1Am3I~
+//  public  static int       scrNavigationbarRightWidth;                  //~@@01I~//~1Am3I~
+//  public  static int       scrNavigationbarBottomHeight;                //~vaeeI~//~1Am3I~
+    public  static int       scrNavigationbarBottomHeightA11;             //~vaefR~//~1Am3I~
+    public  static int       scrNavigationbarLeftWidthA11;                //~vaefI~//~1Am3R~
+    public  static int       scrNavigationbarRightWidthA11;               //~vaefI~//~1Am3I~
+    public  static boolean   swNavigationbarGestureMode;                  //~vaefR~//~1Am3I~
+	public  static boolean swGrantedBluetooth,swGrantBluetoothFailed;                         //~vas6I~//~1Am9R~
+    public  static boolean swFailedGrantBluetoothAdvertize;                //~vas6I~//~1Am9I~
+    public  static UPermission aUPermission;                       //+1AmsI~
+                                                                   //+1AmsI~
 	public static void init(AMain Pmain)                        //~1402I~//~v107R~//~@@@@R~
     {                                                              //~1402I~
 //******************************************************************************//~@@@@R~
@@ -830,6 +866,21 @@ public class AG                                                    //~1107R~
     {                                                              //~@@@@I~
     	return (propBoardSize==BOARDSIZE_CHESS);                    //~@@@@I~
     }                                                              //~@@@@I~
-
+//*************************************************************    //~va40I~//~1Ak3I~
+    public static int getColor(int Pcolor)                         //~va40R~//~1Ak3I~
+    {                                                              //~va40I~//~1Ak3I~
+    	int rc;                                                    //~va40I~//~1Ak3I~
+		if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) //api23 Marshmallow android6//~va40I~//~1Ak3I~
+        	rc= ContextCompat.getColor(AG.context,Pcolor);           //~va40I~//~1Ak3I~
+        else                                                       //~va40I~//~1Ak3I~
+		    rc=getColor_Under23(Pcolor);                        //~va40I~//~1Ak3I~
+        return rc;                                                 //~va40I~//~1Ak3I~
+    }                                                              //~va40I~//~1Ak3I~
+//*************************************************************    //~va40I~//~1Ak3I~
+	@SuppressWarnings("deprecation")                                //~va40I~//~1Ak3I~
+    private static int getColor_Under23(int Pcolor)                 //~va40R~//~1Ak3I~
+    {                                                              //~va40I~//~1Ak3I~
+        return AG.resource.getColor(Pcolor);                    //~va40I~//~1Ak3I~
+    }                                                              //~va40I~//~1Ak3I~
 //*******************                                              //~1120I~
 }//class AG                                                        //~1107R~

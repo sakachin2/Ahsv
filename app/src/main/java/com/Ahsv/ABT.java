@@ -1,5 +1,8 @@
-//*CID://+1AedR~:                             update#=  130;       //~1AedR~
+//*CID://+1amrR~:                             update#=  141;       //+1amrR~
 //**********************************************************************//~v107I~
+//1amr 2022/10/31 unkown permission on ndroid6(api23); BLUETOOTH_CONNECT is from API31//+1amrI~
+//1am9 2022/10/30 android12(api31) Bluetooth permission is runtime permission//~1am9I~
+//1am1 2022/10/29 android12 API31; bluetooth.getDefaultAdapter deprecated//~1am1I~
 //1Aed 2015/07/30 show secure/insecure option to waiting msg       //~1AedI~
 //1Ac5 2015/07/09 NFCBT:confirmation dialog is not show and fails to pairig//~1Ac5I~
 //                (LocalBluetoothPreference:"Found no reason to show dialog",requires discovaring status in the 60 sec before)//~1Ac5I~
@@ -23,6 +26,9 @@
 package com.Ahsv;                                                  //~v107R~
 
 import wifidirect.DialogNFCBT;
+
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.bluetooth.BluetoothSocket;                          //~v107I~
 
@@ -33,6 +39,9 @@ import com.Ahsv.R;                                                 //~1AedR~
 //import com.Ahsv.BT.BTList;                                       //~@@@2R~
 import com.Ahsv.jagoclient.partner.PartnerFrame;                   //~v107R~
 import com.Ahsv.jagoclient.partner.Server;                         //~v107R~
+import com.btmtest.utils.UView;
+
+import java.util.ArrayList;
 
 import jagoclient.Dump;                                            //~v107I~
 import jagoclient.Global;
@@ -69,15 +78,33 @@ public class ABT                                               //~1122R~//~v107R
     {                                                              //~1329I~
         if (Dump.Y) Dump.println("===========ABT start============");//~@@@2I~
 		swDestroy=false;               //static clear for after finish()//~@@@2I~
+		AG.aBT=this;                                               //~1am1I~
+      if (AG.swGrantedBluetooth                                    //~vam8I~//~1am9I~
+      ||  AG.swGrantBluetoothFailed)                               //~vas6I~//~1am9I~
+      {                                                            //~vam8I~//~1am9I~
 	    mBTC=new BTControl();                                      //~v107R~
 	    mBTD=new BTDiscover();                                     //~@@@2I~
+      }                                                            //~1am9I~
     }
     public static ABT createABT()                                  //~v107R~
     {                                                              //~v107I~
 		ABT inst=null;                                             //~v107R~
         try                                                        //~v107I~
         {                                                          //~v107I~
+          if (AG.swGrantBluetoothFailed)                           //~vas6R~//~1am9I~
+          {                                                        //~vas6I~//~1am9I~
 		    inst=new ABT();                                        //~v107R~
+          }                                                        //~vas6I~//~1am9I~
+          else                                                     //~vas6I~//~1am9I~
+          {                                                        //~vas6I~//~1am9I~
+            chkGrantedPermission();                                //~vam8M~//~1am9I~
+		    inst=new ABT();                                        //~v107R~//~v@@@R~//~1am9R~
+		    if (!AG.swGrantedBluetooth)                            //~vam8I~//~1am9I~
+            {                                                      //~vam8M~//~1am9I~
+            	//*wait onRequestPermissionResult callback         //~vas6I~//~1am9I~
+            	return null;                                       //~vam8M~//~1am9I~
+            }                                                      //~vam8M~//~1am9I~
+          }                                                        //~vas6I~//~1am9I~
             if (!inst.mBTC.BTCreate())	//default adapter chk      //~v107R~
             	inst.mBTC=null;                                    //~v107R~
             else                                                   //~@@@@I~//~@@@2R~
@@ -87,6 +114,10 @@ public class ABT                                               //~1122R~//~v107R
 	    		AG.LocalDeviceName=inst.mBTC.getDeviceName();           //~@@@2I~
             }                                                      //~@@@2I~
         }                                                          //~v107I~
+        catch(Exception e)                                         //~1am1I~
+        {                                                          //~1am1I~
+            Dump.println(e,"ABT.createABT");                       //~1am1I~
+        }                                                          //~1am1I~
         catch(Throwable e)                                         //~v107R~
         {                                                          //~v107I~
             Dump.println(e.toString());                            //~v107R~
@@ -159,7 +190,12 @@ public class ABT                                               //~1122R~//~v107R
 //********************************************************************//~v107I~
     public void destroy()                                          //~v107I~
     {                                                              //~v107I~
-		if (Dump.Y) Dump.println("ABT:destroy");                   //~@@@2I~
+		if (Dump.Y) Dump.println("ABT:destroy swGrantedBluetooth="+AG.swGrantedBluetooth);                   //~@@@2I~//~1am9R~
+        if (!AG.swGrantedBluetooth)                                //~vam8I~//~1am9I~
+        {                                                          //~vam8I~//~1am9I~
+	        if (Dump.Y) Dump.println("ABT.destroy return NOP by swGrantedBluetooth");//~vam8I~//~1am9R~
+        	return;                                                //~vam8I~//~1am9I~
+        }                                                          //~vam8I~//~1am9I~
     	swDestroy=true;                                            //~@@@2I~
         try                                                        //~v107I~
         {                                                          //~v107I~
@@ -301,7 +337,7 @@ public class ABT                                               //~1122R~//~v107R
     	if (Dump.Y) Dump.println("ABT:connect device="+Pname+",addr="+Paddr);//~@@@2R~
         if (mBTC==null)                                            //~@@@2I~
             return;                                                 //~@@@2I~
-    	if (MainFrame.isAliveOtherSession(AG.AST_BT,true/*duper*/))//~1A8gI~//+1AedR~
+    	if (MainFrame.isAliveOtherSession(AG.AST_BT,true/*duper*/))//~1A8gI~//~1AedR~
             return;                                                //~1A8gI~
         swConnect=true;                                            //~@@@2I~
 //      rc=mBTC.BTconnect(Paddr);                                  //~@@@2I~//~1A60R~
@@ -418,7 +454,7 @@ public class ABT                                               //~1122R~//~v107R
         PartnerFrame.dismissWaitingDialog();                       //~@@@2I~
       if (flag==BTService.CONN_FAILED)                             //~1A6mI~
       {                                                            //~1AedI~
-    	String secureopt=AG.resource.getString(swSecureConnect ? R.string.BTSecure : R.string.BTInSecure);//~1AedI~
+    	String secureopt=AG.resource.getString(swSecureConnect ? R.string.BTSecure : R.string.BTInSecure);//~1AedI~//~1am9R~
 		new Message(Global.frame(),                                //~@@@2I~
 //  		Global.resourceString("No_connection_to_")+requestDeviceName);//~@@@2I~//~1A6iR~
 //  		AG.resource.getString(R.string.Err_No_connection_to_BT,requestDeviceName));//~1A6iI~//~1AedR~
@@ -485,4 +521,118 @@ public class ABT                                               //~1122R~//~v107R
     {                                                              //~1Ac5I~
         return AG.aBT.mBTC.BTisDiscoverable()==1;                  //~1Ac5I~
     }                                                              //~1Ac5I~
+//********************************************************************//~vam8I~//~1am9I~
+    private static boolean chkGrantedPermission()                  //~vam8R~//~1am9I~
+    {                                                              //~vam8I~//~1am9I~
+        if (Dump.Y) Dump.println("ABT.chkGrantedPermission osVerison="+AG.osVersion+",AG.swGrantedBluetooth="+AG.swGrantedBluetooth);//~vam8R~//~1am9R~
+        if (AG.osVersion>=31)                                      //~vam8I~//~1am9I~
+        {                                                          //~vam8I~//~1am9I~
+			if (!AG.swGrantedBluetooth)                            //~vam8I~//~1am9I~
+				AG.swGrantedBluetooth=chkGrantedPermission_from31();//~vam8R~//~1am9I~
+        }                                                          //~vam8I~//~1am9I~
+        else                                                       //~vam8I~//~1am9I~
+        {                                                          //~vas6I~//~1am9I~
+			if (!AG.swGrantedBluetooth)                            //~vas6I~//~1am9I~
+				AG.swGrantedBluetooth=chkGrantedPermission_upto30();//~vas6I~//~1am9I~
+        	AG.swGrantedBluetooth=true;                            //~vam8I~//~1am9I~
+        }                                                          //~vas6I~//~1am9I~
+        boolean rc=AG.swGrantedBluetooth;                          //~vam8R~//~1am9I~
+        if (Dump.Y) Dump.println("ABT.chkGrantedPermission exit rc="+rc);//~vam8R~//~1am9R~
+        return rc;                                                 //~vam8I~//~1am9I~
+    }                                                              //~vam8I~//~1am9I~
+//********************************************************************//~vam8I~//~1am9I~
+    @TargetApi(31)                                                 //~vam8I~//~1am9I~
+    private static boolean chkGrantedPermission_from31()           //~vam8R~//~1am9I~
+    {                                                              //~vam8I~//~1am9I~
+        if (Dump.Y) Dump.println("ABT.chkGrantedPermission_from31");//~vam8R~//~1am9R~
+        ArrayList<String> requestList=new ArrayList<>();           //~vas6I~//~1am9I~
+        boolean swGrantedConnect= UView.isPermissionGranted(Manifest.permission.BLUETOOTH_CONNECT);//~vam8I~//~1am9I~
+        boolean swGrantedScan=UView.isPermissionGranted(Manifest.permission.BLUETOOTH_SCAN);//~vam8I~//~1am9I~
+                                                                   //~vas6I~//~1am9I~
+        if (!swGrantedConnect)                                     //~vas6I~//~1am9I~
+        	requestList.add(Manifest.permission.BLUETOOTH_CONNECT);//~vas6I~//~1am9I~
+        if (!swGrantedScan)                                        //~vas6I~//~1am9I~
+        	requestList.add(Manifest.permission.BLUETOOTH_SCAN);   //~vas6I~//~1am9I~
+        if (!UView.isPermissionGranted(Manifest.permission.BLUETOOTH_ADVERTISE))//~vas6I~//~1am9I~
+        	requestList.add(Manifest.permission.BLUETOOTH_ADVERTISE);//~vas6I~//~1am9I~
+//      if (!UView.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION))//~vatdR~//~1am9I~
+//      	requestList.add(Manifest.permission.ACCESS_FINE_LOCATION);//~vatdR~//~1am9I~
+        UView.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION);    //chk only//~vatdI~//~1am9I~
+        if (!UView.isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION))//~vatdR~//~1am9I~
+        	requestList.add(Manifest.permission.ACCESS_COARSE_LOCATION);//~vatdR~//~1am9I~
+//      if (Dump.Y) Dump.println("ABT.chkGrnatedPermission_from31 isGranted FINE_LOCATION="+UView.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION));//~vas6R~//~1am9R~
+//      boolean rc=swGrantedConnect && swGrantedScan;              //~vam8I~//~vas6R~//~1am9I~
+//      if (!rc)                                                   //~vam8I~//~vas6R~//~1am9I~
+//      {                                                          //~vam8I~//~vas6R~//~1am9I~
+//      	String[] types=new String[]{Manifest.permission.BLUETOOTH_CONNECT,Manifest.permission.BLUETOOTH_SCAN};//~vam8I~//~vas6R~//~1am9I~
+//      	UView.requestPermission(types, MainActivity.PERMISSION_BLUETOOTH);//~vam8I~//~vas6R~//~1am9I~
+//      }                                                          //~vam8I~//~vas6R~//~1am9I~
+        boolean rc=true;                                           //~vas6I~//~1am9I~
+        if (!requestList.isEmpty())                                //~vas6I~//~1am9I~
+        {                                                          //~vas6I~//~1am9I~
+	      	String[] reqs=(String[])(requestList.toArray(new String[requestList.size()]));//~vas6R~//~1am9I~
+	        if (Dump.Y) Dump.println("ABT.chkGrnatedPermission_from31 requestPermission list="+Utils.toString(reqs));//~vas6I~//~1am9R~
+	      	UView.requestPermission(reqs,AMain.PERMISSION_BLUETOOTH);//~vas6I~//~1am9R~
+            rc=false;                                              //~vas6I~//~1am9I~
+        }                                                          //~vas6I~//~1am9I~
+        if (Dump.Y) Dump.println("ABT.chkGrnatedPermission_from31 exit");//~vas6R~//~1am9R~
+        return rc;                                                 //~1am9I~
+    }                                                              //~vam8I~//~1am9I~
+//********************************************************************//~vas6I~//~1am9I~
+    private static boolean chkGrantedPermission_upto30()           //~vas6I~//~1am9I~
+    {                                                              //~vas6I~//~1am9I~
+        if (Dump.Y) Dump.println("ABT.chkGrantedPermission_upto30");//~vas6I~//~1am9R~
+        ArrayList<String> requestList=new ArrayList<>();           //~vas6I~//~1am9I~
+//      UView.isPermissionGranted(Manifest.permission.BLUETOOTH_CONNECT);   //for debug//~vas6R~//~1am9I~//+1amrR~
+//      UView.isPermissionGranted(Manifest.permission.BLUETOOTH_SCAN);      //for debug//~vas6R~//~1am9I~//+1amrR~
+//      UView.isPermissionGranted(Manifest.permission.BLUETOOTH_ADVERTISE);	//for debug//~vas6R~//~1am9I~//+1amrR~
+        if (!UView.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION))//~vas6R~//~1am9I~
+        {                                                          //~vas6I~//~vatdR~//~1am9I~
+        	if (AG.osVersion>=29) 	//android10,11                 //~vas6R~//~vatdR~//~1am9I~
+            	requestList.add(Manifest.permission.ACCESS_FINE_LOCATION);//~vas6R~//~1am9I~
+        }                                                          //~vas6I~//~1am9I~
+        if (!UView.isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION))//~vatdI~//~1am9I~
+        {                                                          //~vatdI~//~1am9I~
+            requestList.add(Manifest.permission.ACCESS_COARSE_LOCATION);//~vatdR~//~1am9I~
+        }                                                          //~vatdI~//~1am9I~
+        boolean rc=true;                                           //~vas6I~//~1am9I~
+        if (!requestList.isEmpty())                                //~vas6I~//~1am9I~
+        {                                                          //~vas6I~//~1am9I~
+	      	String[] reqs=(String[])(requestList.toArray(new String[requestList.size()]));//~vas6I~//~1am9I~
+	        if (Dump.Y) Dump.println("ABT.chkGrnatedPermission_upto30 requestPermission list="+Utils.toString(reqs));//~vas6R~//~1am9R~
+          	UView.requestPermission(reqs,AMain.PERMISSION_BLUETOOTH); //TODO test//~vas6R~//~1am9R~
+            rc=false;                                              //~vas6I~//~1am9I~
+        }                                                          //~vas6I~//~1am9I~
+        if (Dump.Y) Dump.println("ABT.chkGrnatedPermission_upto30 exit");//~vas6I~//~1am9R~
+        return rc;                                                 //~vas6I~//~1am9I~
+    }                                                              //~vas6I~//~1am9I~
+    public static void grantedPermission(String[] Pname,int[] Presults/*0:granted,denied*/)//~vas6R~//~1am9I~
+    {                                                              //~vas6I~//~1am9I~
+        if (Dump.Y) Dump.println("ABT.grantedPermission name="+ Utils.toString(Pname)+",result="+Utils.toString(Presults));//~vas6I~//~1am9I~
+        boolean ok=true;                                           //~vas6I~//~1am9I~
+        boolean swFailedAdvertize=false;                           //~vas6I~//~1am9I~
+        for (int ii=0;ii<Pname.length;ii++)                        //~vas6I~//~1am9I~
+        {                                                          //~vas6I~//~1am9I~
+        	if (!UView.isPermissionGranted(Presults[ii]))           //~vas6I~//~1am9I~
+            {                                                      //~vas6I~//~1am9I~
+                if (Pname[ii].equals(Manifest.permission.BLUETOOTH_ADVERTISE))//~vas6I~//~1am9I~
+                {                                                  //~vas6I~//~1am9I~
+                    AG.swFailedGrantBluetoothAdvertize=true;       //~vas6R~//~1am9I~
+//	            	without this permission, pairing available     //~vas6I~//~1am9I~
+//	            	UView.showToastLong(Utils.getStr(R.string.failedBluetoothPermissionTypeAdvertize,Pname[ii]));//~vas6R~//~1am9I~
+                }                                                  //~vas6I~//~1am9I~
+                else                                               //~vas6I~//~1am9I~
+                {                                                  //~vas6I~//~1am9I~
+            		ok=false;                                      //~vas6R~//~1am9I~
+	            	UView.showToastLong(Utils.getStr(R.string.failedBluetoothPermissionType,Pname[ii]));//~vas6R~//~1am9I~
+                }                                                  //~vas6I~//~1am9I~
+            }                                                      //~vas6I~//~1am9I~
+        }                                                          //~vas6I~//~1am9I~
+        if (ok)                                                    //~vas6I~//~1am9I~
+        	AG.swGrantedBluetooth=true;                            //~vas6I~//~1am9I~
+        else                                                       //~vas6I~//~1am9I~
+        	AG.swGrantBluetoothFailed=true;                        //~vas6I~//~1am9I~
+        createABT();                                               //~vas6I~//~1am9I~
+        	                                                       //~vas6I~//~1am9I~
+    }                                                              //~vas6I~//~1am9I~
 }//class                                                           //~1109R~

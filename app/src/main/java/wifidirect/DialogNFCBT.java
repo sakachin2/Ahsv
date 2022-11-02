@@ -1,5 +1,9 @@
-//*CID://+1Af8R~:                             update#=  171;       //~1Af7R~//~1Af8R~
+//*CID://+1amaR~:                             update#=  178;       //+1amaR~
 //*****************************************************************//~v101I~
+//1ama 2022/10/16 deprecated api33; getPercelableExtra;            //+1amaI~
+//1am6 2022/10/29 (Bug)charset encoding US_ASCII-->US-ASCII        //~1am6I~
+//1am2 2022/10/29 android12 API31; bluetooth.getName/getBondState deprecated//~1am2I~
+//1am1 2022/10/29 android12 API31; bluetooth.getDefaultAdapter deprecated//~1am1I~
 //1Af8 2016/07/09 DialogNFCBT,not nfc msg when listening status    //~1Af8I~
 //1Af7 2016/07/08 IllegalArgumentException:null is not valid Bluetooth addr at ConnectButton//~1Af7I~
 //1Af6 2016/07/08 (Ajagot1w)NPE when bluetooth is not supported    //~1Af6I~
@@ -68,9 +72,11 @@ import com.Ahsv.ABT;                                              //~v101R~//~1A
 import com.Ahsv.AG;                                               //~v101R~//~1AbBR~
 import com.Ahsv.AView;                                            //~v101R~//~1AbBR~
 import com.Ahsv.Alert;                                             //~1AbBR~
+import com.Ahsv.BT.BTControl;
+import com.Ahsv.BT.BTDiscover;
 import com.ForDeprecated.ProgDlg;                                          //~v101R~//~1AbBR~
 import com.Ahsv.Prop;
-import com.Ahsv.R;                                                //~v101R~//~1AbBR~//+1Af8R~
+import com.Ahsv.R;                                                //~v101R~//~1AbBR~//~1Af8R~
 import com.Ahsv.UiThread;                                          //~1AbBR~
 import com.Ahsv.UiThreadI;                                         //~1AbBR~
 import com.Ahsv.Utils;                                             //~1AbBR~
@@ -148,7 +154,8 @@ public class DialogNFCBT extends BluetoothConnection               //~1Ab8I~
     private static final String PKEY_BTSECURE_NFC="BTSecureOptionNFC";//~1Af4I~
     private static final int BTSECURE_DEFAULT_NFC=0; //default InSecure//~1Af4I~
                                                                    //~1Af4I~
- 	static final byte[] TYPE_BT_OOB = "application/vnd.bluetooth.ep.oob".getBytes(Charset.forName("US_ASCII"));//~1Ab8I~
+//  static final byte[] TYPE_BT_OOB = "application/vnd.bluetooth.ep.oob".getBytes(Charset.forName("US_ASCII"));//~1Ab8I~//~1am6R~
+    static final byte[] TYPE_BT_OOB = "application/vnd.bluetooth.ep.oob".getBytes(Charset.forName("US-ASCII"));//~1am6I~
  	static final int CARRIER_POWER_STATE_INACTIVE = 0;             //~1Ab8I~
  	static final int CARRIER_POWER_STATE_ACTIVE = 1;               //~1Ab8I~
  	static final int CARRIER_POWER_STATE_ACTIVATING = 2;           //~1Ab8I~
@@ -675,9 +682,11 @@ public class DialogNFCBT extends BluetoothConnection               //~1Ab8I~
     private boolean chkBonded(String Paddr)                        //~1Ab8I~
     {                                                              //~1Ab8I~
 	    BluetoothAdapter mBluetoothAdapter = null;                 //~1Ab8I~
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();  //~1Ab8I~
+//      mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();  //~1Ab8I~//~1am1R~
+        mBluetoothAdapter = BTControl.getDefaultAdapter();         //~1am1I~
     	BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(Paddr);//~1Ab8I~
-        int status=device.getBondState();                          //~1Ab8I~
+//      int status=device.getBondState();                          //~1Ab8I~//~1am2R~
+        int status=BTControl.getBondState(device);                 //~1am2I~
         boolean rc=(status==BluetoothDevice.BOND_BONDED);           //~1Ab8I~
         if (Dump.Y) Dump.println("DialogNFCBT:chkBonded rc="+rc+",addr="+Paddr+",status="+status);//~1Ab8I~
         return rc;                                                 //~1Ab8I~
@@ -871,11 +880,14 @@ public class DialogNFCBT extends BluetoothConnection               //~1Ab8I~
     //******************************************                   //~1Ab8I~
     private void getLocalMacAddr()                                 //~1Ab8I~
     {                                                              //~1Ab8I~
-	    BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();//~1Ab8I~
+//	    BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();//~1Ab8I~//~1am1R~
+  	    BluetoothAdapter adapter=BTControl.getDefaultAdapter();    //~1am1I~
         if (adapter!=null)                                         //~1Ab8I~
         {                                                          //~1Ab8I~
-        	deviceAddr=adapter.getAddress();                       //~1Ab8I~
-        	deviceName=adapter.getName();                          //~1Ab8I~
+//      	deviceAddr=adapter.getAddress();                       //~1Ab8I~//~1am6R~
+        	deviceAddr=BTControl.getAddress(adapter);              //~1am6I~
+//      	deviceName=adapter.getName();                          //~1Ab8I~//~1am2R~
+        	deviceName=BTControl.getName(adapter);                 //~1am2I~
         }                                                          //~1Ab8I~
         else                                                       //~1Ab8I~
 	        AView.showToastLong(R.string.noBTadapter);             //~1Ab8I~
@@ -1070,7 +1082,8 @@ public class DialogNFCBT extends BluetoothConnection               //~1Ab8I~
 	//*************************************************************************//~1Ab8I~
     private String getNFCData(Intent Pintent)                      //~1Ab8I~
     {                                                              //~1Ab8I~
-    	Parcelable[] rawmsgs=Pintent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);//~1Ab8I~
+//  	Parcelable[] rawmsgs=Pintent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);//~1Ab8I~//+1amaR~
+    	Parcelable[] rawmsgs= BTDiscover.getParcelableArrayExtra(Pintent,NfcAdapter.EXTRA_NDEF_MESSAGES);//+1amaI~
         NdefMessage msg=(NdefMessage)rawmsgs[0];                   //~1Ab8I~
         NdefRecord[] recs=msg.getRecords();                        //~1Ab8I~
         NdefRecord rec0=recs[0];                                   //~1Ab8I~
@@ -1202,7 +1215,8 @@ public class DialogNFCBT extends BluetoothConnection               //~1Ab8I~
     private void parseNFCDataOOB(Intent Pintent)                  //~1Ab8I~
     {                                                              //~1Ab8I~
         if (Dump.Y) Dump.println("DialogNFCBT:parseNFCDataOOB");   //~1Ab8I~
-    	Parcelable[] rawmsgs=Pintent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);//~1Ab8I~
+//  	Parcelable[] rawmsgs=Pintent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);//~1Ab8I~//+1amaR~
+    	Parcelable[] rawmsgs=BTDiscover.getParcelableArrayExtra(Pintent,NfcAdapter.EXTRA_NDEF_MESSAGES);//+1amaI~
         NdefMessage msg=(NdefMessage)rawmsgs[0];                   //~1Ab8I~
         NdefRecord[] recs=msg.getRecords();                        //~1Ab8I~
         NdefRecord rec0=recs[0];                                   //~1Ab8I~

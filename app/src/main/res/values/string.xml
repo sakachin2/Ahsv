@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ahsv</string>
     <string name="app_nameE">Ahsv</string>
-    <string name="Version">V1.22</string>
+    <string name="Version">V1.24</string>
     <string name="AppTitle">%1$s : %2$s  (%3$s)</string>
 
     <string name="NoRegisteredContextMenu">"No menu regsitered for this Panel."</string>
@@ -291,7 +291,7 @@
     <string name="Msg_Partner_Resigned">resigned, close board</string>
     <string name="ErrNoConnectionForConversation">Conversation is available after connected to a partner</string>
     <string name="SayDialogSendException">Send failed</string>
-    <string name="WarnInactMain">Start a Game by Match buttons(\"NFC-WD\" &lt;--&gt; \"Direct\").</string>
+    <string name="WarnInactMain">By \"Connect\" button, select Local mode or connect to a player to match.</string>
     <string name="WarnInactBoardClosed">Board was closed, Close Panel by \"Close\" then start new Game.</string>
     <string name="ErrNotSelected">no selected item</string>
     <string name="ErrNoThread">Failure, restart Application</string>
@@ -717,6 +717,7 @@
     <string name="ErrAssetFileNotFound">Failed to find asset file:</string>
     <string name="ErrAssetFileRead">Failed to read asset file:</string>
     <string name="ExternalStorageForSDRequiresGranted">No permission to \"Write to SD\", Internal data folder will be used which is cleared at reinstallation.</string>
+    <string name="ExternalStorageForSDRequiresGrantedRead">No permission to Read external storage.</string>
     <string name="ExternalStorageForSDGranted">Pemission of \"wrie to SD\" is allowd.</string>
     <string name="WD_DiscoveryStopped">WiFiDirect Discovery stopped.</string>
     <string name="WD_DiscoveryDup">Already discovering, request rejected. (timeout=120sec)</string>
@@ -747,4 +748,22 @@
 		<item>@string/Help</item>
 		<item>@string/Cancel</item>
 	</string-array>
+    <string name="RequestPickupDocumentSaveDir">After (re-)installation, it is required to set the folder to save game data.\n
+Select %1$s on the dialog shown next.\n
+If at first installation, add the folder on the dialog.
+	</string>
+    <string name="RequestPickupDocumentSaveDirCanceled">"it was canceled to set the folder to save game data.\n
+Re-install this APP to try to set again.
+	</string>
+    <string name="RequestPickupDocumentSaveDirInvalidSelection">"%1$s was selected, Specify %2$s as save folder.
+	</string>
+    <string name="cbBGM">BGM</string>
+    <string name="btnBGM">Change BGM</string>
+    <string name="tvBGMNotSet">No BGM is set, try \"Change BGM\" button.</string>
+    <string name="ErrNoExternalStorageReadPermission">Not granted for External-Storage to READ.</string>
+    <string name="Title_Picker">Picker : Audio File</string>
+    <string name="LabelUriDir">Media folder : </string>
+    <string name="ErrInvalidAudioSelection">%1$s is not Audio file</string>
+
+    <string name="failedBluetoothPermissionType">Bluetooth permission(%1$s) is not granted. Bluetooth is not available.</string>
 </resources>

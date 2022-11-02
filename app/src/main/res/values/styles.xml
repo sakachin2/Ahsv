@@ -109,4 +109,83 @@
     <style name="setstone">       <!-- set stone -->
     	<item name="android:background">@xml/setstone</item>
     </style>
+    <style name="DialogThemeCustomNarrow" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+    	<!--item name="android:windowMinWidthMinor">@dimen/dlg_min_width</item-->
+    	<item name="android:buttonStyle">@style/CustomButtonStyleHLD</item>
+    	<item name="android:radioButtonStyle">@style/CustomRBStyleHLD</item>
+    	<item name="android:checkboxStyle">@style/CustomCBStyleHLD</item>
+    	<item name="android:textViewStyle">@style/CustomTVStyleHLD</item>
+    	<!--item name="android:titleTextStyle">@style/CustomTitleStyleHLD</item-->
+    	<item name="android:windowTitleStyle">@style/CustomTitleStyleHLD</item>
+    </style>
+    <style name="DialogThemeCustomNarrowSmallFont" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+    	<item name="android:buttonStyle">@style/CustomButtonStyleHLDSmallFont</item>
+    	<item name="android:radioButtonStyle">@style/CustomRBStyleHLDSmallFont</item>
+    	<item name="android:checkboxStyle">@style/CustomCBStyleHLDSmallFont</item>
+    	<item name="android:textViewStyle">@style/CustomTVStyleHLDSmallFont</item>
+    	<item name="android:windowTitleStyle">@style/CustomTitleStyleHLDSmallFont</item>
+    	<item name="android:editTextStyle">@style/CustomETStyleHLDSmallFont</item>
+    	<item name="android:spinnerStyle">@style/CustomSPStyleHLDSmallFont</item>
+    </style>
+    <style name="CustomButtonStyleHLDSmallFont" parent="android:Widget.Button">
+    	<item name="android:layout_height">@dimen/smallfont_buttonheight_dialog_button</item>
+        <item name="android:textSize">@dimen/smallfont_textsize_dialog_button</item>
+    </style>
+    <style name="CustomRBStyleHLDSmallFont" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:textSize">@dimen/smallfont_textsize_dialog_radiobutton</item>
+        <!--item name="android:scaleX">0.7</item-->
+        <!--item name="android:scaleY">0.7</item-->
+    </style>
+    <style name="CustomCBStyleHLDSmallFont" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <!--item name="android:scaleX">0.7</item-->
+        <!--item name="android:scaleY">0.7</item-->
+        <item name="android:textSize">@dimen/smallfont_textsize_dialog_checkbox</item>
+    </style>
+    <style name="CustomTVStyleHLDSmallFont" >
+        <item name="android:textSize">@dimen/smallfont_textsize_dialog_textview</item>
+    </style>
+    <style name="CustomTitleStyleHLDSmallFont">
+        <item name="android:textSize">@dimen/smallfont_textsize_title</item>
+        <item name="android:textColor">@color/smalldevice_title_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="CustomETStyleHLDSmallFont" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/smallfont_textsize_dialog_edittext</item>
+    </style>
+    <style name="CustomSPStyleHLDSmallFont" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>
+    </style>
+    <style name="CustomButtonStyleHLD" parent="android:Widget.Button">
+    	<item name="android:layout_height">@dimen/dlg_button_height</item>
+    	<!--item name="android:textColor">@color/black</item-->
+    	<!--item name="android:background">@color/bg_dialog_button</item-->
+    	<!--item name="android:textAllCaps">false</item-->
+    </style>
+    <style name="CustomRBStyleHLD" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:textSize">@dimen/rb_textsize</item>
+    </style>
+    <style name="CustomCBStyleHLD" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textSize">@dimen/cb_textsize</item>
+    </style>
+    <style name="CustomTVStyleHLD" >
+        <item name="android:textSize">@dimen/tv_textsize</item>
+    </style>
+    <style name="CustomTitleStyleHLD">
+        <item name="android:textSize">@dimen/smalldevice_title_textsize</item>
+        <item name="android:textColor">@color/smalldevice_title_color</item>
+        <!--item name="android:layout_height">@dimen/smalldevice_title_height</item--><!--titlebar hight couldnot change-->
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="DialogThemeCustomWithTitle" parent="@android:style/Theme.DeviceDefault.Light.Dialog"> <!--titlever missing on HUAWEI T5 android8.0-->
+    	<item name="android:windowNoTitle">false</item>
+    	<item name="android:windowTitleStyle">@style/CustomTitleStyleWithTitle</item>
+    </style>
+    <style name="CustomTitleStyleWithTitle">
+        <item name="android:textSize">@dimen/smalldevice_title_textsize</item>
+        <item name="android:textColor">@color/smalldevice_title_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
 </resources>

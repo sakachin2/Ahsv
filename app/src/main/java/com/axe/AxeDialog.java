@@ -1,5 +1,6 @@
-//*CID://+1Aa7R~: update#= 191;                                    //~1Aa7R~
+//*CID://+1ak3R~: update#= 192;                                    //+1ak3R~
 //**********************************************************************//~1107I~
+//1ak3 2021/09/10 picker(ACTION_PICK) for API30                    //+1ak3I~
 //1Aa7 2015/04/20 dialog to setup bishop/Knight assignment         //~1Aa7I~
 //1A6J 2015/02/22 custom title for AxeDialog like as awt\Dialog    //~1A6JI~
 //1A65 2015/01/29 implement Wifi-Direct function(>=Api14:android4.0)//~1A65I~
@@ -24,7 +25,7 @@ import android.content.DialogInterface;                            //~2111I~
 import jagoclient.Dump;                                            //~v1B6I~
 import com.Ahsv.AG;                                              //~v1B6I~//~1A65R~
 import com.Ahsv.Alert;                                             //~1A65R~
-import com.Ahsv.R;                                                 //~1A65R~//+1Aa7R~
+import com.Ahsv.R;                                                 //~1A65R~//~1Aa7R~
 
 //**********************************************************************//~1107I~
 public class AxeDialog extends Dialog                              //~1830R~
@@ -141,6 +142,9 @@ public class AxeDialog extends Dialog                              //~1830R~
         case R.id.Close:                                           //~1821I~
         	rc=onClickClose();                                     //~1821I~
         	break;                                                 //~1821I~
+        case R.id.OK:                                              //+1ak3I~
+        	rc=onClickOK();                                        //+1ak3I~
+        	break;                                                 //+1ak3I~
         default:                                                   //~1821I~
         	rc=onClickOther(PbuttonId);                            //~1821I~
         }                                                          //~1821I~
@@ -159,6 +163,12 @@ public class AxeDialog extends Dialog                              //~1830R~
 //extender will override                                           //~1821I~
     	return true;                                               //~1821I~
     }                                                              //~1821I~
+//************                                                     //+1ak3I~
+    protected boolean onClickOK()                                  //+1ak3I~
+    {                                                              //+1ak3I~
+//extender will override                                           //+1ak3I~
+    	return true;                                               //+1ak3I~
+    }                                                              //+1ak3I~
 //************                                                     //~1821I~
     protected boolean onClickClose()                               //~1821I~
     {                                                              //~1821I~

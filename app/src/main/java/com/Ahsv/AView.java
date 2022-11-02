@@ -1,5 +1,6 @@
-//*CID://+1AhkR~: update#= 218;                                    //+1AhkR~
+//*CID://+1Aj0R~: update#= 225;                                    //~1Aj0R~
 //**********************************************************************//~v101I~
+//1aj0 2021/08/14 androd11(api30) deprecated at api30;getDefaultDisplay, display.getSize(), display/getMetrics()//~1Aj0I~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
 //1Afa 2016/10/11 2016/07/11 Delete main function to avoid selected main as entrypoint for eclips starter//~1AfaI~
@@ -20,6 +21,7 @@ import jagoclient.Go;                                              //~@@@@I~
 import com.Ahsv.awt.Frame;                                         //~@@@@R~
 import com.Ahsv.awt.Window;                                        //~@@@@R~
 import com.Ahsv.R;                                                 //~1AfaR~
+import com.btmtest.utils.UView;
 
 
 import android.Manifest;
@@ -150,7 +152,8 @@ public class AView extends View                                  //~0914R~//~dat
 //*************************                                        //~1122M~
 	public void getScreenSize()                                    //~1122M~
     {                                                              //~1122M~
-		Display display=((WindowManager)(AG.context.getSystemService(Context.WINDOW_SERVICE))).getDefaultDisplay();//~1122M~
+//  	Display display=((WindowManager)(AG.context.getSystemService(Context.WINDOW_SERVICE))).getDefaultDisplay();//~1122M~//~1Aj0R~
+    	Display display= UView.getDefaultDisplay();                 //~1Aj0I~
 //      AG.scrWidth=display.getWidth();                            //~1122M~//~1A6pR~
 //      AG.scrHeight=display.getHeight();                          //~1122M~//~1A6pR~
         Point p=new Point();                                       //~1A6pI~
@@ -164,6 +167,7 @@ public class AView extends View                                  //~0914R~//~dat
         AG.portrait=(AG.scrWidth<AG.scrHeight);                    //~1223R~
         int ww=Math.min(AG.scrWidth,AG.scrHeight);                 //~1AhkI~
         AG.swSmallDevice=ww<BASE_NEXUS7;                           //~1AhkI~
+        if (Dump.Y) Dump.println("AView: getScreenSize scrWidth="+AG.scrWidth+",scrHeight="+AG.scrHeight+",swSmallDevice="+AG.swSmallDevice);//~1Aj0I~
 //      if (AG.scrHeight-AG.scrWidth<SMALL_VIEW_LIMIT)             //~@@@@R~//~1AhkR~
         if (AG.swSmallDevice)                                      //~1AhkI~
         {                                                          //~@@@@R~
@@ -175,6 +179,8 @@ public class AView extends View                                  //~0914R~//~dat
         AG.screenDencityMdpiSmallH=(AG.screenDencityMdpi && AG.scrWidth<=320);//~1A61I~
         AG.screenDencityMdpiSmallV=(AG.screenDencityMdpi && AG.scrHeight<=320);//~1A61I~
         AG.layoutMdpi=(AG.screenDencityMdpiSmallH || AG.screenDencityMdpiSmallV);//~1A6cR~
+        if (Dump.Y) Dump.println("AView: getScreenSize screenDencityMdpiSmallH="+AG.screenDencityMdpiSmallH+",screenDencityMdpiSmallV="+AG.screenDencityMdpiSmallV+",layoutMdpi="+AG.layoutMdpi);//~1Aj0I~
+//      UView.getDensityDpiType();	//TODO test                    //+1Aj0R~
         getTitleBarHeight();                                       //~1413M~
     }                                                              //~1122M~
     public static void getTitleBarHeight()                         //~1413R~
@@ -197,6 +203,7 @@ public class AView extends View                                  //~0914R~//~dat
     }                                                              //~1413I~
     public static int getFramePosition()                         //~1413I~
     {                                                              //~1413I~
+        if (Dump.Y) Dump.println("Ahsv.getFramePosition AG.titleBarBottom="+AG.titleBarBottom);//~1Aj0I~
     	if (AG.titleBarBottom==0)                                  //~1413I~
         {                                                          //~@@@@I~
         	getTitleBarHeight();                                   //~1413I~
@@ -227,12 +234,14 @@ public class AView extends View                                  //~0914R~//~dat
 	        h=HIGHT_DPI_XHIGH;                                     //~@@@@I~
             break;                                                 //~@@@@I~
         }                                                          //~@@@@I~
+        if (Dump.Y) Dump.println("Ahsv.getDefaultTitlebarHeight rc="+h);//~1Aj0I~
         return h;                                           //~@@@@I~
     }                                                              //~@@@@I~
 //******************                                               //~@@@@I~
     public static int getMargin()                                  //~v101I~
     {                                                              //~v101I~
     	int top=getFramePosition();                                //~v101I~
+        if (Dump.Y) Dump.println("Ahsv.getMargin top="+top+",rc="+(top+AG.bottomSpaceHeight));//~1Aj0I~
         return top+AG.bottomSpaceHeight;                           //~v101I~
     }                                                              //~v101I~
 //******************                                               //~1326I~
@@ -522,7 +531,9 @@ public class AView extends View                                  //~0914R~//~dat
 	@TargetApi(AG.HONEYCOMB_MR2)                                   //~1A6pI~
     private static void getDisplaySize_new(Display Pdisplay,Point Ppoint) //~1A6pI~
     {                                                              //~1A6pI~
-        Pdisplay.getSize(Ppoint);                                    //~1A6pI~
+//      Pdisplay.getSize(Ppoint);                                    //~1A6pI~//~1Aj0R~
+        UView.getDisplaySize(Pdisplay,Ppoint);                     //~1Aj0I~
+        if (Dump.Y) Dump.println("AView getDisplaySize_new point="+Ppoint.toString());//~1Aj0I~
     }                                                              //~1A6pI~
     @SuppressWarnings("deprecation")                               //~1A4sI~//~1A6pI~
     private static void getDisplaySize_deprecated(Display Pdisplay,Point Ppoint)//~1A6pI~

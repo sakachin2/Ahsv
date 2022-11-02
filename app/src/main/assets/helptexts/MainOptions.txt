@@ -3,5 +3,9 @@ Show Coordinate : display coordinate.
 OneTouch : Select/Move piece by one touch each.
            Default is 2 touch mode.
 Show Timer : show remaining time under the board.
+BGM : check on play BGM selected.
+Change BGM : For <=Android10, system picker listup Music and you can try listening.
+ Select a BGM and touch "Check" sign if OK button is missing.
+ For Android11, APP picker listup music, OK button complets the selection.
 
-(MainOptions 2020/06/06)
+(MainOptions 2021/09/11)

@@ -1,5 +1,6 @@
-//*CID://+1AhbR~:                             update#=  100;       //~1Ah9R~//~1AhbR~
+//*CID://+1amwR~:                             update#=  102;       //~1amwR~
 //*****************************************************************//~v101I~
+//1amw 2022/11/01 widen bluetooth dialog for landscape             //~1amwI~
 //1Ahb 2020/06/03 expand BlutoothConnction dialog portrait width of Huawei7(Android6)//~1AhbI~
 //1Aha 2020/06/02 (BUG)BT ddevicelist merge key specificatiuon bug //~1AhaI~
 //1Ah9 2020/06/02 BT dicover crash(for the case discovered device missing name). also drop dup//~1Ah9I~
@@ -246,6 +247,11 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
         {                                                          //~1AhbI~
 			setWindowSize(95/*W:95%*/,0/*wrap content,-1:match_parent*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//~1AhbR~
         }                                                          //~1AhbI~
+        else                                                       //~1amwI~
+        {                                                          //~1amwI~
+        	int minww=100*2/3;   //75%                             //~1amwI~
+			setWindowSize(minww,0/*wrap content,-1:match_parent*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//~1amwI~
+        }                                                          //~1amwI~
     }                                                              //~1AhbI~
     //********************************************************************//~1Ab8I~
 	public BluetoothConnection (GoFrame Pgf,int Ptitleid,int Playoutid)//~1Ab8I~
@@ -962,8 +968,8 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
 	public void onCancelProgDlg(int Preason)                       //~3203I~
     {                                                              //~3203I~
     	if (Dump.Y) Dump.println("onCancelProgDlgI reason="+Preason);//~3203I~
-//      if (Preason==0)	//cancel                                   //~3203I~//+1AhbR~
-        if (Preason!=PDUA_DISMISSDLG)	//by button(Back/Close) click//+1AhbI~
+//      if (Preason==0)	//cancel                                   //~3203I~//~1AhbR~
+        if (Preason!=PDUA_DISMISSDLG)	//by button(Back/Close) click//~1AhbI~
         {                                                          //~3203I~
 	    	if (Dump.Y) Dump.println("onCancelProgDlgI waitingID="+Integer.toHexString(waitingid));//~3203I~
         	if (waitingid==R.string.Discover)                       //~3203I~
@@ -976,6 +982,7 @@ public class BluetoothConnection extends CloseDialog               //~3105R~
         public ListBT(Container Pcontainer,int Presid,int Prowresid)//~1A6fI~
         {                                                          //~1A6fI~
             super(Pcontainer,Presid,Prowresid);                     //~1A6fI~
+            if (Dump.Y) Dump.println("ListBT:constructor resid="+Integer.toHexString(Presid)+",rowresid="+Integer.toHexString(Prowresid));//+1amwI~
         }                                                          //~1A6fI~
     //**********************************************************************//~1A6fI~
         @Override                                                  //~1A6fI~

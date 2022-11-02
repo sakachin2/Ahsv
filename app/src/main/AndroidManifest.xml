@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.Ahsv"
-      android:versionCode="122"
-      android:versionName="1.22">
-    <application android:icon="@drawable/icon" android:label="@string/app_name"
+      android:versionCode="124"
+      android:versionName="1.24">
+    <application                               android:label="@string/app_name"
         				android:theme="@style/AppMainTheme"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
+        android:preserveLegacyExternalStorage="true"
     >
         <activity android:name=".AMain"
                   android:configChanges="orientation|keyboardHidden"
+        											android:exported="true"
+        											android:resizeableActivity="false"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,17 +34,28 @@
     <!--uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19"/-->     <!--10:2.3.3 for menu button,fg text color:black api19=sdk4.4-->
 
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"></uses-permission>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!--uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android.maxSdkVersion="30"/> <!--api30=android11=R vam4-->
+    <!--uses-permission android:name="android.permission.BLUETOOTH" /-->
+    <uses-permission android:name="android.permission.BLUETOOTH" android.maxSdkVersion="30"/>  <!--api30=AndroidR=11 vam4-->
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>       <!--vam4-->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>       <!--added in api31:android12=S vam4-->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+						android:usesPermissionFlags="neverForLocation"/>       <!--vam4 vas6-->
+    <uses-permission android:name="android.permission.LOCAL_MAC_ADDRESS"/>  <!--vam9-->
 <!-- 1A65 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android.maxSdkVersion="30"/>     <!--vatd but required for api29 vatd-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  <!--add vatd-->
 
     <uses-feature    android:name="android.hardware.bluetooth" android:required="false" /> <!--v106-->
     <uses-feature    android:name="android.hardware.nfc" android:required="false" />

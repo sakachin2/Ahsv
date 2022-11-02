@@ -1,5 +1,10 @@
-//*CID://+va42R~:                             update#=   82;       //~va42R~//~va40R~//+va42R~
+//*CID://+1amtR~:                             update#=  120;       //+1amtR~
 //************************************************************************//~v102I~
+//1amt 2022/11/01 for android11(Api30) WRITE_EXTERNAL_STORAGE is not allowed//+1amtI~
+//1amk 2022/10/31 (BUG)err msg when read permission err            //~1amkI~
+//1ak2 2021/09/04 access external audio file                       //~1ak2I~
+//1ak1 2021/08/27 write Dump.txt to internal cache, it ca be pull by run-as cmd//~1ak1I~
+//1ak0 2021/08/26 androd11:externalStorage:ScopedStorage           //~1ak0I~
 //2020/11/19 va42 of BTMJ5 At Android10, mkdir /sdcard/eMahjong fails//~va42I~
 //2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //~va42I~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1AH1I~
@@ -35,6 +40,7 @@ import java.util.List;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.AssetManager;                           //~v@@@I~
+import android.os.Build;
 import android.os.Environment;
 
 import jagoclient.Dump;
@@ -687,6 +693,12 @@ public class UFile                                                 //~v@@@R~
     {                                                              //~1313I~//~v@@@R~
         String fnm,path;                                           //~1313I~//~v@@@R~
         if (Dump.Y) Dump.println("openOutputSD dir="+Pdir+",file="+Pfname);//~1313I~//~1506R~//~v@@@R~
+      if (AG.swScoped) //android11 api30                           //~1ak1R~
+      {                                                            //~1ak1I~
+        if (Dump.Y) Dump.println("openOutputSD@@@@ not avilable for Android 11,use UScoped.openOutputSD");//~1ak1I~
+        path=null;                                                 //~1ak1I~
+      }                                                            //~1ak1I~
+      else                                                         //~1ak1I~
         path=getSDPath(Pdir);                                      //~1313R~//~v@@@R~
         if (path==null) //no SDCard available                          //~1313I~//~v@@@R~
             return openOutputData(Pfname);    //to /data/data/<pkg>/files                     //~1313I~//~v@@@R~
@@ -731,11 +743,14 @@ public class UFile                                                 //~v@@@R~
     public static InputStream openInputSD(String Pfname,boolean Pshowexception)           //~1327I~//~v@@@R~
     {                                                              //~1327I~//~v@@@R~
         String fnm;                                           //~1327I~//~v@@@R~
-        if (Dump.Y) Dump.println("open Input SD="+Pfname);         //~1506R~//~v@@@R~
+        if (Dump.Y) Dump.println("UFile.openInputSD="+Pfname);         //~1506R~//~v@@@R~//~1ak1R~
+        if (AG.swScoped) //android11 api30                         //~1ak1R~
+        {                                                          //~1ak1I~
+        	return UScoped.openInputSD(Pfname);                    //~1ak1I~
+        }                                                          //~1ak1I~
         fnm=getSDPath(Pfname);                                      //~1327I~//~v@@@R~
         if (fnm==null)  //no SDCard available                      //~1327I~//~v@@@R~
             return null;                                           //~1327I~//~v@@@R~
-                                        //~1327I~                  //~v@@@R~
         if (Dump.Y) Dump.println("openInputSD fnm="+fnm);                       //~1327I~//~1506R~//~v@@@R~
         FileInputStream is=null;                                   //~1327I~//~v@@@R~
         try                                                        //~1327I~//~v@@@R~
@@ -825,6 +840,25 @@ public class UFile                                                 //~v@@@R~
         }//catch                                                   //~1312I~
         return rc;                                                 //~1511I~
     }                                                              //~1312I~
+//***********************************                              //~1ak1I~
+    public static FileOutputStream openOutputDataCacheDir(String Pfname)//~1ak1R~
+    {                                                              //~1ak1I~
+    	if (Dump.Y) Dump.println("UFile.openOutputDataCacheDir file="+Pfname);//~1ak1R~
+    	File fd;                                                   //~1ak1I~
+    	fd=AG.context.getCacheDir();                               //~1ak1I~
+    	if (Dump.Y) Dump.println("UFile.openOutputDataCacheDir cacheDir="+fd.getAbsolutePath()+",file="+Pfname);//~1ak1I~
+	    FileOutputStream out=null;	//FileOutputStream extend OutputStream//~1ak1I~
+        try                                                        //~1ak1I~
+        {                                                          //~1ak1I~
+        	File f= new File(fd,Pfname);                          //~1ak1I~
+            out=new FileOutputStream(f);                           //~1ak1I~
+        }                                                          //~1ak1I~
+        catch (Exception e)                                        //~1ak1I~
+        {                                                          //~1ak1I~
+            Dump.println(e,"UFile.openOutputDataCacheDir "+fd.getAbsolutePath()+"/"+Pfname);//~1ak1I~
+        }//catch                                                   //~1ak1I~
+    	return out;                                                //~1ak1I~
+    }                                                              //~1ak1I~
 //*******************************                                  //~1313I~
 //*SD card                      *                                  //~1313I~
 //*Manifest setting                                                //~1313I~
@@ -832,10 +866,18 @@ public class UFile                                                 //~v@@@R~
 //*******************************                                  //~1313I~
     public static boolean isSDMounted()                            //~1313I~
     {                                                              //~1313I~
-		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);//~1313I~
+//  	return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);//~1313I~//~1ak1I~
+        boolean rc;                                                //~1ak1I~
+        if (AG.swScoped) //android11 api30                         //~1ak1R~
+        	rc=UScoped.isSDMounted();                               //~1ak1R~
+        else                                                       //~1ak1I~
+    		rc=Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);//~1ak1I~
+        if (Dump.Y) Dump.println("UFile.isSDMounted rc="+rc);      //~1ak1I~
+        return rc;                                                 //~1ak1I~
     }                                                              //~1313I~
 //*******************************                                  //~v@@@I~
-	@SuppressWarnings("deprecation")                               //~va42I~
+//  @SuppressWarnings("deprecation")                               //~va42I~//~1ak0R~
+    @SuppressWarnings("deprecation")                               //~1ak1I~
 	@TargetApi(19)     //KitKat                                    //~v@@@I~
 //  public static String getPublicPath19()                         //~v@@@I~//~va42R~
     private static String getPublicPath19()                        //~va42I~
@@ -852,13 +894,13 @@ public class UFile                                                 //~v@@@R~
         if (Dump.Y) Dump.println("Ufile.getPublicPath ="+path);    //~v@@@I~
         return path;                                               //~v@@@I~
     }                                                              //~v@@@I~
-	@SuppressWarnings("deprecation")                               //+va42I~
-    private static String getExternalPath()                        //+va42I~
-    {                                                              //+va42I~
-        String path=Environment.getExternalStorageDirectory().getPath();//+va42I~
-        if (Dump.Y) Dump.println("Ufile.getExternbalPath="+path);  //+va42I~
-        return path;                                               //+va42I~
-    }                                                              //+va42I~
+	@SuppressWarnings("deprecation")                               //~va42I~
+    private static String getExternalPath()                        //~va42I~
+    {                                                              //~va42I~
+        String path=Environment.getExternalStorageDirectory().getPath();//~va42I~
+        if (Dump.Y) Dump.println("Ufile.getExternbalPath="+path);  //~va42I~
+        return path;                                               //~va42I~
+    }                                                              //~va42I~
 //**************************************************************** //~v@@@I~
     public static String[] getSDPaths()                            //~v@@@I~
     {                                                              //~v@@@I~
@@ -895,6 +937,10 @@ public class UFile                                                 //~v@@@R~
     {                                                              //~1313I~
 		String path;                                               //~1313I~
     //************                                                 //~1313I~
+        if (AG.swScoped) //android11 api30                         //~1ak1R~
+        {                                                          //~1ak1I~
+        	return UScoped.getSDPath(Pfile);                       //~1ak1I~
+        }                                                          //~1ak1I~
         if (!AG.swSDAvailable)                                     //~1313I~//~v@@@R~
         	return null;                                           //~1313I~
         path=AG.dirSD;                                           //~1313I~//~v@@@R~
@@ -1145,7 +1191,14 @@ public class UFile                                                 //~v@@@R~
 //**********************************************************************//~v@@@I~
     public static boolean chkWritableSD()                          //~v@@@I~
     {                                                              //~v@@@I~
-        if (Dump.Y) Dump.println("UFile.chkWritableSD");            //~v@@@I~
+        if (Dump.Y) Dump.println("UFile.chkWritableSD swScoped="+AG.swScoped);            //~v@@@I~//~1ak1R~
+        if (UScoped.isScoped())                                    //~1ak1R~
+        {                                                          //~1ak2I~
+//      	return UScoped.chkWritableSD();                        //~1ak1I~//~1ak2R~
+        	boolean rc2=UScoped.chkWritableSD();                   //~1ak2I~
+	        if (Dump.Y) Dump.println("UFile.chkWritableSD rc2="+rc2);//~1ak2I~
+//          return rc2; TODO test      //permission not required for scoped storage//~1ak2R~
+        }                                                          //~1ak2I~
         if (!chkGrantedSD())                                       //~v@@@I~
         	return false;                                          //~v@@@I~
         AG.swSDAvailable=true;                                     //~v@@@I~
@@ -1157,14 +1210,27 @@ public class UFile                                                 //~v@@@R~
 //**********************************                               //~v@@@I~
     private static boolean chkGrantedSD()                          //~v@@@I~
     {                                                              //~v@@@I~
-        if (Dump.Y) Dump.println("UFile.chkGrantedSD");            //~v@@@I~
+        if (Dump.Y) Dump.println("UFile.chkGrantedSD oswVersion="+AG.osVersion);            //~v@@@I~//~1ak2R~
 		boolean rc=UView.isPermissionGrantedExternalStorage();     //~v@@@I~
+        boolean rc2=UView.isPermissionGrantedExternalStorageRead();//~1ak2I~
+        AG.swGrantedExternalStorageWrite=rc;                       //~1ak2I~
+        AG.swGrantedExternalStorageRead=rc2;                       //~1ak2I~
+      	if (AG.osVersion>=30) //scoped storage	//no chk write permission for scoped storage//~1ak2I~
+        	rc=rc2;                                                //~1ak2I~
+        else                                                       //~1ak2I~
+      	if (AG.osVersion>=29) //scoped storage	//no chk write permission for scoped storage//~1ak2I~
+        	rc=rc2;	//chk read only                                //~1ak2I~
+        else                                                       //~1ak2I~
+        	rc=rc & rc2;                                           //~1ak2R~
         if (!rc)                                                   //~v@@@I~
         {                                                          //~v@@@I~
 //  	    UView.requestPermissionExternalStorage(MainActivity.PERMISSION_EXTERNAL_STORAGE);//~v@@@I~//~1AH1R~
+      	  if (AG.osVersion>=30) //scoped storage	//no chk write permission for scoped storage//+1amtI~
+		    UView.requestPermissionExternalStorageRead(AMain.PERMISSION_EXTERNAL_STORAGE_READ);//~vae0I~//+1amtI~
+          else                                                     //+1amtI~
     	    UView.requestPermissionExternalStorage(AMain.PERMISSION_EXTERNAL_STORAGE);//~1AH1I~
         }                                                          //~v@@@I~
-        if (Dump.Y) Dump.println("MenuDialogConnect rc="+rc);      //~v@@@I~
+        if (Dump.Y) Dump.println("UFile.chkGrantedSD swGrantedExternalStorage=rc="+rc);//~1ak2R~
         return rc;                                                 //~v@@@I~
     }                                                              //~v@@@I~
 //*************************************************************************//~v@@@I~
@@ -1183,4 +1249,48 @@ public class UFile                                                 //~v@@@R~
 		UView.showToast(R.string.ExternalStorageForSDGranted);     //~v@@@I~
     	chkWritableSD();                                           //~v@@@I~
     }                                                              //~v@@@I~
+    public static void grantedExternalStorage(boolean PswGranted,boolean PswGrantedRead)//~1ak2I~
+    {                                                              //~1ak2I~
+    	boolean rc;                                                //~1ak2I~
+        if (Dump.Y) Dump.println("UFile.grantedExternalStorage osVersion="+AG.osVersion+",PswGranted="+PswGranted+",PswGrantedRead="+PswGrantedRead);//~1ak2R~
+      	if (AG.osVersion>=30) //scoped storage                     //~1ak2I~
+        {                                                          //~1ak2I~
+//          if (PswGrantedRead)                                    //~1ak2I~//~1amkR~
+            if (!PswGrantedRead)                                   //~1amkI~
+    	    {                                                      //~1ak2I~
+        	  	UView.showToastLong(R.string.ExternalStorageForSDRequiresGrantedRead);//~1ak2R~
+            	return;                                            //~1ak2I~
+        	}                                                      //~1ak2I~
+        }                                                          //~1ak2I~
+        else                                                       //~1ak2I~
+        {                                                          //~1ak2I~
+	        if (!PswGrantedRead)                                   //~1ak2R~
+    	    {                                                      //~1ak2I~
+        	  	UView.showToastLong(R.string.ExternalStorageForSDRequiresGrantedRead);//~1ak2I~
+            	return;                                            //~1ak2I~
+        	}                                                      //~1ak2I~
+            if (!PswGranted)                                       //~1ak2R~
+            {                                                      //~1ak2R~
+		      if (AG.osVersion<29) //allow on 29:android10 by manifest: application-->requestLagacyExternalStorage="true" (ignored when target=androd11)//~1ak2I~
+              {                                                    //~1ak2I~
+                UView.showToastLong(R.string.ExternalStorageForSDRequiresGranted);//~1ak2R~
+                return;                                            //~1ak2R~
+              }                                                    //~1ak2I~
+            }                                                      //~1ak2R~
+        }                                                          //~1ak2I~
+//  	UView.showToast(R.string.ExternalStorageForSDGranted);     //~1ak2I~//~1amkR~
+    	chkWritableSD();                                           //~1ak2I~
+    }                                                              //~1ak2I~
+    public static void grantedExternalStorageRead(boolean PswGranted)//~1ak2I~
+    {                                                              //~1ak2I~
+    	boolean rc;                                                //~1ak2I~
+        if (Dump.Y) Dump.println("UFile.grantedExternalStorageRead PswGranted="+PswGranted);//~1ak2I~
+        if (!PswGranted)                                           //~1ak2I~
+        {                                                          //~1ak2I~
+          	UView.showToastLong(R.string.ExternalStorageForSDRequiresGranted);//~1ak2I~
+            return;                                                //~1ak2I~
+        }                                                          //~1ak2I~
+		UView.showToast(R.string.ExternalStorageForSDGranted);     //~1ak2I~
+    	chkWritableSD();                                           //~1ak2I~
+    }                                                              //~1ak2I~
 }//class                                                           //~1110I~

@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Ahsv</string>
     <string name="app_nameE">Ahsv</string>
-    <string name="Version">V1.22</string>
     <string name="AppTitle">%1$s : %2$s  (%3$s)</string>
 
     <string name="NoRegisteredContextMenu">"このパネルにメニューはありません"</string>
@@ -287,7 +286,7 @@
     <string name="Msg_Partner_Resigned">が投了しました, 盤を閉じてください</string>
     <string name="ErrNoConnectionForConversation">会話は相手と接続した後に利用できます</string>
     <string name="SayDialogSendException">送信失敗</string>
-    <string name="WarnInactMain">対戦モードボタン(\"NFC-WD\" &lt;--&gt; \"ダイレクト\") でゲームが始まります</string>
+    <string name="WarnInactMain">\"接続\" ボタンで 対面モードとするか、対戦相手と接続してください</string>
     <string name="WarnInactBoardClosed">盤が閉じました, \"閉\" で画面を閉じて新しいゲームを始めてください</string>
     <string name="ErrNotSelected">接続先を選択してください</string>
     <string name="ErrNoThread">失敗、アプリの再起動が必要です</string>
@@ -705,6 +704,7 @@
     <string name="ErrAssetFileNotFound">アッセットファイルが見つかりません:</string>
     <string name="ErrAssetFileRead">アッセットファイルが読めません:</string>
     <string name="ExternalStorageForSDRequiresGranted">\"SDカードへ書き込み\"が不許可なので内部ファイル（再導入で削除）に出力されます</string>
+    <string name="ExternalStorageForSDRequiresGrantedRead">外部ストレージの読み込み権限が有りません</string>
     <string name="ExternalStorageForSDGranted">SDカードへの書き込み権限が許可されました</string>
     <string name="WD_DiscoveryStopped">WiFiダイレクト 探索が停止しました</string>
     <string name="WD_DiscoveryDup">既に探索中です（タイムアウトは１２０秒）</string>
@@ -735,4 +735,22 @@
 		<item>@string/Help</item>
 		<item>@string/Cancel</item>
 	</string-array>
+    <string name="RequestPickupDocumentSaveDir">(再)インストールにより、ゲームデータの存先を設定する必要があります。\n
+次に表示されるダイアログで %1$s を選択してください。\n
+初めての場合は、そのダイアログでフォルダーを追加作成してください。
+	</string>
+    <string name="RequestPickupDocumentSaveDirCanceled">"ゲームデータの保存先の設定がキャンセルされました。\n
+再設定する場合は、アプリを再インストールしてください。
+	</string>
+    <string name="RequestPickupDocumentSaveDirInvalidSelection">"%1$s が選択されました、ゲームデータの保存先は %2$s を選択してください。
+	</string>
+    <string name="cbBGM">BGM</string>
+    <string name="btnBGM">曲の変更</string>
+    <string name="tvBGMNotSet">曲が設定されていません、曲の変更ボタンで設定できます</string>
+    <string name="ErrNoExternalStorageReadPermission">外部ストレージへの読み込み権限が有りません</string>
+    <string name="Title_Picker">オーディオファイル選択</string>
+    <string name="LabelUriDir">メディアフォルダー : </string>
+    <string name="ErrInvalidAudioSelection">%1$s はオーディオファイルでは有りません</string>
+
+    <string name="failedBluetoothPermissionType">Bluetooth権限(%1$s)を取得できませんでした。Bluetoothは使えません。</string>
 </resources>

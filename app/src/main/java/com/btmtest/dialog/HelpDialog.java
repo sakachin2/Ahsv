@@ -1,6 +1,6 @@
-//*CID://+1AhmR~:                             update#=  159;       //+1AhmR~
+//*CID://+1AhmR~:                             update#=  161;       //~1AhmR~
 //*****************************************************************//~v101I~
-//1Ahm 2020/06/05 fromHtml deprecated at AndroidN(api24)           //+1AhmI~
+//1Ahm 2020/06/05 fromHtml deprecated at AndroidN(api24)           //~1AhmI~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //*****************************************************************//~1AhkI~
 package com.btmtest.dialog;                                         //~v@@@R~
@@ -39,6 +39,7 @@ public class HelpDialog extends Dialog                               //~v@@@R~//
 	public HelpDialog()                                              //~v@@@I~
     {                                                              //~v@@@I~
         super(AG.context);                                         //~1AhkI~
+    	if (Dump.Y) Dump.println("btmtest.HelpDialog.constructor");//+1AhmI~
     }                                                              //~v@@@I~
 //**********************************                               //~v@@@I~
 	public static HelpDialog newInstance(String Ptitle,String Pfnm)//~v@@@I~
@@ -46,6 +47,7 @@ public class HelpDialog extends Dialog                               //~v@@@R~//
     	HelpDialog hdlg=new HelpDialog();                          //~v@@@I~
         hdlg.helpFilename=Pfnm;                                    //~v@@@I~
         hdlg.title=Ptitle;                                         //~1AhkI~
+    	if (Dump.Y) Dump.println("HelpDialog.newInstance title="+Ptitle+",fnm="+Pfnm);//~1AhmI~
     	return hdlg;                                               //~v@@@I~
      }                                                              //~v@@@I~
 //**********************************                               //~v@@@I~
@@ -83,8 +85,8 @@ public class HelpDialog extends Dialog                               //~v@@@R~//
         	if (AG.osVersion>=24) // Nougat:android 7.0            //~v@@@I~
 			    s=getHtmlSpanned(txt);                             //~v@@@R~
             else                                                   //~v@@@I~
-//      		s=Html.fromHtml(txt);                              //~v@@@R~//+1AhmR~
-			    s=getHtmlSpanned_underN(txt);                      //+1AhmI~
+//      		s=Html.fromHtml(txt);                              //~v@@@R~//~1AhmR~
+			    s=getHtmlSpanned_underN(txt);                      //~1AhmI~
             tvMessage.setText(s);                                  //~v@@@I~
         }                                                          //~v@@@I~
         else                                                       //~v@@@I~
@@ -107,14 +109,14 @@ public class HelpDialog extends Dialog                               //~v@@@R~//
     	if (Dump.Y) Dump.println("HelpDialog adjustHtml inp="+Ptxt+",out="+txt);//~v@@@I~
         return txt;
     }                                                              //~v@@@I~
-//**********************************                               //+1AhmI~
-	@SuppressWarnings("deprecation")                               //+1AhmI~
-    public Spanned getHtmlSpanned_underN(String Ptxt)              //+1AhmI~
-    {                                                              //+1AhmI~
-    	if (Dump.Y) Dump.println("HelpDialog getHtmlSpanned api<24(Nogaut 7.0) string="+Ptxt);//+1AhmI~
-        Spanned s=Html.fromHtml(Ptxt);                             //+1AhmI~
-        return s;                                                  //+1AhmI~
-	}                                                              //+1AhmI~
+//**********************************                               //~1AhmI~
+	@SuppressWarnings("deprecation")                               //~1AhmI~
+    public Spanned getHtmlSpanned_underN(String Ptxt)              //~1AhmI~
+    {                                                              //~1AhmI~
+    	if (Dump.Y) Dump.println("HelpDialog getHtmlSpanned api<24(Nogaut 7.0) string="+Ptxt);//~1AhmI~
+        Spanned s=Html.fromHtml(Ptxt);                             //~1AhmI~
+        return s;                                                  //~1AhmI~
+	}                                                              //~1AhmI~
 //**********************************                               //~v@@@I~
 	@TargetApi(24) //android7 Nougat                               //~v@@@R~
     public Spanned getHtmlSpanned(String Ptxt)                     //~v@@@I~

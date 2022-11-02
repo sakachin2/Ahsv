@@ -1,5 +1,8 @@
-//*CID://+va40R~: update#= 180;                                    //~va40R~
+//*CID://+1amfR~: update#= 190;                                    //~vak2R~//~1amfR~
 //**********************************************************************//~1107I~
+//1amf 2022/10/30 deprecated api33; PackageManager.getAplicationInfo//~vat2I~//~1amfI~
+//1ak3 2021/09/10 picker(ACTION_PICK) for API30                    //~vak2I~
+//1ak2 2021/09/04 access external audio file                       //~vak2I~
 //2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //~va40I~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
@@ -37,9 +40,10 @@ import android.content.pm.PackageManager.NameNotFoundException;    //~v107R~
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.Network;
-//import android.net.NetworkInfo;                                  //+va40R~
+//import android.net.NetworkInfo;                                  //~va40R~
 import android.net.Uri;
 import android.os.Build;
+import android.graphics.Color;                                     //~v@@@I~//~vak2I~
 
 import com.Ahsv.AG;                                                //~v107R~
 
@@ -47,6 +51,7 @@ import com.Ahsv.AG;                                                //~v107R~
 public class Utils                                            //~1309R~//~@@@@R~
 {                                                                  //~0914I~
     public static final String	IPA_NA="N/A";                      //~1A05I~
+    private static final double FACTOR = 0.7;                      //~v@@@I~//~vak2I~
 //**********************************                               //~@@@@I~
 //*from Alert,replyed Yes                                          //~@@@@I~
 //**********************************                               //~@@@@I~
@@ -400,12 +405,16 @@ public class Utils                                            //~1309R~//~@@@@R~
         return ipa;                                                //~1A86I~
     }                                                              //~1A86I~
 //***********************************************************************//~v107R~
+	@SuppressWarnings("deprecation")                               //~vat2I~//~1amfI~
     public static boolean isDebuggable(Context ctx)                //~v107R~
     {                                                              //~v107R~
         PackageManager manager = ctx.getPackageManager();          //~v107R~
         ApplicationInfo appInfo = null;                            //~v107R~
         try                                                        //~v107R~
         {                                                          //~v107R~
+		  if (AG.osVersion>=33)                                    //~vat2I~//~1amfI~
+            appInfo = getApplicationInfo33(manager,ctx);               //~vat2I~//~1amfI~
+          else                                                     //~vat2I~//~1amfI~
             appInfo = manager.getApplicationInfo(ctx.getPackageName(), 0);//~v107R~
         }                                                          //~v107R~
         catch (NameNotFoundException e)                            //~v107R~
@@ -416,6 +425,18 @@ public class Utils                                            //~1309R~//~@@@@R~
             return true;                                           //~v107R~
         return false;                                              //~v107R~
     }                                                              //~v107R~
+//***********************************************************************//~vat2I~//~1amfI~
+	@TargetApi(33)                                                 //~vat2I~//~1amfI~
+    public static ApplicationInfo getApplicationInfo33(PackageManager Pmgr,Context Pcontext)//~vat2I~//~1amfI~
+    	throws NameNotFoundException                               //~vat2I~//~1amfI~
+    {                                                              //~vat2I~//~1amfI~
+    	if (Dump.Y) Dump.println("Utils.getApplicationInfo33");    //~vat2I~//~1amfI~
+    	int flagMgr=0;	//TODO  ?                                  //~vat2R~//~1amfI~
+    	PackageManager.ApplicationInfoFlags flags=PackageManager.ApplicationInfoFlags.of(flagMgr);//~vat2I~//~1amfI~
+    	ApplicationInfo appInfo = Pmgr.getApplicationInfo(Pcontext.getPackageName(),flags);//~vat2I~//~1amfI~
+    	if (Dump.Y) Dump.println("Utils.getApplicationInfo33 appinfo="+appInfo);//~vat2I~//~1amfI~
+        return appInfo;                                            //~vat2I~//~1amfI~
+    }                                                              //~vat2I~//~1amfI~
 //***********************************************************************//~1A67I~//~1A6aR~
     public static String getMacString(byte[] Pbytemacaddr)                //~1A67R~//~1A6aR~
     {                                                              //~1A67R~//~1A6aR~
@@ -547,6 +568,13 @@ public class Utils                                            //~1309R~//~@@@@R~
         if (Dump.Y) Dump.println("Utils.toString(String[][]) out="+s);//~1Ah1I~
         return s;                                                  //~1Ah1I~
     }                                                              //~1Ah1I~
+    //*************************************************            //+1amfI~
+    public static String toString(int[] Psa2)                      //+1amfI~
+    {                                                              //+1amfI~
+        if (Psa2==null)                                            //+1amfI~
+        	return "null";                                         //+1amfI~
+        return Arrays.toString(Psa2);                              //+1amfI~
+    }                                                              //+1amfI~
     //*************************************************            //~1Ah1I~
     public static String toString(int[][] Psa2)                    //~1Ah1I~
     {                                                              //~1Ah1I~
@@ -633,6 +661,22 @@ public class Utils                                            //~1309R~//~@@@@R~
     {                                                              //~1Ah1I~
     	return Pobj==null ? "null" : Pobj.toString();              //~1Ah1I~
     }                                                              //~1Ah1I~
+    //*************************************************            //~va40I~
+    public static String toString(Object[] Pobj)                   //~va40I~
+    {                                                              //~va40I~
+    	if (Pobj==null)                                            //~va40I~
+        	return "null";                                         //~va40I~
+        StringBuffer sb=new StringBuffer();                        //~va40I~
+        sb.append("\n");                                           //~va40I~
+        for (int ii=0;ii<Pobj.length;ii++)     //account sequence  //~va40I~
+        {                                                          //~va40I~
+        	if (ii!=0)                                             //~va40I~
+    	        sb.append(",\n");                                  //~va40I~
+	        sb.append("["+ii+"]=");                                //~va40I~
+            sb.append(toString(Pobj[ii]));                         //~va40I~
+        }                                                          //~va40I~
+    	return sb.toString();                                      //~va40I~
+    }                                                              //~va40I~
 //**********************                                           //~1Ah1I~
     public static String getStr(int Presid)                        //~1Ah1I~
 	{                                                              //~1Ah1I~
@@ -676,4 +720,47 @@ public class Utils                                            //~1309R~//~@@@@R~
 	{                                                              //~1AhkI~
         return joinStr(",",Pstrarray);                             //~1AhkI~
     }                                                              //~1AhkI~
+    //*************************************************            //~@@01I~//~vak2I~
+    public static int parseInt(String Pstr,int Pdefault)           //~@@01R~//~vak2I~
+    {                                                              //~@@01I~//~vak2I~
+    	int ii;                                                    //~@@01I~//~vak2I~
+        try                                                        //~@@01I~//~vak2I~
+        {                                                          //~@@01I~//~vak2I~
+    		ii=Integer.parseInt(Pstr);                             //~@@01I~//~vak2I~
+        }                                                          //~@@01I~//~vak2I~
+        catch(Exception e)                                         //~@@01I~//~vak2I~
+        {                                                          //~@@01I~//~vak2I~
+//      	Dump.println(e,"parseInt str="+Pstr);                  //~@@01R~//~vak2I~
+        	if (Dump.Y) Dump.println("Utils.parseInt str="+Pstr+",e="+e.toString());//~@@01R~//~vak2I~
+        	ii=Pdefault;                                           //~@@01R~//~vak2I~
+        }                                                          //~@@01I~//~vak2I~
+        return ii;                                                 //~@@01I~//~vak2I~
+    }                                                              //~@@01I~//~vak2I~
+    //*************************************************            //~vak2I~
+    public static long parseLong(String Pstr,long Pdefault)        //~vak2I~
+    {                                                              //~vak2I~
+    	long ii;                                                   //~vak2I~
+        try                                                        //~vak2I~
+        {                                                          //~vak2I~
+    		ii=Long.parseLong(Pstr);                               //~vak2I~
+        }                                                          //~vak2I~
+        catch(Exception e)                                         //~vak2I~
+        {                                                          //~vak2I~
+        	if (Dump.Y) Dump.println("Utils.parseLong str="+Pstr+",e="+e.toString());//~vak2I~
+        	ii=Pdefault;                                           //~vak2I~
+        }                                                          //~vak2I~
+        return ii;                                                 //~vak2I~
+    }                                                              //~vak2I~
+    //******************                                           //~v@@@I~//~vak2I~
+    public static String getClassName(Object Pobj)                //~v@@@I~//~vak2I~
+    {                                                              //~v@@@I~//~vak2I~
+        return (Pobj==null ? "null" :Pobj.getClass().getSimpleName());//~v@@@R~//~vak2I~
+    }                                                              //~v@@@I~//~vak2I~
+    //******************                                           //~vak2I~
+    public static int darkerColor(int Pcolor)                           //~v@@@I~//~vak2I~
+	{                                                              //~v@@@I~//~vak2I~
+    	return Color.rgb(Math.max((int)(Color.red(Pcolor)  *FACTOR), 0),        //~1127I~//~v@@@R~//~vak2I~
+             Math.max((int)(Color.green(Pcolor)*FACTOR), 0),                //~1127I~//~v@@@I~//~vak2I~
+             Math.max((int)(Color.blue(Pcolor)*FACTOR), 0));               //~1127I~//~v@@@I~//~vak2I~
+    }                                                              //~1127I~//~v@@@I~//~vak2I~
 }//class AjagoUtils                                                //~1309R~

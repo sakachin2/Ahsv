@@ -2,4 +2,9 @@
 <resources>
     <color name="status_bar_color">#FF000000</color>
     <color name="layout_border_color">#FF111111</color>
+    <color name="ic_launcher_background">#3F5DE2</color>
+    <color name="separater">#00bfff</color>  <!--deepSkyBlue-->
+    <color name="separater2">#005900</color>  <!--scroll start-->
+    <color name="smalldevice_title_color">#00bfff</color>  <!--deepSkyBlue-->
+    <color name="title_divider">#00bfff</color>  <!--deepSkyBlue-->
 </resources>

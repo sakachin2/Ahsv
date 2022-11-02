@@ -1,7 +1,8 @@
-//*CID://+1Ah7R~:                             update#=    5;       //~@@@@I~//+1Ah7R~
-//*****************************************************************//+1Ah7I~
-//1Ah7 2020/05/31 Properties.save deprecated at api15, use store.  //+1Ah7I~
-//*****************************************************************//+1Ah7I~
+//*CID://+1ambR~:                             update#=    7;       //~1ambR~
+//*****************************************************************//~1Ah7I~
+//1amb 2022/10/30 deprecated; Java9 new Integer,Boolean,Double-->valueOf//~1ambI~
+//1Ah7 2020/05/31 Properties.save deprecated at api15, use store.  //~1Ah7I~
+//*****************************************************************//~1Ah7I~
 package rene.gui;
 
 //import java.awt.Color;                                           //~1108R~
@@ -200,8 +201,8 @@ public class Global
 	public static synchronized void saveProperties (String text)
 	{	try
 		{	FileOutputStream out=new FileOutputStream(ConfigName);
-//  		P.save(out,text);                                      //+1Ah7R~
-    		P.store(out,text);                                     //+1Ah7I~
+//  		P.save(out,text);                                      //~1Ah7R~
+    		P.store(out,text);                                     //~1Ah7I~
 			out.close();
 		}
 		catch (Exception e)                                        //~1401R~
@@ -264,7 +265,9 @@ public class Global
 		}
 		catch (Exception e)
 		{	try
-			{	double x=new Double(getParameter(key,"")).doubleValue();
+//  		{	double x=new Double(getParameter(key,"")).doubleValue();//~1ambR~
+            {                                                      //~1ambI~
+    		 	double x=Double.valueOf(getParameter(key,"")).doubleValue();//~1ambI~
 				return (int)x;
 			}
 			catch (Exception ex) {}
@@ -276,7 +279,9 @@ public class Global
 	}
 	public static synchronized double getParameter (String key, double def)
 	{	try
-		{	return new Double(getParameter(key,"")).doubleValue();
+//  	{	return new Double(getParameter(key,"")).doubleValue(); //+1ambR~
+    	{                                                          //+1ambI~
+    	 	return Double.valueOf(getParameter(key,"")).doubleValue();//+1ambI~
 		}
 		catch (Exception e)
 		{	return def;

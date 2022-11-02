@@ -93,6 +93,46 @@
                               android:button="@xml/checkbox_mdpi"
     	        android:textSize="12sp"
                     />
+                  </LinearLayout>
+                  <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal"
+                  >
+                      <CheckBox
+                          android:id="@+id/cbBGM"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/cbBGM"
+                                android:button="@xml/checkbox_mdpi"
+                  android:textSize="12sp"
+                      />
+                      <TextView
+                          android:id="@+id/tvBGM"
+                          android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:layout_gravity="center_vertical"
+                          android:layout_weight="1"
+                          android:layout_marginLeft="10dp"
+                          android:text="title"
+    	    		    android:textSize="12sp"
+                      />
+                  </LinearLayout>
+                    <Button
+                        android:id="@+id/btnBGM"             
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/btnBGM"
+                        android:layout_gravity="center_vertical"
+                          android:layout_marginLeft="10dp"
+                    android:background="@android:drawable/btn_default_small"
+                    />
+                  <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal"
+                       android:gravity="center_vertical"
+                  >
                     <CheckBox
                         android:id="@+id/Trace"
                         android:layout_width="fill_parent"

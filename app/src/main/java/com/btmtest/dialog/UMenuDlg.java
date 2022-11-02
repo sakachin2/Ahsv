@@ -1,5 +1,6 @@
-//*CID://+1AhkR~:                             update#=  232;       //~1AhkR~
+//*CID://+1amcR~:                             update#=  234;       //+1amcR~
 //*****************************************************************//~v101I~
+//1amc 2022/10/30 widen menu dialog when landscape                 //+1amcI~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //*****************************************************************//~v@@1I~
 //multichoice option; dismiss control by selected option           //~v@@1I~
@@ -30,7 +31,7 @@ import jagoclient.Dump;
 
 
 //public class UMenuDlg   extends DialogFragment                     //~v@@@R~//~1AhkR~
-public class UMenuDlg                                              //+1AhkR~
+public class UMenuDlg                                              //~1AhkR~
 {                                                                  //~2C29R~
 	private static final String PARM_TITLE="title";                //~v@@@R~
 	private static final String PARM_ITEMSID="items";              //~v@@@I~
@@ -148,8 +149,8 @@ public class UMenuDlg                                              //+1AhkR~
 //**********************************                               //~1AhkI~
     private void showDlg()                                         //~1AhkI~
     {                                                              //~1AhkI~
-	    Dialog dlg=initDialog();                                   //+1AhkR~
-        dlg.show();                                                 //+1AhkR~
+	    Dialog dlg=initDialog();                                   //~1AhkR~
+        dlg.show();                                                 //~1AhkR~
     }                                                              //~1AhkI~
 //**********************************                               //~v@@1I~
 //  @Override                                                      //~v@@@I~//~1AhkR~
@@ -205,7 +206,8 @@ public class UMenuDlg                                              //+1AhkR~
     	AlertDialog ad=(AlertDialog)androidDialog;                 //~v@@1I~
         ad.show();                                                 //~v@@1I~
         int wc=ViewGroup.LayoutParams.WRAP_CONTENT;                //~v@@1M~
-        int minww=(AG.portrait ? AG.scrWidth : AG.scrHeight)/2;     //~v@@1I~
+//      int minww=(AG.portrait ? AG.scrWidth : AG.scrHeight)/2;     //~v@@1I~//+1amcR~
+        int minww=(AG.portrait ? AG.scrWidth/2 : AG.scrWidth/3);   ////+1amcR~
         ad.getWindow().setLayout(minww,wc);                        //~v@@1R~
     }                                                              //~v@@1M~
 //**********************************                               //~v@@1I~

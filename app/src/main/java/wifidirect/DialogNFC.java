@@ -1,5 +1,7 @@
-//*CID://+1Ah7R~:                           update#=  213;         //~1Af2R~//~1Ah7R~
+//*CID://+1amaR~:                           update#=  215;         //+1amaR~
 //*************************************************************************
+//1ama 2022/10/16 deprecated api33; getPercelableExtra;            //+1amaI~
+//1am5 2022/10/29 avdroid12(api31) WifiManager.getConnectionInfo deprecated(NFC was dropped from api29)//~1Am5I~
 //1Ah7 2020/06/01 WpsInfo deprecated at api28                      //~1Ah7I~
 //1Af2 2016/07/06 (Ajagot1w)Msg "Not NFC dialog" is not shown when NFC dialog proceeed to connected dialog//~1Af2I~
 //1Aec 2015/07/26 set connection type for Server                   //~1AecI~
@@ -44,7 +46,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-//import android.net.wifi.WpsInfo;                                 //+1Ah7R~
+//import android.net.wifi.WpsInfo;                                 //~1Ah7R~
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.nfc.NdefMessage;
@@ -60,6 +62,7 @@ import android.view.ViewGroup;
 import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.Alert;
+import com.Ahsv.BT.BTDiscover;
 import com.ForDeprecated.ProgDlg;
 import com.Ahsv.ProgDlgI;
 import com.Ahsv.R;                                                 //~1Af2R~
@@ -264,6 +267,7 @@ public class DialogNFC extends AxeDialog
 	//*************************************************************************
 	//*from WDANFC;macaddr receiver
 	//*************************************************************************
+    @SuppressWarnings("deprecation")                               //~1Am5I~
     public static NdefMessage createNFCMsg(NfcEvent Pevent)
     {
     	if (Dump.Y) Dump.println("DialogNFC:createNFCMsg");
@@ -524,7 +528,8 @@ public class DialogNFC extends AxeDialog
 	//*************************************************************************
     private String getNFCData(Intent Pintent)
     {
-    	Parcelable[] rawmsgs=Pintent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+//    	Parcelable[] rawmsgs=Pintent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);//+1amaR~
+      	Parcelable[] rawmsgs= BTDiscover.getParcelableArrayExtra(Pintent,NfcAdapter.EXTRA_NDEF_MESSAGES);//+1amaI~
         NdefMessage msg=(NdefMessage)rawmsgs[0];
         NdefRecord[] recs=msg.getRecords();
         NdefRecord rec0=recs[0];

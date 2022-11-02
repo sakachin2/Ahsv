@@ -1,13 +1,20 @@
+//*CID://+1amwR~:                             update#=    5;       //~1amwI~
+//*****************************************************************//~1amwI~
+//1amw 2022/11/01 widen bluetooth dialog for landscape             //~1amwI~
+//*****************************************************************//~1amwI~
 package jagoclient.board;
 import com.Ahsv.AG;
 import com.Ahsv.Prop;
-import com.Ahsv.R;                                                 //+0530R~
+import com.Ahsv.R;                                                 //~0530R~
 import com.Ahsv.awt.Checkbox;
 import com.Ahsv.awt.Frame;
+import com.Ahsv.awt.Dialog;                                        //~1amwI~
 
 import jagoclient.dialogs.HelpDialog;
 import jagoclient.gui.ButtonAction;
 import jagoclient.gui.CloseDialog;
+                                                                   //~1amwI~
+import jagoclient.Dump;                                            //~1amwI~
 
 //*CID://+@@@@R~:                             update#=    5;       //~@@@@I~
 
@@ -37,8 +44,23 @@ class GoFrameOptions extends CloseDialog                           //~@@@@I~
         BeepOnly.setState((AG.Options & AG.OPTIONS_BEEP_ONLY)!=0);     //~@@@@I~
         TimerWarning.setState((AG.Options & AG.OPTIONS_TIMER_WARNING)!=0);//~@@@@I~
         ShowLast.setState((AG.Options & AG.OPTIONS_SHOW_LAST)!=0);     //~@@@@I~
+        setDialogWidth((Dialog)this);                              //~1amwI~
 		show();                                                    //~@@@@I~
 	}                                                              //~@@@@I~
+    //********************************************************************//~1amwI~
+	public void setDialogWidth(Dialog Pdlg)                        //~1amwI~
+	{                                                              //~1amwI~
+        if (Dump.Y) Dump.println("GoFrameOptions.setDialogWidth AG.portrait="+AG.portrait+",scrWidth="+AG.scrWidth);//+1amwR~
+    	if (AG.portrait)                                           //~1amwI~
+        {                                                          //~1amwI~
+			setWindowSize(95/*W:95%*/,0/*wrap content,-1:match_parent*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//~1amwI~
+        }                                                          //~1amwI~
+        else                                                       //~1amwI~
+        {                                                          //~1amwI~
+        	int minww=100*2/3;   //75%                             //~1amwI~
+			setWindowSize(minww,0/*wrap content,-1:match_parent*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//~1amwI~
+        }                                                          //~1amwI~
+    }                                                              //~1amwI~
 //*****************************************                        //~@@@@R~
     private void getOptions()                                      //~@@@@I~
     {                                                              //~@@@@I~

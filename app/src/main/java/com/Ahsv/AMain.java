@@ -1,5 +1,13 @@
-//*CID://+1AhjR~:                             update#=   91;       //~1AhjR~
+//*CID://+1amsR~:                             update#=  126;       //~1amsR~
 //**********************************************************************//~v107I~
+//1ams 2022/11/01 control request permission to avoid 1amh/1ami:"null permission result".(W Activity: Can request only one set of permissions at a time)//~1amsI~
+//1ami 2022/10/30 WRITE_EXTERNAL_STORAGE rejected by "Can request only one set of permission" on logcat//~1amiI~
+//1amh 2022/10/30 onRequestPermissionResult may called with result[].length=0 , it cause Dump.E//~1amhI~
+//1am9 2022/10/30 android12(api31) Bluetooth permission is runtime permission//~1Am9I~
+//1ak3 2021/09/10 picker(ACTION_PICK) for API30                    //~1Ak3I~
+//1ak2 2021/09/04 access external audio file                       //~1Ak2I~
+//1ak1 2021/08/27 write Dump.txt to internal cache, it ca be pull by run-as cmd//~1Ak1I~
+//1ak0 2021/08/26 androd11:externalStorage:ScopedStorage           //~1Ak0I~
 //1Ahj 2020/06/05 IP io on mainthread fails by android.os.NetworkOnMainThreadException//~1AhjI~
 //1Ahd 2020/06/03 WifiDirect required PERMISSION_LOCATION          //~1AhdI~
 //1Ah2 2020/05/31 for Android9(Pie)-api28(PlayStore requires),deprected. DialogFragment,Fragmentmanager//~1Ah2I~
@@ -19,6 +27,10 @@
 package com.Ahsv;                                                  //~v107R~//~@@@@R~
 
 import com.Ahsv.awt.Frame;
+import com.btmtest.utils.UFile;
+import com.btmtest.utils.UPermission;
+import com.btmtest.utils.UScoped;
+import com.btmtest.utils.UMediaStore;                              //~1Ak2I~
 import com.btmtest.utils.UView;
 
 import wifidirect.DialogNFC;
@@ -50,8 +62,9 @@ import android.view.Window.Callback;
 //********************************************************************//~1212I~
 public class AMain                                                //~1122R~//~v107R~//~@@@@R~
 //                    extends TabActivity                          //~@@@@R~
-                      extends Activity                             //~@@@@I~//~1Ah2R~
+                      extends Activity                             //~@@@@I~//~1Ah2R~//~1Ak3R~
 //                    extends AppCompatActivity                    //~1Ah2R~
+//                    extends AppCompatActivity                    //~1Ak2I~//~1Ak3R~
 //                    implements OnTabChangeListener               //~@@@@I~
 //                               ,Callback                         //~@@@@I~
                       implements Callback//~1122I~                 //~@@@@R~
@@ -59,7 +72,9 @@ public class AMain                                                //~1122R~//~v1
 //android 4					, CreateNdefMessageCallback, OnNdefPushCompleteCallback//~1A6jR~
 {                                                                  //~1109I~
     public static final int PERMISSION_LOCATION=1;                 //~1Ah1I~
-    public static final int PERMISSION_EXTERNAL_STORAGE=2;         //~1Ah1I~
+    public static final int PERMISSION_EXTERNAL_STORAGE=2;  //Raad+Write       //~1Ah1I~
+    public static final int PERMISSION_EXTERNAL_STORAGE_READ=3; //ReadOnly   //~1Ak2I~
+    public static final int PERMISSION_BLUETOOTH=4; //SCAN and CONNECT//~vam8I~//~1Am9I~
 //    private static boolean destroying=false;                              //~1218I~//~@@@@R~
 //*************************                                        //~1109I~
     /** Called when the activity is first created. */
@@ -69,20 +84,28 @@ public class AMain                                                //~1122R~//~v1
         try                                                        //~1329I~
         {                                                          //~1329I~
             super.onCreate(savedInstanceState);                    //~1329R~
-	        Dump.openExOnlyTerminal();	//write exception only to Terminal//~1Ah1I~
+//          Dump.openExOnlyTerminal();	//write exception only to Terminal//~1Ah1I~//~1Ak0R~
 //          requestWindowFeature(Window.FEATURE_LEFT_ICON);             //~0914R~//~0915R~//~0A09R~//~1312I~//~1A51R~
             AG.init(this);                                         //~1402I~
             if (AG.osVersion<AG.HONEYCOMB)  //<android3=api-11     //~1A51I~
   	          	requestWindowFeature(Window.FEATURE_LEFT_ICON);    //~1A51I~
                                                                    //~1329I~
-            Dump.openEx("dump.dat");	//write exception only     //~1504R~//~@@@@R~
-//          Dump.open("dump.dat");	//write exception only         //~@@@@R~
+        if (AG.isDebuggable)                                          //~1Ah1I~//~1Ak0R~
+        {                                                          //~1Ak0I~
+//          Dump.openEx("dump.dat");	//write exception only     //~1Ak0I~
+//          Dump.open("dump.dat",true/*swSD*/);	//write exception only//~1Ak0R~//~1Ak1R~
+            Dump.open("Dump.txt",false/*swSD*/);	//write to internal dir//~1Ak1R~
+        }                                                          //~1Ak0I~
 	        if(Dump.Y) Dump.println("onCreate");                   //~@@@@I~
                                                                    //~1329I~
             AG.aView=new AView();                             //~1329R~//~v107R~//~@@@@R~
             AG.aMenu=new AMenu();                              //~1125I~//~1329R~//~v107R~//~@@@@R~
             AG.aBT=ABT.createABT();                      //~v107R~ //~@@@@R~
-			IPSubThread.newInstance();                             //+1AhjI~
+			IPSubThread.newInstance();                             //~1AhjI~
+            new UScoped();                                         //~1Ak1I~
+            new UMediaStore();                                     //~1Ak2I~
+//          UFile.chkWritableSD();  //grant SDcard permission      //~1ak0I~//~1Ak0I~//~1amiR~
+            UFile.chkWritableSD();  //grant SDcard permission      //~1amsI~
         }                                                          //~1329I~
         catch(Exception e)                                         //~1329I~
         {                                                          //~1329I~
@@ -94,7 +117,7 @@ public class AMain                                                //~1122R~//~v1
     public void onStart()                                          //~@@@@I~
     {                                                              //~@@@@I~
         super.onStart();                                           //~@@@@I~
-        if(Dump.Y) Dump.println("onStart");                        //~@@@@I~
+        if(Dump.Y) Dump.println("AMain.onStart");                        //~@@@@I~//~1Ak2R~
     }                                                              //~@@@@I~
 //*************************                                        //~@@@@I~
 //    @Override            API11                                   //~@@@@R~
@@ -109,7 +132,7 @@ public class AMain                                                //~1122R~//~v1
         super.onResume();                                          //~v107I~
       try                                                          //~1A65I~
       {                                                            //~1A65I~
-        if(Dump.Y) Dump.println("+ ON RESUME +");                  //~v107I~
+        if(Dump.Y) Dump.println("AMain.onResume");                  //~v107I~//~1Ak2R~
         // Performing this check in onResume() covers the case in which BT was//~v107I~
         // not enabled during onStart(), so we were paused to enable it...//~v107I~
         // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.//~v107I~
@@ -122,7 +145,9 @@ public class AMain                                                //~1122R~//~v1
 //       if (AG.swNFCBT)                                             //~1Ab7I~//~1Ab8R~
 //        DialogNFCSelect.onResume();                                //~1Ab7I~//~1Ab8R~
 //       else                                                        //~1Ab7I~//~1Ab8R~
+		UMediaStore.onResume();                                    //~1Ak2I~
 		WDANFC.onResume();                                         //~1A6bR~
+//  	AG.aUMediaStore.test();	//TODO test                        //~1Ak2R~
       }                                                            //~1A65I~
       catch(Exception e)                                           //~1A65I~
       {                                                            //~1A65I~
@@ -141,7 +166,8 @@ public class AMain                                                //~1122R~//~v1
 //           if (AG.swNFCBT)                                         //~1Ab7I~//~1Ab8R~
 //             DialogNFCSelect.onPause();                            //~1Ab7I~//~1Ab8R~
 //           else                                                    //~1Ab7I~//~1Ab8R~
-			WDANFC.onPause();                                      //~1A6bR~
+			UMediaStore.onPause();                                 //~1Ak2R~
+			WDANFC.onPause();                                      //~1Ak2I~
         	if (AG.aIPSubThread!=null)                             //~1AhjI~
 				AG.aIPSubThread.onPause();                         //~1AhjI~
         }                                                          //~1A65I~
@@ -420,10 +446,22 @@ public class AMain                                                //~1122R~//~v1
 	@Override                                                      //~v107I~
     public void onActivityResult(int requestCode, int resultCode, Intent data) {//~v107I~
         if(Dump.Y) Dump.println("AMain:onActivityResult req="+requestCode+",result="+ resultCode);//~v107I~//~1A6aR~
+      if (requestCode==AG.ACTIVITY_REQUEST_PICKUP_AUDIO)           //~1Ak2I~
+      {                                                            //~1Ak2I~
+        UMediaStore.onActivityResult(requestCode,resultCode,data); //~1Ak2I~
+      }                                                            //~1Ak2I~
+      else                                                         //~1Ak2I~
+      if (requestCode>AG.ACTIVITY_REQUEST_SCOPED && requestCode<AG.ACTIVITY_REQUEST_SCOPED_LAST)//~1Ak1I~
+      {                                                            //~1Ak1I~
+        AG.aUScoped.onActivityResult(requestCode,resultCode,data); //~1Ak1R~
+      }                                                            //~1Ak1I~
+      else                                                         //~1Ak1I~
+      {                                                            //~1Ak1I~
 		if (AG.aBT!=null)                                       //~v107R~//~@@@@R~
 			AG.aBT.activityResult(requestCode,resultCode,data); //~v107R~//~@@@@R~
 //  	if (AG.aWDANFC!=null)                                      //~1A6aR~//~1A6sR~
 //  		AG.aWDANFC.activityResult(requestCode,resultCode,data);//~1A6aR~//~1A6sR~
+      }                                                            //~1Ak1I~
     }                                                              //~v107I~
 //***********************************************************      //~@@@@I~//~@@@2I~//~@@@@I~
     public void destroyClose()                                     //~@@@@I~//~@@@2I~//~@@@@I~
@@ -514,7 +552,13 @@ public class AMain                                                //~1122R~//~v1
 	@Override                                                      //~9930I~//~1AhdI~
     public void onRequestPermissionsResult(int PrequestID,String[] Ptypes,int[] Presults)//~9930I~//~1AhdI~
     {                                                              //~9930I~//~1AhdI~
-        if (Dump.Y) Dump.println("MainActivity.onRequestPermissionResult reqid="+PrequestID+",type="+ Utils.toString(Ptypes)+",result="+Utils.toString(Presults));//~9930I~//~1AhdI~
+        if (Dump.Y) Dump.println("AMain.onRequestPermissionResult reqid="+PrequestID+",result="+Utils.toString(Presults)+",type="+ Utils.toString(Ptypes)+",result="+Utils.toString(Presults));//~9930I~//~1AhdI~//~1amsR~
+        UPermission.onRequestPermissionResult(PrequestID,Ptypes,Presults);//+1amsR~
+        if (Presults.length==0)  //once crashed //TODO              //~1ak4R~//~1amhI~
+        {                                                          //~1ak4I~//~1amhI~
+        	if (Dump.Y) Dump.println("AMain.onRequestPermissionResult@@@@ no data Length=0");//~1ak4I~//~1amhI~
+            return;                                                //~1ak4I~//~1amhI~
+        }                                                          //~1ak4I~//~1amhI~
         boolean granted;                                           //~1AhdI~
         switch(PrequestID)                                         //~9930I~//~1AhdI~
         {                                                          //~9930I~//~1AhdI~
@@ -524,10 +568,28 @@ public class AMain                                                //~1122R~//~v1
             WDA.grantedWifi(granted);                               //~1AhdI~
         	break;                                                 //~9930I~//~1AhdI~
         case PERMISSION_EXTERNAL_STORAGE:                          //~9B09I~//~1AhdI~
-//      	granted=UView.isPermissionGranted(Presults[0]);//~9B09I~//~1AhdI~
+//      	granted=UView.isPermissionGranted(Presults[0]);//~9B09I~//~1AhdI~//~1Ak0R~
 //          UFile.grantedExternalStorage(granted);                 //~9B09I~//~1AhdI~
 //  	    initHistory(false/*PswinitApp*/);	//may not have writable permission,init history by internal storage//~9B09I~//~1AhdI~
+        	granted=UView.isPermissionGranted(Presults[0]);        //~1Ak0I~
+            if (Ptypes.length>1)                                   //~1Ak2M~
+            {                                                      //~1Ak2M~
+        		boolean granted2=UView.isPermissionGranted(Presults[1]);//~1Ak2I~
+        		if (Dump.Y) Dump.println("MainActivity.onRequestPermissionResult granted(Write)="+granted+",granted2(Read)="+granted2);//~1Ak2R~
+//              granted=granted & granted2;                        //~1Ak2R~
+            	UFile.grantedExternalStorage(granted,granted2);    //~1Ak2I~
+            }                                                      //~1Ak2M~
+            else                                                   //~1Ak2I~
+            UFile.grantedExternalStorage(granted);                 //~1Ak0I~
         	break;                                                 //~9B09I~//~1AhdI~
+        case PERMISSION_EXTERNAL_STORAGE_READ:                     //~1Ak2I~
+        	granted=UView.isPermissionGranted(Presults[0]);        //~1Ak2I~
+            UFile.grantedExternalStorageRead(granted);             //~1Ak2I~
+        	break;                                                 //~1Ak2I~
+        case PERMISSION_BLUETOOTH:  //API31                        //~vam8I~//~1Am9I~
+            ABT.grantedPermission(Ptypes,Presults);                //~vas0I~//~1Am9I~
+//          UFile.chkWritableSD();  //grant SDcard permission      //~1amiI~//~1amsR~
+        	break;                                                 //~vam8I~//~1Am9I~
         }                                                          //~9930I~//~1AhdI~
     }                                                              //~9930I~//~1AhdI~
 }//class                                                           //~1A6jR~

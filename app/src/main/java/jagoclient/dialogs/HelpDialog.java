@@ -1,5 +1,6 @@
-//*CID://+1AhgR~:                             update#=   29;       //~1AhgR~
+//*CID://+1ameR~:                             update#=   34;       //~1ameR~
 //*********************************************************************//~v101I~
+//1ame 2022/10/30 add asset and htmp process to jagoclient.HelpDialog//~1ameI~
 //1Ahg 2020/06/03 help text;string to helptext\
 //1Ad1 2015/07/17 for 1Ab1,helpdialog with parm titleid and helpfile//~1Ad1I~
 //1Aa6 2015/04/20 show youtube movie                               //~1Aa6I~
@@ -10,6 +11,12 @@
 package jagoclient.dialogs;
 
 //import java.awt.*;                                               //~1418R~
+import static android.text.Html.*;
+
+import android.annotation.TargetApi;
+import android.text.Html;
+import android.text.Spanned;
+
 import java.io.*;
 
 import com.Ahsv.AG;
@@ -21,6 +28,7 @@ import com.Ahsv.awt.Frame;                                         //~@@@@R~
 import com.Ahsv.awt.Panel;                                         //~@@@@R~
 //import com.Ahsv.rene.viewer.SystemViewer;                        //~1327I~//~@@@@R~
 import com.Ahsv.rene.viewer.Viewer;                              //~1327I~//~@@@@R~
+import com.btmtest.utils.UFile;
 
 import jagoclient.gui.*;
 import jagoclient.Dump;
@@ -55,8 +63,9 @@ public class HelpDialog extends CloseDialog
 //  	V=Global.getParameter("systemviewer",false)?new SystemViewer():new Viewer();//~@@@@R~
 //        V=new Viewer();                                          //~@@@@R~
         V=new Viewer(this,R.id.Viewer);                            //~@@@@I~
-//      if (Ptitleid==R.string.HelpTitle_Mainframe)                //+1AhgR~
-//      	new ButtonAction(this,0,R.id.ButtonYouTube);           //+1AhgR~
+//      if (Ptitleid==R.string.HelpTitle_Mainframe)                //~1AhgR~
+//      	new ButtonAction(this,0,R.id.ButtonYouTube);           //~1AhgR~
+      if (Dump.Y) Dump.println("jagoclient.HelpDialog.constructor");//~1AhgI~
       if (AG.layoutMdpi)                                           //~1A72I~
       {                                                            //~1A72I~
         int fontsz=12;                                             //~1A72I~
@@ -98,7 +107,7 @@ public class HelpDialog extends CloseDialog
 //@@@@  		{	in=Global.getStream("jagoclient/helptexts/"+subject+".txt");//~1327R~
 //  			{	in=Global.getEncodedStream("jagoclient/helptexts/"+subject+".txt");//~1327I~//~1Ad1R~
     			{                                                  //~1Ad1I~
-					AG.tryHelpFileOpen=false;                      //~1Ad1I~
+//  				AG.tryHelpFileOpen=false;                      //~1Ad1I~//+1ameR~
     			 	fnm="helptexts/"+subject+".txt";               //~1Ad1I~
 		            fnms+="\n"+fnm;                                //~1Ad1I~
     			 	in=Global.getEncodedStream(fnm);               //~1Ad1I~
@@ -112,11 +121,16 @@ public class HelpDialog extends CloseDialog
 			in.close();
 		}
 		catch (Exception e)
-		{	new Message(Global.frame(),
+//  	{	new Message(Global.frame(),                            //~1ameR~
+        {                                                          //~1ameI~
+          if (!readAsset(subject,V))                               //~1ameI~
+          {                                                        //~1ameI~
+    	 	new Message(Global.frame(),                            //~1ameI~
 //  			Global.resourceString("Could_not_find_the_help_file_"));//~1Ad1R~
     			Global.resourceString("Could_not_find_the_help_file_")+fnms);//~1Ad1I~
 			doclose();
 			return;
+          }                                                        //~1ameI~
 		}
 		AG.tryHelpFileOpen=false;                                  //~1Ad1I~
 		display();
@@ -200,4 +214,58 @@ public class HelpDialog extends CloseDialog
        		AView.showToast(R.string.Exception);                   //~v1E7I~//~1Aa6I~
 	    }                                                          //~v1E7I~//~1Aa6I~
     }                                                              //~v1E7I~//~1Aa6I~
+    //*******************************************************      //~1ameI~
+	public boolean readAsset(String Pfnm,Viewer Pviewer)              //~1ameI~
+	{                                                              //~1ameI~
+    	if (Dump.Y) Dump.println("jagoclient.HelpDialog.readAsset fnm="+Pfnm);//~1ameI~
+		String txt,htmltxt;
+		boolean rc=true;//~1ameI~
+    //******************************                               //~1ameI~
+//        htmltxt= UFile.getHelpFileExt(Pfnm,".htm",false);        //~1ameR~
+//        if (htmltxt!=null)                                       //~1ameR~
+//        {                                                        //~1ameR~
+//            txt=htmltxt;                                         //~1ameR~
+//            Spanned s;                                           //~1ameR~
+//            if (AG.osVersion>=24) // Nougat:android 7.0          //~1ameR~
+//                s=getHtmlSpanned(txt);                           //~1ameR~
+//            else                                                 //~1ameR~
+//                s=getHtmlSpanned_underN(txt);                    //~1ameR~
+//            if (s==null)                                         //~1ameI~
+//                s="";                                            //~1ameI~
+//            Pviewer.appendLine(s);                               //~1ameR~
+//        }                                                        //~1ameR~
+//        else                                                     //~1ameR~
+//        {                                                        //~1ameR~
+		    txt=UFile.getHelpFileText(Pfnm);               //~1ameI~
+            if (txt==null)                                         //~1ameI~
+            	txt="";                                            //~1ameI~
+        	Pviewer.appendLine(txt);                              //~1ameR~
+//        }                                                        //~1ameR~
+		return rc;//~1ameI~
+    }                                                              //~1ameI~
+//**********************************                               //~1ameI~
+    private String adjustHtml(String Ptxt)                         //~1ameI~
+    {                                                              //~1ameI~
+        String txt;                                                //~1ameI~
+        txt=Ptxt.replaceAll(" ","&nbsp;");                         //~1ameI~
+    	if (Dump.Y) Dump.println("HelpDialog adjustHtml inp="+Ptxt+",out="+txt);//~1ameI~
+        return txt;                                                //~1ameI~
+    }                                                              //~1ameI~
+//**********************************                               //~1ameI~
+	@SuppressWarnings("deprecation")                               //~1ameI~
+    public Spanned getHtmlSpanned_underN(String Ptxt)              //~1ameI~
+    {                                                              //~1ameI~
+    	if (Dump.Y) Dump.println("HelpDialog getHtmlSpanned api<24(Nogaut 7.0) string="+Ptxt);//~1ameI~
+        Spanned s=Html.fromHtml(Ptxt);                             //~1ameI~
+        return s;                                                  //~1ameI~
+	}                                                              //~1ameI~
+//**********************************                               //~1ameI~
+	@TargetApi(24) //android7 Nougat                               //~1ameI~
+    public Spanned getHtmlSpanned(String Ptxt)                     //~1ameI~
+    {                                                              //~1ameI~
+    	if (Dump.Y) Dump.println("HelpDialog getHtmlSpanned api>=24(Nogaut 7.0) string="+Ptxt);//~1ameI~
+        int flag=FROM_HTML_MODE_LEGACY;                            //~1ameI~
+        Spanned s= Html.fromHtml(Ptxt,flag);                        //~1ameI~
+        return s;                                                  //~1ameI~
+    }                                                              //~1ameI~
 }

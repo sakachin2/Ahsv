@@ -1,6 +1,7 @@
-//*CID://+1Ag6R~: update#= 136;                                    //+1Ag6R~
+//*CID://+1ambR~: update#= 137;                                    //+1ambR~
 //**********************************************************************//~1107I~
-//1Ag6 2016/1011  2016/10/09 It is cause of OutOfMemory? AjagoEmpty missed to close input stream//+1Ag6I~
+//1amb 2022/10/16 deprecated; Java9 new Integer,Boolean,Double-->valueOf//+1ambI~
+//1Ag6 2016/1011  2016/10/09 It is cause of OutOfMemory? AjagoEmpty missed to close input stream//~1Ag6I~
 //**********************************************************************//~1107I~
 package com.Ahsv.jagoclient.board;                                         //~1107R~  //~1108R~//~1109R~//~2C26R~//~2C27R~
 
@@ -26,7 +27,8 @@ public class EmptyIO                                            //~1312R~//~2C26
 {                                                                  //~0914I~
 	public Image staticImage;                                      //~1514R~
 	public Image staticShadowImage;                                //~1514R~
-    private static Integer lockword=new Integer(0);                //~1514R~
+//  private static Integer lockword=new Integer(0);                //~1514R~//+1ambR~
+    private static Integer lockword=Integer.valueOf(0);            //+1ambI~
 	public EmptyIO()                                //~0914R~//~dataR~//~1107R~//~1111R~//~1312R~//~2C26R~//~2C27R~//~@@@@R~
     {                                                              //~0914I~
     }                                                              //~0914I~
@@ -46,14 +48,14 @@ public class EmptyIO                                            //~1312R~//~2C26
                     return false;                                  //~1514R~
                 bm=BitmapFactory.decodeStream(is);                 //~1514R~
             }                                                      //~1514I~
-            try                                                    //+1Ag6I~
-            {                                                      //+1Ag6I~
-                is.close();                                        //+1Ag6I~
-            }                                                      //+1Ag6I~
-            catch(IOException e)                                   //+1Ag6I~
-            {                                                      //+1Ag6I~
-                Dump.println(e,"EmptyIO:load close failed"+filename);//+1Ag6I~
-            }                                                      //+1Ag6I~
+            try                                                    //~1Ag6I~
+            {                                                      //~1Ag6I~
+                is.close();                                        //~1Ag6I~
+            }                                                      //~1Ag6I~
+            catch(IOException e)                                   //~1Ag6I~
+            {                                                      //~1Ag6I~
+                Dump.println(e,"EmptyIO:load close failed"+filename);//~1Ag6I~
+            }                                                      //~1Ag6I~
             if (bm==null)                                               //~1312I~
             	return false;                                      //~1312I~
         	if (Dump.Y) Dump.println("Bitmap-load shadow end:"+filename+",bitmap="+((Object)bm).toString());//~1506R~
@@ -66,14 +68,14 @@ public class EmptyIO                                            //~1312R~//~2C26
             	return false;                                      //~1514R~
         	bm=BitmapFactory.decodeStream(is);                     //~1514R~
         }                                                          //~1514I~
-        try                                                        //+1Ag6I~
-        {                                                          //+1Ag6I~
-            is.close();                                            //+1Ag6I~
-        }                                                          //+1Ag6I~
-        catch(IOException e)                                       //+1Ag6I~
-        {                                                          //+1Ag6I~
-            Dump.println(e,"EmptyIO:load close failed"+filename);  //+1Ag6I~
-        }                                                          //+1Ag6I~
+        try                                                        //~1Ag6I~
+        {                                                          //~1Ag6I~
+            is.close();                                            //~1Ag6I~
+        }                                                          //~1Ag6I~
+        catch(IOException e)                                       //~1Ag6I~
+        {                                                          //~1Ag6I~
+            Dump.println(e,"EmptyIO:load close failed"+filename);  //~1Ag6I~
+        }                                                          //~1Ag6I~
         if (bm==null)                                                   //~1312I~
             return false;                                          //~1312I~
         staticImage=new Image(Pw,Ph,bm);                           //~1312I~

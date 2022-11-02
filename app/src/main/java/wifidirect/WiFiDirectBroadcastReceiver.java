@@ -1,5 +1,6 @@
-//*CID://+va40R~:                             update#=   31;       //~va40R~
+//*CID://+1amaR~:                             update#=   34;       //~1amaR~
 //*************************************************************************//~1A65I~
+//1ama 2022/10/30 deprecated api33; getPercelableExtra;            //~1amaI~
 //2020/11/04 va40 of BTMJ5 Android10(api29) upgrade                //~va40I~
 //1Ah8 2020/06/01 detect wifip2p discovery stopped(available from API16 android4.1 JellyBean)//~1Ah8I~
 //1Ac4 2015/07/06 WD:try disable wifi direct at unpair             //~1Ac4I~
@@ -44,6 +45,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.Ahsv.AG;                                                //~1A65I~
 import com.Ahsv.AView;
+import com.Ahsv.BT.BTDiscover;
 import com.Ahsv.R;
 import com.Ahsv.Utils;
 import com.btmtest.utils.UView;
@@ -128,7 +130,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 //              manager.requestPeers(channel, (PeerListListener) activity.getFragmentManager()//~1A65R~
 //                      .findFragmentById(R.id.frag_list));        //~1A65R~
 //                      if (ActivityCompat.checkSelfPermission(AG.context,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)//~va40R~
-                        if (!UView.isPermissionGrantedLocation())  //+va40R~
+                        if (!UView.isPermissionGrantedLocation())  //~va40R~
                         {                                          //~va40R~
                             // TODO: Consider calling              //~va40R~
                             //    ActivityCompat#requestPermissions//~va40R~
@@ -153,7 +155,8 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                         Dump.println("WiFiDirectBroadCastReceiver:onReceive:P2P connection changed");//~1A65I~
                     //~va40I~
                     boolean swPaired;                                        //~va40I~
-                    WifiP2pInfo p2pinfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);//~va40I~
+//                  WifiP2pInfo p2pinfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);//~va40I~//~1amaR~
+          	        WifiP2pInfo p2pinfo = getParcelableExtraWD(intent,WifiP2pManager.EXTRA_WIFI_P2P_INFO);//~vat2I~//+1amaR~
                     swPaired = p2pinfo.groupFormed;                        //~va40I~
                     if (Dump.Y)
                         Dump.println("WiFiDirectBroadcastReceiver.onReceive swPaired=" + swPaired + ",WifiP2pInfo=" + Utils.toString(p2pinfo));//~va40I~
@@ -174,7 +177,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                             Dump.println("WiFiDirectBroadCastReceiver:onReceive:requestConnectionInfo");//~1A65I~
                         manager.requestConnectionInfo(channel, fragment);
 //                      if (ActivityCompat.checkSelfPermission(AG.context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)//~va40R~
-                        if (!UView.isPermissionGrantedLocation())  //+va40R~
+                        if (!UView.isPermissionGrantedLocation())  //~va40R~
                         {                                          //~va40I~
                             // TODO: Consider calling
                             //    ActivityCompat#requestPermissions
@@ -195,7 +198,8 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 //          DeviceListFragment fragment = (DeviceListFragment) activity.getFragmentManager()//~1A65R~
 //                  .findFragmentById(R.id.frag_list);             //~1A65R~
             DeviceListFragment fragment = WDA.getDeviceListFragment();//~1A65R~
-            fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(
+//          fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(//~1amaR~
+            fragment.updateThisDevice((WifiP2pDevice) getParcelableExtraDeviceWD(intent,//~vat2I~//+1amaR~
                     WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
 
         }
@@ -205,4 +209,56 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
       	Dump.println(e,"WiFiDirectBroadcastReceiver:onReceive");   //~1A65R~
       }                                                            //~1A65I~
     }
+    //*********************************************************    //~vat2M~//+1amaI~
+	@SuppressWarnings("deprecation")                               //~vat2M~//+1amaI~
+    public static WifiP2pInfo getParcelableExtraWD(Intent Pintent,String PitemName)//~vat2M~//+1amaI~
+    {                                                              //~vat2M~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtraWD itemName="+PitemName+",intent="+Pintent);//~vat2M~//+1amaI~
+        WifiP2pInfo p2pinfo;                                       //~vat2M~//+1amaI~
+        if (AG.osVersion>=33)  //android4                          //~vat2M~//+1amaI~
+        {                                                          //~vat2M~//+1amaI~
+    		p2pinfo=getParcelableExtraWD33(Pintent,PitemName);     //~vat2M~//+1amaI~
+        }                                                          //~vat2M~//+1amaI~
+        else                                                       //~vat2M~//+1amaI~
+        {                                                          //~vat2M~//+1amaI~
+			p2pinfo = Pintent.getParcelableExtra(PitemName);        //~vat2M~//+1amaI~
+    	}                                                          //~vat2M~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtraWD pwpInfo="+p2pinfo);//~vat2M~//+1amaI~
+        return p2pinfo;                                             //~vat2M~//+1amaI~
+    }                                                              //~vat2M~//+1amaI~
+    //*********************************************************    //~vat2M~//+1amaI~
+    @TargetApi(33)                                                 //~vat2M~//+1amaI~
+    private static WifiP2pInfo getParcelableExtraWD33(Intent Pintent,String PitemName)//~vat2M~//+1amaI~
+    {                                                              //~vat2M~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtraWD33 itemName="+PitemName+",intent="+Pintent);//~vat2M~//+1amaI~
+		WifiP2pInfo p2pinfo=Pintent.getParcelableExtra(PitemName,WifiP2pInfo.class);//~vat2M~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtra33 pwpInfo="+p2pinfo);//~vat2M~//+1amaI~
+        return p2pinfo;                                                //~vat2M~//+1amaI~
+    }                                                              //~vat2M~//+1amaI~
+    //*********************************************************    //~vat2I~//+1amaI~
+	@SuppressWarnings("deprecation")                               //~vat2I~//+1amaI~
+    public static WifiP2pDevice getParcelableExtraDeviceWD(Intent Pintent,String PitemName)//~vat2I~//+1amaI~
+    {                                                              //~vat2I~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtraDeviceWD itemName="+PitemName+",intent="+Pintent);//~vat2I~//+1amaI~
+        WifiP2pDevice dev;                                         //~vat2I~//+1amaI~
+        if (AG.osVersion>=33)  //android4                          //~vat2I~//+1amaI~
+        {                                                          //~vat2I~//+1amaI~
+    		dev=getParcelableExtraDeviceWD33(Pintent,PitemName);   //~vat2I~//+1amaI~
+        }                                                          //~vat2I~//+1amaI~
+        else                                                       //~vat2I~//+1amaI~
+        {                                                          //~vat2I~//+1amaI~
+			dev=Pintent.getParcelableExtra(PitemName);             //~vat2I~//+1amaI~
+    	}                                                          //~vat2I~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtraWD dev="+dev);//~vat2I~//+1amaI~
+        return dev;                                            //~vat2I~//+1amaI~
+    }                                                              //~vat2I~//+1amaI~
+    //*********************************************************    //~vat2I~//+1amaI~
+    @TargetApi(33)                                                 //~vat2I~//+1amaI~
+    private static WifiP2pDevice getParcelableExtraDeviceWD33(Intent Pintent,String PitemName)//~vat2I~//+1amaI~
+    {                                                              //~vat2I~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtraDeviceWD33 itemName="+PitemName+",intent="+Pintent);//~vat2I~//+1amaI~
+		WifiP2pDevice dev=Pintent.getParcelableExtra(PitemName,WifiP2pDevice.class);//~vat2I~//+1amaI~
+        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtraDevice33 dev="+dev);//~vat2I~//+1amaI~
+        return dev;                                                //~vat2I~//+1amaI~
+    }                                                              //~vat2I~//+1amaI~
 }

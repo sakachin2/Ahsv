@@ -1,6 +1,7 @@
-//*CID://+1AhiR~:                             update#=  160;       //+1AhiR~
+//*CID://+1amwR~:                             update#=  161;       //+1amwR~
 //**********************************************************************************//~1A36I~
-//1Ahi 2020/06/05 display ip addr on ipconnection waiting msg      //+1AhiI~
+//1amw 2022/11/01 widen bluetooth/wifidirect/ipconnection dialog for landscape//+1amwI~
+//1Ahi 2020/06/05 display ip addr on ipconnection waiting msg      //~1AhiI~
 //1Ahg 2020/06/03 help text;string to helptext\
 //1Ahf 2020/06/03 write EditPartner not at connect but OK button   //~1AhfI~
 //1Af9 2016/07/12 (Ajagoc)Additional to Server/Partner List update fuction, undelete.//~1Af9I~
@@ -128,7 +129,10 @@ public class IPConnection extends CloseDialog
 				(AG.layoutMdpi/*mdpi and height or width <=320*/ ? R.layout.ipconnection_mdpi : R.layout.ipconnection),//~1A61R~
 				true,false);                                       //~1A61I~
 //      setWindowSize(90/*W:90%*/,0/*H=wrap content*/,true/*for landscape,use ScrHeight for width limit*/);//~1A68R~//~1A6qR~
+      if (AG.portrait)                                             //+1amwI~
         setWindowSize(90/*W:90%*/,0/*H=wrap content*/,!AG.layoutMdpi/*for landscape,use ScrHeight for width limit if not mdpi*/);//~1A6qI~
+      else                                                         //+1amwI~
+        setWindowSize(100*2/3/*W:75%*/,0/*H=wrap content*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//+1amwI~
 //        GF=Pgf;                                                    //~3105R~//~v101R~
         F=Pgf;                                                     //~v101I~
 		partnerprefix=AG.resource.getString(R.string.PartnerNamePeer)+"-";//~1A6nI~
@@ -781,15 +785,15 @@ public class IPConnection extends CloseDialog
         {                                                          //~v101I~
         	String n="";                                           //~v101I~
         	int p=0;                                               //~v101I~
-        	String s="";                                           //+1AhiI~
+        	String s="";                                           //~1AhiI~
         	if (partner!=null) // try connecting to this partner server, if not trying already//~v101I~
         	{                                                      //~v101I~
 	            n=partner.Name;                                    //~v101I~
                 p=partner.Port;                                    //~v101I~
-                s=partner.Server;                                  //+1AhiI~
+                s=partner.Server;                                  //~1AhiI~
             }                                                      //~v101I~
-//          String msg=AG.resource.getString(R.string.Msg_WaitingIPConnect,n,p);//~v101I~//+1AhiR~
-            String msg=AG.resource.getString(R.string.Msg_WaitingIPConnect2,n,s,p);//+1AhiI~
+//          String msg=AG.resource.getString(R.string.Msg_WaitingIPConnect,n,p);//~v101I~//~1AhiR~
+            String msg=AG.resource.getString(R.string.Msg_WaitingIPConnect2,n,s,p);//~1AhiI~
 			waitingResponse(R.string.Title_WaitingConnect,msg);    //~v101R~
 			connectPartner();                                      //~v101I~
         }                                                          //~v101I~

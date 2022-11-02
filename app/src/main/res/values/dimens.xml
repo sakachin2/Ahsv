@@ -1,0 +1,16 @@
+<resources>
+    <dimen name="smallfont_buttonheight_dialog_button">36dp</dimen>
+    <dimen name="smallfont_textsize_dialog_button">12sp</dimen>
+    <dimen name="smallfont_textsize_dialog_radiobutton">10sp</dimen>
+    <dimen name="smallfont_textsize_dialog_checkbox">10sp</dimen>
+    <dimen name="smallfont_textsize_dialog_textview">10sp</dimen>
+    <dimen name="smallfont_textsize_title">16sp</dimen>
+    <dimen name="smallfont_textsize_dialog_edittext">14sp</dimen>
+    <dimen name="rb_textsize">12sp</dimen>
+    <dimen name="cb_textsize">12sp</dimen>
+    <dimen name="tv_textsize">12sp</dimen>
+    <dimen name="smalldevice_title_textsize">20sp</dimen>
+    <dimen name="dlg_button_height">30dp</dimen>
+    <dimen name="btn_land_height">36dp</dimen>
+    <dimen name="btn_land_textsize">12sp</dimen>
+</resources>

@@ -1,5 +1,6 @@
-//*CID://+1AebR~:                             update#=  105;       //~1AebR~
+//*CID://+1Am1R~:                             update#=  106;       //+1Am1R~
 //********************************************************************************//~v101I~
+//1am1 2022/10/29 android12 API31; bluetooth.getDefaultAdapter deprecated//+1Am1I~
 //1Aeb*2015/07/26 When Ahsv BT conecction active Ajagoc BT connection fail by "RFCOMM_CreateConnection - already opened state:2, RFC state:4, MCB state:5"//~1AebI~
 //1AbZ 2015/07/05 BT:try for pairing loop;cancel discovery not before connect but after connected//~1AbZI~
 //1AbN 2015/07/03 BT:(BUG)"ASSERT btif_dm.c unhandled search devicve"(cancelDiscovery at not discovering status)//~1AbNI~
@@ -42,7 +43,7 @@ import java.util.UUID;
 
 import com.Ahsv.AG;
 import com.Ahsv.AView;
-import com.Ahsv.R;                                                 //+1AebR~
+import com.Ahsv.R;                                                 //~1AebR~
 
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
@@ -112,7 +113,8 @@ public class BTService {                                           //~@@@@I~
      */
 //  public BluetoothChatService(Context context, Handler handler) {//~@@@@R~
     public BTService(Context context, Handler handler) {           //~@@@@I~
-        mAdapter = BluetoothAdapter.getDefaultAdapter();
+//      mAdapter = BluetoothAdapter.getDefaultAdapter();           //+1Am1R~
+        mAdapter = BTControl.getDefaultAdapter();                  //~vam3I~//+1Am1I~
         mState = STATE_NONE;
         mHandler = handler;
     }
@@ -873,7 +875,8 @@ public class BTService {                                           //~@@@@I~
         }                                                          //~v101I~
         else                                                       //~v101I~
         {                                                          //~v101I~
-        	BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();//~v101I~
+//      	BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();//~v101I~//+1Am1R~
+        	BluetoothAdapter adapter=BTControl.getDefaultAdapter();//~vam3I~//+1Am1I~
 			sa=getDeviceList(adapter);                             //~v101I~
         }                                                          //~v101I~
         if (Dump.Y) Dump.println("BTService getPairDevice end");   //~v101R~

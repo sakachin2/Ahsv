@@ -1,5 +1,6 @@
-//*CID://+1AhgR~:                             update#=   20;       //+1AhgR~
+//*CID://+1amwR~:                             update#=   21;       //+1amwR~
 //**********************************************************************//~v101I~
+//1amw 2022/11/01 widen bluetooth/wifidirect/ipconnection dialog for landscape//+1amwI~
 //1Ahg 2020/06/03 help text;string to helptext\
 //1Aab 2015/04/22 1Aa7 for local game                              //~1AabI~
 //1Aa9 2015/04/21 (BUG)Button of GameQuestion except Help dose not work after ChangeBK button//~1Aa8I~
@@ -21,6 +22,7 @@ import com.Ahsv.AG;
 import com.Ahsv.AView;
 import com.Ahsv.R;                                                 //~1AabR~
 import com.Ahsv.awt.Checkbox;
+import com.Ahsv.awt.Dialog;                                        //+1amwI~
 //import jagoclient.gui.ButtonAction;                              //~2C26R~
 import jagoclient.Dump;
 import jagoclient.dialogs.HelpDialog;
@@ -145,10 +147,25 @@ public class BoardQuestion extends CloseDialog
         new ButtonAction(this,0,R.id.Help);                     //~2C30I~//~3118R~//~3208R~//~v101I~
         btnChangeBK=new ButtonAction(this,0,R.id.ChangeBKButton);  //~1Aa7I~
         btnChangeBK.setEnabled((GameOptions & GameQuestion.GAMEOPT_POSNOTFIX)!=0);//~1Aa7I~
+        setDialogWidth((Dialog)this);                              //+1amwI~
 		validate();
 		show();
 	}
-	
+    //********************************************************************//+1amwI~
+	public void setDialogWidth(Dialog Pdlg)                        //+1amwI~
+	{                                                              //+1amwI~
+        if (Dump.Y) Dump.println("BoardQuestion.setDialogWidth AG.portrait="+AG.portrait+",scrWidth="+AG.scrWidth);//+1amwI~
+    	if (AG.portrait)                                           //+1amwI~
+        {                                                          //+1amwI~
+			setWindowSize(95/*W:95%*/,0/*wrap content,-1:match_parent*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//+1amwI~
+        }                                                          //+1amwI~
+        else                                                       //+1amwI~
+        {                                                          //+1amwI~
+        	int minww=100*2/3;   //75%                             //+1amwI~
+			setWindowSize(minww,0/*wrap content,-1:match_parent*/,false/*for landscape,use ScrHeight for width limit if not mdpi*/);//+1amwI~
+        }                                                          //+1amwI~
+    }                                                              //+1amwI~
+    //********************************************************************//+1amwI~
 	public void doAction (String o)
 	{                                                              //~2C26R~
 //        Global.notewindow(this,"boardquestion");                 //~2C26I~
@@ -176,8 +193,8 @@ public class BoardQuestion extends CloseDialog
 		}
         else if (o.equals(AG.resource.getString(R.string.Help)))   //~2C30I~
 		{                                                          //~2C30I~
-//			new HelpDialog(null,R.string.Help_BoardQuestion);           //~2C30I~//+1AhgR~
-  			new HelpDialog(null,R.string.Title_BoardQuestion,"BoardQuestion");//+1AhgI~
+//			new HelpDialog(null,R.string.Help_BoardQuestion);           //~2C30I~//~1AhgR~
+  			new HelpDialog(null,R.string.Title_BoardQuestion,"BoardQuestion");//~1AhgI~
 		}                                                          //~2C30I~
         else if (o.equals(AG.resource.getString(R.string.ChangeBKButton)))//~1Aa7I~
 		{                                                          //~1Aa7I~

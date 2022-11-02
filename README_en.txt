@@ -32,6 +32,7 @@ but optional in this variant.
    (Note)Support of mixed use of Wi-Fi and Wi-Fi Direct depends device type.
          It may cause too slow response or disturb telephone function.
 
+V124 2022/11/02 revision for Android13(Api33)
 V122 2020/12/06 revision for Android10.
 V121 2020/06/07 revision for Android9.
 V100 2013/01/30 

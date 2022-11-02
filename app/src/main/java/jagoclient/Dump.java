@@ -1,6 +1,9 @@
-//*CID://+1Ah4R~:                                   update#=   49; //+1Ah4R~
+//*CID://+1Ak2R~:                                   update#=   54; //~1Ak1R~//+1Ak2R~
 //***********************************************                  //~@@@1I~
-//1Ah4 2020/05/31 openFileOutput:MODE_WORLD_READABLE deprecated at api17//+1Ah4I~
+//1ak2 2021/09/04 access external audio file                       //+1Ak2I~
+//1ak1 2021/08/27 write Dump.txt to internal cache, it ca be pull by run-as cmd//~1Ak1I~
+//1ak0 2021/08/26 androd11:externalStorage:ScopedStorage           //~1Ak0I~
+//1Ah4 2020/05/31 openFileOutput:MODE_WORLD_READABLE deprecated at api17//~1Ah4I~
 //1Ah2 2020/05/31 for Android9(Pie)-api28(PlayStore requires),deprected. DialogFragment,Fragmentmanager//~1Ah2I~
 //1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
 //1Ab9 2015/05/09 Dump byte[]                                      //~1Ab9I~
@@ -70,6 +73,8 @@ public class Dump
 	public static void open(String Pfile,boolean PswSD)            //~1Ad8I~
 	{                                                              //~1Ad8I~
     	swSD=PswSD;                                                //~1Ad8I~
+//      if (swSD)                                                  //~1Ak0I~//~1Ak1R~
+            Terminal=false;                                        //~1Ak0I~
 		open(Pfile);                                               //~1Ad8I~
     }                                                              //~1Ad8I~
     //**************************************************************//~1Ad8I~
@@ -96,8 +101,11 @@ public class Dump
 			    if (swSD)                                          //~1Ad8I~
 					out = UFile.openOutputSD("",file); // /sdcard//~1Ad8I~
                 else                                               //~1Ad8I~
-//					out = UFile.openOutputData(file, Context.MODE_WORLD_READABLE); // ../files//~1Ad8R~//+1Ah4R~
-  					out = UFile.openOutputData(file, Context.MODE_PRIVATE); // ../files//+1Ah4I~
+                {                                                  //~1Ak1I~
+//					out = UFile.openOutputData(file, Context.MODE_WORLD_READABLE); // ../files//~1Ad8R~//~1Ah4R~
+//					out = UFile.openOutputData(file, Context.MODE_PRIVATE); // ../files//~1Ah4I~//~1Ak1R~
+	                out=UFile.openOutputDataCacheDir(file);  // ../cache//~1Ak1I~
+                }                                                  //~1Ak1I~
 				if (out != null)                                     //~1Ad8R~
 				{//~1313R~                                         //~1Ad8R~
 					Out = new PrintWriter(new OutputStreamWriter(out, "UTF-8"), true/*autoFlash*/);//~1227I~//~1309R~//~1Ad8R~
@@ -290,6 +298,29 @@ public class Dump
         }                                                          //~1B0gI~//~1Ad8I~
 	}                                                              //~1B0gI~//~1Ad8I~
     //**************************************************************//~1Ad8I~
+	public synchronized static void println(NoClassDefFoundError e,String s)//+1Ak2I~
+	{                                                              //+1Ak2I~
+	    String tidts=Utils.getThreadTimeStamp();                   //+1Ak2I~
+        if (Terminal)                                              //+1Ak2I~
+        {                                                          //+1Ak2I~
+            StringWriter sw=new StringWriter();                    //+1Ak2I~
+            PrintWriter pw= new PrintWriter(sw);                   //+1Ak2I~
+            e.printStackTrace(pw);                                 //+1Ak2I~
+			System.out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//+1Ak2I~
+			pw.close();                                            //+1Ak2I~
+        }                                                          //+1Ak2I~
+        else                                                       //+1Ak2I~
+  		if (Out!=null)                                             //+1Ak2I~
+        {                                                          //+1Ak2I~
+            StringWriter sw=new StringWriter();                    //+1Ak2I~
+            PrintWriter pw= new PrintWriter(sw);                   //+1Ak2I~
+            e.printStackTrace(pw);                                 //+1Ak2I~
+			Out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//+1Ak2I~
+			Out.flush();                                           //+1Ak2I~
+			pw.close();                                            //+1Ak2I~
+        }                                                          //+1Ak2I~
+	}                                                              //+1Ak2I~
+    //**************************************************************//+1Ak2I~
 	/** dump a string without linefeed */
 	public static void print (String s)
 	{                                                              //~1504R~

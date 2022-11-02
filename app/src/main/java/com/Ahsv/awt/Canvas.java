@@ -1,5 +1,6 @@
-//*CID://+1Ag9R~: update#= 413;                                    //~1Ag9R~
+//*CID://+1ambR~: update#= 414;                                    //+1ambR~
 //**********************************************************************//~1107I~
+//1amb 2022/10/16 deprecated; Java9 new Integer,Boolean,Double-->valueOf//+1ambI~
 //1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//~1Ag9I~
 //                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//~1Ag9I~
 //1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
@@ -31,7 +32,7 @@ import com.Ahsv.AKeyI;                                       //~1401I~//~@@@@R~
 import com.Ahsv.UiThreadI;                                         //~@@@@R~
 import com.Ahsv.Utils;                                             //~@@@@R~
 import com.Ahsv.AView;                                             //~@@@@R~
-import com.Ahsv.R;                                                 //~@@@@R~//+1Ag9R~
+import com.Ahsv.R;                                                 //~@@@@R~//~1Ag9R~
 import com.Ahsv.awt.Dimension;                                     //~@@@@R~
 import com.Ahsv.awt.Image;                                         //~@@@@R~
 import com.Ahsv.awt.KeyListener;                                 //~1117I~//~@@@@R~
@@ -294,7 +295,9 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
 //**********************************************************       //~@@@2I~
     public void drawCaptured(int Premains)                         //~@@@2R~
     {                                                              //~@@@2I~
-        enqRequest(new BoardRequest(BOARD_DRAW_CAPTURED,new Integer(Premains),null));//~@@@2R~
+//      enqRequest(new BoardRequest(BOARD_DRAW_CAPTURED,new Integer(Premains),null));//~@@@2R~//+1ambR~
+        Integer voi=Integer.valueOf(Premains);                     //+1ambI~
+        enqRequest(new BoardRequest(BOARD_DRAW_CAPTURED,voi,null));//+1ambI~
     }                                                              //~@@@2I~
 
 //**********************************************************       //~1217I~
