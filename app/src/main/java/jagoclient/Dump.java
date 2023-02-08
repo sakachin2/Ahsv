@@ -1,6 +1,6 @@
-//*CID://+1Ak2R~:                                   update#=   54; //~1Ak1R~//+1Ak2R~
+//*CID://+1Ak2R~:                                   update#=   56; //~1Ak1R~//~1Ak2R~
 //***********************************************                  //~@@@1I~
-//1ak2 2021/09/04 access external audio file                       //+1Ak2I~
+//1ak2 2021/09/04 access external audio file                       //~1Ak2I~
 //1ak1 2021/08/27 write Dump.txt to internal cache, it ca be pull by run-as cmd//~1Ak1I~
 //1ak0 2021/08/26 androd11:externalStorage:ScopedStorage           //~1Ak0I~
 //1Ah4 2020/05/31 openFileOutput:MODE_WORLD_READABLE deprecated at api17//~1Ah4I~
@@ -99,7 +99,7 @@ public class Dump
 			{                                                          //~1227R~//~1Ad8I~
                 FileOutputStream out;
 			    if (swSD)                                          //~1Ad8I~
-					out = UFile.openOutputSD("",file); // /sdcard//~1Ad8I~
+    				out = UFile.openOutputSD("",file); // /sdcard//~1Ad8I~
                 else                                               //~1Ad8I~
                 {                                                  //~1Ak1I~
 //					out = UFile.openOutputData(file, Context.MODE_WORLD_READABLE); // ../files//~1Ad8R~//~1Ah4R~
@@ -298,29 +298,29 @@ public class Dump
         }                                                          //~1B0gI~//~1Ad8I~
 	}                                                              //~1B0gI~//~1Ad8I~
     //**************************************************************//~1Ad8I~
-	public synchronized static void println(NoClassDefFoundError e,String s)//+1Ak2I~
-	{                                                              //+1Ak2I~
-	    String tidts=Utils.getThreadTimeStamp();                   //+1Ak2I~
-        if (Terminal)                                              //+1Ak2I~
-        {                                                          //+1Ak2I~
-            StringWriter sw=new StringWriter();                    //+1Ak2I~
-            PrintWriter pw= new PrintWriter(sw);                   //+1Ak2I~
-            e.printStackTrace(pw);                                 //+1Ak2I~
-			System.out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//+1Ak2I~
-			pw.close();                                            //+1Ak2I~
-        }                                                          //+1Ak2I~
-        else                                                       //+1Ak2I~
-  		if (Out!=null)                                             //+1Ak2I~
-        {                                                          //+1Ak2I~
-            StringWriter sw=new StringWriter();                    //+1Ak2I~
-            PrintWriter pw= new PrintWriter(sw);                   //+1Ak2I~
-            e.printStackTrace(pw);                                 //+1Ak2I~
-			Out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//+1Ak2I~
-			Out.flush();                                           //+1Ak2I~
-			pw.close();                                            //+1Ak2I~
-        }                                                          //+1Ak2I~
-	}                                                              //+1Ak2I~
-    //**************************************************************//+1Ak2I~
+	public synchronized static void println(NoClassDefFoundError e,String s)//~1Ak2I~
+	{                                                              //~1Ak2I~
+	    String tidts=Utils.getThreadTimeStamp();                   //~1Ak2I~
+        if (Terminal)                                              //~1Ak2I~
+        {                                                          //~1Ak2I~
+            StringWriter sw=new StringWriter();                    //~1Ak2I~
+            PrintWriter pw= new PrintWriter(sw);                   //~1Ak2I~
+            e.printStackTrace(pw);                                 //~1Ak2I~
+			System.out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//~1Ak2I~
+			pw.close();                                            //~1Ak2I~
+        }                                                          //~1Ak2I~
+        else                                                       //~1Ak2I~
+  		if (Out!=null)                                             //~1Ak2I~
+        {                                                          //~1Ak2I~
+            StringWriter sw=new StringWriter();                    //~1Ak2I~
+            PrintWriter pw= new PrintWriter(sw);                   //~1Ak2I~
+            e.printStackTrace(pw);                                 //~1Ak2I~
+			Out.println(tidts+"Dump.Exception:"+s+"\n"+sw.toString());//~1Ak2I~
+			Out.flush();                                           //~1Ak2I~
+			pw.close();                                            //~1Ak2I~
+        }                                                          //~1Ak2I~
+	}                                                              //~1Ak2I~
+    //**************************************************************//~1Ak2I~
 	/** dump a string without linefeed */
 	public static void print (String s)
 	{                                                              //~1504R~

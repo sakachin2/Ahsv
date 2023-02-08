@@ -31,7 +31,7 @@ public class  AKey                                                      //~1114I
         //**********************                           //~v@@@I~//~1116I~
         try                                                        //~1430I~
         {                                                          //~1430I~
-            if (Dump.Y) Dump.println("Onky keycode="+Pkeycode+",viewid="+Integer.toString(Pview.getId(),16)+",isfocus="+Pview.isFocused()); //~v@@@I~//~1116I~//~1506R~
+            if (Dump.Y) Dump.println("AKey.Onkey keycode="+Pkeycode+",viewid="+Integer.toString(Pview.getId(),16)+",isfocus="+Pview.isFocused()); //~v@@@I~//~1116I~//~1506R~//+2B04R~
             action=Pevent.getAction();                          //~v@@@R~//~1430R~
             switch(action)                                     //~v@@@I~//~1430R~
             {                                                  //~v@@@I~//~1430R~
@@ -245,51 +245,51 @@ public class  AKey                                                      //~1114I
         return rc;   //android process                             //~1212R~
     }                                                              //~1212I~
 //*******************************************                      //~1212I~
-//*OnKeyUp from AMain (regardless View)                            //~1212I~//~2C26R~//~2C27R~//+3117R~
+//*OnKeyUp from AMain (regardless View)                            //~1212I~//~2C26R~//~2C27R~//~3117R~
 //*******************************************                      //~1212I~
     public static boolean onTouch(int Paction,Point Ppoint)        //~1212I~
     {                                                              //~1212I~
-//        int xx,yy,xxmenu,titlebarheight;                           //~1422R~//+3117R~
-//        Point titlebarpos;                                         //~1413R~//+3117R~
-//    //****************                                             //~1412I~//+3117R~
-//        if (Dump.Y) Dump.println("OnTouch(No View) action="+Paction+" point=("+Ppoint.x+","+Ppoint.y+")");//~1506R~//+3117R~
-//        xx=Ppoint.x; yy=Ppoint.y;                                  //~1412I~//+3117R~
-//        titlebarpos=AView.getTitleBarPosition();              //~1413I~//~2C27R~//+3117R~
-//        titlebarheight=titlebarpos.y-titlebarpos.x;                //~1422I~//+3117R~
-//        if (yy>=titlebarpos.x && yy<titlebarpos.y)                 //~1413R~//+3117R~
-//        {                                                          //~1412I~//+3117R~
-//            if (Paction==MotionEvent.ACTION_UP) //Up               //~1413R~//+3117R~
-//            {                                                      //~1412I~//+3117R~
-//                int elapsed=Utils.getElapsedTimeMillis(Utils.TSID_TITLE_TOUCH);//~1412I~//~2C27R~//+3117R~
-//                boolean swLongPress=elapsed>AG.TIME_LONGPRESS;     //~1412I~//+3117R~
-//                if (swLongPress)                                   //~1412I~//+3117R~
-//                {                                                  //~1412I~//+3117R~
-//                    AG.activity.openOptionsMenu();                             //~1412I~//+3117R~
-//                    return true;                                   //~1412I~//+3117R~
-//                }                                                  //~1412I~//+3117R~
-//                xxmenu=titlebarheight*2;                           //~1422R~//+3117R~
-//                if (xx<xxmenu)                                     //~1412R~//+3117R~
-//                    Window.wrapFrameByTouch(-1);                   //~1412R~//+3117R~
-//                else                                               //~1412R~//+3117R~
-//                if (xx>=AG.scrWidth-xxmenu*2)                      //~1504R~//+3117R~
-//                {                                                  //~1504I~//+3117R~
-////                    if (xx>AG.scrWidth-xxmenu                      //~1504I~//~2C27R~//+3117R~
-////                    &&  !AG.portrait                               //~1504R~//~2C27R~//+3117R~
-////                    &&  AG.getCurrentFrame().framelayoutresourceid==AG.frameId_LocalViewer//~1504I~//~2C27R~//+3117R~
-////                    )                                              //~1504I~//~2C27R~//+3117R~
-////                        ;   //avoid near the setstone button       //~1504I~//~2C27R~//+3117R~
-////                    else                                           //~1504I~//~2C27R~//+3117R~
-//                        Window.wrapFrameByTouch(1);                //~1504I~//+3117R~
-//                }                                                  //~1504I~//+3117R~
-//                else                                               //~1412R~//+3117R~
-//                    AG.aMenu.showContextMenu();                //~1412R~//~2C27R~//+3117R~
-//            }                                                      //~1412I~//+3117R~
-//            else                                                   //~1412I~//+3117R~
-//            if (Paction==MotionEvent.ACTION_DOWN)   //Down         //~1413R~//+3117R~
-//            {                                                      //~1412I~//+3117R~
-//                Utils.setTimeStamp(Utils.TSID_TITLE_TOUCH);         //~1412I~//~2C27R~//+3117R~
-//            }                                                      //~1412I~//+3117R~
-//        }                                                          //~1412I~//+3117R~
+//        int xx,yy,xxmenu,titlebarheight;                           //~1422R~//~3117R~
+//        Point titlebarpos;                                         //~1413R~//~3117R~
+//    //****************                                             //~1412I~//~3117R~
+//        if (Dump.Y) Dump.println("OnTouch(No View) action="+Paction+" point=("+Ppoint.x+","+Ppoint.y+")");//~1506R~//~3117R~
+//        xx=Ppoint.x; yy=Ppoint.y;                                  //~1412I~//~3117R~
+//        titlebarpos=AView.getTitleBarPosition();              //~1413I~//~2C27R~//~3117R~
+//        titlebarheight=titlebarpos.y-titlebarpos.x;                //~1422I~//~3117R~
+//        if (yy>=titlebarpos.x && yy<titlebarpos.y)                 //~1413R~//~3117R~
+//        {                                                          //~1412I~//~3117R~
+//            if (Paction==MotionEvent.ACTION_UP) //Up               //~1413R~//~3117R~
+//            {                                                      //~1412I~//~3117R~
+//                int elapsed=Utils.getElapsedTimeMillis(Utils.TSID_TITLE_TOUCH);//~1412I~//~2C27R~//~3117R~
+//                boolean swLongPress=elapsed>AG.TIME_LONGPRESS;     //~1412I~//~3117R~
+//                if (swLongPress)                                   //~1412I~//~3117R~
+//                {                                                  //~1412I~//~3117R~
+//                    AG.activity.openOptionsMenu();                             //~1412I~//~3117R~
+//                    return true;                                   //~1412I~//~3117R~
+//                }                                                  //~1412I~//~3117R~
+//                xxmenu=titlebarheight*2;                           //~1422R~//~3117R~
+//                if (xx<xxmenu)                                     //~1412R~//~3117R~
+//                    Window.wrapFrameByTouch(-1);                   //~1412R~//~3117R~
+//                else                                               //~1412R~//~3117R~
+//                if (xx>=AG.scrWidth-xxmenu*2)                      //~1504R~//~3117R~
+//                {                                                  //~1504I~//~3117R~
+////                    if (xx>AG.scrWidth-xxmenu                      //~1504I~//~2C27R~//~3117R~
+////                    &&  !AG.portrait                               //~1504R~//~2C27R~//~3117R~
+////                    &&  AG.getCurrentFrame().framelayoutresourceid==AG.frameId_LocalViewer//~1504I~//~2C27R~//~3117R~
+////                    )                                              //~1504I~//~2C27R~//~3117R~
+////                        ;   //avoid near the setstone button       //~1504I~//~2C27R~//~3117R~
+////                    else                                           //~1504I~//~2C27R~//~3117R~
+//                        Window.wrapFrameByTouch(1);                //~1504I~//~3117R~
+//                }                                                  //~1504I~//~3117R~
+//                else                                               //~1412R~//~3117R~
+//                    AG.aMenu.showContextMenu();                //~1412R~//~2C27R~//~3117R~
+//            }                                                      //~1412I~//~3117R~
+//            else                                                   //~1412I~//~3117R~
+//            if (Paction==MotionEvent.ACTION_DOWN)   //Down         //~1413R~//~3117R~
+//            {                                                      //~1412I~//~3117R~
+//                Utils.setTimeStamp(Utils.TSID_TITLE_TOUCH);         //~1412I~//~2C27R~//~3117R~
+//            }                                                      //~1412I~//~3117R~
+//        }                                                          //~1412I~//~3117R~
         return false;   //android process                          //~1212I~
     }                                                              //~1212I~
 }//class                                                           //~1114I~

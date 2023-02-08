@@ -1,4 +1,4 @@
-//*CID://+1amfR~: update#= 190;                                    //~vak2R~//~1amfR~
+//*CID://+1amfR~: update#= 191;                                    //~vak2R~//~1amfR~
 //**********************************************************************//~1107I~
 //1amf 2022/10/30 deprecated api33; PackageManager.getAplicationInfo//~vat2I~//~1amfI~
 //1ak3 2021/09/10 picker(ACTION_PICK) for API30                    //~vak2I~
@@ -57,7 +57,7 @@ public class Utils                                            //~1309R~//~@@@@R~
 //**********************************                               //~@@@@I~
 	public static void stopFinish()		//from Alert by Stop:Yes   //~@@@2I~
     {                                                              //~@@@2I~
-    	if (Dump.Y) Dump.println("AjagoUtils stopFinish");         //~@@@2I~
+    	if (Dump.Y) Dump.println("Utils stopFinish");         //~@@@2I~//+1amfR~
        try                                                        //~@@@2I~
         {                                                          //~@@@2I~
         	AG.aMain.destroyClose();                               //~@@@2R~
@@ -71,7 +71,7 @@ public class Utils                                            //~1309R~//~@@@@R~
 //**********************************                               //~1211I~
 	public static void exit(int Pexitcode)	//from Mainframe:doclose()                         //~1309I~//~@@@2R~
     {                                                              //~1309I~
-    	if (Dump.Y) Dump.println("AjagoUtils exit()");//~1309I~//~1506R~//~@@@2R~
+    	if (Dump.Y) Dump.println("Utils exit()");//~1309I~//~1506R~//~@@@2R~//+1amfR~
 		finish();                                                  //~1309R~
     }                                                              //~1309I~
 //*******************************************************          //~@@@@R~
@@ -79,19 +79,19 @@ public class Utils                                            //~1309R~//~@@@@R~
 //*******************************************************          //~@@@@I~
 	public static void exit(int Pexitcode,boolean Pkill)           //~1329I~
     {                                                              //~1329I~
-    	if (Dump.Y) Dump.println("AjagoUtils kill exit() code="+Pexitcode+",kill="+Pkill);//~1506R~//~@@@2R~
+    	if (Dump.Y) Dump.println("Utils kill exit() code="+Pexitcode+",kill="+Pkill);//~1506R~//~@@@2R~//+1amfR~
         if (Pkill)                                                 //~1329I~
         {                                                          //~1503I~
 //            System.runFinalizersOnExit(true);   //depricated unsafe//~@@@@R~
 //            System.exit(Pexitcode);                                //~1329I~//~@@@@R~
-    		if (Dump.Y) Dump.println("AjagoUtils kill exit() killProcess");//~@@@2I~
+    		if (Dump.Y) Dump.println("Utils kill exit() killProcess");//~@@@2I~//+1amfR~
             Dump.close();                                          //~1503I~//~@@@2M~
             android.os.Process.killProcess(android.os.Process.myPid());                  //~@@@@I~//~@@@2R~
 //**          finish only,check static is reused                   //~@@@2I~
         }                                                          //~1503I~
 //        else                                                       //~@@@@I~//~@@@2R~
 //        {                                                        //~@@@2R~
-//            if (Dump.Y) Dump.println("AjagoUtils kill exit() exit()");//~@@@2R~
+//            if (Dump.Y) Dump.println("Utils kill exit() exit()");//~@@@2R~//+1amfR~
 ////            exit(Pexitcode);                                           //~1329I~//~@@@@R~//~@@@2R~
 //        }                                                        //~@@@2R~
 //        finish();                                                //~@@@2R~
@@ -101,14 +101,14 @@ public class Utils                                            //~1309R~//~@@@@R~
 //**********************************                               //~@@@@I~
 //    public static void finish()                                         //~1309I~//~@@@@R~
 //    {                                                              //~1309I~//~@@@@R~
-//        if (Dump.Y) Dump.println("AjagoUtils finish requested "+finished);//~1506R~//~@@@@R~
+//        if (Dump.Y) Dump.println("Utils finish requested "+finished);//~1506R~//~@@@@R~//+1amfR~
 //        if (finished)                                              //~1309M~//~@@@@R~
 //            return ;                                               //~1309M~//~@@@@R~
 //        AG.aMain.destroyClose();                                 //~@@@@R~
 //        AG.aMain.finish();                                        //~1309I~//~@@@@R~
-//        if (Dump.Y) Dump.println("AjagoUtils context finish request");//~1506R~//~@@@@R~
+//        if (Dump.Y) Dump.println("Utils context finish request");//~1506R~//~@@@@R~//+1amfR~
 //        sleep(1200);//wait subtread termination  1.2sec            //~1503R~//~@@@@R~
-//        if (Dump.Y) Dump.println("AjagoUtils context finish request after sleep 1200");//~1506R~//~@@@@R~
+//        if (Dump.Y) Dump.println("Utils context finish request after sleep 1200");//~1506R~//~@@@@R~//+1amfR~
 //        Dump.close();                                              //~1503I~//~@@@@R~
 //        finished=true;                                             //~1309I~//~@@@@R~
 //    }                                                              //~1309I~//~@@@@R~
@@ -165,7 +165,7 @@ public class Utils                                            //~1309R~//~@@@@R~
             return 0;                                              //~1412I~
         long t=System.currentTimeMillis();                         //~1412I~
         Stimestamp[Pid]=t;                                         //~1412I~
-    	if (Dump.Y) Dump.println("AjagoUtils setTimeStamp id="+Pid+",ts="+Long.toHexString(t));//~1506R~
+    	if (Dump.Y) Dump.println("Utils setTimeStamp id="+Pid+",ts="+Long.toHexString(t));//~1506R~//+1amfR~
         return t;                                                  //~1412I~
     }                                                              //~1412I~
 	public static int getElapsedTimeMillis(int Pid)                //~1412I~
@@ -175,9 +175,9 @@ public class Utils                                            //~1309R~//~@@@@R~
         if (Stimestamp[Pid]==0)                                    //~1413I~
             return 0;                                              //~1413I~
         long t=System.currentTimeMillis();                         //~1412I~
-    	if (Dump.Y) Dump.println("AjagoUtils getElapsed now id="+Pid+",ts="+Long.toHexString(t));//~1506R~
+    	if (Dump.Y) Dump.println("Utils getElapsed now id="+Pid+",ts="+Long.toHexString(t));//~1506R~//+1amfR~
         int  elapsed=(int)(t-Stimestamp[Pid]);                     //~1412I~
-    	if (Dump.Y) Dump.println("AjagoUtils getElapsetTimeMillis id="+Pid+",ts="+Integer.toHexString(elapsed));//~1506R~
+    	if (Dump.Y) Dump.println("Utils getElapsetTimeMillis id="+Pid+",ts="+Integer.toHexString(elapsed));//~1506R~//+1amfR~
         Stimestamp[Pid]=0;                                         //~1413I~
         return elapsed;                                            //~1412I~
     }                                                              //~1412I~
@@ -458,7 +458,7 @@ public class Utils                                            //~1309R~//~@@@@R~
         if (ia!=null)                                              //~@@@2M~//~1A8bI~
         {                                                          //~@@@2M~//~1A8bI~
 	        ipa=ia.getHostAddress();              //~@@@2R~        //~1A8bI~
-	        if (Dump.Y) Dump.println("AjagoUtils:getRemoteIPAddr="+ipa+",name="+ia.getHostName());//~@@@2I~//~1A8bI~
+	        if (Dump.Y) Dump.println("Utils:getRemoteIPAddr="+ipa+",name="+ia.getHostName());//~@@@2I~//~1A8bI~//+1amfR~
         }                                                          //~@@@2M~//~1A8bI~
         if (ipa==null)                                             //~1A8bI~
         {                                                          //~1A8bI~
@@ -474,7 +474,7 @@ public class Utils                                            //~1309R~//~@@@@R~
         if (ia!=null)                                              //~1A6sI~//~1A8bI~
         {                                                          //~1A6sI~//~1A8bI~
 	        ipa=ia.getHostAddress();               //~1A6sI~       //~1A8bI~
-	        if (Dump.Y) Dump.println("AjagoUtils:getLocalIPAddr="+ipa+",name="+ia.getHostName());//~1A8bI~
+	        if (Dump.Y) Dump.println("Utils:getLocalIPAddr="+ipa+",name="+ia.getHostName());//~1A8bI~//+1amfR~
         }                                                          //~1A6sI~//~1A8bI~
         if (ipa==null)                                             //~1A8bI~
         {                                                          //~1A8bI~
@@ -568,13 +568,13 @@ public class Utils                                            //~1309R~//~@@@@R~
         if (Dump.Y) Dump.println("Utils.toString(String[][]) out="+s);//~1Ah1I~
         return s;                                                  //~1Ah1I~
     }                                                              //~1Ah1I~
-    //*************************************************            //+1amfI~
-    public static String toString(int[] Psa2)                      //+1amfI~
-    {                                                              //+1amfI~
-        if (Psa2==null)                                            //+1amfI~
-        	return "null";                                         //+1amfI~
-        return Arrays.toString(Psa2);                              //+1amfI~
-    }                                                              //+1amfI~
+    //*************************************************            //~1amfI~
+    public static String toString(int[] Psa2)                      //~1amfI~
+    {                                                              //~1amfI~
+        if (Psa2==null)                                            //~1amfI~
+        	return "null";                                         //~1amfI~
+        return Arrays.toString(Psa2);                              //~1amfI~
+    }                                                              //~1amfI~
     //*************************************************            //~1Ah1I~
     public static String toString(int[][] Psa2)                    //~1Ah1I~
     {                                                              //~1Ah1I~
@@ -763,4 +763,4 @@ public class Utils                                            //~1309R~//~@@@@R~
              Math.max((int)(Color.green(Pcolor)*FACTOR), 0),                //~1127I~//~v@@@I~//~vak2I~
              Math.max((int)(Color.blue(Pcolor)*FACTOR), 0));               //~1127I~//~v@@@I~//~vak2I~
     }                                                              //~1127I~//~v@@@I~//~vak2I~
-}//class AjagoUtils                                                //~1309R~
+}//class Utils                                                //~1309R~//+1amfR~

@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ahsv</string>
     <string name="app_nameE">Ahsv</string>
-    <string name="Version">V1.24</string>
+    <string name="Version">V1.25</string>
     <string name="AppTitle">%1$s : %2$s  (%3$s)</string>
 
     <string name="NoRegisteredContextMenu">"No menu regsitered for this Panel."</string>
@@ -749,8 +749,9 @@
 		<item>@string/Cancel</item>
 	</string-array>
     <string name="RequestPickupDocumentSaveDir">After (re-)installation, it is required to set the folder to save game data.\n
-Select %1$s on the dialog shown next.\n
-If at first installation, add the folder on the dialog.
+Select \"%1$s\" and push \"USE THIS FOLDER\" on the dialog shown next.\n
+Depending Android\'s version, you may have to back to parent folder.\n
+If at first installation, create \"%1$s\" on the dialog.
 	</string>
     <string name="RequestPickupDocumentSaveDirCanceled">"it was canceled to set the folder to save game data.\n
 Re-install this APP to try to set again.
@@ -766,4 +767,5 @@ Re-install this APP to try to set again.
     <string name="ErrInvalidAudioSelection">%1$s is not Audio file</string>
 
     <string name="failedBluetoothPermissionType">Bluetooth permission(%1$s) is not granted. Bluetooth is not available.</string>
+    <string name="InvalidScopedFolder">\"Download\" is not available from Android11, re-select other folder</string>
 </resources>

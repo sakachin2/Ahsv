@@ -1,4 +1,4 @@
-//*CID://+1AmaR~:                             update#=   59;       //~1AmaR~
+//*CID://+1AmaR~:                             update#=   60;       //~1AmaR~
 //*************************************************************************//~v101I~
 //1ama 2022/10/16 deprecated api33; getPercelableExtra;            //~1AmaI~
 //1am2 2022/10/29 android12 API31; bluetooth.getName/getBondState deprecated//~1Am2I~
@@ -363,8 +363,8 @@ public class BTDiscover extends BroadcastReceiver                 //~@@@@R~
             else                                                   //~1AbGI~
             if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action))//~1AbGI~
             {                                                      //~1AbGI~
-//              BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//~1AbGI~//+1AmaR~
-                BluetoothDevice device = getParcelableExtra(intent,BluetoothDevice.EXTRA_DEVICE);//+1AmaI~
+//              BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//~1AbGI~//~1AmaR~
+                BluetoothDevice device = getParcelableExtra(intent,BluetoothDevice.EXTRA_DEVICE);//~1AmaI~
                 String name="";                                    //~1AbGI~
                 String addr="";                                    //~1AbGI~
                 if (device!=null)                                  //~1AbGI~
@@ -520,8 +520,8 @@ public class BTDiscover extends BroadcastReceiver                 //~@@@@R~
 	@TargetApi(15)                                                 //~1AbGI~
 	private void process_ActionUuid15(Intent intent)               //~1AbGI~
     {                                                              //~1AbGI~
-//      BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//~1AbGI~//+1AmaR~
-        BluetoothDevice device = getParcelableExtra(intent,BluetoothDevice.EXTRA_DEVICE);//+1AmaI~
+//      BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//~1AbGI~//~1AmaR~
+        BluetoothDevice device = getParcelableExtra(intent,BluetoothDevice.EXTRA_DEVICE);//~1AmaI~
         String name="";                                            //~1AbGI~
         String addr="";                                            //~1AbGI~
         if (device!=null)                                          //~1AbGI~
@@ -619,7 +619,7 @@ public class BTDiscover extends BroadcastReceiver                 //~@@@@R~
 	@SuppressWarnings("deprecation")                               //~vat2I~//~1AmaI~
     public static BluetoothDevice getParcelableExtra(Intent Pintent,String PitemName)//~vat2I~//~1AmaI~
     {                                                              //~vat2I~//~1AmaI~
-        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtra itemName="+PitemName+",intent="+Pintent);//~vat2I~//~1AmaI~
+        if (Dump.Y) Dump.println("BTDiscover.getParcelableExtra itemName="+PitemName+",intent="+Pintent);//~vat2I~//+1AmaR~
     	BluetoothDevice dev;                                       //~vat2I~//~1AmaI~
         if (AG.osVersion>=33)  //android4                          //~vat2I~//~1AmaI~
         {                                                          //~vat2I~//~1AmaI~
@@ -629,7 +629,7 @@ public class BTDiscover extends BroadcastReceiver                 //~@@@@R~
         {                                                          //~vat2I~//~1AmaI~
     		dev=Pintent.getParcelableExtra(PitemName);             //~vat2I~//~1AmaI~
     	}                                                          //~vat2I~//~1AmaI~
-        if (Dump.Y) Dump.println("BTDiscover.getPercelableExtra dev="+dev);//~vat2I~//~1AmaI~
+        if (Dump.Y) Dump.println("BTDiscover.getParcelableExtra dev="+dev);//~vat2I~//+1AmaR~
         return dev;                                                //~vat2I~//~1AmaI~
     }                                                              //~vat2I~//~1AmaI~
     //*********************************************************    //~vat2I~//~1AmaI~

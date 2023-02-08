@@ -736,8 +736,9 @@
 		<item>@string/Cancel</item>
 	</string-array>
     <string name="RequestPickupDocumentSaveDir">(再)インストールにより、ゲームデータの存先を設定する必要があります。\n
-次に表示されるダイアログで %1$s を選択してください。\n
-初めての場合は、そのダイアログでフォルダーを追加作成してください。
+次に表示されるダイアログで \"%1$s\" を\"このフォルダーを使用\"としてください。\n
+アンドロイドのバージョンによっては、親フォルダに戻る必要があるかもしれません。\n
+初めての場合は、そのダイアログで \"%1$s\" を追加作成してください。
 	</string>
     <string name="RequestPickupDocumentSaveDirCanceled">"ゲームデータの保存先の設定がキャンセルされました。\n
 再設定する場合は、アプリを再インストールしてください。
@@ -753,4 +754,5 @@
     <string name="ErrInvalidAudioSelection">%1$s はオーディオファイルでは有りません</string>
 
     <string name="failedBluetoothPermissionType">Bluetooth権限(%1$s)を取得できませんでした。Bluetoothは使えません。</string>
+    <string name="InvalidScopedFolder">Android11から\"Download\"は使用できません。他のフォルダーを指定し直してください</string>
 </resources>

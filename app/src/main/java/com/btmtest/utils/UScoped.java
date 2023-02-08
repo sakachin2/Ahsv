@@ -1,5 +1,9 @@
-//*CID://+1amgR~:                             update#=  219;       //~1amqR~//~1amgR~
+//*CID://+1an4R~:                             update#=  227;       //~1an4R~
 //************************************************************************//~v102I~
+//1an4 2023/02/04 try request uri permission if uri was saved to shared-preference at installation==>no permission granted for takepersistent, abandon this//~1an4I~
+//1an3 2023/02/03 BTMJ:2023/01/30 vavA ACTION_OPEN_DOCUMENT permission request but while Alert open, execute ContentResolver.query. it cause Dump//~1an3I~
+//1an2 2023/02/03 BTMJ:2023/01/24 vave reject Download in selection at Install. (Download is not allowd for scopred storage for ACTION_OPEN_DOCUMENT_TREE from android11(API30)(Scoped is from android10))//~1an2I~
+//1an1 2023/02/03 BTMJ:2023/01/23 vava (Bug)Download is not allowd for scopred storage for ACTION_OPEN_DOCUMENT_TREE from android11(API30)(Scoped is from android10)//~1an1I~
 //1amq 2022/10/31 Scoped storage is from android10(Api29) ;swScopedTEs should be false//~1amqI~
 //1amm 2022/10/31 (BUG)duplicated alert for document folder specification//~1amgI~
 //1amg 2022/10/30 (Bug) scoped record is written by testing        //~1amgR~
@@ -114,6 +118,7 @@ public class UScoped                                                 //~v@@@R~//
     {                                                              //~1ak0I~
         if (Dump.Y) Dump.println(CN+"initComp strUri="+PstrUri);   //~1ak0R~
         uriSaveDir=Uri.parse(PstrUri);                             //~1ak0I~
+//      setUriPermission(PstrUri,uriSaveDir);                      //+1an4R~
 		boolean rc=confirmPermission(uriSaveDir,false/*swAction*/);//~1ak0R~
         if (!rc)                                                   //~1ak0I~
         {                                                          //~1ak0I~
@@ -161,6 +166,34 @@ public class UScoped                                                 //~v@@@R~//
 	    if (Dump.Y) Dump.println(CN+"chkPermission rc="+rc);       //~1ak0R~
         return rc;                                                 //~1ak0I~
     }                                                              //~1ak0I~
+//********************************************************         //~1an4I~
+	private boolean setUriPermission(String PstrUri,Uri Puri)      //~1an4I~
+    {                                                              //~1an4I~
+	    if (Dump.Y) Dump.println(CN+"setUriPermission strUri="+PstrUri);//~1an4I~
+    	boolean rc=chkPermission(Puri);                            //~1an4I~
+        if (!rc)                                                   //~1an4I~
+        {                                                          //~1an4I~
+            requestUriPermission(Puri);                            //~1an4I~
+        	if (PstrUri.endsWith(AG.appNameE))                     //~1an4I~
+            {                                                      //~1an4I~
+			    if (Dump.Y) Dump.println(CN+"setUriPermission request takeParsistableUriPermission");//~1an4I~
+            	int flags=Intent.FLAG_GRANT_READ_URI_PERMISSION+Intent.FLAG_GRANT_WRITE_URI_PERMISSION;//~1an4I~
+        		CR.takePersistableUriPermission(Puri,flags);  //remember across device reboot//~1an4I~
+		    	rc=chkPermission(Puri);                            //~1an4I~
+            }                                                      //~1an4I~
+        }                                                          //~1an4I~
+	    if (Dump.Y) Dump.println(CN+"setUriPermission exit rc="+rc);//~1an4I~
+        return rc;                                                 //~1an4I~
+    }                                                              //~1an4I~
+//********************************************************         //~1an4I~
+	private void requestUriPermission(Uri Puri)                  //~1an4I~
+    {                                                              //~1an4I~
+        String pkg=AG.context.getPackageName();                       //~1an4I~
+	    if (Dump.Y) Dump.println(CN+"requestUriPermission pkg="+pkg);//~1an4I~
+        int flags=Intent.FLAG_GRANT_READ_URI_PERMISSION+Intent.FLAG_GRANT_WRITE_URI_PERMISSION;//~1an4I~
+        AG.context.grantUriPermission(pkg,Puri,flags);              //~1an4I~
+	    if (Dump.Y) Dump.println(CN+"reuestUriPermission exit");//~1an4I~
+    }                                                              //~1an4I~
 //********************************************************         //~1ak0I~
 	public static boolean isScoped()                               //~1ak0I~
     {                                                              //~1ak0I~
@@ -239,8 +272,17 @@ public class UScoped                                                 //~v@@@R~//
         	if (Presult== Activity.RESULT_OK) //-1                 //~1ak0R~
             {                                                      //~1ak0I~
             	Uri uri=Pdata.getData();                        //~1ak0I~
+		      if (isValidScopedFolder(uri))                        //~1an2I~
+              {                                                    //~1an2I~
 				initComp(uri);                                     //~1ak0I~
 				treeOpened(uri);                              //~1ak0I~
+//              UFile.transferSDToScoped();                        //~1an2R~
+              }                                                    //~1an2I~
+              else                                                 //~1an2I~
+              {                                                    //~1an2I~
+	          	UView.showToastLong(R.string.InvalidScopedFolder); //~1an2I~
+            	startPicker();                                     //~1an2I~
+              }                                                    //~1an2I~
             }                                                      //~1ak0I~
             else                                                   //~1ak0I~
             {                                                      //~1ak0I~
@@ -275,7 +317,7 @@ public class UScoped                                                 //~v@@@R~//
 //              if (docs.length>1)                                 //~1ak0I~//~1amgR~
 //                  readDocument(docs[1]);                         //~1ak0I~//~1amgR~
 //              writeDocument(Puri,docs);                          //~1ak0R~
-            if (false)           //TODO test                       //+1amgR~
+            if (false)           //TODO test                       //~1amgR~
             {                                                      //~1amgI~
 	            writeDocument("Dump10.txt","Over"); //Test         //~1ak0R~//~1amgR~
 	            readDocument("Dump10.txt");         //Test         //~1ak0I~//~1amgR~
@@ -696,12 +738,18 @@ public class UScoped                                                 //~v@@@R~//
 //********************************************************         //~1ak0M~
 //** rc :true yet confirmed, false:requested confirm               //~1ak0M~
 //********************************************************         //~1ak0M~
-	public boolean chkDocumentSaveDir()                            //~1ak0M~
+//	public boolean chkDocumentSaveDir()                            //~1ak0M~//~1an2R~
+   	private boolean chkDocumentSaveDir()                           //~1an2I~
     {                                                              //~1401I~//~v@@@R~//~1ak0M~
     	boolean rc=false;                                          //~1ak0M~
 	    if (Dump.Y) Dump.println(CN+"chkDocumentSaveDir");         //~1ak0R~
 	    String strUri= Prop.getPreference(PREFKEY_SAVE_DIR,"");    //~1ak0M~
 		if (Dump.Y) Dump.println(CN+"chkDocumentSaveDir getPreference strUri="+strUri);//~1ak0R~
+        if (!isValidScopedFolder(strUri))                          //~1an1I~
+        {                                                          //~1an1I~
+          	UView.showToastLong(R.string.InvalidScopedFolder);     //~1an1I~
+	        strUri="";                                             //~1an1I~
+        }                                                          //~1an1I~
         if (strUri.compareTo("")==0)	//1st time                 //~1ak0M~
         {                                                          //~1ak0M~
 			requestDocumentTree(true/*swInstall*/);                //~1ak0R~
@@ -710,13 +758,28 @@ public class UScoped                                                 //~v@@@R~//
         {                                                          //~1ak0M~
         	initComp(strUri);                                      //~1ak0R~
 		    if (Dump.Y) Dump.println(CN+"chkDocumentSaveDir uriSaveDir="+uriSaveDir);//~1ak0R~
-            getTreeMember(uriSaveDir,FILTER_HISTORY);	//using query//~1ak0R~
+//          getTreeMember(uriSaveDir,FILTER_HISTORY);	//using query//~1ak0R~//~1an3R~
 			treeOpened(uriSaveDir);                                //~1ak0I~
             rc=true;                                               //~1ak0M~
         }                                                          //~1ak0M~
 	    if (Dump.Y) Dump.println(CN+"chkDocumentSaveDir rc="+rc);  //~1ak0R~
         return rc;
     }                                                              //~1ak0M~
+//********************************************************         //~1an1I~
+    private boolean isValidScopedFolder(String PstrUri)            //~1an1I~
+    {                                                              //~1an1I~
+        boolean rc=!(PstrUri.contains("Download") && PstrUri.contains("tree"));//~1an1I~
+	    if (Dump.Y) Dump.println(CN+"isValidScopedFolder rc="+rc+",strUri="+PstrUri);//~1an1I~
+        return rc;                                                 //~1an1I~
+    }                                                              //~1an1I~
+//********************************************************         //~1an2R~
+    private boolean isValidScopedFolder(Uri Puri)                  //~1an2R~
+    {                                                              //~1an2R~
+	    if (Dump.Y) Dump.println(CN+"isValidScopedFolder Puri="+Puri);//~1an2R~
+        String strUri=Puri.toString();                             //~1an2R~
+        boolean rc=isValidScopedFolder(strUri);                    //~1an2R~
+        return rc;                                                 //~1an2R~
+    }                                                              //~1an2R~
 //********************************************************         //~1ak0I~
 	private String getMemberPath(String Pmember)                   //~1ak0I~
     {                                                              //~1ak0I~
