@@ -1,6 +1,8 @@
-//*CID://+1ambR~: update#= 414;                                    //+1ambR~
+//*CID://+1ap3R~: update#= 431;                                    //~1ap3R~
 //**********************************************************************//~1107I~
-//1amb 2022/10/16 deprecated; Java9 new Integer,Boolean,Double-->valueOf//+1ambI~
+//1ap3 2025/03/15 square device                                    //~1ap3I~
+//1ap2 2025/03/14 API35:edgemode support                           //~1ap2I~
+//1amb 2022/10/16 deprecated; Java9 new Integer,Boolean,Double-->valueOf//~1ambI~
 //1Ag9 2016/10/11 2016/10/09 (Ajagoc)Bitmap OutOfMemory;JNI Global reference remains..java//~1Ag9I~
 //                try to clear ref to bitmap from Image:fieldBitmap, Graphics:targetBitmap, android.Graphics.Canvas(<--Image:androidCanvas, Graphics:androidCanvas)//~1Ag9I~
 //1Ad8 2015/07/21 (Asgts)//1A4h 2014/12/03 catch OutOfMemory(Ajagot1w)//1B0g//~1Ad8I~
@@ -33,7 +35,7 @@ import com.Ahsv.UiThreadI;                                         //~@@@@R~
 import com.Ahsv.Utils;                                             //~@@@@R~
 import com.Ahsv.AView;                                             //~@@@@R~
 import com.Ahsv.R;                                                 //~@@@@R~//~1Ag9R~
-import com.Ahsv.awt.Dimension;                                     //~@@@@R~
+import com.btmtest.utils.UView;                                     //~@@@@R~
 import com.Ahsv.awt.Image;                                         //~@@@@R~
 import com.Ahsv.awt.KeyListener;                                 //~1117I~//~@@@@R~
 import com.Ahsv.awt.FontMetrics;                                   //~@@@@R~
@@ -55,6 +57,8 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
 {                                                                  //~0914I~
 	private static final String ACTION_SETSTONE="SetStone";        //~1424R~
 	private static final int ENQ_OVERFLOW_LIMIT=5;                 //~1427R~
+    private static final double RATE_SHRINK_SQUARE_PORT=0.70;      //~1ap3R~
+    private static final double RATE_SHRINK_SQUARE_LAND=0.80;      //+1ap3R~
 	private Graphics graphics;		//Ajagoc.Graphic               //~1504R~
 	private Font font;                                             //~1421R~
 	private ImageCanvas imageCanvas;                               //~1421R~
@@ -81,6 +85,7 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
     protected Frame canvasFrame;                                     //~1503I~
     private static boolean SshortcutDirectionKey=false;                  //~1507R~//~@@@2R~
     private boolean swInactive;                                    //~@@@2I~
+    public static int squareMargin;                                //~1ap3R~
 	private ArrayList<Bitmap> recycleMyStack;                      //~@@@2I~
 //******************************                                   //~1217I~
 //  public Canvas()                                                //~1117R~//~v101R~
@@ -96,7 +101,8 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
         FrameLayout layout=(FrameLayout)canvasFrame.findViewById(AG.viewId_BoardPanel);//~v101I~
         if (Dump.C) Dump.println("Canvas:framelayout="+layout.toString());//~1506R~//~1A6AR~
 		boardsz=getBoardSize();                                    //~1414R~
-        ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(boardsz,boardsz);//~1221I~
+//      ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(boardsz,boardsz);//~1221I~//~1ap2R~
+        FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(boardsz,boardsz);//~1ap2I~
         boardImageCopy=createImage(boardsz,boardsz);               //~1421I~
         if (boardImageCopy==null)                                  //~1B0gI~//~1Ad8I~
         {                                                          //~1B0gI~//~1Ad8I~
@@ -109,6 +115,31 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
         imageCanvas=new ImageCanvas(this);                         //~1226R~
         componentView=imageCanvas;	//for requestFocus()           //~1420I~
         if (Dump.C) Dump.println("Canvas:imageCanvas="+imageCanvas.toString());//~1506R~//~1A6AR~
+        if (AG.swEdgeToEdgeMode)                                   //~1ap2I~
+        {                                                          //~1ap2I~
+            int top=UView.getActionBarHeight();                        //~1ap2R~
+            int left=AG.scrSystembarLeft;                     //~1ap2I~
+          if (Canvas.squareMargin!=0)                              //~1ap3I~
+          {                                                        //~1ap3I~
+          	if (AG.portrait)                                       //~1ap3I~
+            	left+=Canvas.squareMargin;                         //~1ap3R~
+            else                                                   //~1ap3I~
+            	top+=Canvas.squareMargin;                          //~1ap3I~
+          }                                                        //~1ap3I~
+	        lp.setMargins(left/*left*/,top/*top*/,0/*right*/,0/*bottom*/);//~1ap2R~
+        	if (Dump.C) Dump.println("Canvas:constructor setMargin top="+top+",left="+left);//~1ap2R~//~1ap3R~
+        }                                                          //~1ap2I~
+        else                                                       //~1ap3I~
+        if (Canvas.squareMargin!=0)                                //~1ap3I~
+        {                                                          //~1ap3I~
+        	int top=0,left=0;                                      //~1ap3I~
+          	if (AG.portrait)                                       //~1ap3I~
+            	left=Canvas.squareMargin;                          //~1ap3I~
+            else                                                   //~1ap3I~
+            	top=Canvas.squareMargin;                           //~1ap3I~
+            lp.setMargins(left,top,0,0);                           //~1ap3R~
+            if (Dump.Y) Dump.println("Canvas.constructor NOT Edge mode setMargins left="+Canvas.squareMargin);//~1ap3I~
+        }                                                          //~1ap3I~
         layout.addView(imageCanvas,lp);                                //~1118M~//~1121R~//~1217I~//~1226R~
         initImageView();                                           //~1217I~
         if (Dump.C) Dump.println("Canvas:graphics="+graphics.toString());//~1506R~//~1A6AR~
@@ -131,14 +162,31 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
 	public static int getBoardSize()		                       //~1504R~
     {                                                              //~1414I~
     	int boardsz;                                             //~1414I~
+	    if (Dump.C) Dump.println("Canvas:getBoardSize AG.swSquareDevice="+AG.swSquareDevice+",portarit="+AG.portrait);//~1ap2I~
         if (AG.portrait)                                           //~1414I~
         	boardsz=AG.scrWidth;                                   //~1414I~
         else                                                       //~1414I~
         {                                                          //~1414I~
 //          boardsz=AG.scrHeight-AView.getFramePosition();   //remaining of titlebar hight//~1502I~//~v101R~//~@@@@R~
+          if (AG.swEdgeToEdgeMode)                                 //~1ap2I~
+          {                                                        //~1ap2I~
+            int top=UView.getActionBarHeight();                    //~1ap2I~
+	        boardsz=AG.scrHeight-top;                              //~1ap2I~
+          }                                                        //~1ap2I~
+          else                                                     //~1ap2I~
             boardsz=AG.scrHeight-AView.getMargin();   //remaining of titlebar hight//~v101I~//~@@@@R~
-        }                                                          //~1414I~
-	    if (Dump.C) Dump.println("Canvas:getBoardSize boardsize="+boardsz);//~1506R~//~1A6AR~
+        }                                                          //~1ap2I~
+      	if (AG.swSquareDevice)                                     //~1ap3R~
+      	{                                                          //~1ap3R~
+        	int bsNew;                                             //~1ap3R~
+        	if (AG.portrait)                                       //~1ap3R~
+        		bsNew=(int)(boardsz*RATE_SHRINK_SQUARE_PORT);      //~1ap3R~
+        	else                                                   //~1ap3R~
+        		bsNew=(int)(boardsz*RATE_SHRINK_SQUARE_LAND);      //~1ap3R~
+            squareMargin=(boardsz-bsNew)/2;                        //~1ap3R~
+            boardsz=bsNew;                                         //~1ap3R~
+        }                                                          //~1ap2I~
+	    if (Dump.C) Dump.println("Canvas:getBoardSize boardsize="+boardsz+",edgeMode="+AG.swEdgeToEdgeMode+",sysbarBottom="+AG.scrSystembarBottom);//~1506R~//~1A6AR~//~1ap2R~
         return boardsz;                                          //~1414I~
     }                                                              //~1414I~
 //******************
@@ -295,9 +343,9 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
 //**********************************************************       //~@@@2I~
     public void drawCaptured(int Premains)                         //~@@@2R~
     {                                                              //~@@@2I~
-//      enqRequest(new BoardRequest(BOARD_DRAW_CAPTURED,new Integer(Premains),null));//~@@@2R~//+1ambR~
-        Integer voi=Integer.valueOf(Premains);                     //+1ambI~
-        enqRequest(new BoardRequest(BOARD_DRAW_CAPTURED,voi,null));//+1ambI~
+//      enqRequest(new BoardRequest(BOARD_DRAW_CAPTURED,new Integer(Premains),null));//~@@@2R~//~1ambR~
+        Integer voi=Integer.valueOf(Premains);                     //~1ambI~
+        enqRequest(new BoardRequest(BOARD_DRAW_CAPTURED,voi,null));//~1ambI~
     }                                                              //~@@@2I~
 
 //**********************************************************       //~1217I~
@@ -306,7 +354,8 @@ public class Canvas extends Component	//for createwood(Component:Board)//~1120R~
 //**********************************************************       //~1425I~
 //*to get android Canvas and get control of onDraw                 //~1425I~
 //**********************************************************       //~1425I~
-    class ImageCanvas extends ImageView                            //~1216I~//~1217R~
+//  class ImageCanvas extends ImageView                            //~1216I~//~1217R~//~1ap2R~
+    class ImageCanvas extends androidx.appcompat.widget.AppCompatImageView//~1ap2I~
     		implements MouseListener,AKeyI,DoActionListener                   //~1317R~//~1424R~//~@@@@R~
     {                                                              //~1216I~
         private Canvas ajagoCanvas;                                //~1426R~

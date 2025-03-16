@@ -1,5 +1,6 @@
-//*CID://+1AhkR~:                             update#=  180;       //~1AhkR~
+//*CID://+1ap1R~:                             update#=  181;       //+1ap1R~
 //*****************************************************************//~v101I~
+//1ap1 2025/03/13 NFC;setNdefPushMessageCallback is undefined(NFC is deprecated at api29, and api34 removed this api)//+1ap1I~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //*****************************************************************//~v101I~
 package com.btmtest.dialog;                                         //~v@@@R~
@@ -28,13 +29,15 @@ public class MenuDlgConnect                                        //~v@@@R~
 //    private static final int MENU_HELP=2;                         //~v@@@I~//~1AhkR~
 //    private static final int MENU_CANCEL=3;                       //~v@@@I~//~1AhkR~
     private static final int MENU_LOCAL=0;                         //~1AhkI~
-    private static final int MENU_BT=1;                            //+1AhkI~
-    private static final int MENU_IP=2;                            //+1AhkI~
-    private static final int MENU_WD=3;                            //+1AhkI~
-    private static final int MENU_NFCBT=4;                         //+1AhkR~
-    private static final int MENU_NFCWF=5;                         //+1AhkR~
-    private static final int MENU_HELP=6;                          //~1AhkI~
-    private static final int MENU_CANCEL=7;                        //~1AhkR~
+    private static final int MENU_BT=1;                            //~1AhkI~
+    private static final int MENU_IP=2;                            //~1AhkI~
+    private static final int MENU_WD=3;                            //~1AhkI~
+//  private static final int MENU_NFCBT=4;                         //~1AhkR~//+1ap1R~
+//  private static final int MENU_NFCWF=5;                         //~1AhkR~//+1ap1R~
+//  private static final int MENU_HELP=6;                          //~1AhkI~//+1ap1R~
+//  private static final int MENU_CANCEL=7;                        //~1AhkR~//+1ap1R~
+    private static final int MENU_HELP=4;                          //+1ap1I~
+    private static final int MENU_CANCEL=5;                        //+1ap1I~
                                                                    //~v@@@I~
 	private UMenuDlg umdlg;                                        //~v@@@I~
 	private UMenuDlg.UMenuDlgI listener;                                    //~v@@@I~

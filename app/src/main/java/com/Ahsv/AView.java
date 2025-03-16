@@ -1,5 +1,8 @@
-//*CID://+1Aj0R~: update#= 225;                                    //~1Aj0R~
+//*CID://+1ap3R~: update#= 229;                                    //+1ap3R~
 //**********************************************************************//~v101I~
+//1ap3 2025/03/15 square device                                    //+1ap3I~
+//1ap2 2025/03/14 API35:edgemode support                           //~1ap2I~
+//1ap0 2025/03/13 Android15(API35) compatible                      //~1ap0I~
 //1aj0 2021/08/14 androd11(api30) deprecated at api30;getDefaultDisplay, display.getSize(), display/getMetrics()//~1Aj0I~
 //1Ahk 2020/06/05 Connect button for all connection type           //~1AhkI~
 //1Ah1 2020/05/30 from BTMJ5                                       //~1Ah1I~
@@ -161,9 +164,10 @@ public class AView extends View                                  //~0914R~//~dat
         AG.scrWidth=p.x;	//by pixel                             //~1A6pI~
         AG.scrHeight=p.y;   //                                     //~1A6pI~
         if (Dump.Y) Dump.println("AView: getScreenSize w="+p.x+",h="+p.y);//~1506R~//~@@@@R~//~1A6pR~
+        AG.swSquareDevice=(double)(Math.max(p.x,p.y))/Math.min(p.x,p.y)<AG.RATE_SQUARE;//+1ap3M~
         AG.dip2pix=AG.resource.getDisplayMetrics().density;        //~1428I~
-        AG.sp2pix=AG.resource.getDisplayMetrics().scaledDensity;   //~@@@@I~
-        if (Dump.Y) Dump.println("AView: dp2pix="+AG.dip2pix); //~1506R~//~@@@@R~
+//      AG.sp2pix=AG.resource.getDisplayMetrics().scaledDensity;   //~@@@@I~//~1ap0R~
+//      if (Dump.Y) Dump.println("AView: dp2pix="+AG.dip2pix); //~1506R~//~@@@@R~//~1ap0R~
         AG.portrait=(AG.scrWidth<AG.scrHeight);                    //~1223R~
         int ww=Math.min(AG.scrWidth,AG.scrHeight);                 //~1AhkI~
         AG.swSmallDevice=ww<BASE_NEXUS7;                           //~1AhkI~
@@ -180,7 +184,7 @@ public class AView extends View                                  //~0914R~//~dat
         AG.screenDencityMdpiSmallV=(AG.screenDencityMdpi && AG.scrHeight<=320);//~1A61I~
         AG.layoutMdpi=(AG.screenDencityMdpiSmallH || AG.screenDencityMdpiSmallV);//~1A6cR~
         if (Dump.Y) Dump.println("AView: getScreenSize screenDencityMdpiSmallH="+AG.screenDencityMdpiSmallH+",screenDencityMdpiSmallV="+AG.screenDencityMdpiSmallV+",layoutMdpi="+AG.layoutMdpi);//~1Aj0I~
-//      UView.getDensityDpiType();	//TODO test                    //+1Aj0R~
+//      UView.getDensityDpiType();	//TODO test                    //~1Aj0R~
         getTitleBarHeight();                                       //~1413M~
     }                                                              //~1122M~
     public static void getTitleBarHeight()                         //~1413R~
@@ -265,6 +269,7 @@ public class AView extends View                                  //~0914R~//~dat
             frame.seticonImage(null);//restore icon                //~1513R~
             contentView=view;    //save current for layouting      //~1513R~
             AG.setCurrentFrame(frame);                             //~1513R~
+            frame.setFrameLayoutSize();                            //~1ap2I~
             if (Dump.Y) Dump.println("setContentView end id="+Integer.toHexString(contentView.getId()));//~1513R~
             return;                                                //~1513I~
         }                                                          //~1513I~
@@ -296,6 +301,7 @@ public class AView extends View                                  //~0914R~//~dat
 	static public View inflateView(int Presid)                     //~1128I~
     {                                                              //~1128I~
 		View layoutview=inflateLayout(Presid);                     //~1128I~
+	    if (Dump.Y) Dump.println("AView.inflateView resid="+Integer.toHexString(Presid)+",layoutview="+layoutview);//~1ap0I~
         return layoutview;                                         //~1128I~
     }                                                              //~1128I~
 //******************                                               //~1124I~//~1216M~

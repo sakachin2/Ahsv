@@ -1,5 +1,6 @@
-//*CID://+1Ai2R~:                             update#=  119;       //~1Ai2R~
+//*CID://+1ap1R~:                             update#=  129;       //+1ap1R~
 //*************************************************************************//~1A65I~
+//1ap1 2025/03/13 NFC;setNdefPushMessageCallback is undefined(NFC is deprecated at api29, and api34 removed this api)//~1Ap1I~
 //2020/12/05 1ai2 deprecated NFC function(set...Callback);drop NFC when Android10(api29)//~1Ai2I~
 //1AbD 2015/06/27 (Bug)DialogNFC.sendNFCMsg was called twice.      //~1AbDI~
 //1Ab8 2015/05/08 NFC Bluetooth handover v3(DialogNFCSelect distributes only)//~1Ab8I~
@@ -12,24 +13,23 @@
 //*************************************************************************//~1A65I~
 package wifidirect;                                                //~1A6aR~
 
-import wifidirect.DeviceListFragment;
-import wifidirect.WDA;
 import jagoclient.Dump;
+
 import android.annotation.TargetApi;                               //~1A65I~
-import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
-//import android.nfc.NfcAdapter.CreateNdefMessageCallback;         //+1Ai2R~
-//import android.nfc.NfcAdapter.OnNdefPushCompleteCallback;        //+1Ai2R~
-import android.nfc.NfcAdapter.*;                                   //+1Ai2I~
+//import android.nfc.NfcAdapter.CreateNdefMessageCallback;         //~1Ai2R~
+//import android.nfc.NfcAdapter.OnNdefPushCompleteCallback;        //~1Ai2R~
+import android.nfc.NfcAdapter.*;                                   //~1Ai2I~
 import android.nfc.NfcEvent;
 import android.os.Build;
 //~1A65I~
+import androidx.annotation.RequiresApi;
+
 import com.Ahsv.AG;                                                //~1A65I~
 //import com.Ahsv.ANFC;                                            //~1A81R~
 
@@ -187,7 +187,8 @@ public class WDANFC                                                //~1A6aR~
         if (Dump.Y) Dump.println("WDANFC:initAdapter getDefaultAdapter"+mAdapter.toString());//~1A6jR~
         mPendingIntent = PendingIntent.getActivity(AG.context,0/*requestcode*/,//~1A6jI~
                 new Intent(AG.context,AG.context.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),//~1A6jI~
-				0/*PendingIntent.FLAG_NO_CREATE*/);                //~1A6jR~
+//				0/*PendingIntent.FLAG_NO_CREATE*/);                //~1A6jR~//~1Ap1R~
+  				PendingIntent.FLAG_IMMUTABLE);                     //~1Ap1I~
         IntentFilter ndef=new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);//~1A6jI~
         try                                                        //~1A6jR~
 		{                                                          //~1A6jI~
@@ -237,7 +238,7 @@ public class WDANFC                                                //~1A6aR~
                                 return DialogNFC.createNFCMsg(Pevent);//~1A6sR~
                              }                                     //~1A6jI~
                         };                                         //~1A6jI~
-		mAdapter.setNdefPushMessageCallback(cb,AG.activity);       //~1A6jI~
+//        mAdapter.setNdefPushMessageCallback(cb,AG.activity);       //~1A6jI~//+1ap1R~
 	}                                                              //~1A6jI~
 	//*************************************************************************//~1A6jI~
     @SuppressWarnings("deprecation")                               //~1Ai2I~
@@ -257,6 +258,6 @@ public class WDANFC                                                //~1A6aR~
                             }                                      //~1A6jI~
 
                         };                                         //~1A6jI~
-		mAdapter.setOnNdefPushCompleteCallback(cb,AG.activity);    //~1A6jI~
+//        mAdapter.setOnNdefPushCompleteCallback(cb,AG.activity);    //~1A6jI~//+1ap1R~
 	}                                                              //~1A6jI~
 }

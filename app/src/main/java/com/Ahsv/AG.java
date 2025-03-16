@@ -1,6 +1,9 @@
-//*CID://+1AmsR~:                             update#=  224;       //+1AmsR~
+//*CID://+1ap3R~:                             update#=  231;       //~1ap3R~
 //******************************************************************************************************************//~v101R~
-//1ams 2022/11/01 control request permission to avoid 1amh:"null permission result".(W Activity: Can request only one set of permissions at a time)//+1AmsI~
+//1ap3 2025/03/15 square device                                    //~1ap3I~
+//1ap2 2025/03/14 API35:edgemode support                           //~1ap2I~
+//1ap0 2025/03/13 Android15(API35) compatible                      //~1ap0I~
+//1ams 2022/11/01 control request permission to avoid 1amh:"null permission result".(W Activity: Can request only one set of permissions at a time)//~1AmsI~
 //1am9 2022/10/30 android12(api31) Bluetooth permission is runtime permission//~1Am9I~
 //1am3 2022/10/29 a0droid12(api31) Display.getRealSize, getRealMetrics//~1Am3I~
 //1ak3 2021/09/10 picker(ACTION_PICK) for API30                    //~1Ak3I~
@@ -64,7 +67,7 @@ import jagoclient.partner.partner.MsgThread;
 import com.Ahsv.R;                                               //~1120I~//~v107R~
 import com.btmtest.utils.UMediaStore;
 import com.btmtest.utils.UScoped;
-import com.btmtest.utils.UPermission;                              //+1AmsI~
+import com.btmtest.utils.UPermission;                              //~1AmsI~
 
 import wifidirect.WDANFC;
 import wifidirect.IPSubThread;                               //~@@01I~//~1AhjR~
@@ -191,7 +194,7 @@ public class AG                                                    //~1107R~
 	public static Go        go;                                    //~1109I~
 //  public static int scrW,scrH;                                   //~1428R~//~v107R~
 	public static float dip2pix;                                   //~1428I~
-	public static float sp2pix;                                    //~@@@@I~
+//	public static float sp2pix;                                    //~@@@@I~//~1ap0R~
 //  public static boolean landscape;                               //~1428R~//~v107R~
     public static final String SD_go_cfg="go.cfg.save";             //~1308R~
     public static Frame mainframe;                                 //~1111I~
@@ -199,6 +202,8 @@ public class AG                                                    //~1107R~
     public static Canvas    androidCanvasMain;                     //~1428R~
 //    public static boolean   appStart;                              //~1428R~//~@@@@R~
     public static boolean   portrait;                              //~1428R~
+    public static boolean   swSquareDevice;                        //~1ap3R~
+	public static final double RATE_SQUARE=1.4; //if width/height<1.2 assume portrait//+1ap3I~
     public static String    appName;                               //~1428R~
     public static String    appNameE;	//by alphabet              //~1Ah1R~
     public static String    pkgName;                               //~1A6aI~
@@ -427,6 +432,7 @@ public class AG                                                    //~1107R~
     public static final int HONEYCOMB_MR1=12; //android3.1         //~1A4hI~//~1Ad6I~
     public static final int HONEYCOMB_MR2=13; //android3.2         //~1A6pI~
     public static final int ICE_CREAM_SANDWICH=14; //android4.0    //~vab0I~//~v101I~
+    public static final int NFC_DEPRECATED=29;  //android 10       //~1ap0I~
 //************************************                                                 //~1402I~//~@@@@R~
 //*static to be creaded at create                                  //~@@@@I~
 //************************************                             //~@@@@I~
@@ -439,14 +445,15 @@ public class AG                                                    //~1107R~
     public  static int       scrStatusBarHeight;	//API30, by insets     //~vaj0I~//~1Am3I~
 //  public  static int       scrNavigationbarRightWidth;                  //~@@01I~//~1Am3I~
 //  public  static int       scrNavigationbarBottomHeight;                //~vaeeI~//~1Am3I~
-    public  static int       scrNavigationbarBottomHeightA11;             //~vaefR~//~1Am3I~
-    public  static int       scrNavigationbarLeftWidthA11;                //~vaefI~//~1Am3R~
-    public  static int       scrNavigationbarRightWidthA11;               //~vaefI~//~1Am3I~
-    public  static boolean   swNavigationbarGestureMode;                  //~vaefR~//~1Am3I~
+    public  static int       scrNavigationbarBottomHeightA11;             //~vaefR~//~1Am3I~//~1ap2R~
+    public  static int       scrNavigationbarLeftWidthA11;                //~vaefI~//~1Am3R~//~1ap2R~
+    public  static int       scrNavigationbarRightWidthA11;               //~vaefI~//~1Am3I~//~1ap2R~
+    public static boolean swNavigationbarGestureMode,swEdgeToEdgeMode;//~1ap2I~
+    public static int scrSystembarTop,scrSystembarLeft,scrSystembarRight,scrSystembarBottom;//~1ap2I~
 	public  static boolean swGrantedBluetooth,swGrantBluetoothFailed;                         //~vas6I~//~1Am9R~
     public  static boolean swFailedGrantBluetoothAdvertize;                //~vas6I~//~1Am9I~
-    public  static UPermission aUPermission;                       //+1AmsI~
-                                                                   //+1AmsI~
+    public  static UPermission aUPermission;                       //~1AmsI~
+                                                                   //~1AmsI~
 	public static void init(AMain Pmain)                        //~1402I~//~v107R~//~@@@@R~
     {                                                              //~1402I~
 //******************************************************************************//~@@@@R~

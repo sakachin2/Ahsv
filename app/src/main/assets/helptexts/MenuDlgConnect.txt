@@ -6,12 +6,6 @@
 "WiFi Direct" : Wi-Fi Direct(Peer to Peer) IP connection.
   Wi-Fi access point is not required.
 
-!!! NFC is not supported from Android-10.
-
-"NFC-Bluetooth" : For the device equipped NFC tag,
-  establish Bluetooth connection
-"NFC-WD" : For the device equipped NFC tag,
-  establish Wi-Fi Direct connection
 ----------------
 It seems to me that Bluetooth is easy to use. If it is troublesome, try Wifi Direct.
 To change connection type among (NFC)Bluetooth, IP and (NFC)WiFi Direct and to change device to connect,
@@ -28,4 +22,4 @@ IP may cause transmission delay by base protocol.
 
 From Android6.0(MarchMallow), you may be asked to give permission to use Wifi Direct.
 
-(MenuDlgConnect 2020/12/05)
+(MenuDlgConnect 2025/03/13)

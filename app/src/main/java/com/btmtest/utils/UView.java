@@ -1,5 +1,8 @@
-//*CID://+1amxR~: update#= 337;                                    //~1amxR~
+//*CID://+1ap3R~: update#= 350;                                    //~1ap3R~
 //**********************************************************************//~v101I~
+//1ap3 2025/03/15 square device                                    //~1ap3I~
+//1ap2 2025/03/14 API35:edgemode support                           //~1ap2I~
+//1ap0 2025/03/13 Android15(API35) compatible                      //~1ap0I~
 //1amx 2022/11/01 mdpi,hdpi,... by dencity                         //~1amxI~
 //1ams 2022/11/01 control request permission to avoid 1amh:"null permission result".(W Activity: Can request only one set of permissions at a time)//~1amsI~
 //1am8 2022/10/30 for A11(API39) gesturemode                       //~1am8I~
@@ -35,6 +38,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import static android.util.DisplayMetrics.*;
+import android.app.ActionBar;                                      //~1ap2I~
 
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -110,10 +114,11 @@ public class UView                                                 //~v@@@I~
         getDisplaySize(display,p);                                         //~1A6pR~
         AG.scrWidth=p.x;	//by pixel                             //~1A6pI~
         AG.scrHeight=p.y;   //                                     //~1A6pI~
-        if (Dump.Y) Dump.println("UView: getScreenSize w="+p.x+",h="+p.y);//~1506R~//~@@@@R~//~1A6pR~//~v@@@R~
+        AG.swSquareDevice=(double)(Math.max(p.x,p.y))/Math.min(p.x,p.y)<AG.RATE_SQUARE;//~1ap3I~
+        if (Dump.Y) Dump.println("UView: getScreenSize w="+p.x+",h="+p.y+",swSquareDevice="+AG.swSquareDevice+",SquareLimit="+AG.RATE_SQUARE);//+1ap3R~
         AG.dip2pix=AG.resource.getDisplayMetrics().density;        //~1428I~
-        AG.sp2pix=AG.resource.getDisplayMetrics().scaledDensity;   //~@@@@I~
-        if (Dump.Y) Dump.println("UView:getScreenSize dp2pix="+AG.dip2pix+",sp2pix="+AG.sp2pix); //~1506R~//~@@@@R~//~v@@@R~//~9717R~
+//      AG.sp2pix=AG.resource.getDisplayMetrics().scaledDensity;   //~@@@@I~//~1ap0R~
+        if (Dump.Y) Dump.println("UView:getScreenSize dp2pix="+AG.dip2pix); //~1506R~//~@@@@R~//~v@@@R~//~9717R~//~1ap0R~
         AG.portrait=(AG.scrWidth<AG.scrHeight);                    //~1223R~
         getTitleBarHeight();                                       //~1413M~
         getScreenRealSize(display);                                //~v@@@I~
@@ -195,6 +200,15 @@ public class UView                                                 //~v@@@I~
         AG.titleBarBottom=v.getTop();                              //~1413M~
         if (Dump.Y) Dump.println("UView TitleBar top="+AG.titleBarTop+",bottom="+AG.titleBarBottom);//~1506R~//~v106R~//~v@@@R~
     }                                                              //~1413M~
+//******************************************************           //~@@01I~//~1ap2I~
+	public static int getActionBarHeight()                         //~@@01I~//~1ap2I~
+    {                                                              //~@@01I~//~1ap2I~
+		ActionBar ab=AG.activity.getActionBar();              //~@@01R~//~1ap2I~
+        int hh=ab.getHeight();                                     //~@@01I~//~1ap2I~
+        if (Dump.Y) Dump.println("Utils.getActionBarHeight hh="+hh);//~@@01I~//~1ap2I~
+        return hh;                                                 //~@@01I~//~1ap2I~
+    }                                                              //~@@01I~//~1ap2I~
+//******************************************************           //~1ap2I~
     public static Point getTitleBarPosition()                      //~1413I~
     {                                                              //~1413I~
     	if (AG.titleBarBottom==0)                                  //~1413I~
@@ -354,32 +368,66 @@ public class UView                                                 //~v@@@I~
 	    int hh0=bounds.height();                                   //~vam6M~//~1am3I~
 	    if (Dump.Y) Dump.println("UView:getDisplaySize31 bounds="+bounds);//~vam6I~//~1am3I~
         WindowInsets windowInsets=metrics.getWindowInsets();       //~vam6M~//~1am3I~
+        Insets insetSystem=windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars());//~1ap2I~
+	    if (Dump.Y) Dump.println("Utils:getDisplaySize31 insetSystembars="+insetSystem);//~1ap2I~
         Insets inset=windowInsets.getInsetsIgnoringVisibility      //~vam6M~//~1am3I~
 						(WindowInsets.Type.navigationBars()|WindowInsets.Type.displayCutout());//~vam6M~//~1am3I~
-	    if (Dump.Y) Dump.println("UView:getDisplaySize31 inset="+inset);//~vataI~//~1am3I~
-        int insetWW=inset.right+inset.left;                        //~vam6M~//~1am3I~
-        int insetHH=inset.top+inset.bottom;                        //~vam6M~//~1am3I~
-        Rect rectDecor=getDecorViewRect();                         //~vam6M~//~vataM~//~1am3I~
-	    if (Dump.Y) Dump.println("UView:getDisplaySize31 rectRecor="+rectDecor.toString());//~vataI~//~1am3I~
+	    if (Dump.Y) Dump.println("UView:getDisplaySize31 navigationBars+displayCutout inset="+inset);//~vataI~//~1am3I~//~1ap2R~
+        if (Build.VERSION.SDK_INT>=35)   //EdgeToEdge mode         //~1ap2M~
+        {                                                          //~1ap2M~
+            AG.swEdgeToEdgeMode=true;                              //~1ap2M~
+	            AG.scrSystembarTop=insetSystem.top;                //~1ap2M~
+            if (ww0>hh0)	//landscape                            //~1ap2I~
+            {                                                      //~1ap2I~
+            	AG.scrSystembarLeft=inset.left;   //cutout         //~1ap2I~
+            	AG.scrSystembarRight=inset.right;                  //~1ap2I~
+            }                                                      //~1ap2I~
+            else                                                   //~1ap2I~
+            {                                                      //~1ap2I~
+            	AG.scrSystembarLeft=insetSystem.left;              //~1ap2M~
+            	AG.scrSystembarRight=insetSystem.right;            //~1ap2M~
+            }                                                      //~1ap2I~
+            	AG.scrSystembarBottom=insetSystem.bottom;          //~1ap2M~
+	    	if (Dump.Y) Dump.println("Utils:getDisplaySize31 AG.scrSystembar Top="+AG.scrSystembarTop+",Bottom="+AG.scrSystembarBottom+",Left="+AG.scrSystembarLeft+",Right="+AG.scrSystembarRight);//~1ap2M~
+        }                                                          //~1ap2M~
+//      int insetWW=inset.right+inset.left;                        //~vam6M~//~1am3I~//~1ap2R~
+//      int insetHH=inset.top+inset.bottom;                        //~vam6M~//~1am3I~//~1ap2R~
+        int insetWW,insetHH;                                 //~1ap2I~
+      if (AG.swEdgeToEdgeMode)                                     //~1ap2R~
+      {                                                            //~1ap2I~
+        insetWW=inset.right+inset.left;                            //~1ap2I~
+        insetHH=inset.bottom;                                      //~1ap2I~
+      }                                                            //~1ap2I~
+      else                                                         //~1ap2M~
+      {                                                            //~1ap2M~
+        insetWW=inset.right+inset.left;                            //~1ap2I~
+        insetHH=inset.top+inset.bottom;                            //~1ap2I~
+      }                                                            //~1ap2I~
+	    if (Dump.Y) Dump.println("UView:getDisplaySize31 insetWW="+insetWW+",insetHH="+insetHH);//~1ap2I~
+//      Rect rectDecor=getDecorViewRect();                         //~vam6M~//~vataM~//~1am3I~//~1ap2R~
+//      if (Dump.Y) Dump.println("UView:getDisplaySize31 rectRecor="+rectDecor.toString());//~vataI~//~1am3I~//~1ap2R~
 	    if (Dump.Y) Dump.println("UView:getDisplaySize31 insetWW="+insetWW+",insetHH="+insetHH+",insets="+inset);//~vam6M~//~1am3I~
                                                                    //~vam6M~//~1am3I~
-        int ww=ww0-insetWW;                                        //~vam6I~//~1am3I~
-        int hh=hh0-insetHH;                                        //~vam6I~//~1am3I~
-        if (ww0>hh0)	//landscape                                //~vam6I~//~1am3I~
+        int ww=ww0-insetWW;                                        //~vam6I~//~1am3I~//~1ap2R~
+        int hh=hh0-insetHH;                                        //~vam6I~//~1am3I~//~1ap2R~
+      if (!AG.swEdgeToEdgeMode)                                    //~1ap2I~
+      {                                                            //~1ap2I~
+        if (ww0>hh0)    //landscape                                //~vam6I~//~1am3I~
         {                                                          //~vam6I~//~1am3I~
-//          hh=hh0;	//hide navigationbar at MainActivity ;FOR AHSV navigationbar will not be hidden          //~vam6I~//~1am3I~//~1am7R~
+//          hh=hh0; //hide navigationbar at MainActivity ;FOR AHSV navigationbar will not be hidden          //~vam6I~//~1am3I~//~1am7R~
             ww=ww0; //fill hidden navigationbar, but right buttons has to be shift to left//~vam6I~//~1am3I~
         }                                                          //~vam6I~//~1am3I~
         else                                                       //~vam6I~//~1am3I~
-	        ww=ww0;                                                //~vam6I~//~1am3I~
+            ww=ww0;                                                //~vam6I~//~1am3I~
         AG.scrNavigationbarBottomHeightA11=inset.bottom;           //~vam6M~//~1am3I~
         int marginLR;                                              //~vam6M~//~1am3I~
         int left=inset.left;                                       //~vateI~//~1am3I~
         int right=inset.right;                                     //~vateI~//~1am3I~
         marginLR=Math.max(left,right);                             //~vateI~//~1am3I~
-		if (Dump.Y) Dump.println("UView:getDisplaySize33 swPortrait="+AG.portrait+",marginLR="+marginLR+",left="+left+",right="+right);//~vateI~//~1am3I~
+        if (Dump.Y) Dump.println("UView:getDisplaySize33 swPortrait="+AG.portrait+",marginLR="+marginLR+",left="+left+",right="+right);//~vateI~//~1am3I~
         AG.scrNavigationbarRightWidthA11=marginLR;                 //~vam6M~//~1am3I~
         AG.scrStatusBarHeight=inset.top;                           //~vam6M~//~1am3I~
+      }                                                            //~1ap2I~
                                                                    //~vam6M~//~1am3I~
         Ppoint.x=ww;                                               //~vam6R~//~1am3I~
         Ppoint.y=hh;                                               //~vam6R~//~1am3I~
@@ -798,6 +846,7 @@ public class UView                                                 //~v@@@I~
 		    getRealSize_from31(Pdisplay,Ppoint);                   //~vam6I~//~1am3I~
         else                                                       //~vam6I~//~1am3I~
 		    getRealSize_19To30(Pdisplay,Ppoint);                   //~vam6I~//~1am3I~
+        AG.scrWidthReal=Ppoint.x; AG.scrHeightReal=Ppoint.y;       //~1ap2I~
 		if (Dump.Y) Dump.println("UView.getRealSize exit point="+Ppoint);//~vam6I~//~1am3I~
     }                                                              //~vam6I~//~1am3I~
     //*******************************************************************//~vam6I~//~1am3I~

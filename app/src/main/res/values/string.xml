@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ahsv</string>
     <string name="app_nameE">Ahsv</string>
-    <string name="Version">V1.25</string>
+    <string name="Version">V1.26</string>
     <string name="AppTitle">%1$s : %2$s  (%3$s)</string>
 
     <string name="NoRegisteredContextMenu">"No menu regsitered for this Panel."</string>
@@ -743,8 +743,8 @@
 		<item>@string/Label_RemoteGame</item>
 		<item>@string/Label_RemoteIP</item>
 		<item>@string/Label_WiFiDirectButton</item>
-		<item>@string/Label_BTNFCButton</item>
-		<item>@string/Label_WiFiNFCButton</item>
+		<!--item>@string/Label_BTNFCButton</item 1ap1 -->
+		<!--tem>@string/Label_WiFiNFCButton</item  1ap1 -->
 		<item>@string/Help</item>
 		<item>@string/Cancel</item>
 	</string-array>

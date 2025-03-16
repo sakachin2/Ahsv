@@ -730,8 +730,8 @@
 		<item>@string/Label_RemoteGame</item>
 		<item>@string/Label_RemoteIP</item>
 		<item>@string/Label_WiFiDirectButton</item>
-		<item>@string/Label_BTNFCButton</item>
-		<item>@string/Label_WiFiNFCButton</item>
+		<!--item>@string/Label_BTNFCButton</item 1ap1 -->
+		<!--item>@string/Label_WiFiNFCButton</item 1ap1 -->
 		<item>@string/Help</item>
 		<item>@string/Cancel</item>
 	</string-array>

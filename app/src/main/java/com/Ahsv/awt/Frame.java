@@ -1,5 +1,7 @@
-//*CID://+v101R~:                             update#=   63;       //~v107I~//~v108R~//~@@@@R~//~@@@2R~//~v101R~
+//*CID://+1ap3R~:                             update#=   81;       //~1ap3R~
 //**********************************************************************//~v107I~
+//1ap3 2025/03/15 square device                                    //~1ap3I~
+//1ap2 2025/03/14 API35:edgemode support                           //~1ap2I~
 //101e 2013/02/08 findViewById to Container(super of Frame and Dialog)//~v101I~
 //1084:121215 connection frame input field is untachable when restored after Who frame//~v108I~
 //1071:121204 partner connection using Bluetooth SPP               //~v107I~
@@ -16,11 +18,15 @@ import com.Ahsv.AG;                                                //~@@@@R~
 //import com.Ahsv.AjagoGMP;                                        //~@@@@R~
 import com.Ahsv.AKey;                                              //~@@@@R~
 import com.Ahsv.AView;                                             //~@@@@R~
-import com.Ahsv.R;                                                 //+v101R~
+import com.Ahsv.R;                                                 //~v101R~
 import com.Ahsv.awt.Window;                                        //~@@@@R~
+import com.btmtest.utils.UView;
+
 import android.view.View;
 //import android.view.inputmethod.InputMethodManager;              //~v108R~
 
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 public class Frame extends Window //skip Window of Container-->Window-->Frame                                                 //~1111R~//~1116R~//~1124R~
@@ -50,6 +56,7 @@ public class Frame extends Window //skip Window of Container-->Window-->Frame   
     public Dialog modalDialog_beforeDismiss;                       //~1420R~
     public KeyListener framekeylistener;                           //~1427I~
     private boolean disposed;                                      //~1516I~
+//  public boolean swSetFrameLayoutSize;                           //~1ap2I~//+1ap3R~
 //*********                                                        //~1111I~
 //*for warning                                                     //~1111I~
 //*********                                                        //~1111I~
@@ -208,6 +215,60 @@ public class Frame extends Window //skip Window of Container-->Window-->Frame   
             	setcontentview_at_show=true;	//push at show                           //~1217I~//~1218R~
         }                                                          //~1217I~
     }                                                              //~1217I~
+//**************************************************************** //~1ap2I~
+//*from AView                                                      //~1ap2R~
+//*edge mode, adjust set layout height                             //~1ap2I~
+//**************************************************************** //~1ap2I~
+    public void setFrameLayoutSize()                               //~1ap2R~
+    {                                                              //~1ap2I~
+    	View v=framelayoutview;                                    //~1ap2I~
+    	int rid=framelayoutresourceid;                             //~1ap2I~
+        if (Dump.Y) Dump.println("Frame.setFrameLayoutSize resid="+Integer.toHexString(rid)+",edgeMode="+AG.swEdgeToEdgeMode);//~1ap2R~
+        if (Dump.Y) Dump.println("Frame.setFrameLayoutSize Pview="+v);//~1ap2R~//+1ap3R~
+      if (rid==AG.frameId_MainFrame                               //~1ap2I~
+      ||  rid==AG.frameId_ConnectedGoFrame)                        //~1ap2I~
+//    if (!swSetFrameLayoutSize)                                   //~1ap2I~//~1ap3R~
+      {                                                            //~1ap2I~
+//        swSetFrameLayoutSize=true;                               //~1ap2I~//~1ap3R~
+        if (AG.swEdgeToEdgeMode)                                   //~1ap2I~
+        {                                                          //~1ap2I~
+            int hh=AG.scrHeight;                                   //~1ap2I~
+        	FrameLayout.LayoutParams lp=(FrameLayout.LayoutParams)v.getLayoutParams();         //~1ap2R~
+	        if (Dump.Y) Dump.println("Frame.setFrameLayoutSize LayoutParams="+lp);//~1ap2I~
+          	if (lp==null)                                          //~1ap2I~
+            {                                                      //~1ap2I~
+				int mp=ViewGroup.LayoutParams.MATCH_PARENT;        //~1ap2I~
+         		lp=new FrameLayout.LayoutParams(mp,hh);            //~1ap2R~
+            }                                                      //~1ap2I~
+            else                                                   //~1ap2I~
+            {                                                      //~1ap2I~
+	        	if (Dump.Y) Dump.println("Frame.setFrameLayoutSize getLayoutParams ww="+lp.width+",hh="+lp.height);//~1ap2R~
+            	lp.height=hh;                                      //~1ap2R~
+            }                                                      //~1ap2I~
+	        if (Dump.Y) Dump.println("Frame.setFrameLayoutSize setLayoutParams ww="+lp.width+",hh="+lp.height);//~1ap2R~
+        	v.setLayoutParams(lp);                                 //~1ap2R~
+//			if (rid==AG.frameId_ConnectedGoFrame)                  //~1ap2I~//~1ap3R~
+            	if (!AG.portrait)                                  //~1ap2R~
+            		setRightPanelMargin();                         //~1ap2I~
+        }                                                          //~1ap2I~
+      }                                                            //~1ap2I~
+    }                                                              //~1ap2I~
+//**************************************************************** //~1ap2I~
+    private void setRightPanelMargin()                             //~1ap2I~
+    {                                                              //~1ap2I~
+        if (Dump.Y) Dump.println("Frame setRightPanelMargin");//~1ap2I~
+	    View v=framelayoutview;                                    //~1ap2I~
+        ViewGroup.LayoutParams lp=v.getLayoutParams();             //~1ap2I~
+        View rv=AG.findViewById(v,R.id.Right);                     //~1ap2I~
+	    if (Dump.Y) Dump.println("Frame.setRightPanelMargin findView="+rv);//~1ap2I~
+        ViewGroup.LayoutParams lpR=rv.getLayoutParams();        //~1ap2R~
+	    if (Dump.Y) Dump.println("Frame.setRightPanelMargin lpR="+lpR);//~1ap2R~
+        LinearLayout.LayoutParams lpRL=(LinearLayout.LayoutParams)lpR;
+        int top= UView.getActionBarHeight();                        //~1ap2I~
+        lpRL.setMargins(0,top,0,0);                                 //~1ap2R~
+	    if (Dump.Y) Dump.println("Frame.setMargin top="+top);      //~1ap2I~
+        rv.setLayoutParams(lpRL);                                  //~1ap2I~
+    }                                                              //~1ap2I~
 //**************************************************************** //~@@@2I~
 //*by layout id                                                    //~@@@2I~
 //**************************************************************** //~@@@2I~

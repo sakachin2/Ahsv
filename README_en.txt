@@ -32,6 +32,7 @@ but optional in this variant.
    (Note)Support of mixed use of Wi-Fi and Wi-Fi Direct depends device type.
          It may cause too slow response or disturb telephone function.
 
+V126 2025/03/16 Android15(API35) compatible, foldable device support.
 v125 2023/02/08 (Bug). When uninstalling + installing, "Exception occurred" is issued.
 V124 2022/11/02 revision for Android13(Api33)
 V122 2020/12/06 revision for Android10.
